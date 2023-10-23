@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Pokebot": {
+      "commandName": "Project"
+    },
+    "Run": {
+      "commandName": "Executable",
+      "executablePath": "D:\\VisualStudioProjects\\Pokebot\\BizHawk\\EmuHawk.exe",
+      "commandLineArgs": "--open-ext-tool-dll=Pokebot",
+      "workingDirectory": "D:\\VisualStudioProjects\\Pokebot\\BizHawk\\"
+    }
+  }
+}
