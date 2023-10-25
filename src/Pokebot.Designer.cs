@@ -40,16 +40,19 @@
             this.level = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.message = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._tabBotPage = new System.Windows.Forms.TabPage();
+            this._statusBot = new System.Windows.Forms.Label();
+            this._startBotButton = new System.Windows.Forms.Button();
             this._botPanel = new System.Windows.Forms.Panel();
             this._botComboBox = new System.Windows.Forms.ComboBox();
             this._tabStatsPage = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this._testState = new System.Windows.Forms.Button();
-            this.listViewStats = new System.Windows.Forms.ListView();
+            this._statsListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
+            this._testState = new System.Windows.Forms.Button();
+            this._stopBotButton = new System.Windows.Forms.Button();
             this._tabControl.SuspendLayout();
             this._tabSettingsPage.SuspendLayout();
             this._tabLogsPage.SuspendLayout();
@@ -172,6 +175,9 @@
             // 
             // _tabBotPage
             // 
+            this._tabBotPage.Controls.Add(this._stopBotButton);
+            this._tabBotPage.Controls.Add(this._statusBot);
+            this._tabBotPage.Controls.Add(this._startBotButton);
             this._tabBotPage.Controls.Add(this._botPanel);
             this._tabBotPage.Controls.Add(this._botComboBox);
             this._tabBotPage.Location = new System.Drawing.Point(4, 25);
@@ -182,11 +188,30 @@
             this._tabBotPage.Text = "Bot";
             this._tabBotPage.UseVisualStyleBackColor = true;
             // 
+            // _statusBot
+            // 
+            this._statusBot.AutoSize = true;
+            this._statusBot.Location = new System.Drawing.Point(6, 33);
+            this._statusBot.Name = "_statusBot";
+            this._statusBot.Size = new System.Drawing.Size(63, 16);
+            this._statusBot.TabIndex = 0;
+            this._statusBot.Text = "botStatus";
+            // 
+            // _startBotButton
+            // 
+            this._startBotButton.Location = new System.Drawing.Point(133, 6);
+            this._startBotButton.Name = "_startBotButton";
+            this._startBotButton.Size = new System.Drawing.Size(75, 23);
+            this._startBotButton.TabIndex = 2;
+            this._startBotButton.Text = "Start";
+            this._startBotButton.UseVisualStyleBackColor = true;
+            this._startBotButton.Click += new System.EventHandler(this.StartBotClicked);
+            // 
             // _botPanel
             // 
-            this._botPanel.Location = new System.Drawing.Point(6, 36);
+            this._botPanel.Location = new System.Drawing.Point(6, 52);
             this._botPanel.Name = "_botPanel";
-            this._botPanel.Size = new System.Drawing.Size(756, 302);
+            this._botPanel.Size = new System.Drawing.Size(756, 283);
             this._botPanel.TabIndex = 1;
             // 
             // _botComboBox
@@ -200,7 +225,7 @@
             // 
             // _tabStatsPage
             // 
-            this._tabStatsPage.Controls.Add(this.listViewStats);
+            this._tabStatsPage.Controls.Add(this._statsListView);
             this._tabStatsPage.Location = new System.Drawing.Point(4, 25);
             this._tabStatsPage.Name = "_tabStatsPage";
             this._tabStatsPage.Size = new System.Drawing.Size(768, 341);
@@ -208,42 +233,23 @@
             this._tabStatsPage.Text = "Statistiques";
             this._tabStatsPage.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // _statsListView
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 16);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Pokébot v0.0.1";
-            // 
-            // _testState
-            // 
-            this._testState.Location = new System.Drawing.Point(269, 6);
-            this._testState.Name = "_testState";
-            this._testState.Size = new System.Drawing.Size(90, 23);
-            this._testState.TabIndex = 3;
-            this._testState.Text = "Test State";
-            this._testState.UseVisualStyleBackColor = true;
-            this._testState.Click += new System.EventHandler(this.TestStateClick);
-            // 
-            // listViewStats
-            // 
-            this.listViewStats.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this._statsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
-            this.listViewStats.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewStats.GridLines = true;
-            this.listViewStats.HideSelection = false;
-            this.listViewStats.Location = new System.Drawing.Point(0, 0);
-            this.listViewStats.MultiSelect = false;
-            this.listViewStats.Name = "listViewStats";
-            this.listViewStats.Size = new System.Drawing.Size(768, 341);
-            this.listViewStats.TabIndex = 1;
-            this.listViewStats.UseCompatibleStateImageBehavior = false;
-            this.listViewStats.View = System.Windows.Forms.View.Details;
+            this._statsListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._statsListView.GridLines = true;
+            this._statsListView.HideSelection = false;
+            this._statsListView.Location = new System.Drawing.Point(0, 0);
+            this._statsListView.MultiSelect = false;
+            this._statsListView.Name = "_statsListView";
+            this._statsListView.Size = new System.Drawing.Size(768, 341);
+            this._statsListView.TabIndex = 1;
+            this._statsListView.UseCompatibleStateImageBehavior = false;
+            this._statsListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -264,6 +270,35 @@
             // 
             this.columnHeader4.Text = "Ratio";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Pokébot v0.0.1";
+            // 
+            // _testState
+            // 
+            this._testState.Location = new System.Drawing.Point(269, 6);
+            this._testState.Name = "_testState";
+            this._testState.Size = new System.Drawing.Size(90, 23);
+            this._testState.TabIndex = 3;
+            this._testState.Text = "Test State";
+            this._testState.UseVisualStyleBackColor = true;
+            this._testState.Click += new System.EventHandler(this.TestStateClick);
+            // 
+            // _stopBotButton
+            // 
+            this._stopBotButton.Location = new System.Drawing.Point(214, 6);
+            this._stopBotButton.Name = "_stopBotButton";
+            this._stopBotButton.Size = new System.Drawing.Size(75, 23);
+            this._stopBotButton.TabIndex = 3;
+            this._stopBotButton.Text = "Stop";
+            this._stopBotButton.UseVisualStyleBackColor = true;
+            this._stopBotButton.Click += new System.EventHandler(this.StopBotClicked);
+            // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -281,6 +316,7 @@
             this._tabSettingsPage.PerformLayout();
             this._tabLogsPage.ResumeLayout(false);
             this._tabBotPage.ResumeLayout(false);
+            this._tabBotPage.PerformLayout();
             this._tabStatsPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -306,10 +342,13 @@
         private System.Windows.Forms.ColumnHeader level;
         private System.Windows.Forms.Panel _botPanel;
         private System.Windows.Forms.CheckBox _pauseCheckbox;
-        private System.Windows.Forms.ListView listViewStats;
+        private System.Windows.Forms.ListView _statsListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.Button _startBotButton;
+        private System.Windows.Forms.Label _statusBot;
+        private System.Windows.Forms.Button _stopBotButton;
     }
 }

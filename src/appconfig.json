@@ -18914,7 +18914,50 @@
       "Name": "Emerald",
       "Code": 0,
       "Hash": "ca666651374d89ca439007bed54d839eb7bd14d0",
-      "Generation": 3
+      "Generation": 3,
+      "Starters": [
+        "Treecko",
+        "Torchic",
+        "Mudkip"
+      ],
+      "SymbolsOverride": [
+        {
+          "Address": 134766188,
+          "Name": "CB2_Overworld"
+        },
+        {
+          "Address": 135478820,
+          "Name": "CB2_StarterChoose"
+        },
+        {
+          "Address": 135711804,
+          "Name": "CB2_InitCopyrightScreenAfterBootup"
+        },
+        {
+          "Address": 134448160,
+          "Name": "BattleMainCB2"
+        },
+        {
+          "Address": 135786672,
+          "Name": "Task_HandleMonAnimation"
+        },
+        {
+          "Address": 134699704,
+          "Name": "Task_PlayCryWhenReleasedFromBall"
+        },
+        {
+          "Address": 134793424,
+          "Name": "Task_Fishing"
+        },
+        {
+          "Address": 135478944,
+          "Name": "Task_HandleStarterChooseInput"
+        },
+        {
+          "Address": 135479364,
+          "Name": "Task_HandleConfirmStarterInput"
+        }
+      ]
     }
   ],
   "BotTypes": [

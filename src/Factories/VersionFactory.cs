@@ -1,6 +1,6 @@
 ﻿using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
-using Pokebot.Models.Versions;
+using Pokebot.Factories.Versions;
 using Pokebot.Properties;
 using System;
 using System.Collections.Generic;
@@ -28,15 +28,13 @@ namespace Pokebot.Factories
                         switch (versionType)
                         {
                             case VersionCode.Emerald:
-                                return new EmeraldVersion(apiContainer, generation);
-                            default:
-                                throw new NotImplementedException("Game is not supported");
+                                return new EmeraldVersion(apiContainer, version, generation);
                         }
                     }
                 }
             }
 
-            throw new NotImplementedException("Game is not supported");
+            throw new NotSupportedException("Game is not supported");
         }
     }
 }

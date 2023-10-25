@@ -15,11 +15,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Log = Pokebot.Utils.Log;
-using Pokebot.Models.Bots;
 using Pokebot.Panels;
-using Pokebot.Models.Versions;
 using Pokebot.Factories;
 using Pokebot.Models.Pokemons;
+using Pokebot.Models.Player;
+using Pokebot.Models;
+using BizHawk.Common.IOExtensions;
+using System.Reflection;
+using static BizHawk.Client.EmuHawk.BatchRunner.Result;
+using Pokebot.Factories.Bots;
+using Pokebot.Factories.Versions;
+using Pokebot.Exceptions;
 
 namespace Pokebot
 {
@@ -55,13 +61,15 @@ namespace Pokebot
 
         public bool IsReady
         {
-            get => IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null && !APIContainer.EmuClient.IsPaused();
+            get => IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null && Bot != null; // && !APIContainer.EmuClient.IsPaused()
         } 
 
         public IGameVersion? GameVersion { get; private set; }
         public IBot? Bot { get; private set; }
 
         protected override string WindowTitleStatic => "Pokébot";
+
+        #region Init
 
         public Pokebot()
         {
@@ -71,19 +79,6 @@ namespace Pokebot
             AppConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<AppConfig>(configText)!;
 
             Log.LogReceived += Log_LogReceived;
-        }
-
-        private void Log_LogReceived(LogEventArgs e)
-        {
-            var item = new ListViewItem(e.Level.ToString());
-            item.SubItems.Add(e.Message);
-
-            _logsListView.Items.Add(item);
-
-            for(int i = 0; i < _logsListView.Columns.Count; i++)
-            {
-                _logsListView.Columns[i].Width = -1;
-            }
         }
 
         private void InitAPIContainer()
@@ -100,7 +95,35 @@ namespace Pokebot
         private void RomLoadedUpdated()
         {
             _tabControl.Visible = IsRomLoaded;
+            Bot = null;
+            _botPanel.Controls.Clear();
+            _statsListView.Items.Clear();
+            _botComboBox.SelectedIndex = 0;
+            _statusBot.Text = "Bot is not running";
+            _startBotButton.Enabled = false;
+            _stopBotButton.Enabled = false;
         }
+
+        #endregion
+
+        #region Events Callback
+
+        private void Log_LogReceived(LogEventArgs e)
+        {
+            var item = new ListViewItem(e.Level.ToString());
+            item.SubItems.Add(e.Message);
+
+            _logsListView.Items.Add(item);
+
+            for(int i = 0; i < _logsListView.Columns.Count; i++)
+            {
+                _logsListView.Columns[i].Width = -1;
+            }
+        }
+
+        #endregion
+
+        #region Pokebot Main
 
         public override void Restart()
         {
@@ -120,18 +143,18 @@ namespace Pokebot
 
                         if (isEmpty)
                         {
-                            _statusLabel.Text = isEmpty ? "No ROM loaded" : romName;
+                            SetStatus("No ROM loaded", Color.Red);
                         }
                         else if (AppConfig.Versions.Any(x => x.Hash.Equals(gameInfo.Hash, StringComparison.InvariantCultureIgnoreCase)))
                         {
                             GameVersion = VersionFactory.Create(APIContainer, gameInfo.Hash);
-                            _statusLabel.Text = romName;
+                            SetStatus(romName);
                             Log.Info($"ROM {romName} loaded");
                             IsRomLoaded = true;
                         }
                         else
                         {
-                            _statusLabel.Text = "This ROM is not supported";
+                            SetStatus("This ROM is not supported", Color.Red);
                         }
                     }
                 }
@@ -144,23 +167,35 @@ namespace Pokebot
 
         protected override void UpdateAfter() //Or UpdateAfterFast
         {
-            if (IsReady)
+            try
             {
-                //Up
-                //Down
-                //Left
-                //Right
-                //A
-                //B
-                //L
-                //Power
-                //R
-                //Select
-                //Start
-
-                //APIContainer?.Joypad.Set("Up", true);
+                if (IsReady && Bot!.Enabled)
+                {
+                    PlayerData player = GameVersion!.GetPlayer();
+                    GameState state = GameVersion.GetGameState();
+                    Bot.Execute(player, state);
+                }
+            }
+            catch (BotException ex)
+            {
+                StopBot();
+                Log.Error(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
             }
         }
+
+        private void SetStatus(string message, Color? color = null)
+        {
+            _statusLabel.Text = message;
+            _statusLabel.ForeColor = color ?? Color.Black;
+        }
+
+        #endregion
+
+        #region Settings
 
         private void AccelerateCheckChanged(object sender, EventArgs e)
         {
@@ -183,12 +218,14 @@ namespace Pokebot
             APIContainer?.EmuClient.TogglePause();
         }
 
+        #endregion
+
         private void LoadTestClick(object sender, EventArgs e)
         {
             var success = APIContainer?.EmuClient.OpenRom(@$"D:\VisualStudioProjects\Pokebot\BizHawk\Roms\Pokemon - Version Emeraude (FR).gba");
             if (success ?? false)
             {
-                IsRomLoaded = APIContainer?.EmuClient.LoadState("wild") ?? false; //starter
+                IsRomLoaded = APIContainer?.EmuClient.LoadState("starter") ?? false; //starter
             }
         }
 
@@ -196,9 +233,13 @@ namespace Pokebot
         {
             if (IsReady)
             {
-                var symbols = SymbolReader.LoadSymbols(Resources.pokeemerald);
+                //var t3 = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+                //var t2 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Pokebot.Symbols.pokeemerald.sym");
+                var symbols = SymbolUtil.Load(Resources.pokeemerald);
 
                 var gMain = symbols.First(x => x.Name == "gMain");
+                var cb1 = SymbolUtil.Read(APIContainer!, gMain.Address, 0, 4);
+                var cb2 = SymbolUtil.Read(APIContainer!, gMain.Address, 4, 4);
                 var gPlayerAvatar = symbols.First(x => x.Name == "gPlayerAvatar");
 
                 var tests = new Dictionary<int, int>
@@ -208,9 +249,7 @@ namespace Pokebot
                 { 0x438, 1 }
             };
 
-                var cb1 = SymbolReader.ReadSymbol(APIContainer!, gMain.Address, 0, 4);
-                var cb2 = SymbolReader.ReadSymbol(APIContainer!, gMain.Address, 4, 4);
-                var playerState = SymbolReader.ReadSymbol(APIContainer!, gPlayerAvatar.Address, 2, 1);
+                var playerState = SymbolUtil.Read(APIContainer!, gPlayerAvatar.Address, 2, 1);
 
                 var addrCB1 = cb1.ToUInt32() - 1;
                 var addrCB2 = cb2.ToUInt32() - 1;
@@ -224,13 +263,17 @@ namespace Pokebot
                 //var bytesPokemon = bytesStorage.Take(100);
                 //var pokemon = GameVersion!.ParsePokemon(bytesPokemon.ToArray());
 
-                var party = GameVersion!.GetParty();
-                var opponent = GameVersion!.GetOpponent();
+                //var party = GameVersion!.GetParty();
+                //var opponent = GameVersion!.GetOpponent();
 
-                AddPokemonStat(party[0]);
-                AddPokemonStat(opponent);
+                //AddPokemonStat(party[0]);
+                //AddPokemonStat(opponent);
+                var player = GameVersion!.GetPlayer();
+                var tasks = GameVersion.GetTasks();
             }
         }
+
+        #region Bot
 
         private void BotSelectionChanged(object sender, EventArgs e)
         {
@@ -242,45 +285,96 @@ namespace Pokebot
 
                     var value = (BotType)comboBox.SelectedItem;
                     var type = (BotCode)value.Code;
-                    Control? control = null;
-
-                    switch (type)
-                    {
-                        case BotCode.None:
-                            break;
-                        case BotCode.Starter:
-                            control = new StarterControl();
-                            break;
-                        case BotCode.Spin:
-                            break;
-                        case BotCode.Egg:
-                            break;
-                    }
-
-                    if (control != null)
-                    {
-                        control.Dock = DockStyle.Fill;
-                        _botPanel.Controls.Add(control);
-                    } else
-                    {
-                        Log.Error($"Bot type is not supported");
-                    }
+                    Bot = BotFactory.Create(type, APIContainer!, GameVersion!);
+                    Bot.PokemonEncountered += PokemonEncountered;
+                    _botPanel.Controls.Add(Bot.GetPanel());
+                    _startBotButton.Enabled = true;
+                    _stopBotButton.Enabled = false;
                 }
-            } catch(Exception)
+            }
+            catch (NotSupportedException ex)
+            {
+                Log.Error(ex.Message);
+            }
+            catch (Exception)
             {
                 Log.Error($"Error occurred while reading bot type.");
             }
         }
 
+        private void PokemonEncountered(Pokemon pokemon)
+        {
+            AddPokemonStat(pokemon);
+        }
+
+        private void StartBotClicked(object sender, EventArgs e)
+        {
+            StartBot();
+        }
+
+        private void StopBotClicked(object sender, EventArgs e)
+        {
+            StopBot();
+        }
+
+        private void StartBot()
+        {
+            try
+            {
+                if (IsReady && !Bot!.Enabled)
+                {
+                    Bot.Start();
+                    _stopBotButton.Enabled = true;
+                    _startBotButton.Enabled = false;
+                    SetBotStatus("Bot is running...");
+                }
+            } catch(Exception ex)
+            {
+                Log.Error(ex.Message);
+                StopBot();
+                SetBotStatus(ex.Message, Color.Red);
+            }
+        }
+
+        private void StopBot()
+        {
+            try
+            {
+                if (IsReady && Bot!.Enabled)
+                {
+                    Bot.Stop();
+                    _startBotButton.Enabled = true;
+                    _stopBotButton.Enabled = false;
+                    SetBotStatus("Bot is not running");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                StopBot();
+                SetBotStatus(ex.Message, Color.Red);
+            }
+        }
+
+        private void SetBotStatus(string message, Color? color = null)
+        {
+            _statusBot.Text = message;
+            _statusBot.ForeColor = color ?? Color.Black;
+        }
+
+        #endregion
+
+        #region Statistiques
+
         public void AddPokemonStat(Pokemon pokemon)
         {
             var encounters = 1;
-            var shinyEncounters = pokemon.Shiny ? 1 : 0;
+            var shinyEncounters = pokemon.IsShiny ? 1 : 0;
             var found = false;
 
-            for(int i = 0; i < listViewStats.Items.Count; i++)
+            for(int i = 0; i < _statsListView.Items.Count; i++)
             {
-                var item = listViewStats.Items[i];
+                var item = _statsListView.Items[i];
                 if (item != null && item.Text == pokemon.RealName)
                 {
                     if (int.TryParse(item.SubItems[1].Text, out encounters) && int.TryParse(item.SubItems[2].Text, out int currentShinyEncounters))
@@ -304,8 +398,10 @@ namespace Pokebot
                 item.SubItems.Add(shinyEncounters.ToString());
                 item.SubItems.Add($"{(shinyEncounters / encounters) * 100}%");
 
-                listViewStats.Items.Add(item);
+                _statsListView.Items.Add(item);
             }
         }
+
+        #endregion
     }
 }
