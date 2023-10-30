@@ -10,21 +10,17 @@ namespace Pokebot.Models.Player
     //gPlayerAvatar
     public class PlayerData
     {
-        public int CurrentX { get; }
-        public int CurrentY { get; }
-        public int PreviousX { get; }
-        public int PreviousY { get; }
+        public Position Position { get; }
+        public Position PreviousPosition { get; }
         public PlayerRunningState RunningState { get; }
         public TileTransitionState TransitionState { get; }
         public bool Gender { get; }
         public PlayerFacingDirection FacingDirection { get; }
 
-        public PlayerData(int currentX, int currentY, int previousX, int previousY, PlayerRunningState runningState, TileTransitionState transitionState, bool gender, PlayerFacingDirection facingDirection)
+        public PlayerData(Position position, Position prevPosition, PlayerRunningState runningState, TileTransitionState transitionState, bool gender, PlayerFacingDirection facingDirection)
         {
-            CurrentX = currentX;
-            CurrentY = currentY;
-            PreviousX = previousX;
-            PreviousY = previousY;
+            Position = position;
+            PreviousPosition = prevPosition;
             RunningState = runningState;
             TransitionState = transitionState;
             Gender = gender;

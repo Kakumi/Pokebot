@@ -46,7 +46,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._starterBox);
             this.Name = "StarterControl";
-            this.Size = new System.Drawing.Size(489, 280);
+            this.Size = new System.Drawing.Size(490, 280);
             this.ResumeLayout(false);
 
         }

@@ -7,9 +7,9 @@ namespace Pokebot.Models.Config
     {
         public string Name { get; set; }
         public int Code { get; set; }
-        public string Hash { get; set; }
+        public List<HashData> Hashs { get; set; }
         public int Generation { get; set; }
         public List<string> Starters { get; set; }
-        public List<SymbolOverride> SymbolsOverride { get; set; }
+        public BotConfig BotConfig { get; set; }
     }
 }

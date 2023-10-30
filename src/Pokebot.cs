@@ -111,6 +111,21 @@ namespace Pokebot
         private void Log_LogReceived(LogEventArgs e)
         {
             var item = new ListViewItem(e.Level.ToString());
+            switch (e.Level)
+            {
+                case LogLevel.Debug:
+                case LogLevel.Info:
+                    item.ForeColor = Color.Black;
+                    break;
+                case LogLevel.Warn:
+                    item.ForeColor = Color.Orange;
+                    break;
+                case LogLevel.Error:
+                case LogLevel.Fatal:
+                    item.ForeColor = Color.Red;
+                    break;
+            }
+
             item.SubItems.Add(e.Message);
 
             _logsListView.Items.Add(item);
@@ -144,21 +159,19 @@ namespace Pokebot
                         if (isEmpty)
                         {
                             SetStatus("No ROM loaded", Color.Red);
-                        }
-                        else if (AppConfig.Versions.Any(x => x.Hash.Equals(gameInfo.Hash, StringComparison.InvariantCultureIgnoreCase)))
+                        } else
                         {
                             GameVersion = VersionFactory.Create(APIContainer, gameInfo.Hash);
                             SetStatus(romName);
                             Log.Info($"ROM {romName} loaded");
                             IsRomLoaded = true;
                         }
-                        else
-                        {
-                            SetStatus("This ROM is not supported", Color.Red);
-                        }
                     }
                 }
-            } catch(Exception ex)
+            } catch (NotSupportedException ex) 
+            {
+                SetStatus(ex.Message, Color.Red);
+            } catch (Exception ex)
             {
                 Log.Error(ex.Message);
                 IsRomLoaded = false;
@@ -225,7 +238,7 @@ namespace Pokebot
             var success = APIContainer?.EmuClient.OpenRom(@$"D:\VisualStudioProjects\Pokebot\BizHawk\Roms\Pokemon - Version Emeraude (FR).gba");
             if (success ?? false)
             {
-                IsRomLoaded = APIContainer?.EmuClient.LoadState("starter") ?? false; //starter
+                IsRomLoaded = APIContainer?.EmuClient.LoadState("wild") ?? false; //starter
             }
         }
 

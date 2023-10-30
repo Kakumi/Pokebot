@@ -23,7 +23,7 @@ namespace Pokebot.Factories
                 case BotCode.Starter:
                     return new StarterBot(apiContainer, gameVersion);
                 case BotCode.Spin:
-                    break;
+                    return new SpinBot(apiContainer, gameVersion);
                 case BotCode.Egg:
                     break;
             }

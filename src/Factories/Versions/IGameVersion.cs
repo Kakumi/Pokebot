@@ -1,4 +1,6 @@
 ﻿using Pokebot.Models;
+using Pokebot.Models.ActionRunners;
+using Pokebot.Models.Config;
 using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using System;
@@ -11,6 +13,11 @@ namespace Pokebot.Factories.Versions
 {
     public interface IGameVersion
     {
+        VersionInfo VersionInfo { get; }
+        HashData HashData { get; }
+        GenerationInfo GenerationInfo { get; }
+        IActionRunner ActionRunner { get; }
+
         int GetPartyCount();
         IReadOnlyList<Pokemon> GetParty();
         Pokemon GetOpponent();
@@ -20,9 +27,6 @@ namespace Pokebot.Factories.Versions
         GameState GetGameState();
         ICollection<GTask> GetTasks();
         int GetActionSelectionCursor();
-        IReadOnlyList<string> GetStarters();
-        string GetVersionName();
-        bool ExecuteStarter(int indexStarter);
         uint SetRandomSeed();
     }
 }

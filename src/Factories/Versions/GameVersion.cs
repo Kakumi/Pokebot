@@ -1,6 +1,8 @@
 ﻿using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
+using Newtonsoft.Json;
 using Pokebot.Models;
+using Pokebot.Models.ActionRunners;
 using Pokebot.Models.Config;
 using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
@@ -18,12 +20,15 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Pokebot.Factories.Versions
 {
-    public class GameVersion : IGameVersion
+    public abstract class GameVersion : IGameVersion
     {
         public ApiContainer APIContainer { get; }
         public IReadOnlyList<Symbol> Symbols { get; }
         public VersionInfo VersionInfo { get; }
+        public HashData HashData { get; }
         public GenerationInfo GenerationInfo { get; }
+        public abstract IActionRunner ActionRunner { get; }
+
 
         private static readonly string[] _subStructureTypes = new string[]
         {
@@ -31,46 +36,22 @@ namespace Pokebot.Factories.Versions
             "EGAM", "EGMA", "EAGM", "EAMG", "EMGA", "EMAG", "MGAE", "MGEA", "MAGE", "MAEG", "MEGA", "MEAG"
         };
 
-        public GameVersion(ApiContainer apiContainer, VersionInfo versionInfo, GenerationInfo generationInfo, byte[] resource)
+        public GameVersion(ApiContainer apiContainer, VersionInfo versionInfo, HashData hashData, GenerationInfo generationInfo, byte[] resource)
         {
             APIContainer = apiContainer;
             VersionInfo = versionInfo;
+            HashData = hashData;
             GenerationInfo = generationInfo;
-            Symbols = SymbolUtil.Load(resource, versionInfo.SymbolsOverride);
-        }
-
-        protected virtual List<string> GetCharacters()
-        {
-            //All characters for HEXADECIMAL values (0-255)
-            return new List<string>()
-            {
-                "","À","Á","Â","Ç","È","É","Ê","Ë","Ì","","Î","Ï","Ò","Ó","Ô",
-                "Œ","Ù","Ú","Û","Ñ","ß","à","á","","ç","è","é","ê","ë","ì","",
-                "î","ï","ò","ó","ô","œ","ù","ú","û","ñ","º","ª","ᵉʳ","&","+","",
-                "","","","","Lv","=",";","","","","","","","","","",
-                "","","","","","","","","","","","","","","","",
-                "▯","¿","¡","PK","MN","PO","Ké","","","","Í","%","(",")","","",
-                "","","","","","","","","â","","","","","","","",
-                "","","","","","","","","","⬆","⬇","⬅","➡","*","*","*",
-                "*","*","*","*","ᵉ","<",">","","","","","","","","","",
-                "","","","","","","","","","","","","","","","",
-                "ʳᵉ","0","1","2","3","4","5","6","7","8","9","!","?",".","-","・",
-                "…","“","”","‘","’","♂","♀","$",",","×","/","A","B","C","D","E",
-                "F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U",
-                "V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k",
-                "l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","▶",
-                ":","Ä","Ö","Ü","ä","ö","ü","","","","","","","","",""
-            };
+            Symbols = SymbolUtil.Load(resource, hashData.SymbolsOverride);
         }
 
         private string GetBytesText(byte[] bytes)
         {
             StringBuilder sb = new StringBuilder();
-            var dic = GetCharacters();
 
             foreach (var b in bytes)
             {
-                sb.Append(dic[b]);
+                sb.Append(GenerationInfo.Characters[b]);
             }
 
             return sb.ToString();
@@ -384,9 +365,11 @@ namespace Pokebot.Factories.Versions
             var currentY = bytesObjects.Skip(0x12).Take(2).ToInt16();
             var previousX = bytesObjects.Skip(0x14).Take(2).ToInt16();
             var previousY = bytesObjects.Skip(0x16).Take(2).ToInt16();
+            var currentPosition = new Position(currentX, currentY);
+            var prevPosition = new Position(previousX, previousY);
             var facingDirection = (PlayerFacingDirection)bytesObjects[0x18];
 
-            return new PlayerData(currentX, currentY, previousX, previousY, runningState, transitionState, gender, facingDirection);
+            return new PlayerData(currentPosition, prevPosition, runningState, transitionState, gender, facingDirection);
         }
 
         public virtual PlayerData GetPlayer()
@@ -549,83 +532,10 @@ namespace Pokebot.Factories.Versions
             var symbol = Symbols.First(x => x.Name == "gActionSelectionCursor");
             var bytes = SymbolUtil.Read(APIContainer, symbol);
 
-            return 0;
+            return bytes[0];
         }
 
-        public IReadOnlyList<string> GetStarters()
-        {
-            return VersionInfo.Starters;
-        }
-
-        public string GetVersionName()
-        {
-            return VersionInfo.Name;
-        }
-
-        private bool _step1 = false;
-
-        public virtual bool ExecuteStarter(int indexStarter)
-        {
-            var state = GetGameState();
-            if (state == GameState.Overworld)
-            {
-                //Up
-                //Down
-                //Left
-                //Right
-                //A
-                //B
-                //L
-                //Power
-                //R
-                //Select
-                //Start
-
-                APIContainer.Joypad.Set("A", true);
-
-                return false;
-            }
-            
-            if (state == GameState.ChooseStarter)
-            {
-                var tasks = GetTasks();
-                var taskChoose = tasks.FirstOrDefault(x => x.Name == "Task_HandleStarterChooseInput");
-                if (taskChoose != null)
-                {
-                    if (taskChoose.Data[0] == indexStarter)
-                    {
-                        APIContainer.Joypad.Set("A", true);
-                        _step1 = true;
-                    }
-                    else if (taskChoose.Data[0] > indexStarter)
-                    {
-                        APIContainer.Joypad.Set("Left", true);
-                    }
-                    else if (taskChoose.Data[0] < indexStarter)
-                    {
-                        APIContainer.Joypad.Set("Right", true);
-                    }
-                }
-
-                if (_step1)
-                {
-                    var taskConfirmChoose = tasks.FirstOrDefault(x => x.Name == "Task_HandleConfirmStarterInput");
-                    if (taskConfirmChoose != null)
-                    {
-                        APIContainer.Joypad.Set("A", true);
-                    }
-                }
-            }
-
-            if (state == GameState.Battle)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public uint SetRandomSeed()
+        public virtual uint SetRandomSeed()
         {
             var symbol = Symbols.First(x => x.Name == "gRngValue");
 

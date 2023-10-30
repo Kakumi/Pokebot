@@ -38,7 +38,7 @@ namespace Pokebot.Factories.Bots
             _seedsHistory = new List<uint>();
 
             Control = new StarterControl();
-            Control.SetStarters(GameVersion.GetStarters());
+            Control.SetStarters(GameVersion.VersionInfo.Starters);
             Control.Dock = DockStyle.Fill;
             Control.StarterChanged += Control_StarterChanged;
         }
@@ -69,8 +69,9 @@ namespace Pokebot.Factories.Bots
             {
                 if (!loaded)
                 {
+                    var starterBotConfig = GameVersion.VersionInfo.BotConfig.Starter;
                     //Check if the player is at the right position
-                    if (playerData.CurrentX == 14 && playerData.CurrentY == 22 && playerData.FacingDirection == PlayerFacingDirection.Up)
+                    if (playerData.Position == starterBotConfig.Position && starterBotConfig.Facing == PlayerFacingDirection.Up)
                     {
                         APIContainer.EmuClient.SaveState(GetSaveStateName());
                     }
@@ -96,12 +97,13 @@ namespace Pokebot.Factories.Bots
 
         public void Execute(PlayerData playerData, GameState state)
         {
-            if (GameVersion.ExecuteStarter(_indexStarter))
+            if (GameVersion.ActionRunner.ExecuteStarter(_indexStarter))
             {
                 var pokemon = GameVersion.GetParty()[0];
                 PokemonEncountered?.Invoke(pokemon);
                 if (pokemon.IsShiny)
                 {
+                    Log.Info($"Pokemon with filters found.");
                     Stop();
                 }
                 else
@@ -113,7 +115,7 @@ namespace Pokebot.Factories.Bots
 
         private string GetSaveStateName()
         {
-            return $"{GameVersion.GetVersionName()}_starter";
+            return $"{GameVersion.VersionInfo.Name}_starter";
         }
 
         private void LoadOrStop()
