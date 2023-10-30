@@ -1,4 +1,5 @@
-﻿using Pokebot.Utils;
+﻿using Pokebot.Models.Config;
+using Pokebot.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,27 +14,22 @@ namespace Pokebot.Panels
 {
     public partial class StarterControl : UserControl
     {
-        public delegate void StarterChangedEventHandler(ComboBox e, int index);
-
-        public event StarterChangedEventHandler? StarterChanged;
+        public PokemonFilterPanel FilterPanel { get; private set; }
 
         public StarterControl()
         {
             InitializeComponent();
+            FilterPanel = new PokemonFilterPanel();
         }
 
-        public void SetStarters(IEnumerable<string> starters)
+        public void SetFilterPanel(GenerationInfo generationInfo)
         {
-            _starterBox.Items.AddRange(starters.ToArray());
-            _starterBox.SelectedIndex = 0;
-        }
+            FilterPanel.Dock = DockStyle.Fill;
 
-        private void StarterSelectionChanged(object sender, EventArgs e)
-        {
-            if (sender is ComboBox comboBox)
-            {
-                StarterChanged?.Invoke(comboBox, comboBox.SelectedIndex);
-            }
+            _filterPanel.Controls.Clear();
+            _filterPanel.Controls.Add(FilterPanel);
+
+            FilterPanel.Initialize(generationInfo);
         }
     }
 }

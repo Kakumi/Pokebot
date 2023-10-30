@@ -28,18 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this._filterPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
+            // 
+            // _filterPanel
+            // 
+            this._filterPanel.Location = new System.Drawing.Point(3, 3);
+            this._filterPanel.Name = "_filterPanel";
+            this._filterPanel.Size = new System.Drawing.Size(744, 274);
+            this._filterPanel.TabIndex = 0;
             // 
             // SpinControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._filterPanel);
             this.Name = "SpinControl";
-            this.Size = new System.Drawing.Size(490, 280);
+            this.Size = new System.Drawing.Size(750, 280);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel _filterPanel;
     }
 }

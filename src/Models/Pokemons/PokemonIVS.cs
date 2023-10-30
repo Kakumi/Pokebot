@@ -12,8 +12,8 @@ namespace Pokebot.Models.Pokemons
         public int Attack { get; }
         public int Defense { get; }
         public int Speed { get; }
-        public int spAttack { get; }
-        public int spDefense { get; }
+        public int SpAttack { get; }
+        public int SpDefense { get; }
 
         public PokemonIVS(int hP, int attack, int defense, int speed, int spAttack, int spDefense)
         {
@@ -21,8 +21,8 @@ namespace Pokebot.Models.Pokemons
             Attack = attack;
             Defense = defense;
             Speed = speed;
-            this.spAttack = spAttack;
-            this.spDefense = spDefense;
+            this.SpAttack = spAttack;
+            this.SpDefense = spDefense;
         }
     }
 }

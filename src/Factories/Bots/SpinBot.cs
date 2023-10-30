@@ -23,6 +23,8 @@ namespace Pokebot.Factories.Bots
         public SpinControl Control { get; }
 
         public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
+        public event IBot.StateChangedEventHandler? StateChanged;
+
         private Pokemon? _lastEncountered;
 
         public SpinBot(ApiContainer apiContainer, IGameVersion gameVersion)
@@ -34,6 +36,7 @@ namespace Pokebot.Factories.Bots
 
             Control = new SpinControl();
             Control.Dock = DockStyle.Fill;
+            Control.SetFilterPanel(gameVersion.GenerationInfo);
         }
 
         public void Execute(PlayerData playerData, GameState state)
@@ -54,7 +57,7 @@ namespace Pokebot.Factories.Bots
                     PokemonEncountered?.Invoke(pokemon);
                 }
 
-                if (!pokemon.IsShiny) //TODO Remove not operator
+                if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
                     Log.Warn($"Pokemon with filters found. Catch it manually.");
                     Stop();
@@ -68,6 +71,7 @@ namespace Pokebot.Factories.Bots
         public void Start()
         {
             Enabled = true;
+            StateChanged?.Invoke(Enabled);
 
             var state = GameVersion.GetGameState();
             if (state != GameState.Overworld)
@@ -79,6 +83,7 @@ namespace Pokebot.Factories.Bots
         public void Stop()
         {
             Enabled = false;
+            StateChanged?.Invoke(Enabled);
         }
 
         public UserControl GetPanel()

@@ -19212,13 +19212,214 @@
               "Name": "Task_HandleConfirmStarterInput"
             }
           ]
+        },
+        {
+          "Hash": "Deutch",
+          "SymbolsOverride": [
+            {
+              "Address": 134766200,
+              "Name": "CB2_Overworld"
+            },
+            {
+              "Address": 135478788,
+              "Name": "CB2_StarterChoose"
+            },
+            {
+              "Address": 135711508,
+              "Name": "CB2_InitCopyrightScreenAfterBootup"
+            },
+            {
+              "Address": 134448164,
+              "Name": "BattleMainCB2"
+            },
+            {
+              "Address": 135786384,
+              "Name": "Task_HandleMonAnimation"
+            },
+            {
+              "Address": 134793436,
+              "Name": "Task_Fishing"
+            },
+            {
+              "Address": 135478912,
+              "Name": "Task_HandleStarterChooseInput"
+            },
+            {
+              "Address": 135479332,
+              "Name": "Task_HandleConfirmStarterInput"
+            }
+          ]
+        },
+        {
+          "Hash": "Italian",
+          "SymbolsOverride": [
+            {
+              "Address": 134766192,
+              "Name": "CB2_Overworld"
+            },
+            {
+              "Address": 135478768,
+              "Name": "CB2_StarterChoose"
+            },
+            {
+              "Address": 135711492,
+              "Name": "CB2_InitCopyrightScreenAfterBootup"
+            },
+            {
+              "Address": 134448164,
+              "Name": "BattleMainCB2"
+            },
+            {
+              "Address": 135786368,
+              "Name": "Task_HandleMonAnimation"
+            },
+            {
+              "Address": 134699708,
+              "Name": "Task_PlayCryWhenReleasedFromBall"
+            },
+            {
+              "Address": 134793428,
+              "Name": "Task_Fishing"
+            },
+            {
+              "Address": 135478892,
+              "Name": "Task_HandleStarterChooseInput"
+            },
+            {
+              "Address": 135479312,
+              "Name": "Task_HandleConfirmStarterInput"
+            }
+          ]
+        },
+        {
+          "Hash": "Japanese",
+          "SymbolsOverride": [
+            {
+              "Address": 134764484,
+              "Name": "CB2_Overworld"
+            },
+            {
+              "Address": 135479704,
+              "Name": "CB2_StarterChoose"
+            },
+            {
+              "Address": 135711888,
+              "Name": "CB2_InitCopyrightScreenAfterBootup"
+            },
+            {
+              "Address": 134447356,
+              "Name": "BattleMainCB2"
+            },
+            {
+              "Address": 135787332,
+              "Name": "Task_HandleMonAnimation"
+            },
+            {
+              "Address": 134698180,
+              "Name": "Task_PlayCryWhenReleasedFromBall"
+            },
+            {
+              "Address": 134791716,
+              "Name": "Task_Fishing"
+            },
+            {
+              "Address": 135479828,
+              "Name": "Task_HandleStarterChooseInput"
+            },
+            {
+              "Address": 135480248,
+              "Name": "Task_HandleConfirmStarterInput"
+            },
+            {
+              "Address": 50340704,
+              "Name": "gMain"
+            },
+            {
+              "Address": 50355040,
+              "Name": "gTasks"
+            },
+            {
+              "Address": 33779696,
+              "Name": "gObjectEvents"
+            },
+            {
+              "Address": 33702888,
+              "Name": "gEnemyParty"
+            },
+            {
+              "Address": 33702224,
+              "Name": "gActionSelectionCursor"
+            },
+            {
+              "Address": 33702285,
+              "Name": "gPlayerPartyCount"
+            },
+            {
+              "Address": 33702288,
+              "Name": "gPlayerParty"
+            },
+            {
+              "Address": 50354912,
+              "Name": "gRngValue"
+            }
+          ]
+        },
+        {
+          "Hash": "Spanish",
+          "SymbolsOverride": [
+            {
+              "Address": 134766192,
+              "Name": "CB2_Overworld"
+            },
+            {
+              "Address": 135478776,
+              "Name": "CB2_StarterChoose"
+            },
+            {
+              "Address": 135711764,
+              "Name": "CB2_InitCopyrightScreenAfterBootup"
+            },
+            {
+              "Address": 134448160,
+              "Name": "BattleMainCB2"
+            },
+            {
+              "Address": 135786632,
+              "Name": "Task_HandleMonAnimation"
+            },
+            {
+              "Address": 134699704,
+              "Name": "Task_PlayCryWhenReleasedFromBall"
+            },
+            {
+              "Address": 134793428,
+              "Name": "Task_Fishing"
+            },
+            {
+              "Address": 135478900,
+              "Name": "Task_HandleStarterChooseInput"
+            },
+            {
+              "Address": 135479320,
+              "Name": "Task_HandleConfirmStarterInput"
+            }
+          ]
         }
       ],
       "Generation": 3,
       "Starters": [
-        "Treecko",
-        "Torchic",
-        "Mudkip"
+        {
+          "PositionIndex": 0,
+          "PokemonId": 277
+        },
+        {
+          "PositionIndex": 1,
+          "PokemonId": 280
+        },
+        {
+          "PositionIndex": 2,
+          "PokemonId": 283
+        }
       ],
       "BotsConfig": {
         "Starter": {

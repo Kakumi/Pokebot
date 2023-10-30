@@ -28,30 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._starterBox = new System.Windows.Forms.ComboBox();
+            this._filterPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // _starterBox
+            // _filterPanel
             // 
-            this._starterBox.FormattingEnabled = true;
-            this._starterBox.Location = new System.Drawing.Point(3, 3);
-            this._starterBox.Name = "_starterBox";
-            this._starterBox.Size = new System.Drawing.Size(121, 24);
-            this._starterBox.TabIndex = 1;
-            this._starterBox.SelectedIndexChanged += new System.EventHandler(this.StarterSelectionChanged);
+            this._filterPanel.Location = new System.Drawing.Point(3, 3);
+            this._filterPanel.Name = "_filterPanel";
+            this._filterPanel.Size = new System.Drawing.Size(744, 274);
+            this._filterPanel.TabIndex = 2;
             // 
             // StarterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this._starterBox);
+            this.Controls.Add(this._filterPanel);
             this.Name = "StarterControl";
-            this.Size = new System.Drawing.Size(490, 280);
+            this.Size = new System.Drawing.Size(750, 280);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.ComboBox _starterBox;
+        private System.Windows.Forms.Panel _filterPanel;
     }
 }

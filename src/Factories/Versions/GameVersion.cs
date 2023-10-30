@@ -209,7 +209,10 @@ namespace Pokebot.Factories.Versions
             var pokemonConfig = GenerationInfo.Pokemons.First(x => x.Id == species);
             var nationalDexId = pokemonConfig.DexId;
             var ability = abilityId < pokemonConfig.Abilities.Count ? pokemonConfig.Abilities[(int)abilityId] : pokemonConfig.Abilities[0];
-            var types = pokemonConfig.Types;
+            var types = GenerationInfo.Types.Where(x =>
+            {
+                return pokemonConfig.Types.Any(y => y.Equals(x.Name, StringComparison.InvariantCultureIgnoreCase));
+            }).ToList();
             var realName = char.ToUpper(pokemonConfig.Name[0]) + pokemonConfig.Name.Substring(1);
 
             var nature = GenerationInfo.Natures.First(x => x.Id == PID % 25);

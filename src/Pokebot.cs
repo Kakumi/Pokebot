@@ -26,6 +26,7 @@ using static BizHawk.Client.EmuHawk.BatchRunner.Result;
 using Pokebot.Factories.Bots;
 using Pokebot.Factories.Versions;
 using Pokebot.Exceptions;
+using System.Numerics;
 
 namespace Pokebot
 {
@@ -68,6 +69,7 @@ namespace Pokebot
         public IBot? Bot { get; private set; }
 
         protected override string WindowTitleStatic => "Pokébot";
+        private PokemonViewerPanel PokemonViewerPanel { get; }
 
         #region Init
 
@@ -79,6 +81,12 @@ namespace Pokebot
             AppConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<AppConfig>(configText)!;
 
             Log.LogReceived += Log_LogReceived;
+
+            PokemonViewerPanel = new PokemonViewerPanel();
+            PokemonViewerPanel.Dock = DockStyle.Fill;
+            PokemonViewerPanel.Hide();
+            _tabPagePokemon.Controls.Clear();
+            _tabPagePokemon.Controls.Add(PokemonViewerPanel);
         }
 
         private void InitAPIContainer()
@@ -182,11 +190,39 @@ namespace Pokebot
         {
             try
             {
+                //Show current pokemon in Viewer
+                if (IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null)
+                {
+                    GameState state = GameVersion!.GetGameState();
+                    if (state == GameState.Battle)
+                    {
+                        var pokemon = GameVersion.GetOpponent();
+                        if (pokemon != null)
+                        {
+                            PokemonViewerPanel.Show();
+                            PokemonViewerPanel.SetPokemon(pokemon);
+                        }
+                    } else
+                    {
+                        PokemonViewerPanel.Hide();
+                    }
+                }
+
+                //Main call for bots
                 if (IsReady && Bot!.Enabled)
                 {
                     PlayerData player = GameVersion!.GetPlayer();
                     GameState state = GameVersion.GetGameState();
                     Bot.Execute(player, state);
+
+                    if (state == GameState.Battle)
+                    {
+                        var pokemon = GameVersion.GetOpponent();
+                        if (pokemon != null)
+                        {
+                            PokemonViewerPanel.SetPokemon(pokemon);
+                        }
+                    }
                 }
             }
             catch (BotException ex)
@@ -242,50 +278,6 @@ namespace Pokebot
             }
         }
 
-        private void TestStateClick(object sender, EventArgs e)
-        {
-            if (IsReady)
-            {
-                //var t3 = Assembly.GetExecutingAssembly().GetManifestResourceNames();
-                //var t2 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Pokebot.Symbols.pokeemerald.sym");
-                var symbols = SymbolUtil.Load(Resources.pokeemerald);
-
-                var gMain = symbols.First(x => x.Name == "gMain");
-                var cb1 = SymbolUtil.Read(APIContainer!, gMain.Address, 0, 4);
-                var cb2 = SymbolUtil.Read(APIContainer!, gMain.Address, 4, 4);
-                var gPlayerAvatar = symbols.First(x => x.Name == "gPlayerAvatar");
-
-                var tests = new Dictionary<int, int>
-            {
-                { 0, 4 },
-                { 4, 4 },
-                { 0x438, 1 }
-            };
-
-                var playerState = SymbolUtil.Read(APIContainer!, gPlayerAvatar.Address, 2, 1);
-
-                var addrCB1 = cb1.ToUInt32() - 1;
-                var addrCB2 = cb2.ToUInt32() - 1;
-                var gameState1 = symbols.FirstOrDefault(x => x.Address == addrCB1);
-                var gameState2 = symbols.FirstOrDefault(x => x.Address == addrCB2);
-                var playerStateIndex = (int)playerState[0];
-
-                //var pokemonStorage = symbols.First(x => x.Name == "gPokemonStorage");
-                //var bytesStorage = SymbolReader.ReadSymbol(APIContainer!, pokemonStorage.Address, 0, 100);
-                //var currentBox = (int)bytesStorage[0];
-                //var bytesPokemon = bytesStorage.Take(100);
-                //var pokemon = GameVersion!.ParsePokemon(bytesPokemon.ToArray());
-
-                //var party = GameVersion!.GetParty();
-                //var opponent = GameVersion!.GetOpponent();
-
-                //AddPokemonStat(party[0]);
-                //AddPokemonStat(opponent);
-                var player = GameVersion!.GetPlayer();
-                var tasks = GameVersion.GetTasks();
-            }
-        }
-
         #region Bot
 
         private void BotSelectionChanged(object sender, EventArgs e)
@@ -300,6 +292,7 @@ namespace Pokebot
                     var type = (BotCode)value.Code;
                     Bot = BotFactory.Create(type, APIContainer!, GameVersion!);
                     Bot.PokemonEncountered += PokemonEncountered;
+                    Bot.StateChanged += Bot_StateChanged;
                     _botPanel.Controls.Add(Bot.GetPanel());
                     _startBotButton.Enabled = true;
                     _stopBotButton.Enabled = false;
@@ -312,6 +305,21 @@ namespace Pokebot
             catch (Exception)
             {
                 Log.Error($"Error occurred while reading bot type.");
+            }
+        }
+
+        private void Bot_StateChanged(bool enabled)
+        {
+            if (enabled)
+            {
+                _stopBotButton.Enabled = true;
+                _startBotButton.Enabled = false;
+                SetBotStatus("Bot is running...");
+            } else
+            {
+                _startBotButton.Enabled = true;
+                _stopBotButton.Enabled = false;
+                SetBotStatus("Bot is not running");
             }
         }
 
@@ -337,9 +345,6 @@ namespace Pokebot
                 if (IsReady && !Bot!.Enabled)
                 {
                     Bot.Start();
-                    _stopBotButton.Enabled = true;
-                    _startBotButton.Enabled = false;
-                    SetBotStatus("Bot is running...");
                 }
             } catch(Exception ex)
             {
@@ -356,15 +361,11 @@ namespace Pokebot
                 if (IsReady && Bot!.Enabled)
                 {
                     Bot.Stop();
-                    _startBotButton.Enabled = true;
-                    _stopBotButton.Enabled = false;
-                    SetBotStatus("Bot is not running");
                 }
             }
             catch (Exception ex)
             {
                 Log.Error(ex.Message);
-                StopBot();
                 SetBotStatus(ex.Message, Color.Red);
             }
         }

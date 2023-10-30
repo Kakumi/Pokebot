@@ -40,6 +40,7 @@
             this.level = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.message = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._tabBotPage = new System.Windows.Forms.TabPage();
+            this._stopBotButton = new System.Windows.Forms.Button();
             this._statusBot = new System.Windows.Forms.Label();
             this._startBotButton = new System.Windows.Forms.Button();
             this._botPanel = new System.Windows.Forms.Panel();
@@ -51,8 +52,7 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
-            this._testState = new System.Windows.Forms.Button();
-            this._stopBotButton = new System.Windows.Forms.Button();
+            this._tabPagePokemon = new System.Windows.Forms.TabPage();
             this._tabControl.SuspendLayout();
             this._tabSettingsPage.SuspendLayout();
             this._tabLogsPage.SuspendLayout();
@@ -96,6 +96,7 @@
             this._tabControl.Controls.Add(this._tabLogsPage);
             this._tabControl.Controls.Add(this._tabBotPage);
             this._tabControl.Controls.Add(this._tabStatsPage);
+            this._tabControl.Controls.Add(this._tabPagePokemon);
             this._tabControl.Location = new System.Drawing.Point(12, 68);
             this._tabControl.Name = "_tabControl";
             this._tabControl.SelectedIndex = 0;
@@ -188,6 +189,16 @@
             this._tabBotPage.Text = "Bot";
             this._tabBotPage.UseVisualStyleBackColor = true;
             // 
+            // _stopBotButton
+            // 
+            this._stopBotButton.Location = new System.Drawing.Point(214, 6);
+            this._stopBotButton.Name = "_stopBotButton";
+            this._stopBotButton.Size = new System.Drawing.Size(75, 23);
+            this._stopBotButton.TabIndex = 3;
+            this._stopBotButton.Text = "Stop";
+            this._stopBotButton.UseVisualStyleBackColor = true;
+            this._stopBotButton.Click += new System.EventHandler(this.StopBotClicked);
+            // 
             // _statusBot
             // 
             this._statusBot.AutoSize = true;
@@ -279,25 +290,14 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Pokébot v0.0.1";
             // 
-            // _testState
+            // _tabPagePokemon
             // 
-            this._testState.Location = new System.Drawing.Point(269, 6);
-            this._testState.Name = "_testState";
-            this._testState.Size = new System.Drawing.Size(90, 23);
-            this._testState.TabIndex = 3;
-            this._testState.Text = "Test State";
-            this._testState.UseVisualStyleBackColor = true;
-            this._testState.Click += new System.EventHandler(this.TestStateClick);
-            // 
-            // _stopBotButton
-            // 
-            this._stopBotButton.Location = new System.Drawing.Point(214, 6);
-            this._stopBotButton.Name = "_stopBotButton";
-            this._stopBotButton.Size = new System.Drawing.Size(75, 23);
-            this._stopBotButton.TabIndex = 3;
-            this._stopBotButton.Text = "Stop";
-            this._stopBotButton.UseVisualStyleBackColor = true;
-            this._stopBotButton.Click += new System.EventHandler(this.StopBotClicked);
+            this._tabPagePokemon.Location = new System.Drawing.Point(4, 25);
+            this._tabPagePokemon.Name = "_tabPagePokemon";
+            this._tabPagePokemon.Size = new System.Drawing.Size(768, 341);
+            this._tabPagePokemon.TabIndex = 4;
+            this._tabPagePokemon.Text = "Viewer";
+            this._tabPagePokemon.UseVisualStyleBackColor = true;
             // 
             // Pokebot
             // 
@@ -305,7 +305,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this._tabControl);
-            this.Controls.Add(this._testState);
             this.Controls.Add(this.label1);
             this.Controls.Add(this._statusLabel);
             this.Controls.Add(this._loadButton);
@@ -334,7 +333,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage _tabBotPage;
         private System.Windows.Forms.TabPage _tabStatsPage;
-        private System.Windows.Forms.Button _testState;
         private System.Windows.Forms.ComboBox _botComboBox;
         private System.Windows.Forms.CheckBox _soundCheckbox;
         private System.Windows.Forms.ListView _logsListView;
@@ -350,5 +348,6 @@
         private System.Windows.Forms.Button _startBotButton;
         private System.Windows.Forms.Label _statusBot;
         private System.Windows.Forms.Button _stopBotButton;
+        private System.Windows.Forms.TabPage _tabPagePokemon;
     }
 }

@@ -44,12 +44,12 @@ namespace Pokebot.Models.Pokemons
         public int DexId { get; }
         public bool IsShiny { get; }
         public PokemonNature Nature { get; }
-        public List<string> Types { get; }
+        public List<PokemonType> Types { get; }
         public string Ability { get; }
         public PokemonType HiddenPower { get; }
         public int HiddenPowerDamage { get; }
 
-        public Pokemon(PokemonOriginalTrainer originalTrainer, string nickname, PokemonLanguageCode language, PokemonEggNameType eggName, PokemonMark markings, int checksum, int calculatedChecksum, int species, PokemonItem? heldItem, uint experience, int pPBonuses, int friendship, List<PokemonAttack> moves, PokemonEVS eVs, PokemonCondition conditions, PokemonPokerus pokerus, PokemonLocation metLocation, int metLevel, PokemonOriginInfo origin, PokemonIVS iVs, bool isEgg, PokemonRibbon ribbons, string realName, int dexId, bool isShiny, PokemonNature nature, List<string> types, string ability, PokemonType hiddenPower, int hiddenPowerDamage)
+        public Pokemon(PokemonOriginalTrainer originalTrainer, string nickname, PokemonLanguageCode language, PokemonEggNameType eggName, PokemonMark markings, int checksum, int calculatedChecksum, int species, PokemonItem? heldItem, uint experience, int pPBonuses, int friendship, List<PokemonAttack> moves, PokemonEVS eVs, PokemonCondition conditions, PokemonPokerus pokerus, PokemonLocation metLocation, int metLevel, PokemonOriginInfo origin, PokemonIVS iVs, bool isEgg, PokemonRibbon ribbons, string realName, int dexId, bool isShiny, PokemonNature nature, List<PokemonType> types, string ability, PokemonType hiddenPower, int hiddenPowerDamage)
         {
             OriginalTrainer = originalTrainer;
             Nickname = nickname;

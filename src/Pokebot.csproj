@@ -35,6 +35,16 @@
 		<Reference Include="BizHawk.WinForms.Controls" HintPath="$(BIZHAWK_HOME)dll/BizHawk.WinForms.Controls.dll" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Images\ResourcesPokemon.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ResourcesPokemon.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Images\ResourcesPokemonShiny.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ResourcesPokemonShiny.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Properties\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -42,6 +52,14 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
+	  <EmbeddedResource Update="Images\ResourcesPokemon.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ResourcesPokemon.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Images\ResourcesPokemonShiny.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ResourcesPokemonShiny.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Properties\Resources.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>

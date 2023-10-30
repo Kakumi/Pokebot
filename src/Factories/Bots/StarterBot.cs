@@ -25,8 +25,8 @@ namespace Pokebot.Factories.Bots
         public StarterControl Control { get; }
 
         public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
+        public event IBot.StateChangedEventHandler? StateChanged;
 
-        private int _indexStarter = 0;
         private List<uint> _seedsHistory;
 
         public StarterBot(ApiContainer apiContainer, IGameVersion gameVersion)
@@ -38,9 +38,12 @@ namespace Pokebot.Factories.Bots
             _seedsHistory = new List<uint>();
 
             Control = new StarterControl();
-            Control.SetStarters(GameVersion.VersionInfo.Starters);
             Control.Dock = DockStyle.Fill;
-            Control.StarterChanged += Control_StarterChanged;
+            Control.SetFilterPanel(GameVersion.GenerationInfo);
+            Control.FilterPanel.SetPokemons(GameVersion.VersionInfo.Starters.Select(x =>
+            {
+                return GameVersion.GenerationInfo.Pokemons.FirstOrDefault(y => y.Id == x.PokemonId);
+            }).Where(x => x != null), false);
         }
 
         public UserControl GetPanel()
@@ -48,14 +51,10 @@ namespace Pokebot.Factories.Bots
             return Control;
         }
 
-        private void Control_StarterChanged(ComboBox e, int index)
-        {
-            _indexStarter = index;
-        }
-
         public void Start()
         {
             Enabled = true;
+            StateChanged?.Invoke(Enabled);
 
             var playerData = GameVersion.GetPlayer();
 
@@ -93,15 +92,17 @@ namespace Pokebot.Factories.Bots
         public void Stop()
         {
             Enabled = false;
+            StateChanged?.Invoke(Enabled);
         }
 
         public void Execute(PlayerData playerData, GameState state)
         {
-            if (GameVersion.ActionRunner.ExecuteStarter(_indexStarter))
+            var starter = GameVersion.VersionInfo.Starters.FirstOrDefault(x => x.PokemonId == Control.FilterPanel.Comparator.IndexPokemon);
+            if (starter != null && GameVersion.ActionRunner.ExecuteStarter(starter.PositionIndex))
             {
                 var pokemon = GameVersion.GetParty()[0];
                 PokemonEncountered?.Invoke(pokemon);
-                if (pokemon.IsShiny)
+                if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
                     Log.Info($"Pokemon with filters found.");
                     Stop();
