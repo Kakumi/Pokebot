@@ -27,17 +27,22 @@ jobs:
       with:
        name: Pokebot
        path: src\bin\Release\net48\Pokebot.dll
+    - name: Get version
+      uses: kzrnm/get-net-sdk-project-versions-action@v1
+      id: get-version
+      with:
+        proj-path: src/Pokebot.csproj
     - name: Create Draft Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: 'dev'
-        release_name: '0.0.1'
+        tag_name: "${{steps.get-version.outputs.version-suffix}}" 
+        release_name: "${{steps.get-version.outputs.version}}"
         draft: true
         prerelease: false
-    - uses: actions/upload-release-asset@v1.0.1
+    - uses: actions/upload-release-asset@v1.1.3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -50,15 +55,3 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         release_id: ${{ steps.create_release.outputs.id }}
-    - name: Get version
-      uses: kzrnm/get-net-sdk-project-versions-action@v1
-      id: get-version
-      with:
-        proj-path: src/Pokebot.csproj
-    - run: echo "${{steps.get-version.outputs.version}}"
-    - run: echo "${{steps.get-version.outputs.version-prefix}}" 
-    - run: echo "${{steps.get-version.outputs.version-suffix}}" 
-    - run: echo "${{steps.get-version.outputs.package-version}}" 
-    - run: echo "${{steps.get-version.outputs.assembly-version}}" 
-    - run: echo "${{steps.get-version.outputs.file-version}}" 
-    - run: echo "${{steps.get-version.outputs.informational-version}}" 
