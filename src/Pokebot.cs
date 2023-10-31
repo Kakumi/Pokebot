@@ -62,13 +62,18 @@ namespace Pokebot
 
         public bool IsReady
         {
-            get => IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null && Bot != null; // && !APIContainer.EmuClient.IsPaused()
-        } 
+            get => IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null;
+        }
+
+        public bool IsBotReady
+        {
+            get => IsReady && Bot != null;
+        }
 
         public IGameVersion? GameVersion { get; private set; }
         public IBot? Bot { get; private set; }
 
-        protected override string WindowTitleStatic => "Pokébot";
+        protected override string WindowTitleStatic => "Pokebot";
         private PokemonViewerPanel PokemonViewerPanel { get; }
 
         #region Init
@@ -188,14 +193,15 @@ namespace Pokebot
             }
         }
 
-        protected override void UpdateAfter() //Or UpdateAfterFast
+        protected override void UpdateAfter()
         {
             try
             {
-                //Show current pokemon in Viewer
-                if (IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null)
+                if (IsReady)
                 {
                     GameState state = GameVersion!.GetGameState();
+
+                    //Show current pokemon in Viewer
                     if (state == GameState.Battle)
                     {
                         var pokemon = GameVersion.GetOpponent();
@@ -204,26 +210,17 @@ namespace Pokebot
                             PokemonViewerPanel.Show();
                             PokemonViewerPanel.SetPokemon(pokemon);
                         }
-                    } else
+                    }
+                    else
                     {
                         PokemonViewerPanel.Hide();
                     }
-                }
 
-                //Main call for bots
-                if (IsReady && Bot!.Enabled)
-                {
-                    PlayerData player = GameVersion!.GetPlayer();
-                    GameState state = GameVersion.GetGameState();
-                    Bot.Execute(player, state);
-
-                    if (state == GameState.Battle)
+                    //Main call for bots
+                    if (Bot != null && Bot.Enabled)
                     {
-                        var pokemon = GameVersion.GetOpponent();
-                        if (pokemon != null)
-                        {
-                            PokemonViewerPanel.SetPokemon(pokemon);
-                        }
+                        PlayerData player = GameVersion!.GetPlayer();
+                        Bot.Execute(player, state);
                     }
                 }
             }
@@ -321,6 +318,7 @@ namespace Pokebot
             {
                 _startBotButton.Enabled = true;
                 _stopBotButton.Enabled = false;
+                _statsListView.Items.Clear();
                 SetBotStatus("Bot is not running");
             }
         }

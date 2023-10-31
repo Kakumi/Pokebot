@@ -113,7 +113,7 @@
             this._tabSettingsPage.Padding = new System.Windows.Forms.Padding(3);
             this._tabSettingsPage.Size = new System.Drawing.Size(768, 341);
             this._tabSettingsPage.TabIndex = 0;
-            this._tabSettingsPage.Text = "Paramètres";
+            this._tabSettingsPage.Text = "Settings";
             this._tabSettingsPage.UseVisualStyleBackColor = true;
             // 
             // _pauseCheckbox
@@ -241,7 +241,7 @@
             this._tabStatsPage.Name = "_tabStatsPage";
             this._tabStatsPage.Size = new System.Drawing.Size(768, 341);
             this._tabStatsPage.TabIndex = 3;
-            this._tabStatsPage.Text = "Statistiques";
+            this._tabStatsPage.Text = "Stats";
             this._tabStatsPage.UseVisualStyleBackColor = true;
             // 
             // _statsListView
@@ -297,7 +297,7 @@
             this._versionLabel.Name = "_versionLabel";
             this._versionLabel.Size = new System.Drawing.Size(68, 16);
             this._versionLabel.TabIndex = 3;
-            this._versionLabel.Text = "Pokébot v";
+            this._versionLabel.Text = "Pokebot v";
             // 
             // Pokebot
             // 
