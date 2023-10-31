@@ -11,24 +11,29 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.3.1
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
-    - name: Navigate to Workspace
-      run: cd $GITHUB_WORKSPACE
     - name: Create Build Directory
       run: mkdir _build
+    - run: echo $GITHUB_WORKSPACE
     - name: Restore Packages
       run: nuget restore Pokebot.sln
     - name: Build Solution
       run: |
-        msbuild.exe Pokebot.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
+        msbuild.exe Pokebot.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="./_build"
+  publish:
+    needs: build
+    runs-on: windows-latest
+    steps:
+    - uses: actions/upload-artifact@master
+      with:
+       name: Pokebot
+       path: Pokebot\bin\Debug\Pokebot.dll
     - name: Create Draft Release
       id: create_release
       uses: actions/create-release@v1
@@ -63,4 +68,4 @@ jobs:
     - run: echo "${{steps.get-version.outputs.package-version}}" 
     - run: echo "${{steps.get-version.outputs.assembly-version}}" 
     - run: echo "${{steps.get-version.outputs.file-version}}" 
-    - run: echo "${{steps.get-version.outputs.informational-version}}" 
+    - run: echo "${{steps.get-version.outputs.informational-version}}"
