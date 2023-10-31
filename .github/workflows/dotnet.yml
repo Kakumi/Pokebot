@@ -33,7 +33,15 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
        name: Pokebot
-       path: Pokebot\bin\Debug\Pokebot.dll
+       path: Pokebot\bin\Release\net48\Pokebot.dll
+    - uses: actions/upload-artifact@master
+      with:
+       name: Pokebot2
+       path: Pokebot\src\bin\Release\net48\Pokebot.dll
+    - uses: actions/upload-artifact@master
+      with:
+       name: Pokebot3
+       path: src\bin\Release\net48\Pokebot.dll
     - name: Create Draft Release
       id: create_release
       uses: actions/create-release@v1
