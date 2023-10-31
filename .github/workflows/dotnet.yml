@@ -55,9 +55,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         release_id: ${{ steps.create_release.outputs.id }}
-    - name: Release Drafter
-      uses: release-drafter/release-drafter@v5.25.0
+    - name: Release & Assets
+      uses: Hs1r1us/Release-AIO@v2.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag: 'release'
-        version: "${{ steps.get-version.outputs.version }}.15"
-        publish: true
+        tag_name: "release"
+        release_name: "${{steps.get-version.outputs.version}}.15"
+        asset_files: src\bin\Release\net48\Pokebot.dll
+        draft: false
+        prerelease: false
