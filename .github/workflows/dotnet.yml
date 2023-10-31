@@ -25,6 +25,19 @@ jobs:
     - name: Build Solution
       run: |
         msbuild.exe Pokebot.sln /p:platform="Any CPU" /p:configuration="Release"
+    - name: Release Drafter
+      # You may pin to the exact commit or the version.
+      # uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7
+      uses: release-drafter/release-drafter@v5.25.0
+      with:
+        config-name: 'release-drafter.yml'
+        name: 'Pokebot'
+        tag: 'dev'
+        version: '0.0.1'
+        publish: false
+        latest: true
+        prerelease: true
+        prerelease-identifier: 'alpha'
     - name: Get version
       uses: kzrnm/get-net-sdk-project-versions-action@v1
       id: get-version
