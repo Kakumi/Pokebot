@@ -31,8 +31,12 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
        name: Pokebot
-       path: BizHawk\ExternalTools\Pokebot.dll
+       path: src/
     - uses: actions/upload-artifact@master
       with:
        name: Pokebot2
-       path: src\bin\Release\net48\Pokebot.dll
+       path: bin/
+    - uses: actions/upload-artifact@master
+      with:
+       name: Pokebot2
+       path: Pokebot/
