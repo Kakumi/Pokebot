@@ -13,19 +13,17 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.3.1
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
-    - name: Create Build Directory
-      run: mkdir _build
     - run: echo $GITHUB_WORKSPACE
     - name: Restore Packages
       run: nuget restore Pokebot.sln
     - name: Build Solution
       run: |
-        msbuild.exe Pokebot.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="./_build"
+        msbuild.exe Pokebot.sln /p:platform="Any CPU" /p:configuration="Release"
   publish:
     needs: build
     runs-on: windows-latest
@@ -33,47 +31,8 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
        name: Pokebot
-       path: Pokebot\bin\Release\net48\Pokebot.dll
+       path: BizHawk\ExternalTools\Pokebot.dll
     - uses: actions/upload-artifact@master
       with:
        name: Pokebot2
-       path: Pokebot\src\bin\Release\net48\Pokebot.dll
-    - uses: actions/upload-artifact@master
-      with:
-       name: Pokebot3
        path: src\bin\Release\net48\Pokebot.dll
-    - name: Create Draft Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: 'dev'
-        release_name: '0.0.1'
-        draft: true
-        prerelease: false
-    - uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./_build/Pokebot.dll
-        asset_name: Pokebot.dll
-        asset_content_type: application/x-msdownload
-    - uses: eregon/publish-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        release_id: ${{ steps.create_release.outputs.id }}
-    - name: Get version
-      uses: kzrnm/get-net-sdk-project-versions-action@v1
-      id: get-version
-      with:
-        proj-path: src/Pokebot.csproj
-    - run: echo "${{steps.get-version.outputs.version}}"
-    - run: echo "${{steps.get-version.outputs.version-prefix}}" 
-    - run: echo "${{steps.get-version.outputs.version-suffix}}" 
-    - run: echo "${{steps.get-version.outputs.package-version}}" 
-    - run: echo "${{steps.get-version.outputs.assembly-version}}" 
-    - run: echo "${{steps.get-version.outputs.file-version}}" 
-    - run: echo "${{steps.get-version.outputs.informational-version}}"
