@@ -18,12 +18,27 @@ jobs:
       uses: microsoft/setup-msbuild@v1.3.1
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
-    - run: echo $GITHUB_WORKSPACE
     - name: Restore Packages
       run: nuget restore Pokebot.sln
     - name: Build Solution
       run: |
         msbuild.exe Pokebot.sln /p:platform="Any CPU" /p:configuration="Release"
+    - uses: actions/upload-artifact@master
+      with:
+       name: Pokebot
+       path: src/
+    - uses: actions/upload-artifact@master
+      with:
+       name: Pokebot2
+       path: bin/
+    - uses: actions/upload-artifact@master
+      with:
+       name: Pokebot3
+       path: Pokebot/
+    - uses: actions/upload-artifact@master
+      with:
+       name: Pokebot4
+       path: ${{ github.workspace }}
   publish:
     needs: build
     runs-on: windows-latest
