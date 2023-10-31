@@ -20,11 +20,15 @@ jobs:
       uses: microsoft/setup-msbuild@v1.3.1
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
+    - name: Navigate to Workspace
+      run: cd $GITHUB_WORKSPACE
+    - name: Create Build Directory
+      run: mkdir _build
     - name: Restore Packages
       run: nuget restore Pokebot.sln
     - name: Build Solution
       run: |
-        msbuild.exe Pokebot.sln /p:platform="Any CPU" /p:configuration="Release"
+        msbuild.exe Pokebot.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
     - name: Create Draft Release
       id: create_release
       uses: actions/create-release@v1
@@ -40,9 +44,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./README.md
-        asset_name: README.md
-        asset_content_type: text/markdown #application/x-msdownload
+        asset_path: ./_build/Pokebot.dll
+        asset_name: Pokebot.dll
+        asset_content_type: application/x-msdownload
     - uses: eregon/publish-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
