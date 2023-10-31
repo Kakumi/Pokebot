@@ -26,32 +26,39 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
        name: Pokebot
-       path: src/
-    - uses: actions/upload-artifact@master
+       path: src\bin\Release\net48\Pokebot.dll
+    - name: Create Draft Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-       name: Pokebot2
-       path: bin/
-    - uses: actions/upload-artifact@master
+        tag_name: 'dev'
+        release_name: '0.0.1'
+        draft: true
+        prerelease: false
+    - uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-       name: Pokebot3
-       path: Pokebot/
-    - uses: actions/upload-artifact@master
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: src\bin\Release\net48\Pokebot.dll
+        asset_name: Pokebot.dll
+        asset_content_type: application/x-msdownload
+    - uses: eregon/publish-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-       name: Pokebot4
-       path: ${{ github.workspace }}
-  publish:
-    needs: build
-    runs-on: windows-latest
-    steps:
-    - uses: actions/upload-artifact@master
+        release_id: ${{ steps.create_release.outputs.id }}
+    - name: Get version
+      uses: kzrnm/get-net-sdk-project-versions-action@v1
+      id: get-version
       with:
-       name: Pokebot
-       path: src/
-    - uses: actions/upload-artifact@master
-      with:
-       name: Pokebot2
-       path: bin/
-    - uses: actions/upload-artifact@master
-      with:
-       name: Pokebot2
-       path: Pokebot/
+        proj-path: src/Pokebot.csproj
+    - run: echo "${{steps.get-version.outputs.version}}"
+    - run: echo "${{steps.get-version.outputs.version-prefix}}" 
+    - run: echo "${{steps.get-version.outputs.version-suffix}}" 
+    - run: echo "${{steps.get-version.outputs.package-version}}" 
+    - run: echo "${{steps.get-version.outputs.assembly-version}}" 
+    - run: echo "${{steps.get-version.outputs.file-version}}" 
+    - run: echo "${{steps.get-version.outputs.informational-version}}" 
