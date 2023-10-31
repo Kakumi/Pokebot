@@ -16,16 +16,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3.1
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.2.0
+    - name: Restore Packages
+      run: nuget restore Pokebot.sln
+    - name: Build Solution
+      run: |
+        msbuild.exe Pokebot.sln /p:platform="Any CPU" /p:configuration="Release"
     - name: Get version
       uses: kzrnm/get-net-sdk-project-versions-action@v1
       id: get-version
