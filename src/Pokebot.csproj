@@ -5,6 +5,15 @@
 		<TargetFramework>net48</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
+	<PropertyGroup>
+		<Version>0.0.1</Version>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Release' ">
+		<VersionSuffix>release</VersionSuffix>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug' ">
+		<VersionSuffix>dev</VersionSuffix>
+	</PropertyGroup>
 	<PropertyGroup Condition=" '$(BIZHAWK_HOME)' == '' ">
 		<BIZHAWK_HOME>$(ProjectDir)../BizHawk/</BIZHAWK_HOME><!-- if building EmuHawk from source, point to e.g. `$(ProjectDir)../BizHawk/output/` -->
 	</PropertyGroup>

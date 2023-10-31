@@ -87,6 +87,8 @@ namespace Pokebot
             PokemonViewerPanel.Hide();
             _tabPagePokemon.Controls.Clear();
             _tabPagePokemon.Controls.Add(PokemonViewerPanel);
+
+            _versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
         }
 
         private void InitAPIContainer()

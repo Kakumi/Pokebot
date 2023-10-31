@@ -51,8 +51,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label1 = new System.Windows.Forms.Label();
             this._tabPagePokemon = new System.Windows.Forms.TabPage();
+            this._versionLabel = new System.Windows.Forms.Label();
             this._tabControl.SuspendLayout();
             this._tabSettingsPage.SuspendLayout();
             this._tabLogsPage.SuspendLayout();
@@ -281,15 +281,6 @@
             // 
             this.columnHeader4.Text = "Ratio";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 16);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Pokébot v0.0.1";
-            // 
             // _tabPagePokemon
             // 
             this._tabPagePokemon.Location = new System.Drawing.Point(4, 25);
@@ -299,13 +290,22 @@
             this._tabPagePokemon.Text = "Viewer";
             this._tabPagePokemon.UseVisualStyleBackColor = true;
             // 
+            // _versionLabel
+            // 
+            this._versionLabel.AutoSize = true;
+            this._versionLabel.Location = new System.Drawing.Point(12, 9);
+            this._versionLabel.Name = "_versionLabel";
+            this._versionLabel.Size = new System.Drawing.Size(68, 16);
+            this._versionLabel.TabIndex = 3;
+            this._versionLabel.Text = "Pokébot v";
+            // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this._tabControl);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this._versionLabel);
             this.Controls.Add(this._statusLabel);
             this.Controls.Add(this._loadButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -330,7 +330,7 @@
         private System.Windows.Forms.TabControl _tabControl;
         private System.Windows.Forms.TabPage _tabSettingsPage;
         private System.Windows.Forms.TabPage _tabLogsPage;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label _versionLabel;
         private System.Windows.Forms.TabPage _tabBotPage;
         private System.Windows.Forms.TabPage _tabStatsPage;
         private System.Windows.Forms.ComboBox _botComboBox;
