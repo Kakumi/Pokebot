@@ -23,7 +23,8 @@ jobs:
     - name: Build Solution
       run: |
         msbuild.exe Pokebot.sln /p:platform="Any CPU" /p:configuration="Release"
-    - uses: actions/upload-artifact@master
+    - name: Upload Artifact
+      uses: actions/upload-artifact@master
       with:
        name: Pokebot
        path: src\bin\Release\net48\Pokebot.dll
@@ -42,7 +43,8 @@ jobs:
         release_name: "${{steps.get-version.outputs.version}}"
         draft: true
         prerelease: false
-    - uses: actions/upload-release-asset@v1.0.1
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -50,18 +52,9 @@ jobs:
         asset_path: src\bin\Release\net48\Pokebot.dll
         asset_name: Pokebot.dll
         asset_content_type: application/x-msdownload
-    - uses: eregon/publish-release@v1
+    - name: Publish Release
+      uses: eregon/publish-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         release_id: ${{ steps.create_release.outputs.id }}
-    - name: Release & Assets
-      uses: Hs1r1us/Release-AIO@v2.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: "release"
-        release_name: "${{steps.get-version.outputs.version}}.15"
-        asset_files: src\bin\Release\net48\Pokebot.dll
-        draft: false
-        prerelease: false
