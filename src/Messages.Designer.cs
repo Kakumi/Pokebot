@@ -124,6 +124,150 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ability.
+        /// </summary>
+        internal static string Discord_Ability {
+            get {
+                return ResourceManager.GetString("Discord_Ability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The bot stopped because a pokemon with your filters has been encountered ! :partying_face:.
+        /// </summary>
+        internal static string Discord_Content {
+            get {
+                return ResourceManager.GetString("Discord_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Item.
+        /// </summary>
+        internal static string Discord_Item {
+            get {
+                return ResourceManager.GetString("Discord_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IV Attack.
+        /// </summary>
+        internal static string Discord_IVAttack {
+            get {
+                return ResourceManager.GetString("Discord_IVAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IV Defense.
+        /// </summary>
+        internal static string Discord_IVDefense {
+            get {
+                return ResourceManager.GetString("Discord_IVDefense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IV Hp.
+        /// </summary>
+        internal static string Discord_IVHp {
+            get {
+                return ResourceManager.GetString("Discord_IVHp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IV Sp. Attack.
+        /// </summary>
+        internal static string Discord_IVSpAttack {
+            get {
+                return ResourceManager.GetString("Discord_IVSpAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IV Sp. Defense.
+        /// </summary>
+        internal static string Discord_IVSpDefense {
+            get {
+                return ResourceManager.GetString("Discord_IVSpDefense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IV Speed.
+        /// </summary>
+        internal static string Discord_IVSpeed {
+            get {
+                return ResourceManager.GetString("Discord_IVSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nature.
+        /// </summary>
+        internal static string Discord_Nature {
+            get {
+                return ResourceManager.GetString("Discord_Nature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} ({1}).
+        /// </summary>
+        internal static string Discord_PokemonName {
+            get {
+                return ResourceManager.GetString("Discord_PokemonName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Shiny.
+        /// </summary>
+        internal static string Discord_Shiny {
+            get {
+                return ResourceManager.GetString("Discord_Shiny", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à No :x:.
+        /// </summary>
+        internal static string Discord_ShinyNo {
+            get {
+                return ResourceManager.GetString("Discord_ShinyNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Yes :white_check_mark:.
+        /// </summary>
+        internal static string Discord_ShinyYes {
+            get {
+                return ResourceManager.GetString("Discord_ShinyYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Trainer.
+        /// </summary>
+        internal static string Discord_Trainer {
+            get {
+                return ResourceManager.GetString("Discord_Trainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Failed to send discord webhook: {0}.
+        /// </summary>
+        internal static string DiscordWebhook_Failed {
+            get {
+                return ResourceManager.GetString("DiscordWebhook_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Error occurred while reading bot type..
         /// </summary>
         internal static string Error_ReadingBotType {

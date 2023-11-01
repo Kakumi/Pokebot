@@ -24,6 +24,7 @@ namespace Pokebot.Factories.Bots
 
         public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
         public event IBot.StateChangedEventHandler? StateChanged;
+        public event IBot.PokemonFoundEventHandler? PokemonFound;
 
         private Pokemon? _lastEncountered;
 
@@ -60,6 +61,7 @@ namespace Pokebot.Factories.Bots
                 if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
                     Log.Warn(Messages.Pokemon_FoundCatch);
+                    PokemonFound?.Invoke(pokemon);
                     Stop();
                 } else
                 {

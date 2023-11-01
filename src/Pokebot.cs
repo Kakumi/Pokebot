@@ -28,6 +28,9 @@ using Pokebot.Factories.Versions;
 using Pokebot.Exceptions;
 using System.Numerics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Pokebot.Models.Discord;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Pokebot
 {
@@ -264,6 +267,7 @@ namespace Pokebot
         {
             _accelerateCheckbox.Checked = SettingsConfig.Speed;
             _soundCheckbox.Checked = SettingsConfig.Sound;
+            _discordWebhookText.Text = SettingsConfig.DiscordWebhook;
         }
 
         private void AccelerateCheckChanged(object sender, EventArgs e)
@@ -324,6 +328,7 @@ namespace Pokebot
                 Bot = BotFactory.Create(type, APIContainer!, GameVersion!);
                 Bot.PokemonEncountered += PokemonEncountered;
                 Bot.StateChanged += Bot_StateChanged;
+                Bot.PokemonFound += Bot_PokemonFound;
                 _botPanel.Controls.Add(Bot.GetPanel());
                 _startBotButton.Enabled = true;
                 _stopBotButton.Enabled = false;
@@ -360,6 +365,43 @@ namespace Pokebot
                 _stopBotButton.Enabled = false;
                 SetBotStatus(Messages.Bot_NotRunning);
             }
+        }
+
+        public void SendPokemonWebhook(Pokemon pokemon)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(SettingsConfig.DiscordWebhook))
+                {
+                    var trainer = GameVersion!.GetPlayer();
+                    var webhook = new DiscordWebhook(pokemon);
+                    var json = JsonConvert.SerializeObject(webhook);
+
+                    Task.Run(async () =>
+                    {
+                        try
+                        {
+                            using (var client = new HttpClient())
+                            {
+                                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                                await client.PostAsync(SettingsConfig.DiscordWebhook, content);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error(string.Format(Messages.DiscordWebhook_Failed, ex.Message));
+                        }
+                    });
+                }
+            } catch(Exception ex)
+            {
+                Log.Error(string.Format(Messages.DiscordWebhook_Failed, ex.Message));
+            }
+        }
+
+        private void Bot_PokemonFound(Pokemon pokemon)
+        {
+            SendPokemonWebhook(pokemon);
         }
 
         private void PokemonEncountered(Pokemon pokemon)
@@ -456,5 +498,17 @@ namespace Pokebot
         }
 
         #endregion
+
+        private void DiscordWebhookTextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                SettingsConfig.DiscordWebhook = _discordWebhookText.Text;
+                SettingsConfig.Save();
+            } catch(Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+        }
     }
 }

@@ -13,11 +13,13 @@ namespace Pokebot.Models
     {
         public bool Speed { get; set; }
         public bool Sound { get; set; }
+        public string DiscordWebhook { get; set; }
 
         public SettingsConfig()
         {
             Speed = false;
             Sound = false;
+            DiscordWebhook = string.Empty;
         }
 
         public bool Save()

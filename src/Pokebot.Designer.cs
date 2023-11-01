@@ -33,6 +33,10 @@
             this._accelerateCheckbox = new System.Windows.Forms.CheckBox();
             this._tabControl = new System.Windows.Forms.TabControl();
             this._tabSettingsPage = new System.Windows.Forms.TabPage();
+            this._discordWebhookLabel = new System.Windows.Forms.Label();
+            this._discordWebhookText = new System.Windows.Forms.TextBox();
+            this._injectSeedButton = new System.Windows.Forms.Button();
+            this._seedText = new System.Windows.Forms.NumericUpDown();
             this._pauseCheckbox = new System.Windows.Forms.CheckBox();
             this._soundCheckbox = new System.Windows.Forms.CheckBox();
             this._tabLogsPage = new System.Windows.Forms.TabPage();
@@ -53,14 +57,12 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._tabPagePokemon = new System.Windows.Forms.TabPage();
             this._versionLabel = new System.Windows.Forms.Label();
-            this._seedText = new System.Windows.Forms.NumericUpDown();
-            this._injectSeedButton = new System.Windows.Forms.Button();
             this._tabControl.SuspendLayout();
             this._tabSettingsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._seedText)).BeginInit();
             this._tabLogsPage.SuspendLayout();
             this._tabBotPage.SuspendLayout();
             this._tabStatsPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._seedText)).BeginInit();
             this.SuspendLayout();
             // 
             // _statusLabel
@@ -108,6 +110,8 @@
             // 
             // _tabSettingsPage
             // 
+            this._tabSettingsPage.Controls.Add(this._discordWebhookLabel);
+            this._tabSettingsPage.Controls.Add(this._discordWebhookText);
             this._tabSettingsPage.Controls.Add(this._injectSeedButton);
             this._tabSettingsPage.Controls.Add(this._seedText);
             this._tabSettingsPage.Controls.Add(this._pauseCheckbox);
@@ -120,6 +124,40 @@
             this._tabSettingsPage.TabIndex = 0;
             this._tabSettingsPage.Text = "Settings";
             this._tabSettingsPage.UseVisualStyleBackColor = true;
+            // 
+            // _discordWebhookLabel
+            // 
+            this._discordWebhookLabel.AutoSize = true;
+            this._discordWebhookLabel.Location = new System.Drawing.Point(253, 116);
+            this._discordWebhookLabel.Name = "_discordWebhookLabel";
+            this._discordWebhookLabel.Size = new System.Drawing.Size(116, 16);
+            this._discordWebhookLabel.TabIndex = 9;
+            this._discordWebhookLabel.Text = "Discord Webhook";
+            // 
+            // _discordWebhookText
+            // 
+            this._discordWebhookText.Location = new System.Drawing.Point(6, 113);
+            this._discordWebhookText.Name = "_discordWebhookText";
+            this._discordWebhookText.Size = new System.Drawing.Size(241, 22);
+            this._discordWebhookText.TabIndex = 8;
+            this._discordWebhookText.TextChanged += new System.EventHandler(this.DiscordWebhookTextChanged);
+            // 
+            // _injectSeedButton
+            // 
+            this._injectSeedButton.Location = new System.Drawing.Point(132, 84);
+            this._injectSeedButton.Name = "_injectSeedButton";
+            this._injectSeedButton.Size = new System.Drawing.Size(115, 23);
+            this._injectSeedButton.TabIndex = 7;
+            this._injectSeedButton.Text = "Inject Seed";
+            this._injectSeedButton.UseVisualStyleBackColor = true;
+            this._injectSeedButton.Click += new System.EventHandler(this.InjectSeedClicked);
+            // 
+            // _seedText
+            // 
+            this._seedText.Location = new System.Drawing.Point(6, 84);
+            this._seedText.Name = "_seedText";
+            this._seedText.Size = new System.Drawing.Size(120, 22);
+            this._seedText.TabIndex = 6;
             // 
             // _pauseCheckbox
             // 
@@ -304,23 +342,6 @@
             this._versionLabel.TabIndex = 3;
             this._versionLabel.Text = "Pokebot v";
             // 
-            // _seedText
-            // 
-            this._seedText.Location = new System.Drawing.Point(6, 84);
-            this._seedText.Name = "_seedText";
-            this._seedText.Size = new System.Drawing.Size(120, 22);
-            this._seedText.TabIndex = 6;
-            // 
-            // _injectSeedButton
-            // 
-            this._injectSeedButton.Location = new System.Drawing.Point(132, 84);
-            this._injectSeedButton.Name = "_injectSeedButton";
-            this._injectSeedButton.Size = new System.Drawing.Size(115, 23);
-            this._injectSeedButton.TabIndex = 7;
-            this._injectSeedButton.Text = "Inject Seed";
-            this._injectSeedButton.UseVisualStyleBackColor = true;
-            this._injectSeedButton.Click += new System.EventHandler(this.InjectSeedClicked);
-            // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -335,11 +356,11 @@
             this._tabControl.ResumeLayout(false);
             this._tabSettingsPage.ResumeLayout(false);
             this._tabSettingsPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._seedText)).EndInit();
             this._tabLogsPage.ResumeLayout(false);
             this._tabBotPage.ResumeLayout(false);
             this._tabBotPage.PerformLayout();
             this._tabStatsPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this._seedText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,5 +395,7 @@
         private System.Windows.Forms.TabPage _tabPagePokemon;
         private System.Windows.Forms.Button _injectSeedButton;
         private System.Windows.Forms.NumericUpDown _seedText;
+        private System.Windows.Forms.TextBox _discordWebhookText;
+        private System.Windows.Forms.Label _discordWebhookLabel;
     }
 }

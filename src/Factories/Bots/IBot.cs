@@ -15,6 +15,9 @@ namespace Pokebot.Factories.Bots
         delegate void PokemonEncounterEventHandler(Pokemon pokemon);
         event PokemonEncounterEventHandler? PokemonEncountered;
 
+        delegate void PokemonFoundEventHandler(Pokemon pokemon);
+        event PokemonFoundEventHandler? PokemonFound;
+
         delegate void StateChangedEventHandler(bool enabled);
         event StateChangedEventHandler? StateChanged;
 

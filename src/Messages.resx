@@ -138,6 +138,54 @@
   <data name="Bot_Running" xml:space="preserve">
     <value>Bot is running...</value>
   </data>
+  <data name="DiscordWebhook_Failed" xml:space="preserve">
+    <value>Failed to send discord webhook: {0}</value>
+  </data>
+  <data name="Discord_Ability" xml:space="preserve">
+    <value>Ability</value>
+  </data>
+  <data name="Discord_Content" xml:space="preserve">
+    <value>The bot stopped because a pokemon with your filters has been encountered ! :partying_face:</value>
+  </data>
+  <data name="Discord_Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="Discord_IVAttack" xml:space="preserve">
+    <value>IV Attack</value>
+  </data>
+  <data name="Discord_IVDefense" xml:space="preserve">
+    <value>IV Defense</value>
+  </data>
+  <data name="Discord_IVHp" xml:space="preserve">
+    <value>IV Hp</value>
+  </data>
+  <data name="Discord_IVSpAttack" xml:space="preserve">
+    <value>IV Sp. Attack</value>
+  </data>
+  <data name="Discord_IVSpDefense" xml:space="preserve">
+    <value>IV Sp. Defense</value>
+  </data>
+  <data name="Discord_IVSpeed" xml:space="preserve">
+    <value>IV Speed</value>
+  </data>
+  <data name="Discord_Nature" xml:space="preserve">
+    <value>Nature</value>
+  </data>
+  <data name="Discord_PokemonName" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="Discord_Shiny" xml:space="preserve">
+    <value>Shiny</value>
+  </data>
+  <data name="Discord_ShinyNo" xml:space="preserve">
+    <value>No :x:</value>
+  </data>
+  <data name="Discord_ShinyYes" xml:space="preserve">
+    <value>Yes :white_check_mark:</value>
+  </data>
+  <data name="Discord_Trainer" xml:space="preserve">
+    <value>Trainer</value>
+  </data>
   <data name="Error_ReadingBotType" xml:space="preserve">
     <value>Error occurred while reading bot type.</value>
   </data>

@@ -26,6 +26,7 @@ namespace Pokebot.Factories.Bots
 
         public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
         public event IBot.StateChangedEventHandler? StateChanged;
+        public event IBot.PokemonFoundEventHandler? PokemonFound;
 
         private List<uint> _seedsHistory;
 
@@ -105,6 +106,7 @@ namespace Pokebot.Factories.Bots
                 if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
                     Log.Info(Messages.Pokemon_Found);
+                    PokemonFound?.Invoke(pokemon);
                     Stop();
                 }
                 else
