@@ -75,7 +75,17 @@ namespace Pokebot
         public IBot? Bot { get; private set; }
 
         protected override string WindowTitleStatic => Messages.AppName;
-        private PokemonViewerPanel PokemonViewerPanel { get; }
+        public PokemonViewerPanel PokemonViewerPanel { get; }
+        private SettingsConfig _settingsConfig;
+        public SettingsConfig SettingsConfig
+        {
+            get => _settingsConfig;
+            set
+            {
+                _settingsConfig = value;
+                UpdateSettings();
+            }
+        }
 
         #region Init
 
@@ -95,6 +105,8 @@ namespace Pokebot
             _tabPagePokemon.Controls.Add(PokemonViewerPanel);
 
             _versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
+
+            SettingsConfig = SettingsConfig.Load();
         }
 
         private void InitAPIContainer()
@@ -248,11 +260,19 @@ namespace Pokebot
 
         #region Settings
 
+        private void UpdateSettings()
+        {
+            _accelerateCheckbox.Checked = SettingsConfig.Speed;
+            _soundCheckbox.Checked = SettingsConfig.Sound;
+        }
+
         private void AccelerateCheckChanged(object sender, EventArgs e)
         {
             if (sender is CheckBox checkBox)
             {
-                APIContainer?.Emulation.LimitFramerate(!checkBox.Checked);
+                SettingsConfig.Speed = checkBox.Checked;
+                APIContainer?.Emulation.LimitFramerate(!SettingsConfig.Speed);
+                SettingsConfig.Save();
             }
         }
 
@@ -260,7 +280,9 @@ namespace Pokebot
         {
             if (sender is CheckBox checkBox)
             {
-                APIContainer?.EmuClient.SetSoundOn(checkBox.Checked);
+                SettingsConfig.Sound = checkBox.Checked;
+                APIContainer?.EmuClient.SetSoundOn(SettingsConfig.Sound);
+                SettingsConfig.Save();
             }
         }
 

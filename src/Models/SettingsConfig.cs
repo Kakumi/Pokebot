@@ -1,0 +1,77 @@
+﻿using Newtonsoft.Json;
+using Pokebot.Utils;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Pokebot.Models
+{
+    public class SettingsConfig
+    {
+        public bool Speed { get; set; }
+        public bool Sound { get; set; }
+
+        public SettingsConfig()
+        {
+            Speed = false;
+            Sound = false;
+        }
+
+        public bool Save()
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(this);
+                Directory.CreateDirectory(GetDirectory());
+                File.WriteAllText(GetFile(), json);
+            } catch(Exception ex)
+            {
+                Log.Error(ex.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static SettingsConfig Load()
+        {
+            try
+            {
+                SettingsConfig? config = null;
+
+                var file = GetFile();
+                if (File.Exists(file))
+                {
+                    var json = File.ReadAllText(file);
+                    config = JsonConvert.DeserializeObject<SettingsConfig>(json);
+                }
+
+                if (config == null)
+                {
+                    config = new SettingsConfig();
+                }
+
+                return config;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                return new SettingsConfig();
+            }
+        }
+
+        private static string GetDirectory()
+        {
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            return Path.Combine(appData, "Pokebot");
+        }
+
+        private static string GetFile()
+        {
+            return Path.Combine(GetDirectory(), "config.json");
+        }
+    }
+}
