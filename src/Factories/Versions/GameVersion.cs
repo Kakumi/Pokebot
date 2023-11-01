@@ -66,8 +66,8 @@ namespace Pokebot.Factories.Versions
 
             //Get original trainer
             var OT = bytesPokemon.Skip(4).Take(4).ToUInt32();
-            var OTID = bytesPokemon.Skip(4).Take(2).ToInt16() & 0xFFFF; //without 0xFFFF it can be negative and it's an error -> https://coderanch.com/t/662971/java/bytes-array-positive-values-decimal
-            var OTSID = bytesPokemon.Skip(6).Take(2).ToInt16() & 0xFFFF;
+            var OTID = bytesPokemon.Skip(4).Take(2).ToUInt16(); //without 0xFFFF it can be negative and it's an error -> https://coderanch.com/t/662971/java/bytes-array-positive-values-decimal
+            var OTSID = bytesPokemon.Skip(6).Take(2).ToUInt16();
 
             //Get nickname
             var nickname = GetBytesText(bytesPokemon.Skip(8).Take(10).ToArray());
@@ -100,7 +100,7 @@ namespace Pokebot.Factories.Versions
                 for (int k = 0; k < 6; k++)
                 {
                     byte[] bytesToAdd = subStructuresData[subStructure].Skip(k * 2).Take(2).ToArray();
-                    calculatedChecksum += bytesToAdd.ToInt16();
+                    calculatedChecksum += bytesToAdd.ToUInt16();
                     calculatedChecksum &= 0xFFFF;
                 }
             }
@@ -116,8 +116,8 @@ namespace Pokebot.Factories.Versions
             #region Growth Info
             //https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_data_substructures_(Generation_III)
 
-            var species = subStructuresData['G'].Take(2).ToInt16();
-            var heldItem = GenerationInfo.Items.First(x => x.Id == subStructuresData['G'].Skip(2).Take(2).ToInt16());
+            var species = subStructuresData['G'].Take(2).ToUInt16();
+            var heldItem = GenerationInfo.Items.First(x => x.Id == subStructuresData['G'].Skip(2).Take(2).ToUInt16());
             var experience = subStructuresData['G'].Skip(4).Take(4).ToUInt32();
             var ppBonuses = (int)subStructuresData['G'][8];
             var friendship = (int)subStructuresData['G'][9];
@@ -130,7 +130,7 @@ namespace Pokebot.Factories.Versions
             var attacks = new List<PokemonAttack>();
             for (var i = 0; i < 4; i++)
             {
-                var codeMove = subStructuresData['A'].Skip(i * 2).Take(2).ToInt16();
+                var codeMove = subStructuresData['A'].Skip(i * 2).Take(2).ToUInt16();
                 if (codeMove != 0)
                 {
                     var move = GenerationInfo.Moves.First(x => x.Id == codeMove);
@@ -165,7 +165,7 @@ namespace Pokebot.Factories.Versions
             var pokerusDays = subStructuresData['M'][0] & 0xF;
             var pokerusStrain = subStructuresData['M'][0] >> 0x4;
             var metLocation = GenerationInfo.Locations.First(x => x.Id == subStructuresData['M'][1]);
-            var originsInfo = subStructuresData['M'].Skip(2).Take(2).ToInt16();
+            var originsInfo = subStructuresData['M'].Skip(2).Take(2).ToUInt16();
             var trainerGenderMale = originsInfo >> 0xF == 0; //Move 15 bits
             var metLevel = originsInfo & 0x7F; //Compare 7 bits to 01111111
             var isHatched = metLevel == 0;
@@ -274,13 +274,13 @@ namespace Pokebot.Factories.Versions
                 var statusCondition = (PokemonStatusType)bytesPokemon.Skip(80).Take(4).ToUInt32();
                 var level = (int)bytesPokemon[84];
                 var hasPokerus = bytesPokemon[85] == 0; //0 is cured
-                var currentHP = bytesPokemon.Skip(86).Take(2).ToInt16();
-                var totalHP = bytesPokemon.Skip(88).Take(2).ToInt16();
-                var attack = bytesPokemon.Skip(90).Take(2).ToInt16();
-                var defense = bytesPokemon.Skip(92).Take(2).ToInt16();
-                var speed = bytesPokemon.Skip(94).Take(2).ToInt16();
-                var spAttack = bytesPokemon.Skip(96).Take(2).ToInt16();
-                var spDefense = bytesPokemon.Skip(98).Take(2).ToInt16();
+                var currentHP = bytesPokemon.Skip(86).Take(2).ToUInt16();
+                var totalHP = bytesPokemon.Skip(88).Take(2).ToUInt16();
+                var attack = bytesPokemon.Skip(90).Take(2).ToUInt16();
+                var defense = bytesPokemon.Skip(92).Take(2).ToUInt16();
+                var speed = bytesPokemon.Skip(94).Take(2).ToUInt16();
+                var spAttack = bytesPokemon.Skip(96).Take(2).ToUInt16();
+                var spDefense = bytesPokemon.Skip(98).Take(2).ToUInt16();
 
                 return new PartyPokemon(
                     originalTrainer,
@@ -364,10 +364,10 @@ namespace Pokebot.Factories.Versions
             var runningState = (PlayerRunningState)bytesGPlayer[2];
             var transitionState = (TileTransitionState)bytesGPlayer[3];
             var gender = bytesGPlayer[7] == 0;
-            var currentX = bytesObjects.Skip(0x10).Take(2).ToInt16();
-            var currentY = bytesObjects.Skip(0x12).Take(2).ToInt16();
-            var previousX = bytesObjects.Skip(0x14).Take(2).ToInt16();
-            var previousY = bytesObjects.Skip(0x16).Take(2).ToInt16();
+            var currentX = bytesObjects.Skip(0x10).Take(2).ToUInt16();
+            var currentY = bytesObjects.Skip(0x12).Take(2).ToUInt16();
+            var previousX = bytesObjects.Skip(0x14).Take(2).ToUInt16();
+            var previousY = bytesObjects.Skip(0x16).Take(2).ToUInt16();
             var currentPosition = new Position(currentX, currentY);
             var prevPosition = new Position(previousX, previousY);
             var facingDirection = (PlayerFacingDirection)bytesObjects[0x18];
@@ -555,6 +555,12 @@ namespace Pokebot.Factories.Versions
             var bytes = BitConverter.GetBytes(seed);
             var symbol = Symbols.First(x => x.Name == "gRngValue");
             SymbolUtil.Write(APIContainer, symbol, bytes);
+        }
+
+        public virtual uint GetSeed()
+        {
+            var symbol = Symbols.First(x => x.Name == "gRngValue");
+            return SymbolUtil.Read(APIContainer, symbol).ToUInt32();
         }
     }
 }

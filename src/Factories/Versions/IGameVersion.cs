@@ -29,5 +29,6 @@ namespace Pokebot.Factories.Versions
         int GetActionSelectionCursor();
         uint SetRandomSeed();
         void SetSeed(uint seed);
+        uint GetSeed();
     }
 }
