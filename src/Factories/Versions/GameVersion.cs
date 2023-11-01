@@ -108,7 +108,7 @@ namespace Pokebot.Factories.Versions
             var valid = calculatedChecksum == checksum;
             if (!valid)
             {
-                throw new Exception($"Pokemon is not valid");
+                throw new Exception(Messages.Pokemon_NotValid);
             }
 
             #endregion
@@ -271,7 +271,7 @@ namespace Pokebot.Factories.Versions
             if (bytesPokemon.Length > 80)
             {
                 //Only inside party not PC
-                var statusCondition = (PokemonStatusType)bytesPokemon.Skip(80).Take(4).ToUInt32(); //TODO Tester
+                var statusCondition = (PokemonStatusType)bytesPokemon.Skip(80).Take(4).ToUInt32();
                 var level = (int)bytesPokemon[84];
                 var hasPokerus = bytesPokemon[85] == 0; //0 is cured
                 var currentHP = bytesPokemon.Skip(86).Take(2).ToInt16();

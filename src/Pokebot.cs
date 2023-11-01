@@ -27,6 +27,7 @@ using Pokebot.Factories.Bots;
 using Pokebot.Factories.Versions;
 using Pokebot.Exceptions;
 using System.Numerics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Pokebot
 {
@@ -73,7 +74,7 @@ namespace Pokebot
         public IGameVersion? GameVersion { get; private set; }
         public IBot? Bot { get; private set; }
 
-        protected override string WindowTitleStatic => "Pokebot";
+        protected override string WindowTitleStatic => Messages.AppName;
         private PokemonViewerPanel PokemonViewerPanel { get; }
 
         #region Init
@@ -114,9 +115,11 @@ namespace Pokebot
             _botPanel.Controls.Clear();
             _statsListView.Items.Clear();
             _botComboBox.SelectedIndex = 0;
-            _statusBot.Text = "Bot is not running";
+            _statusBot.Text = Messages.Bot_NotRunning;
             _startBotButton.Enabled = false;
             _stopBotButton.Enabled = false;
+
+            UpdateBotUI();
         }
 
         #endregion
@@ -173,12 +176,12 @@ namespace Pokebot
 
                         if (isEmpty)
                         {
-                            SetStatus("No ROM loaded", Color.Red);
+                            SetStatus(Messages.Rom_NotLoaded, Color.Red);
                         } else
                         {
                             GameVersion = VersionFactory.Create(APIContainer, gameInfo.Hash);
                             SetStatus(romName);
-                            Log.Info($"ROM {romName} loaded");
+                            Log.Info(string.Format(Messages.Rom_Loaded, romName));
                             IsRomLoaded = true;
                         }
                     }
@@ -279,23 +282,28 @@ namespace Pokebot
 
         #region Bot
 
+        private void UpdateBotUI()
+        {
+            if (IsReady)
+            {
+                _botPanel.Controls.Clear();
+
+                var value = (BotType)_botComboBox.SelectedItem;
+                var type = (BotCode)value.Code;
+                Bot = BotFactory.Create(type, APIContainer!, GameVersion!);
+                Bot.PokemonEncountered += PokemonEncountered;
+                Bot.StateChanged += Bot_StateChanged;
+                _botPanel.Controls.Add(Bot.GetPanel());
+                _startBotButton.Enabled = true;
+                _stopBotButton.Enabled = false;
+            }
+        }
+
         private void BotSelectionChanged(object sender, EventArgs e)
         {
             try
             {
-                if (sender is ComboBox comboBox)
-                {
-                    _botPanel.Controls.Clear();
-
-                    var value = (BotType)comboBox.SelectedItem;
-                    var type = (BotCode)value.Code;
-                    Bot = BotFactory.Create(type, APIContainer!, GameVersion!);
-                    Bot.PokemonEncountered += PokemonEncountered;
-                    Bot.StateChanged += Bot_StateChanged;
-                    _botPanel.Controls.Add(Bot.GetPanel());
-                    _startBotButton.Enabled = true;
-                    _stopBotButton.Enabled = false;
-                }
+                UpdateBotUI();
             }
             catch (NotSupportedException ex)
             {
@@ -303,7 +311,7 @@ namespace Pokebot
             }
             catch (Exception)
             {
-                Log.Error($"Error occurred while reading bot type.");
+                Log.Error(Messages.Error_ReadingBotType);
             }
         }
 
@@ -311,15 +319,15 @@ namespace Pokebot
         {
             if (enabled)
             {
+                _statsListView.Items.Clear();
                 _stopBotButton.Enabled = true;
                 _startBotButton.Enabled = false;
-                SetBotStatus("Bot is running...");
+                SetBotStatus(Messages.Bot_Running);
             } else
             {
                 _startBotButton.Enabled = true;
                 _stopBotButton.Enabled = false;
-                _statsListView.Items.Clear();
-                SetBotStatus("Bot is not running");
+                SetBotStatus(Messages.Bot_NotRunning);
             }
         }
 

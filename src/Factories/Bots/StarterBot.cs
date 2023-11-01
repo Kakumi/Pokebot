@@ -76,13 +76,13 @@ namespace Pokebot.Factories.Bots
                     }
                     else
                     {
-                        throw new BotException($"Bot is unable to start because the player is not in front of starters.");
+                        throw new BotException(Messages.BotStarter_WrongStartPosition);
                     }
                 }
 
                 if (GameVersion.GetPartyCount() != 0)
                 {
-                    throw new BotException("This bot cannot be used because the party is not empty.");
+                    throw new BotException(Messages.BotStarter_PartyNotEmpty);
                 }
 
                 UpdateSeed();
@@ -104,7 +104,7 @@ namespace Pokebot.Factories.Bots
                 PokemonEncountered?.Invoke(pokemon);
                 if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
-                    Log.Info($"Pokemon with filters found.");
+                    Log.Info(Messages.Pokemon_Found);
                     Stop();
                 }
                 else
@@ -136,7 +136,7 @@ namespace Pokebot.Factories.Bots
                     UpdateSeed();
                 } else
                 {
-                    throw new BotException($"Bot is unable to start because the save state doesn't exists anymore.");
+                    throw new BotException(Messages.BotStarter_InvalidSaveState);
                 }
             }
         }

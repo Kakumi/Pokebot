@@ -19434,20 +19434,16 @@
   ],
   "BotTypes": [
     {
-      "Name": "None",
+      "Name": "Starter",
       "Code": 0
     },
     {
-      "Name": "Starter",
+      "Name": "Spin",
       "Code": 1
     },
     {
-      "Name": "Spin",
-      "Code": 2
-    },
-    {
       "Name": "Egg",
-      "Code": 3
+      "Code": 2
     }
   ]
 }

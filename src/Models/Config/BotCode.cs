@@ -8,9 +8,8 @@ namespace Pokebot.Models.Config
 {
     public enum BotCode
     {
-        None = 0,
-        Starter = 1,
-        Spin = 2,
-        Egg = 3
+        Starter = 0,
+        Spin = 1,
+        Egg = 2
     }
 }

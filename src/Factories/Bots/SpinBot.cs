@@ -45,7 +45,7 @@ namespace Pokebot.Factories.Bots
             {
                 if (!GameVersion.ActionRunner.Spin())
                 {
-                    throw new BotException("Can't spin the player, next move is unknown");
+                    throw new BotException(Messages.SpinBot_UnknowNextMove);
                 }
             }
             else if (state == GameState.Battle || state == GameState.BagMenu)
@@ -59,7 +59,7 @@ namespace Pokebot.Factories.Bots
 
                 if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
-                    Log.Warn($"Pokemon with filters found. Catch it manually.");
+                    Log.Warn(Messages.Pokemon_FoundCatch);
                     Stop();
                 } else
                 {
@@ -76,7 +76,7 @@ namespace Pokebot.Factories.Bots
             var state = GameVersion.GetGameState();
             if (state != GameState.Overworld)
             {
-                throw new BotException("Start this bot while you are on the map");
+                throw new BotException(Messages.SpinBot_StartOnlyMap);
             }
         }
 

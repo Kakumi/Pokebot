@@ -18,8 +18,6 @@ namespace Pokebot.Factories
         {
             switch (code)
             {
-                case BotCode.None:
-                    break;
                 case BotCode.Starter:
                     return new StarterBot(apiContainer, gameVersion);
                 case BotCode.Spin:
@@ -28,7 +26,7 @@ namespace Pokebot.Factories
                     break;
             }
 
-            throw new NotSupportedException("Bot type is not supported");
+            throw new NotSupportedException(Messages.BotFactory_NotSupported);
         }
     }
 }

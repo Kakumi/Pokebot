@@ -50,7 +50,7 @@ namespace Pokebot.Factories
                 }
             }
 
-            throw new NotSupportedException("This ROM is not supported");
+            throw new NotSupportedException(Messages.Rom_NotSupported);
         }
     }
 }

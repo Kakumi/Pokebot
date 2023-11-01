@@ -39,7 +39,7 @@ namespace Pokebot.Panels
             var items = new List<ComboBoxItem>();
             if (any)
             {
-                items.Add(new ComboBoxItem(-1, "Any pokemon"));
+                items.Add(new ComboBoxItem(-1, Messages.Filter_AnyPokemon));
             }
             items.AddRange(pokemons.Select(x => new ComboBoxItem(x.Id, x.Name)));
             InitializeDefaultComboBox(_pokemonComboBox, items);
@@ -48,7 +48,7 @@ namespace Pokebot.Panels
         public void SetNatures(IEnumerable<PokemonNature> natures)
         {
             var items = new List<ComboBoxItem>();
-            items.Add(new ComboBoxItem(-1, "Any pokemon"));
+            items.Add(new ComboBoxItem(-1, Messages.Filter_AnyNature));
             items.AddRange(natures.Select(x => new ComboBoxItem(x.Id, x.Name)));
             InitializeDefaultComboBox(_naturesComboBox, items);
         }
@@ -56,7 +56,7 @@ namespace Pokebot.Panels
         public void SetTypes(IEnumerable<PokemonType> types)
         {
             var items = new List<ComboBoxItem>();
-            items.Add(new ComboBoxItem(-1, "Any type"));
+            items.Add(new ComboBoxItem(-1, Messages.Filter_AnyType));
             items.AddRange(types.Select(x => new ComboBoxItem(x.Id, x.Name)));
             InitializeDefaultComboBox(_typesComboBox, items);
         }
@@ -64,7 +64,7 @@ namespace Pokebot.Panels
         public void SetItems(IEnumerable<PokemonItem> pokemonItems)
         {
             var items = new List<ComboBoxItem>();
-            items.Add(new ComboBoxItem(-1, "Any item"));
+            items.Add(new ComboBoxItem(-1, Messages.Filter_AnyItem));
             items.AddRange(pokemonItems.Select(x => new ComboBoxItem(x.Id, x.Name)));
             InitializeDefaultComboBox(_heldItemComboBox, items);
         }

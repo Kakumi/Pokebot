@@ -29,29 +29,29 @@ namespace Pokebot.Panels
                 sb.Append(" (").Append(partyPokemon.Level).Append(")");
             }
             _pokemonName.Text = sb.ToString();
-            _natureLabel.Text = $"Nature: {pokemon.Nature.Name}";
-            _abilityLabel.Text = $"Ability: {pokemon.Ability}";
-            _hiddenPowerType.Text = $"Hidden power type: {pokemon.HiddenPower.Name}";
-            _hiddenPowerDamage.Text = $"Hidden power damage: {pokemon.HiddenPowerDamage}";
-            _itemLabel.Text = $"Item: {pokemon.HeldItem?.Name ?? "Nothing"}";
+            _natureLabel.Text = string.Format(Messages.Viewer_Nature, pokemon.Nature.Name);
+            _abilityLabel.Text = string.Format(Messages.Viewer_Ability, pokemon.Ability);
+            _hiddenPowerType.Text = string.Format(Messages.Viewer_HiddenPowerType, pokemon.HiddenPower.Name);
+            _hiddenPowerDamage.Text = string.Format(Messages.Viewer_HiddenPowerDamage, pokemon.HiddenPowerDamage);
+            _itemLabel.Text = string.Format(Messages.Viewer_Item, pokemon.HeldItem?.Name ?? Messages.Item_Nothing);
             var imageName = pokemon.RealName.ToLower().Replace("-", "_");
             if (pokemon.IsShiny)
             {
                 _pokemonPictureBox.Image = (Image)ResourcesPokemonShiny.ResourceManager.GetObject(imageName);
-                _shinyLabel.Text = $"Shiny";
+                _shinyLabel.Text = Messages.Viewer_Shiny;
                 _shinyLabel.ForeColor = Color.Green;
             } else
             {
                 _pokemonPictureBox.Image = (Image)ResourcesPokemon.ResourceManager.GetObject(imageName);
-                _shinyLabel.Text = $"Not Shiny";
+                _shinyLabel.Text = Messages.Viewer_NotShiny;
                 _shinyLabel.ForeColor = Color.Red;
             }
-            _ivHPLabel.Text = $"IV: {pokemon.IVs.HP}";
-            _ivSpeedLabel.Text = $"Speed: {pokemon.IVs.Speed}";
-            _ivAttackLabel.Text = $"Attack: {pokemon.IVs.Attack}";
-            _ivDefenseLabel.Text = $"Defense: {pokemon.IVs.Defense}";
-            _ivSpAttackLabel.Text = $"Sp. Attack: {pokemon.IVs.SpAttack}";
-            _ivSpDefenseLabel.Text = $"Sp. Defense: {pokemon.IVs.SpDefense}";
+            _ivHPLabel.Text = string.Format(Messages.Viewer_HP, pokemon.IVs.HP);
+            _ivSpeedLabel.Text = string.Format(Messages.Viewer_Speed, pokemon.IVs.Speed);
+            _ivAttackLabel.Text = string.Format(Messages.Viewer_Attack, pokemon.IVs.Attack);
+            _ivDefenseLabel.Text = string.Format(Messages.Viewer_Defense, pokemon.IVs.Defense);
+            _ivSpAttackLabel.Text = string.Format(Messages.Viewer_SpAttack, pokemon.IVs.SpAttack);
+            _ivSpDefenseLabel.Text = string.Format(Messages.Viewer_SpDefense, pokemon.IVs.SpDefense);
             SetMove(_move1Label, 0, pokemon);
             SetMove(_move2Label, 1, pokemon);
             SetMove(_move3Label, 2, pokemon);
@@ -63,10 +63,10 @@ namespace Pokebot.Panels
             if (index < pokemon.Moves.Count)
             {
                 var move = pokemon.Moves[index];
-                moveLabel.Text = $"{move.MoveInfo.Name} ({move.PP}/{move.MoveInfo.PP})";
+                moveLabel.Text = string.Format(Messages.Viewer_Move, move.MoveInfo.Name, move.PP, move.MoveInfo.PP);
             } else
             {
-                moveLabel.Text = "/";
+                moveLabel.Text = Messages.Viewer_NoMove;
             }
         }
     }
