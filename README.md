@@ -65,9 +65,9 @@ The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/
 * Add bot for legendary
 * Add bot for fishing
 * Show trainer ID & Secret in the view
-* Inject custom seed
-* Discord Webhook
-* Save & load settings to/from config file
+* Inject custom seed ✔️
+* Discord Webhook ✔️
+* Save & load settings to/from config file ✔️
 
 # <a name="sources"></a>Sources
 * [BizHawk Documentation](https://github.com/TASEmulators/BizHawk)
