@@ -53,11 +53,14 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._tabPagePokemon = new System.Windows.Forms.TabPage();
             this._versionLabel = new System.Windows.Forms.Label();
+            this._seedText = new System.Windows.Forms.NumericUpDown();
+            this._injectSeedButton = new System.Windows.Forms.Button();
             this._tabControl.SuspendLayout();
             this._tabSettingsPage.SuspendLayout();
             this._tabLogsPage.SuspendLayout();
             this._tabBotPage.SuspendLayout();
             this._tabStatsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._seedText)).BeginInit();
             this.SuspendLayout();
             // 
             // _statusLabel
@@ -105,6 +108,8 @@
             // 
             // _tabSettingsPage
             // 
+            this._tabSettingsPage.Controls.Add(this._injectSeedButton);
+            this._tabSettingsPage.Controls.Add(this._seedText);
             this._tabSettingsPage.Controls.Add(this._pauseCheckbox);
             this._tabSettingsPage.Controls.Add(this._soundCheckbox);
             this._tabSettingsPage.Controls.Add(this._accelerateCheckbox);
@@ -299,6 +304,23 @@
             this._versionLabel.TabIndex = 3;
             this._versionLabel.Text = "Pokebot v";
             // 
+            // _seedText
+            // 
+            this._seedText.Location = new System.Drawing.Point(6, 84);
+            this._seedText.Name = "_seedText";
+            this._seedText.Size = new System.Drawing.Size(120, 22);
+            this._seedText.TabIndex = 6;
+            // 
+            // _injectSeedButton
+            // 
+            this._injectSeedButton.Location = new System.Drawing.Point(132, 84);
+            this._injectSeedButton.Name = "_injectSeedButton";
+            this._injectSeedButton.Size = new System.Drawing.Size(115, 23);
+            this._injectSeedButton.TabIndex = 7;
+            this._injectSeedButton.Text = "Inject Seed";
+            this._injectSeedButton.UseVisualStyleBackColor = true;
+            this._injectSeedButton.Click += new System.EventHandler(this.InjectSeedClicked);
+            // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -317,6 +339,7 @@
             this._tabBotPage.ResumeLayout(false);
             this._tabBotPage.PerformLayout();
             this._tabStatsPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._seedText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,5 +372,7 @@
         private System.Windows.Forms.Label _statusBot;
         private System.Windows.Forms.Button _stopBotButton;
         private System.Windows.Forms.TabPage _tabPagePokemon;
+        private System.Windows.Forms.Button _injectSeedButton;
+        private System.Windows.Forms.NumericUpDown _seedText;
     }
 }

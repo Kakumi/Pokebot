@@ -28,5 +28,6 @@ namespace Pokebot.Factories.Versions
         ICollection<GTask> GetTasks();
         int GetActionSelectionCursor();
         uint SetRandomSeed();
+        void SetSeed(uint seed);
     }
 }

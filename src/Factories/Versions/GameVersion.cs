@@ -540,16 +540,21 @@ namespace Pokebot.Factories.Versions
 
         public virtual uint SetRandomSeed()
         {
-            var symbol = Symbols.First(x => x.Name == "gRngValue");
-
             Random random = new Random();
             var bytes = new byte[4];
             random.NextBytes(bytes);
             uint randomNumber = bytes.ToUInt32();
 
-            SymbolUtil.Write(APIContainer, symbol, bytes);
+            SetSeed(randomNumber);
 
             return randomNumber;
+        }
+
+        public virtual void SetSeed(uint seed)
+        {
+            var bytes = BitConverter.GetBytes(seed);
+            var symbol = Symbols.First(x => x.Name == "gRngValue");
+            SymbolUtil.Write(APIContainer, symbol, bytes);
         }
     }
 }

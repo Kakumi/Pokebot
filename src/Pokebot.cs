@@ -76,10 +76,10 @@ namespace Pokebot
 
         protected override string WindowTitleStatic => Messages.AppName;
         public PokemonViewerPanel PokemonViewerPanel { get; }
-        private SettingsConfig _settingsConfig;
+        private SettingsConfig? _settingsConfig;
         public SettingsConfig SettingsConfig
         {
-            get => _settingsConfig;
+            get => _settingsConfig!;
             set
             {
                 _settingsConfig = value;
@@ -299,6 +299,15 @@ namespace Pokebot
             if (success ?? false)
             {
                 IsRomLoaded = APIContainer?.EmuClient.LoadState("wild") ?? false; //starter
+            }
+        }
+
+        private void InjectSeedClicked(object sender, EventArgs e)
+        {
+            if (IsReady)
+            {
+                uint value = (uint)_seedText.Value;
+                GameVersion!.SetSeed(value);
             }
         }
 
