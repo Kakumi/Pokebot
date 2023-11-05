@@ -26,14 +26,16 @@ Jump to:
 * Download [this tool](https://github.com/Kakumi/Pokebot/releases/latest)
 
 # <a name="install"></a>Installation
-Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open BizHawk and click on "Tools" -> "External Tools" -> "Pokebot". A window should open. Just load your pokemon officiel ROM in BizHawk and Pokebot will automatically update the window if the game is [supported](#supported-games).
+Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open BizHawk and click on "Tools" -> "External Tool" -> "Pokebot". A window should open. Just load your pokemon officiel ROM in BizHawk and Pokebot will automatically update the window if the game is [supported](#supported-games).
 
 # <a name="supported-games"></a>Supported Games
-* Pokemon Emerald (D,I,F,J,S)
-* Pokemon Ruby (D,I,F,J,S)
-* Pokemon Sapphire (D,I,F,J,S)
-* Pokemon Fire Red (D,I,F,J,S)
-* Pokemon Leaf Green (D,I,F,J,S)
+* Pokemon Emerald (E,D,I,F,J,S)
+* Pokemon Ruby (E,D,I,F,J,S)
+* Pokemon Sapphire (E,D,I,F,J,S)
+* Pokemon Fire Red (E,D,I,F,J,S)
+* Pokemon Leaf Green (E,D,I,F,J,S)
+
+_Only the English and French versions have been tested._
 
 # <a name="overview"></a>
 ## <a name="overview-video"></a>Video
@@ -59,12 +61,13 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 # <a name="code-documentation"></a>Code Documentation
 The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/wiki). You will find explanations on how to add supported games, bots or even features.
 
-# <a name="todo"></a>Todo & Ideas
+# <a name="todo"></a>Todo & Ideas (implementation not comfirmed)
 * Add feature that works with [PokeFinder](https://github.com/Admiral-Fish/PokeFinder)
 * Add bot for eggs
 * Add bot for legendary
 * Add bot for fishing
 * Show trainer ID & Secret in the view
+* Ability to execute bot every x seconds instead of every frame
 * Inject custom seed ✔️
 * Discord Webhook ✔️
 * Save & load settings to/from config file ✔️
