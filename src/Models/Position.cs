@@ -47,7 +47,7 @@ namespace Pokebot.Models
 
         public static bool operator ==(Position? pos1, Position? pos2)
         {
-            if (pos1 == null || pos2 == null)
+            if (pos1 is null || pos2 is null)
             {
                 return false;
             }
@@ -57,12 +57,7 @@ namespace Pokebot.Models
 
         public static bool operator !=(Position? pos1, Position? pos2)
         {
-            if (pos1 == null || pos2 == null)
-            {
-                return pos1 != pos2;
-            }
-
-            return !pos1.Equals(pos2);
+            return !(pos1 == pos2);
         }
     }
 }
