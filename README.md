@@ -37,7 +37,7 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 
 _Only the English and French versions have been tested._
 
-# <a name="overview"></a>
+# <a name="overview"></a>Overview
 ## <a name="overview-video"></a>Video
 
 ## <a name="overview-features"></a>Features
