@@ -27,6 +27,7 @@ namespace Pokebot.Factories.Versions
         GameState GetGameState();
         ICollection<GTask> GetTasks();
         int GetActionSelectionCursor();
+        uint SetRandomRNG();
         uint SetRandomSeed();
         void SetSeed(uint seed);
         uint GetSeed();

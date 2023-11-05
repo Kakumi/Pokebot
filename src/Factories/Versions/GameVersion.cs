@@ -538,6 +538,19 @@ namespace Pokebot.Factories.Versions
             return bytes[0];
         }
 
+        public virtual uint SetRandomRNG()
+        {
+            Random random = new Random();
+            var bytes = new byte[4];
+            random.NextBytes(bytes);
+            uint randomNumber = bytes.ToUInt32();
+
+            var symbol = Symbols.First(x => x.Name == "gRngValue");
+            SymbolUtil.Write(APIContainer, symbol, bytes);
+
+            return randomNumber;
+        }
+
         public virtual uint SetRandomSeed()
         {
             Random random = new Random();
@@ -553,14 +566,14 @@ namespace Pokebot.Factories.Versions
         public virtual void SetSeed(uint seed)
         {
             var bytes = BitConverter.GetBytes(seed);
-            var symbol = Symbols.First(x => x.Name == "gRngValue");
+            var symbol = Symbols.First(x => x.Name == "SeedRng");
             SymbolUtil.Write(APIContainer, symbol, bytes);
         }
 
         public virtual uint GetSeed()
         {
-            var symbol = Symbols.First(x => x.Name == "gRngValue");
-            return SymbolUtil.Read(APIContainer, symbol).ToUInt32();
+            var symbol = Symbols.First(x => x.Name == "SeedRng");
+            return SymbolUtil.Read(APIContainer, symbol, 0, 4).ToUInt32();
         }
     }
 }

@@ -106,6 +106,8 @@ namespace Pokebot
             PokemonViewerPanel.Hide();
             _tabPagePokemon.Controls.Clear();
             _tabPagePokemon.Controls.Add(PokemonViewerPanel);
+            _seedText.Minimum = 0;
+            _seedText.Maximum = uint.MaxValue;
 
             _versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
 
@@ -135,6 +137,11 @@ namespace Pokebot
             _stopBotButton.Enabled = false;
 
             UpdateBotUI();
+            
+            if (IsReady)
+            {
+                _seedText.Value = GameVersion!.GetSeed();
+            }
         }
 
         #endregion
