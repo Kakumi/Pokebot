@@ -421,6 +421,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à No symbols found for this game..
+        /// </summary>
+        internal static string Symbols_Empty {
+            get {
+                return ResourceManager.GetString("Symbols_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Ability: {0}.
         /// </summary>
         internal static string Viewer_Ability {

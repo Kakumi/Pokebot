@@ -10,6 +10,6 @@ namespace Pokebot.Models.Config
         public List<HashData> Hashs { get; set; }
         public int Generation { get; set; }
         public List<PokemonStarterConfig> Starters { get; set; }
-        public BotConfig BotConfig { get; set; }
+        public BotConfig BotsConfig { get; set; }
     }
 }

@@ -237,6 +237,9 @@
   <data name="SpinBot_UnknowNextMove" xml:space="preserve">
     <value>Can't spin the player, next move is unknown</value>
   </data>
+  <data name="Symbols_Empty" xml:space="preserve">
+    <value>No symbols found for this game.</value>
+  </data>
   <data name="Viewer_Ability" xml:space="preserve">
     <value>Ability: {0}</value>
   </data>

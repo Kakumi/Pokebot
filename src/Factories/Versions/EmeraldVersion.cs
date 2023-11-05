@@ -16,7 +16,7 @@ namespace Pokebot.Factories.Versions
         public override IActionRunner ActionRunner { get; }
 
         public EmeraldVersion(ApiContainer apiContainer, VersionInfo versionInfo, HashData hashData, GenerationInfo generationInfo) 
-            : base(apiContainer, versionInfo, hashData, generationInfo, Resources.pokeemerald)
+            : base(apiContainer, versionInfo, hashData, generationInfo)
         {
             ActionRunner = new EmeraldRubySapphireActionRunner(APIContainer, this);
         }

@@ -1,6 +1,7 @@
 ﻿using BizHawk.Client.Common;
 using BizHawk.Common;
 using BizHawk.Emulation.Common;
+using Pokebot.Exceptions;
 using Pokebot.Factories.Versions;
 using Pokebot.Models.Config;
 using Pokebot.Properties;
@@ -37,7 +38,12 @@ namespace Pokebot.Factories
                     var version = tupleVersion.Item1;
                     var hashData = tupleVersion.Item2;
 
-                    var generation = config.Generations.FirstOrDefault(x => x.Code == version.Code);
+                    if (string.IsNullOrEmpty(hashData.Symbols?.Main))
+                    {
+                        throw new PokebotException(Messages.Symbols_Empty);
+                    }
+
+                    var generation = config.Generations.FirstOrDefault(x => x.Code == version.Generation);
                     if (generation != null)
                     {
                         var versionType = (VersionCode)version.Code;
@@ -45,6 +51,14 @@ namespace Pokebot.Factories
                         {
                             case VersionCode.Emerald:
                                 return new EmeraldVersion(apiContainer, version, hashData, generation);
+                            case VersionCode.Sapphire:
+                                return new SapphireVersion(apiContainer, version, hashData, generation);
+                            case VersionCode.Ruby:
+                                return new RubyVersion(apiContainer, version, hashData, generation);
+                            case VersionCode.LeafGreen:
+                                break;
+                            case VersionCode.FireRed:
+                                break;
                         }
                     }
                 }

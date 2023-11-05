@@ -121,7 +121,4 @@
   <data name="appconfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\appconfig.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="pokeemerald" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Symbols\pokeemerald.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

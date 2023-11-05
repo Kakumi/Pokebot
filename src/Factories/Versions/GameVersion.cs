@@ -1,11 +1,14 @@
 ﻿using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
 using Newtonsoft.Json;
+using Pokebot.Exceptions;
 using Pokebot.Models;
 using Pokebot.Models.ActionRunners;
 using Pokebot.Models.Config;
 using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
+using Pokebot.Properties;
+using Pokebot.Symbols;
 using Pokebot.Utils;
 using System;
 using System.Collections;
@@ -36,13 +39,60 @@ namespace Pokebot.Factories.Versions
             "EGAM", "EGMA", "EAGM", "EAMG", "EMGA", "EMAG", "MGAE", "MGEA", "MAGE", "MAEG", "MEGA", "MEAG"
         };
 
-        public GameVersion(ApiContainer apiContainer, VersionInfo versionInfo, HashData hashData, GenerationInfo generationInfo, byte[] resource)
+        public GameVersion(ApiContainer apiContainer, VersionInfo versionInfo, HashData hashData, GenerationInfo generationInfo)
         {
             APIContainer = apiContainer;
             VersionInfo = versionInfo;
             HashData = hashData;
             GenerationInfo = generationInfo;
-            Symbols = SymbolUtil.Load(resource, hashData.SymbolsOverride);
+            Symbols = LoadSymbols(hashData);
+        }
+
+        private IReadOnlyList<Symbol> LoadSymbols(HashData hashData)
+        {
+            var symbols = new List<Symbol>();
+
+            //Load main symbol file
+            var mainFileData = ResourceSymbols.ResourceManager.GetObject(hashData.Symbols.Main);
+            if (mainFileData is byte[] mainBytes)
+            {
+                symbols = SymbolUtil.Load(mainBytes).ToList();
+
+                //Load and replace extra symbols if they exists
+                foreach(var file in hashData.Symbols.Patches)
+                {
+                    var data = ResourceSymbols.ResourceManager.GetObject(file);
+                    if (data is byte[] bytes)
+                    {
+                        var tempSymbols = SymbolUtil.Load(bytes);
+                        foreach (var tempSymbol in tempSymbols)
+                        {
+                            var symbolFound = symbols.FirstOrDefault(x => x.Name == tempSymbol.Name);
+                            if (symbolFound != null)
+                            {
+                                symbols.Remove(symbolFound);
+
+                                long address = tempSymbol.Address;
+                                char letter = symbolFound.Letter;
+                                string name = symbolFound.Name;
+                                int size;
+                                if (tempSymbol.Letter == 'c') //c is custom, no changes except for address
+                                {
+                                    size = symbolFound.Size;
+                                }
+                                else
+                                {
+                                    size = tempSymbol.Size;
+                                }
+
+                                symbols.Add(new Symbol(address, letter, size, name));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return symbols;
         }
 
         private string GetBytesText(byte[] bytes)

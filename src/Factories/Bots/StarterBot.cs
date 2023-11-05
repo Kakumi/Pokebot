@@ -69,7 +69,7 @@ namespace Pokebot.Factories.Bots
             {
                 if (!loaded)
                 {
-                    var starterBotConfig = GameVersion.VersionInfo.BotConfig.Starter;
+                    var starterBotConfig = GameVersion.VersionInfo.BotsConfig.Starter;
                     //Check if the player is at the right position
                     if (playerData.Position == starterBotConfig.Position && starterBotConfig.Facing == PlayerFacingDirection.Up)
                     {

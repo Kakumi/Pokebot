@@ -31,6 +31,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Pokebot.Models.Discord;
 using Newtonsoft.Json;
 using System.Net.Http;
+using Pokebot.Symbols;
+using System.IO;
+using System.Runtime.InteropServices.ComTypes;
+using System.Globalization;
 
 namespace Pokebot
 {

@@ -9,7 +9,7 @@ namespace Pokebot.Models.Config
 {
     public class GenerationInfo
     {
-        public int Code { get; }
+        public int Code { get; set; }
         public List<PokemonItem> Items { get; set; }
         public List<PokemonLocation> Locations { get; set; }
         public List<PokemonMove> Moves { get; set; }
