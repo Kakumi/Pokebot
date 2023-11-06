@@ -14,12 +14,14 @@ namespace Pokebot.Models
         public bool Speed { get; set; }
         public bool Sound { get; set; }
         public string DiscordWebhook { get; set; }
+        public double DelayBetweenActions { get; set; }
 
         public SettingsConfig()
         {
             Speed = false;
             Sound = false;
             DiscordWebhook = string.Empty;
+            DelayBetweenActions = 0.1;
         }
 
         public bool Save()

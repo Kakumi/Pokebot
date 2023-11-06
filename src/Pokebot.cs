@@ -94,6 +94,8 @@ namespace Pokebot
             }
         }
 
+        WaitTask? _waitTask;
+
         #region Init
 
         public Pokebot()
@@ -114,6 +116,7 @@ namespace Pokebot
             _seedText.Maximum = uint.MaxValue;
 
             _versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
+            _delayTooltip.SetToolTip(_delayLabel, Messages.Tooltip_Delay);
 
             SettingsConfig = SettingsConfig.Load();
         }
@@ -230,26 +233,24 @@ namespace Pokebot
                 {
                     GameState state = GameVersion!.GetGameState();
 
-                    //Show current pokemon in Viewer
-                    if (state == GameState.Battle)
+                    ExecuteViewer(state);
+
+                    var executeBot = false;
+                    if (_waitTask != null)
                     {
-                        var pokemon = GameVersion.GetOpponent();
-                        if (pokemon != null)
+                        if (_waitTask.Seconds == 0)
                         {
-                            PokemonViewerPanel.Show();
-                            PokemonViewerPanel.SetPokemon(pokemon);
+                            executeBot = true;
+                        } else if (!_waitTask.IsBusy)
+                        {
+                            executeBot = true;
+                            _waitTask.Start();
                         }
                     }
-                    else
-                    {
-                        PokemonViewerPanel.Hide();
-                    }
 
-                    //Main call for bots
-                    if (Bot != null && Bot.Enabled)
+                    if (executeBot)
                     {
-                        PlayerData player = GameVersion!.GetPlayer();
-                        Bot.Execute(player, state);
+                        ExecuteBot(state);
                     }
                 }
             }
@@ -261,6 +262,34 @@ namespace Pokebot
             catch (Exception ex)
             {
                 Log.Error(ex.Message);
+            }
+        }
+
+        private void ExecuteBot(GameState state)
+        {
+            //Main call for bots
+            if (IsReady && Bot != null && Bot.Enabled)
+            {
+                PlayerData player = GameVersion!.GetPlayer();
+                Bot.Execute(player, state);
+            }
+        }
+
+        private void ExecuteViewer(GameState state)
+        {
+            //Show current pokemon in Viewer
+            if (state == GameState.Battle)
+            {
+                var pokemon = GameVersion.GetOpponent();
+                if (pokemon != null)
+                {
+                    PokemonViewerPanel.Show();
+                    PokemonViewerPanel.SetPokemon(pokemon);
+                }
+            }
+            else
+            {
+                PokemonViewerPanel.Hide();
             }
         }
 
@@ -279,6 +308,8 @@ namespace Pokebot
             _accelerateCheckbox.Checked = SettingsConfig.Speed;
             _soundCheckbox.Checked = SettingsConfig.Sound;
             _discordWebhookText.Text = SettingsConfig.DiscordWebhook;
+            _delayUpDown.Value = (decimal)SettingsConfig.DelayBetweenActions;
+            _waitTask = new WaitTask(SettingsConfig.DelayBetweenActions);
         }
 
         private void AccelerateCheckChanged(object sender, EventArgs e)
@@ -304,6 +335,25 @@ namespace Pokebot
         private void PauseCheckboxChanged(object sender, EventArgs e)
         {
             APIContainer?.EmuClient.TogglePause();
+        }
+
+        private void DiscordWebhookTextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                SettingsConfig.DiscordWebhook = _discordWebhookText.Text;
+                SettingsConfig.Save();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+        }
+
+        private void DelayUpDownChanged(object sender, EventArgs e)
+        {
+            SettingsConfig.DelayBetweenActions = (double)_delayUpDown.Value;
+            _waitTask = new WaitTask(SettingsConfig.DelayBetweenActions);
         }
 
         #endregion
@@ -509,17 +559,5 @@ namespace Pokebot
         }
 
         #endregion
-
-        private void DiscordWebhookTextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                SettingsConfig.DiscordWebhook = _discordWebhookText.Text;
-                SettingsConfig.Save();
-            } catch(Exception ex)
-            {
-                Log.Error(ex.Message);
-            }
-        }
     }
 }

@@ -18,6 +18,7 @@ Jump to:
   * [Bots](#overview-bots)
 * [Code Documentation](#code-documentation)
 * [Todo & Ideas](#todo)
+* [Known bugs](#known-bugs)
 * [Sources](#sources)
 * [License](#license)
 
@@ -67,10 +68,13 @@ The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/
 * Add bot for legendary
 * Add bot for fishing
 * Show trainer ID & Secret in the view
-* Ability to execute bot every x seconds instead of every frame
+* Ability to execute bot every x seconds instead of every frame ✔️
 * Inject custom seed ✔️
 * Discord Webhook ✔️
 * Save & load settings to/from config file ✔️
+
+# <a name="known-bugs"></a> Known bugs
+* Sometimes the logs show "Invalid pokemon", but it doesn't always appear, and that's because it can't read the data after a certain number of times.
 
 # <a name="sources"></a>Sources
 * [BizHawk Documentation](https://github.com/TASEmulators/BizHawk)

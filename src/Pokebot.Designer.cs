@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this._statusLabel = new System.Windows.Forms.Label();
             this._loadButton = new System.Windows.Forms.Button();
             this._accelerateCheckbox = new System.Windows.Forms.CheckBox();
             this._tabControl = new System.Windows.Forms.TabControl();
             this._tabSettingsPage = new System.Windows.Forms.TabPage();
+            this._delayLabel = new System.Windows.Forms.Label();
+            this._delayUpDown = new System.Windows.Forms.NumericUpDown();
             this._discordWebhookLabel = new System.Windows.Forms.Label();
             this._discordWebhookText = new System.Windows.Forms.TextBox();
             this._injectSeedButton = new System.Windows.Forms.Button();
@@ -57,8 +60,10 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._tabPagePokemon = new System.Windows.Forms.TabPage();
             this._versionLabel = new System.Windows.Forms.Label();
+            this._delayTooltip = new System.Windows.Forms.ToolTip(this.components);
             this._tabControl.SuspendLayout();
             this._tabSettingsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._delayUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._seedText)).BeginInit();
             this._tabLogsPage.SuspendLayout();
             this._tabBotPage.SuspendLayout();
@@ -110,6 +115,8 @@
             // 
             // _tabSettingsPage
             // 
+            this._tabSettingsPage.Controls.Add(this._delayLabel);
+            this._tabSettingsPage.Controls.Add(this._delayUpDown);
             this._tabSettingsPage.Controls.Add(this._discordWebhookLabel);
             this._tabSettingsPage.Controls.Add(this._discordWebhookText);
             this._tabSettingsPage.Controls.Add(this._injectSeedButton);
@@ -124,6 +131,34 @@
             this._tabSettingsPage.TabIndex = 0;
             this._tabSettingsPage.Text = "Settings";
             this._tabSettingsPage.UseVisualStyleBackColor = true;
+            // 
+            // _delayLabel
+            // 
+            this._delayLabel.AutoSize = true;
+            this._delayLabel.Location = new System.Drawing.Point(132, 143);
+            this._delayLabel.Name = "_delayLabel";
+            this._delayLabel.Size = new System.Drawing.Size(219, 16);
+            this._delayLabel.TabIndex = 11;
+            this._delayLabel.Text = "Seconds of delay between bot input";
+            // 
+            // _delayUpDown
+            // 
+            this._delayUpDown.DecimalPlaces = 1;
+            this._delayUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this._delayUpDown.Location = new System.Drawing.Point(6, 141);
+            this._delayUpDown.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this._delayUpDown.Name = "_delayUpDown";
+            this._delayUpDown.Size = new System.Drawing.Size(120, 22);
+            this._delayUpDown.TabIndex = 10;
+            this._delayUpDown.ValueChanged += new System.EventHandler(this.DelayUpDownChanged);
             // 
             // _discordWebhookLabel
             // 
@@ -342,6 +377,10 @@
             this._versionLabel.TabIndex = 3;
             this._versionLabel.Text = "Pokebot v";
             // 
+            // _delayTooltip
+            // 
+            this._delayTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -356,6 +395,7 @@
             this._tabControl.ResumeLayout(false);
             this._tabSettingsPage.ResumeLayout(false);
             this._tabSettingsPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._delayUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._seedText)).EndInit();
             this._tabLogsPage.ResumeLayout(false);
             this._tabBotPage.ResumeLayout(false);
@@ -397,5 +437,8 @@
         private System.Windows.Forms.NumericUpDown _seedText;
         private System.Windows.Forms.TextBox _discordWebhookText;
         private System.Windows.Forms.Label _discordWebhookLabel;
+        private System.Windows.Forms.Label _delayLabel;
+        private System.Windows.Forms.NumericUpDown _delayUpDown;
+        private System.Windows.Forms.ToolTip _delayTooltip;
     }
 }

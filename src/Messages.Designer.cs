@@ -430,6 +430,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à It&apos;s better to have some delay between each actions to avoid the bot to freeze while doing input. 0.1 is recommanded..
+        /// </summary>
+        internal static string Tooltip_Delay {
+            get {
+                return ResourceManager.GetString("Tooltip_Delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Ability: {0}.
         /// </summary>
         internal static string Viewer_Ability {
