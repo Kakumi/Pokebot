@@ -118,7 +118,7 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 
 ## <a name="overview-features"></a>Features
 * Settings
-  * Configure the emulator through Pokebot such as speed and sound.
+  * Configure the emulator and game through Pokebot such as speed and sound.
 * Logs
   * View all logs inside the application.
 * Statistiques
@@ -143,6 +143,7 @@ The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/
 * Add bot for legendary
 * Add bot for fishing
 * Show trainer ID & Secret in the view
+* Support translations
 * Ability to execute bot every x seconds instead of every frame ✔️
 * Inject custom seed ✔️
 * Discord Webhook ✔️
