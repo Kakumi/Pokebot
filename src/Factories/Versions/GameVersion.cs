@@ -333,6 +333,7 @@ namespace Pokebot.Factories.Versions
                 var spDefense = bytesPokemon.Skip(98).Take(2).ToUInt16();
 
                 return new PartyPokemon(
+                    PID,
                     originalTrainer,
                     nickname,
                     language,
@@ -376,6 +377,7 @@ namespace Pokebot.Factories.Versions
             }
 
             return new Pokemon(
+                PID,
                 originalTrainer,
                 nickname,
                 language,

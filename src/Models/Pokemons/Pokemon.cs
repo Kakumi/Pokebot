@@ -8,6 +8,7 @@ namespace Pokebot.Models.Pokemons
 {
     public class Pokemon
     {
+        public uint PID { get; }
         public PokemonOriginalTrainer OriginalTrainer { get; }
         public string Nickname { get; }
         public PokemonLanguageCode Language { get; }
@@ -49,8 +50,9 @@ namespace Pokebot.Models.Pokemons
         public PokemonType HiddenPower { get; }
         public int HiddenPowerDamage { get; }
 
-        public Pokemon(PokemonOriginalTrainer originalTrainer, string nickname, PokemonLanguageCode language, PokemonEggNameType eggName, PokemonMark markings, int checksum, int calculatedChecksum, int species, PokemonItem? heldItem, uint experience, int pPBonuses, int friendship, List<PokemonAttack> moves, PokemonEVS eVs, PokemonCondition conditions, PokemonPokerus pokerus, PokemonLocation metLocation, int metLevel, PokemonOriginInfo origin, PokemonIVS iVs, bool isEgg, PokemonRibbon ribbons, string realName, int dexId, bool isShiny, PokemonNature nature, List<PokemonType> types, string ability, PokemonType hiddenPower, int hiddenPowerDamage)
+        public Pokemon(uint pid, PokemonOriginalTrainer originalTrainer, string nickname, PokemonLanguageCode language, PokemonEggNameType eggName, PokemonMark markings, int checksum, int calculatedChecksum, int species, PokemonItem? heldItem, uint experience, int pPBonuses, int friendship, List<PokemonAttack> moves, PokemonEVS eVs, PokemonCondition conditions, PokemonPokerus pokerus, PokemonLocation metLocation, int metLevel, PokemonOriginInfo origin, PokemonIVS iVs, bool isEgg, PokemonRibbon ribbons, string realName, int dexId, bool isShiny, PokemonNature nature, List<PokemonType> types, string ability, PokemonType hiddenPower, int hiddenPowerDamage)
         {
+            PID = pid;
             OriginalTrainer = originalTrainer;
             Nickname = nickname;
             Language = language;
