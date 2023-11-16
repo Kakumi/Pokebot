@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokebot.Models.Discord
 {
@@ -23,7 +20,8 @@ namespace Pokebot.Models.Discord
         public DateTime Timestamp { get; set; }
 
 
-        public DiscordWebhookEmbed(string title) {
+        public DiscordWebhookEmbed(string title)
+        {
             Title = title;
             Color = 2326507;
             Fields = new List<DiscordWebhookField>();

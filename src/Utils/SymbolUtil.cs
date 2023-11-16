@@ -1,13 +1,9 @@
 ﻿using BizHawk.Client.Common;
 using Pokebot.Models;
-using Pokebot.Models.Config;
-using Pokebot.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokebot.Utils
 {

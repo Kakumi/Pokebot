@@ -1,5 +1,4 @@
-﻿using Pokebot.Models.Pokemons;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Pokebot.Models.Config
 {

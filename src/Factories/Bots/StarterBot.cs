@@ -1,19 +1,14 @@
 ﻿using BizHawk.Client.Common;
-using Pokebot.Models.Config;
+using Pokebot.Exceptions;
+using Pokebot.Factories.Versions;
 using Pokebot.Models;
 using Pokebot.Models.Player;
-using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Pokebot.Factories.Versions;
-using Pokebot.Exceptions;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Pokebot.Factories.Bots
 {
@@ -21,7 +16,7 @@ namespace Pokebot.Factories.Bots
     {
         public bool Enabled { get; private set; }
         public ApiContainer APIContainer { get; }
-        public IGameVersion GameVersion { get; }
+        public GameVersion GameVersion { get; }
         public StarterControl Control { get; }
 
         public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
@@ -30,7 +25,7 @@ namespace Pokebot.Factories.Bots
 
         private List<uint> _seedsHistory;
 
-        public StarterBot(ApiContainer apiContainer, IGameVersion gameVersion)
+        public StarterBot(ApiContainer apiContainer, GameVersion gameVersion)
         {
             APIContainer = apiContainer;
             GameVersion = gameVersion;
@@ -57,15 +52,17 @@ namespace Pokebot.Factories.Bots
             Enabled = true;
             StateChanged?.Invoke(Enabled);
 
-            var playerData = GameVersion.GetPlayer();
+            var playerData = GameVersion.Memory.GetPlayer();
 
             bool loaded = false;
             try
             {
                 loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
-            } catch(FileNotFoundException) //If the save state doesn't exists
+            }
+            catch (FileNotFoundException) //If the save state doesn't exists
             {
-            } finally
+            }
+            finally
             {
                 if (!loaded)
                 {
@@ -81,7 +78,7 @@ namespace Pokebot.Factories.Bots
                     }
                 }
 
-                if (GameVersion.GetPartyCount() != 0)
+                if (GameVersion.Memory.GetPartyCount() != 0)
                 {
                     throw new BotException(Messages.BotStarter_PartyNotEmpty);
                 }
@@ -99,9 +96,9 @@ namespace Pokebot.Factories.Bots
         public void Execute(PlayerData playerData, GameState state)
         {
             var starter = GameVersion.VersionInfo.Starters.FirstOrDefault(x => x.PokemonId == Control.FilterPanel.Comparator.IndexPokemon);
-            if (starter != null && GameVersion.ActionRunner.ExecuteStarter(starter.PositionIndex))
+            if (starter != null && GameVersion.Runner.ExecuteStarter(starter.PositionIndex))
             {
-                var pokemon = GameVersion.GetParty()[0];
+                var pokemon = GameVersion.Memory.GetParty()[0];
                 PokemonEncountered?.Invoke(pokemon);
                 if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
@@ -130,13 +127,15 @@ namespace Pokebot.Factories.Bots
             }
             catch (FileNotFoundException) //If the save state doesn't exists
             {
-                
-            } finally
+
+            }
+            finally
             {
                 if (loaded)
                 {
                     UpdateSeed();
-                } else
+                }
+                else
                 {
                     throw new BotException(Messages.BotStarter_InvalidSaveState);
                 }
@@ -148,7 +147,7 @@ namespace Pokebot.Factories.Bots
             uint random;
             do
             {
-                random = GameVersion.SetRandomRNG();
+                random = GameVersion.Memory.SetRandomRNG();
             } while (_seedsHistory.Contains(random));
 
             _seedsHistory.Add(random);

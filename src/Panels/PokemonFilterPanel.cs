@@ -1,16 +1,9 @@
-﻿using BizHawk.Common.CollectionExtensions;
-using Pokebot.Factories.Bots;
-using Pokebot.Models;
+﻿using Pokebot.Models;
 using Pokebot.Models.Config;
 using Pokebot.Models.Pokemons;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pokebot.Panels
@@ -80,7 +73,7 @@ namespace Pokebot.Panels
 
         private void IvSpDefense_ValueChanged(object sender, EventArgs e)
         {
-            Comparator.IVSpDefense = (int) Math.Round(((NumericUpDown)sender).Value);
+            Comparator.IVSpDefense = (int)Math.Round(((NumericUpDown)sender).Value);
         }
 
         private void IvDefense_ValueChanged(object sender, EventArgs e)
@@ -120,7 +113,7 @@ namespace Pokebot.Panels
 
         private void PokemonSelectionChanged(object sender, EventArgs e)
         {
-            Comparator.IndexPokemon = ((ComboBoxItem) ((ComboBox)sender).SelectedItem).Id;
+            Comparator.IndexPokemon = ((ComboBoxItem)((ComboBox)sender).SelectedItem).Id;
         }
 
         private void HeldItemSelection_SelectedIndexChanged(object sender, EventArgs e)

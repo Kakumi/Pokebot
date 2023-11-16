@@ -1,15 +1,7 @@
 ﻿using Pokebot.Images;
-using Pokebot.Models.Config;
 using Pokebot.Models.Pokemons;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pokebot.Panels
@@ -40,7 +32,8 @@ namespace Pokebot.Panels
                 _pokemonPictureBox.Image = (Image)ResourcesPokemonShiny.ResourceManager.GetObject(imageName);
                 _shinyLabel.Text = Messages.Viewer_Shiny;
                 _shinyLabel.ForeColor = Color.Green;
-            } else
+            }
+            else
             {
                 _pokemonPictureBox.Image = (Image)ResourcesPokemon.ResourceManager.GetObject(imageName);
                 _shinyLabel.Text = Messages.Viewer_NotShiny;
@@ -64,7 +57,8 @@ namespace Pokebot.Panels
             {
                 var move = pokemon.Moves[index];
                 moveLabel.Text = string.Format(Messages.Viewer_Move, move.MoveInfo.Name, move.PP, move.MoveInfo.PP);
-            } else
+            }
+            else
             {
                 moveLabel.Text = Messages.Viewer_NoMove;
             }

@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Pokebot.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokebot.Models
 {
@@ -31,7 +27,8 @@ namespace Pokebot.Models
                 string json = JsonConvert.SerializeObject(this);
                 Directory.CreateDirectory(GetDirectory());
                 File.WriteAllText(GetFile(), json);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Log.Error(ex.Message);
                 return false;

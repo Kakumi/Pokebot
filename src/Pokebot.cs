@@ -1,40 +1,25 @@
 ﻿using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
-using BizHawk.Common;
-using BizHawk.Emulation.Common;
+using Newtonsoft.Json;
+using Pokebot.Exceptions;
+using Pokebot.Factories;
+using Pokebot.Factories.Bots;
+using Pokebot.Factories.Versions;
+using Pokebot.Models;
+using Pokebot.Models.Config;
+using Pokebot.Models.Discord;
+using Pokebot.Models.Player;
+using Pokebot.Models.Pokemons;
+using Pokebot.Panels;
 using Pokebot.Properties;
 using Pokebot.Utils;
-using Pokebot.Models.Config;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Log = Pokebot.Utils.Log;
-using Pokebot.Panels;
-using Pokebot.Factories;
-using Pokebot.Models.Pokemons;
-using Pokebot.Models.Player;
-using Pokebot.Models;
-using BizHawk.Common.IOExtensions;
-using System.Reflection;
-using static BizHawk.Client.EmuHawk.BatchRunner.Result;
-using Pokebot.Factories.Bots;
-using Pokebot.Factories.Versions;
-using Pokebot.Exceptions;
-using System.Numerics;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Pokebot.Models.Discord;
-using Newtonsoft.Json;
-using System.Net.Http;
-using Pokebot.Symbols;
-using System.IO;
-using System.Runtime.InteropServices.ComTypes;
-using System.Globalization;
 
 namespace Pokebot
 {
@@ -78,7 +63,7 @@ namespace Pokebot
             get => IsReady && Bot != null;
         }
 
-        public IGameVersion? GameVersion { get; private set; }
+        public GameVersion? GameVersion { get; private set; }
         public IBot? Bot { get; private set; }
 
         protected override string WindowTitleStatic => Messages.AppName;
@@ -144,10 +129,10 @@ namespace Pokebot
             _stopBotButton.Enabled = false;
 
             UpdateBotUI();
-            
+
             if (IsReady)
             {
-                _seedText.Value = GameVersion!.GetSeed();
+                _seedText.Value = GameVersion!.Memory.GetSeed();
             }
         }
 
@@ -177,7 +162,7 @@ namespace Pokebot
 
             _logsListView.Items.Add(item);
 
-            for(int i = 0; i < _logsListView.Columns.Count; i++)
+            for (int i = 0; i < _logsListView.Columns.Count; i++)
             {
                 _logsListView.Columns[i].Width = -1;
             }
@@ -206,7 +191,8 @@ namespace Pokebot
                         if (isEmpty)
                         {
                             SetStatus(Messages.Rom_NotLoaded, Color.Red);
-                        } else
+                        }
+                        else
                         {
                             GameVersion = VersionFactory.Create(APIContainer, gameInfo.Hash);
                             SetStatus(romName);
@@ -215,10 +201,12 @@ namespace Pokebot
                         }
                     }
                 }
-            } catch (NotSupportedException ex) 
+            }
+            catch (NotSupportedException ex)
             {
                 SetStatus(ex.Message, Color.Red);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Log.Error(ex.Message);
                 IsRomLoaded = false;
@@ -231,9 +219,23 @@ namespace Pokebot
             {
                 if (IsReady)
                 {
-                    GameState state = GameVersion!.GetGameState();
+                    GameState state = GameVersion!.Memory.GetGameState();
 
                     ExecuteViewer(state);
+
+                    //For pokefinder we should remove frames because animation and others values can
+                    //be later or sooner
+                    //Should create a bot for pokefinder starter where you can enter
+                    //frame and pid
+                    //if (APIContainer.Emulation.FrameCount() == (4708 - 14))
+                    //{
+                    //    APIContainer.Joypad.Set("A", true);
+                    //}
+                    //else if (APIContainer.Emulation.FrameCount() > 5000)
+                    //{
+                    //    var pokemons = GameVersion.GetParty();
+                    //    var test = pokemons.First().PID.ToString("X");
+                    //}
 
                     var executeBot = false;
                     if (_waitTask != null)
@@ -241,7 +243,8 @@ namespace Pokebot
                         if (_waitTask.Seconds == 0)
                         {
                             executeBot = true;
-                        } else if (!_waitTask.IsBusy)
+                        }
+                        else if (!_waitTask.IsBusy)
                         {
                             executeBot = true;
                             _waitTask.Start();
@@ -270,7 +273,7 @@ namespace Pokebot
             //Main call for bots
             if (IsReady && Bot != null && Bot.Enabled)
             {
-                PlayerData player = GameVersion!.GetPlayer();
+                PlayerData player = GameVersion!.Memory.GetPlayer();
                 Bot.Execute(player, state);
             }
         }
@@ -280,7 +283,7 @@ namespace Pokebot
             //Show current pokemon in Viewer
             if (state == GameState.Battle)
             {
-                var pokemon = GameVersion.GetOpponent();
+                var pokemon = GameVersion!.Memory.GetOpponent();
                 if (pokemon != null)
                 {
                     PokemonViewerPanel.Show();
@@ -372,7 +375,7 @@ namespace Pokebot
             if (IsReady)
             {
                 uint value = (uint)_seedText.Value;
-                GameVersion!.SetSeed(value);
+                GameVersion!.Memory.SetSeed(value);
             }
         }
 
@@ -420,7 +423,8 @@ namespace Pokebot
                 _stopBotButton.Enabled = true;
                 _startBotButton.Enabled = false;
                 SetBotStatus(Messages.Bot_Running);
-            } else
+            }
+            else
             {
                 _startBotButton.Enabled = true;
                 _stopBotButton.Enabled = false;
@@ -434,7 +438,7 @@ namespace Pokebot
             {
                 if (!string.IsNullOrWhiteSpace(SettingsConfig.DiscordWebhook))
                 {
-                    var trainer = GameVersion!.GetPlayer();
+                    var trainer = GameVersion!.Memory.GetPlayer();
                     var webhook = new DiscordWebhook(pokemon);
                     var json = JsonConvert.SerializeObject(webhook);
 
@@ -454,7 +458,8 @@ namespace Pokebot
                         }
                     });
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Log.Error(string.Format(Messages.DiscordWebhook_Failed, ex.Message));
             }
@@ -488,7 +493,8 @@ namespace Pokebot
                 {
                     Bot.Start();
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Log.Error(ex.Message);
                 StopBot();
@@ -528,7 +534,7 @@ namespace Pokebot
             var shinyEncounters = pokemon.IsShiny ? 1 : 0;
             var found = false;
 
-            for(int i = 0; i < _statsListView.Items.Count; i++)
+            for (int i = 0; i < _statsListView.Items.Count; i++)
             {
                 var item = _statsListView.Items[i];
                 if (item != null && item.Text == pokemon.RealName)

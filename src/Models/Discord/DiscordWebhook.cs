@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Pokebot.Models.Pokemons;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokebot.Models.Discord
 {
@@ -43,7 +39,7 @@ namespace Pokebot.Models.Discord
             embed.Fields.Add(new DiscordWebhookField(Messages.Discord_IVSpAttack, pokemon.IVs.SpAttack.ToString(), true));
             embed.Fields.Add(new DiscordWebhookField(Messages.Discord_IVSpDefense, pokemon.IVs.SpDefense.ToString(), true));
             embed.Fields.Add(new DiscordWebhookField(Messages.Discord_Trainer, pokemon.OriginalTrainer.Name, false));
-        
+
             Embeds.Add(embed);
         }
     }

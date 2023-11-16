@@ -1,11 +1,4 @@
 ﻿using Pokebot.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokebot.Utils
 {
@@ -40,7 +33,8 @@ namespace Pokebot.Utils
             Send(LogLevel.Fatal, message);
         }
 
-        public static void Send(LogLevel level, string message) {
+        public static void Send(LogLevel level, string message)
+        {
             LogReceived?.Invoke(new LogEventArgs(level, message));
         }
     }
