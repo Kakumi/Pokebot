@@ -126,28 +126,31 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 * Bot
   * Configure and start any [supported bot](#overview-bots)
 * Viewer
-  * View opponent pokemon stats such as hidden power, moves, IVs.
+  * View opponent pokemon & party stats such as hidden power, moves, IVs.
 
 ## <a name="overview-bots"></a>Bots
 * Starter
   * This bot will choose your selected starter and see if it matches your set filters. If not, it will change the seed and reload the game in a loop.
 * Spin
   * This bot will spin your character on the map and when the battle start, it will check if the opponent pokemon matches your set filters. If not, it will escape the fight and try again.
+* PokeFinder
+  * This bot will press A at the specified frame. Sometimes the hit frame is different from the specified frame. In this case, you can use PokeFinder to find the hit frame and include it in the bot for adjustment. (To use this bot, your emulator must simulate dead battery)
 
 # <a name="code-documentation"></a>Code Documentation
 The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/wiki). You will find explanations on how to add supported games, bots or even features.
 
 # <a name="todo"></a>Todo & Ideas (implementation not comfirmed)
-* Add feature that works with [PokeFinder](https://github.com/Admiral-Fish/PokeFinder)
+* Add feature that works with [PokeFinder](https://github.com/Admiral-Fish/PokeFinder) ✔️
 * Add bot for eggs
 * Add bot for legendary
 * Add bot for fishing
-* Show trainer ID & Secret in the view
+* Show trainer ID & Secret in the view (PokeFinder bot) ✔️
 * Support translations
 * Ability to execute bot every x seconds instead of every frame ✔️
 * Inject custom seed ✔️
 * Discord Webhook ✔️
 * Save & load settings to/from config file ✔️
+* Add feature to PokeFinder bot to save before the specified frame and not at start.
 
 # <a name="known-bugs"></a> Known bugs
 * Sometimes the logs show "Invalid pokemon", but it doesn't always appear, and that's because it can't read the data after a certain number of times.
@@ -158,6 +161,7 @@ The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/
 * [40Cakes Source Code](https://github.com/40Cakes/pokebot-gen3)
 * [Bulbapedia Pokemon Data Structure](https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_data_structure_(Generation_III))
 * [PokéAPI](https://pokeapi.co/)
+* [PokeFinder](https://github.com/Admiral-Fish/PokeFinder)
 * [Hexa to Decimal Converter](https://www.rapidtables.com/convert/number/hex-to-decimal.html)
 * [GBA Backup Tool](https://www.gamebrew.org/wiki/GBA_Backup_Tool)
 

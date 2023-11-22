@@ -58,9 +58,10 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this._tabPagePokemon = new System.Windows.Forms.TabPage();
+            this._opponentViewer = new System.Windows.Forms.TabPage();
             this._versionLabel = new System.Windows.Forms.Label();
             this._delayTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this._partyViewer = new System.Windows.Forms.TabPage();
             this._tabControl.SuspendLayout();
             this._tabSettingsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._delayUpDown)).BeginInit();
@@ -106,7 +107,8 @@
             this._tabControl.Controls.Add(this._tabLogsPage);
             this._tabControl.Controls.Add(this._tabBotPage);
             this._tabControl.Controls.Add(this._tabStatsPage);
-            this._tabControl.Controls.Add(this._tabPagePokemon);
+            this._tabControl.Controls.Add(this._opponentViewer);
+            this._tabControl.Controls.Add(this._partyViewer);
             this._tabControl.Location = new System.Drawing.Point(12, 68);
             this._tabControl.Name = "_tabControl";
             this._tabControl.SelectedIndex = 0;
@@ -359,14 +361,14 @@
             // 
             this.columnHeader4.Text = "Ratio";
             // 
-            // _tabPagePokemon
+            // _opponentViewer
             // 
-            this._tabPagePokemon.Location = new System.Drawing.Point(4, 25);
-            this._tabPagePokemon.Name = "_tabPagePokemon";
-            this._tabPagePokemon.Size = new System.Drawing.Size(768, 341);
-            this._tabPagePokemon.TabIndex = 4;
-            this._tabPagePokemon.Text = "Viewer";
-            this._tabPagePokemon.UseVisualStyleBackColor = true;
+            this._opponentViewer.Location = new System.Drawing.Point(4, 25);
+            this._opponentViewer.Name = "_opponentViewer";
+            this._opponentViewer.Size = new System.Drawing.Size(768, 341);
+            this._opponentViewer.TabIndex = 4;
+            this._opponentViewer.Text = "Opponent";
+            this._opponentViewer.UseVisualStyleBackColor = true;
             // 
             // _versionLabel
             // 
@@ -380,6 +382,15 @@
             // _delayTooltip
             // 
             this._delayTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
+            // _partyViewer
+            // 
+            this._partyViewer.Location = new System.Drawing.Point(4, 25);
+            this._partyViewer.Name = "_partyViewer";
+            this._partyViewer.Size = new System.Drawing.Size(768, 341);
+            this._partyViewer.TabIndex = 5;
+            this._partyViewer.Text = "Party";
+            this._partyViewer.UseVisualStyleBackColor = true;
             // 
             // Pokebot
             // 
@@ -432,7 +443,7 @@
         private System.Windows.Forms.Button _startBotButton;
         private System.Windows.Forms.Label _statusBot;
         private System.Windows.Forms.Button _stopBotButton;
-        private System.Windows.Forms.TabPage _tabPagePokemon;
+        private System.Windows.Forms.TabPage _opponentViewer;
         private System.Windows.Forms.Button _injectSeedButton;
         private System.Windows.Forms.NumericUpDown _seedText;
         private System.Windows.Forms.TextBox _discordWebhookText;
@@ -440,5 +451,6 @@
         private System.Windows.Forms.Label _delayLabel;
         private System.Windows.Forms.NumericUpDown _delayUpDown;
         private System.Windows.Forms.ToolTip _delayTooltip;
+        private System.Windows.Forms.TabPage _partyViewer;
     }
 }

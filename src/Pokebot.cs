@@ -15,10 +15,12 @@ using Pokebot.Properties;
 using Pokebot.Utils;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 using Log = Pokebot.Utils.Log;
 
 namespace Pokebot
@@ -67,7 +69,9 @@ namespace Pokebot
         public IBot? Bot { get; private set; }
 
         protected override string WindowTitleStatic => Messages.AppName;
-        public PokemonViewerPanel PokemonViewerPanel { get; }
+        public PokemonViewerPanel OpponentViewerPanel { get; }
+        public PartyPokemonViewer PartyViewerPanel { get; }
+        public PokemonWatcher? PokemonWatcher { get; private set; }
         private SettingsConfig? _settingsConfig;
         public SettingsConfig SettingsConfig
         {
@@ -92,11 +96,17 @@ namespace Pokebot
 
             Log.LogReceived += Log_LogReceived;
 
-            PokemonViewerPanel = new PokemonViewerPanel();
-            PokemonViewerPanel.Dock = DockStyle.Fill;
-            PokemonViewerPanel.Hide();
-            _tabPagePokemon.Controls.Clear();
-            _tabPagePokemon.Controls.Add(PokemonViewerPanel);
+            OpponentViewerPanel = new PokemonViewerPanel();
+            OpponentViewerPanel.Dock = DockStyle.Fill;
+            OpponentViewerPanel.Hide();
+
+            PartyViewerPanel = new PartyPokemonViewer();
+            PartyViewerPanel.Dock = DockStyle.Fill;
+
+            _opponentViewer.Controls.Clear();
+            _opponentViewer.Controls.Add(OpponentViewerPanel);
+            _partyViewer.Controls.Clear();
+            _partyViewer.Controls.Add(PartyViewerPanel);
             _seedText.Minimum = 0;
             _seedText.Maximum = uint.MaxValue;
 
@@ -133,7 +143,28 @@ namespace Pokebot
             if (IsReady)
             {
                 _seedText.Value = GameVersion!.Memory.GetSeed();
+                PokemonWatcher = new PokemonWatcher(GameVersion);
+                PokemonWatcher.OpponentChanged += PokemonWatcher_OpponentChanged;
+                PokemonWatcher.PartyChanged += PokemonWatcher_PartyChanged;
             }
+        }
+
+        private void PokemonWatcher_OpponentChanged(Pokemon? pokemon)
+        {
+            if (pokemon != null)
+            {
+                OpponentViewerPanel.Show();
+                OpponentViewerPanel.SetPokemon(pokemon);
+            }
+            else
+            {
+                OpponentViewerPanel.Hide();
+            }
+        }
+
+        private void PokemonWatcher_PartyChanged(System.Collections.Generic.IReadOnlyCollection<Pokemon> pokemons)
+        {
+            PartyViewerPanel.SetParty(pokemons.ToList());
         }
 
         #endregion
@@ -221,7 +252,10 @@ namespace Pokebot
                 {
                     GameState state = GameVersion!.Memory.GetGameState();
 
-                    ExecuteViewer(state);
+                    if (PokemonWatcher != null)
+                    {
+                        PokemonWatcher.Execute(state);
+                    }
 
                     var executeBot = false;
                     if (_waitTask != null)
@@ -261,24 +295,6 @@ namespace Pokebot
             {
                 PlayerData player = GameVersion!.Memory.GetPlayer();
                 Bot.Execute(player, state);
-            }
-        }
-
-        private void ExecuteViewer(GameState state)
-        {
-            //Show current pokemon in Viewer
-            if (state == GameState.Battle)
-            {
-                var pokemon = GameVersion!.Memory.GetOpponent();
-                if (pokemon != null)
-                {
-                    PokemonViewerPanel.Show();
-                    PokemonViewerPanel.SetPokemon(pokemon);
-                }
-            }
-            else
-            {
-                PokemonViewerPanel.Hide();
             }
         }
 

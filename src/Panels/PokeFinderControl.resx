@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="_labelBotInfo.Text" xml:space="preserve">
-    <value>This bot will press A at the specified frame. Sometimes, it doesn't works with this frame, 'hit frame' is here to help the bot to find the perfect frame.
+    <value>This bot will press A at the specified frame. Sometimes, it doesn't works with this frame, 'hit frame' is here to help the bot to find the perfect frame. Find the hit frame using PokeFinder and Party tab to see starter IVs.
 Please simulate dead battery to use this bot !
 </value>
   </data>

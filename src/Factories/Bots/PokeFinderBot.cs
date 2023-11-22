@@ -65,11 +65,6 @@ namespace Pokebot.Factories.Bots
             var frame = APIContainer.Emulation.FrameCount();
             long targetFrame = Control.GetTargetFrame();
 
-            if (APIContainer.Emulation.FrameCount() >= Control.GetTargetFrame())
-            {
-                throw new BotException(Messages.BotPokeFinder_InvalidFrame);
-            }
-
             if (frame == targetFrame)
             {
                 APIContainer.Joypad.Set("A", true);
@@ -120,6 +115,11 @@ namespace Pokebot.Factories.Bots
             LoadOrStop();
             Enabled = true;
             StateChanged?.Invoke(Enabled);
+
+            if (APIContainer.Emulation.FrameCount() >= Control.GetTargetFrame())
+            {
+                throw new BotException(Messages.BotPokeFinder_InvalidFrame);
+            }
         }
 
         public UserControl GetPanel()
