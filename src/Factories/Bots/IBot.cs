@@ -17,6 +17,7 @@ namespace Pokebot.Factories.Bots
         event StateChangedEventHandler? StateChanged;
 
         bool Enabled { get; }
+        bool UseDelay();
         void Start();
         void Stop();
         void Execute(PlayerData playerData, GameState state);

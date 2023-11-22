@@ -97,6 +97,42 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à This frame has already passed. Save the game and reload it (without save state)..
+        /// </summary>
+        internal static string BotPokeFinder_InvalidFrame {
+            get {
+                return ResourceManager.GetString("BotPokeFinder_InvalidFrame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bot is unable to start because the save state doesn&apos;t exists anymore..
+        /// </summary>
+        internal static string BotPokeFinder_InvalidSaveState {
+            get {
+                return ResourceManager.GetString("BotPokeFinder_InvalidSaveState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à All frames has been tested and the pokemon with PID {0} has not been found..
+        /// </summary>
+        internal static string BotPokeFinder_PokemonNotFound {
+            get {
+                return ResourceManager.GetString("BotPokeFinder_PokemonNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à TID : {0} - SID : {1}.
+        /// </summary>
+        internal static string BotPokeFinder_TrainerInfo {
+            get {
+                return ResourceManager.GetString("BotPokeFinder_TrainerInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Bot is unable to start because the save state doesn&apos;t exists anymore..
         /// </summary>
         internal static string BotStarter_InvalidSaveState {

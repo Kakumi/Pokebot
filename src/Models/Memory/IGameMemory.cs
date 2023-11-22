@@ -24,5 +24,7 @@ namespace Pokebot.Models.Memory
         uint SetRandomSeed();
         void SetSeed(uint seed);
         uint GetSeed();
+        int GetTID();
+        int GetSID();
     }
 }

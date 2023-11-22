@@ -19725,6 +19725,10 @@
     {
       "Name": "Spin",
       "Code": 1
+    },
+    {
+      "Name": "PokeFinder",
+      "Code": 4
     }
   ]
 }

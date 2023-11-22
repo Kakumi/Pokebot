@@ -223,24 +223,10 @@ namespace Pokebot
 
                     ExecuteViewer(state);
 
-                    //For pokefinder we should remove frames because animation and others values can
-                    //be later or sooner
-                    //Should create a bot for pokefinder starter where you can enter
-                    //frame and pid
-                    //if (APIContainer.Emulation.FrameCount() == (4708 - 14))
-                    //{
-                    //    APIContainer.Joypad.Set("A", true);
-                    //}
-                    //else if (APIContainer.Emulation.FrameCount() > 5000)
-                    //{
-                    //    var pokemons = GameVersion.GetParty();
-                    //    var test = pokemons.First().PID.ToString("X");
-                    //}
-
                     var executeBot = false;
                     if (_waitTask != null)
                     {
-                        if (_waitTask.Seconds == 0)
+                        if (_waitTask.Seconds == 0 || (!Bot?.UseDelay() ?? false))
                         {
                             executeBot = true;
                         }
@@ -366,7 +352,7 @@ namespace Pokebot
             var success = APIContainer?.EmuClient.OpenRom(@$"D:\VisualStudioProjects\Pokebot\BizHawk\Roms\Pokemon - Version Emeraude (FR).gba");
             if (success ?? false)
             {
-                IsRomLoaded = APIContainer?.EmuClient.LoadState("wild") ?? false; //starter
+                IsRomLoaded = APIContainer?.EmuClient.LoadState("Emerald_pokefinder") ?? false; //starter
             }
         }
 

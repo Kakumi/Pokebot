@@ -123,6 +123,18 @@
   <data name="BotFactory_NotSupported" xml:space="preserve">
     <value>Bot type is not supported</value>
   </data>
+  <data name="BotPokeFinder_InvalidFrame" xml:space="preserve">
+    <value>This frame has already passed. Save the game and reload it (without save state).</value>
+  </data>
+  <data name="BotPokeFinder_InvalidSaveState" xml:space="preserve">
+    <value>Bot is unable to start because the save state doesn't exists anymore.</value>
+  </data>
+  <data name="BotPokeFinder_PokemonNotFound" xml:space="preserve">
+    <value>All frames has been tested and the pokemon with PID {0} has not been found.</value>
+  </data>
+  <data name="BotPokeFinder_TrainerInfo" xml:space="preserve">
+    <value>TID : {0} - SID : {1}</value>
+  </data>
   <data name="BotStarter_InvalidSaveState" xml:space="preserve">
     <value>Bot is unable to start because the save state doesn't exists anymore.</value>
   </data>

@@ -16,8 +16,8 @@ namespace Pokebot.Factories
                     return new StarterBot(apiContainer, gameVersion);
                 case BotCode.Spin:
                     return new SpinBot(apiContainer, gameVersion);
-                case BotCode.Egg:
-                    break;
+                case BotCode.PokeFinder:
+                    return new PokeFinderBot(apiContainer, gameVersion);
             }
 
             throw new NotSupportedException(Messages.BotFactory_NotSupported);

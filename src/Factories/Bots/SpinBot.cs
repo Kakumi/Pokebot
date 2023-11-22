@@ -88,5 +88,10 @@ namespace Pokebot.Factories.Bots
         {
             return Control;
         }
+
+        public bool UseDelay()
+        {
+            return true;
+        }
     }
 }

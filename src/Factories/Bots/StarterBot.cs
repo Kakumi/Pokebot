@@ -27,9 +27,9 @@ namespace Pokebot.Factories.Bots
 
         public StarterBot(ApiContainer apiContainer, GameVersion gameVersion)
         {
+            Enabled = false;
             APIContainer = apiContainer;
             GameVersion = gameVersion;
-            Enabled = false;
 
             _seedsHistory = new List<uint>();
 
@@ -151,6 +151,11 @@ namespace Pokebot.Factories.Bots
             } while (_seedsHistory.Contains(random));
 
             _seedsHistory.Add(random);
+        }
+
+        public bool UseDelay()
+        {
+            return true;
         }
     }
 }
