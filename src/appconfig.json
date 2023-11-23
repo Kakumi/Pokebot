@@ -19730,5 +19730,10 @@
       "Name": "PokeFinder",
       "Code": 4
     }
-  ]
+  ],
+  "Github": {
+    "Url": "https://api.github.com",
+    "Owner": "Kakumi",
+    "Repository": "pokebot"
+  }
 }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="API_GithubError" xml:space="preserve">
+    <value>An error occurred while calling the Github API.</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>Pokebot</value>
   </data>
@@ -215,6 +218,15 @@
   </data>
   <data name="Item_Nothing" xml:space="preserve">
     <value>Nothing</value>
+  </data>
+  <data name="NewVersion_Message" xml:space="preserve">
+    <value>Do you want to download the version {0} ?</value>
+  </data>
+  <data name="NewVersion_MessageLabel" xml:space="preserve">
+    <value>The version {0} is now available on Github !</value>
+  </data>
+  <data name="NewVersion_Title" xml:space="preserve">
+    <value>New version available</value>
   </data>
   <data name="Pokemon_Found" xml:space="preserve">
     <value>Pokemon with filters found.</value>

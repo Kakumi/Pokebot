@@ -12,14 +12,17 @@ using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Properties;
+using Pokebot.Services.Github;
 using Pokebot.Utils;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using static System.Windows.Forms.AxHost;
 using Log = Pokebot.Utils.Log;
 
@@ -111,9 +114,45 @@ namespace Pokebot
             _seedText.Maximum = uint.MaxValue;
 
             _versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
+            _newVersionLabel.Hide();
             _delayTooltip.SetToolTip(_delayLabel, Messages.Tooltip_Delay);
 
             SettingsConfig = SettingsConfig.Load();
+
+            var worker = new BackgroundWorker();
+            worker.DoWork += GetGithubLatestReleaseWorker;
+            worker.RunWorkerAsync();
+        }
+
+        private async void GetGithubLatestReleaseWorker(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                var githubService = new GithubServices(AppConfig.Github.Url);
+                var latestRelease = await githubService.GetLatestRelease(AppConfig.Github.Owner, AppConfig.Github.Repository);
+                var currentVersion = $"v{GetType().Assembly.GetName().Version}";
+                if (latestRelease.Name != currentVersion)
+                {
+                    _newVersionLabel.BeginInvoke(() =>
+                    {
+                        _newVersionLabel.Show();
+                        _newVersionLabel.Text = string.Format(Messages.NewVersion_MessageLabel, latestRelease.Name);
+                    });
+
+                    string message = string.Format(Messages.NewVersion_Message, latestRelease.Name);
+                    string title = Messages.NewVersion_Title;
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    DialogResult result = MessageBox.Show(message, title, buttons);
+                    if (result == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(latestRelease.Url);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
         }
 
         private void InitAPIContainer()

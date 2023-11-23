@@ -61,6 +61,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à An error occurred while calling the Github API..
+        /// </summary>
+        internal static string API_GithubError {
+            get {
+                return ResourceManager.GetString("API_GithubError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pokebot.
         /// </summary>
         internal static string AppName {
@@ -354,6 +363,33 @@ namespace Pokebot {
         internal static string Item_Nothing {
             get {
                 return ResourceManager.GetString("Item_Nothing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Do you want to download the version {0} ?.
+        /// </summary>
+        internal static string NewVersion_Message {
+            get {
+                return ResourceManager.GetString("NewVersion_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The version {0} is now available on Github !.
+        /// </summary>
+        internal static string NewVersion_MessageLabel {
+            get {
+                return ResourceManager.GetString("NewVersion_MessageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New version available.
+        /// </summary>
+        internal static string NewVersion_Title {
+            get {
+                return ResourceManager.GetString("NewVersion_Title", resourceCulture);
             }
         }
         

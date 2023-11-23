@@ -59,9 +59,10 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._opponentViewer = new System.Windows.Forms.TabPage();
+            this._partyViewer = new System.Windows.Forms.TabPage();
             this._versionLabel = new System.Windows.Forms.Label();
             this._delayTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this._partyViewer = new System.Windows.Forms.TabPage();
+            this._newVersionLabel = new System.Windows.Forms.Label();
             this._tabControl.SuspendLayout();
             this._tabSettingsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._delayUpDown)).BeginInit();
@@ -370,6 +371,15 @@
             this._opponentViewer.Text = "Opponent";
             this._opponentViewer.UseVisualStyleBackColor = true;
             // 
+            // _partyViewer
+            // 
+            this._partyViewer.Location = new System.Drawing.Point(4, 25);
+            this._partyViewer.Name = "_partyViewer";
+            this._partyViewer.Size = new System.Drawing.Size(768, 341);
+            this._partyViewer.TabIndex = 5;
+            this._partyViewer.Text = "Party";
+            this._partyViewer.UseVisualStyleBackColor = true;
+            // 
             // _versionLabel
             // 
             this._versionLabel.AutoSize = true;
@@ -383,20 +393,22 @@
             // 
             this._delayTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // _partyViewer
+            // _newVersionLabel
             // 
-            this._partyViewer.Location = new System.Drawing.Point(4, 25);
-            this._partyViewer.Name = "_partyViewer";
-            this._partyViewer.Size = new System.Drawing.Size(768, 341);
-            this._partyViewer.TabIndex = 5;
-            this._partyViewer.Text = "Party";
-            this._partyViewer.UseVisualStyleBackColor = true;
+            this._newVersionLabel.AutoSize = true;
+            this._newVersionLabel.ForeColor = System.Drawing.Color.Red;
+            this._newVersionLabel.Location = new System.Drawing.Point(269, 9);
+            this._newVersionLabel.Name = "_newVersionLabel";
+            this._newVersionLabel.Size = new System.Drawing.Size(117, 16);
+            this._newVersionLabel.TabIndex = 4;
+            this._newVersionLabel.Text = "new version check";
             // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._newVersionLabel);
             this.Controls.Add(this._tabControl);
             this.Controls.Add(this._versionLabel);
             this.Controls.Add(this._statusLabel);
@@ -452,5 +464,6 @@
         private System.Windows.Forms.NumericUpDown _delayUpDown;
         private System.Windows.Forms.ToolTip _delayTooltip;
         private System.Windows.Forms.TabPage _partyViewer;
+        private System.Windows.Forms.Label _newVersionLabel;
     }
 }

@@ -127,6 +127,8 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
   * Configure and start any [supported bot](#overview-bots)
 * Viewer
   * View opponent pokemon & party stats such as hidden power, moves, IVs.
+* Version Checker
+  * A popup will appear when a new version is available.
 
 ## <a name="overview-bots"></a>Bots
 * Starter
@@ -140,17 +142,22 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/wiki). You will find explanations on how to add supported games, bots or even features.
 
 # <a name="todo"></a>Todo & Ideas (implementation not comfirmed)
-* Add feature that works with [PokeFinder](https://github.com/Admiral-Fish/PokeFinder) ✔️
 * Add bot for eggs
 * Add bot for legendary
 * Add bot for fishing
-* Show trainer ID & Secret in the view (PokeFinder bot) ✔️
 * Support translations
+* Add feature to PokeFinder bot to save before the specified frame and not at start.
+
+<details>
+	<summary>Done</summary>
+	
+* Add feature that works with [PokeFinder](https://github.com/Admiral-Fish/PokeFinder) ✔️
+* Show trainer ID & Secret in the view (PokeFinder bot) ✔️
 * Ability to execute bot every x seconds instead of every frame ✔️
 * Inject custom seed ✔️
 * Discord Webhook ✔️
 * Save & load settings to/from config file ✔️
-* Add feature to PokeFinder bot to save before the specified frame and not at start.
+</details>
 
 # <a name="known-bugs"></a> Known bugs
 * Sometimes the logs show "Invalid pokemon", but it doesn't always appear, and that's because it can't read the data after a certain number of times.

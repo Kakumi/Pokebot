@@ -7,6 +7,8 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<Version>0.0.1</Version>
+		<AssemblyVersion>0.0.2.0</AssemblyVersion>
+		<FileVersion>0.0.2.0</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)' == 'Release' ">
 		<VersionSuffix>release</VersionSuffix>
@@ -37,6 +39,9 @@
 		<Reference Include="BizHawk.Client.EmuHawk" HintPath="$(BIZHAWK_HOME)EmuHawk.exe" />
 		<Reference Include="BizHawk.Common" HintPath="$(BIZHAWK_HOME)dll/BizHawk.Common.dll" />
 		<Reference Include="BizHawk.WinForms.Controls" HintPath="$(BIZHAWK_HOME)dll/BizHawk.WinForms.Controls.dll" />
+		<Reference Include="WindowsBase">
+		  <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\WindowsBase.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Images\ResourcesPokemon.Designer.cs">
