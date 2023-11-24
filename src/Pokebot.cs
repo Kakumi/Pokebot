@@ -75,6 +75,7 @@ namespace Pokebot
         public LogsPanel LogsPanel { get; private set; }
 
         public PokemonWatcher? PokemonWatcher { get; private set; }
+        public PokebotDebug? DebugWindow { get; private set; }
         private SettingsConfig? _settingsConfig;
         public SettingsConfig SettingsConfig
         {
@@ -150,6 +151,14 @@ namespace Pokebot
             _soundCheckbox.Checked = APIContainer?.EmuClient.GetSoundOn() ?? true;
             _pauseCheckbox.Checked = APIContainer?.EmuClient.IsPaused() ?? false;
             _tabControl.Visible = false;
+
+#if DEBUG
+            if (APIContainer != null && DebugWindow == null)
+            {
+                DebugWindow = new PokebotDebug(APIContainer);
+                DebugWindow.Show();
+            }
+#endif
         }
 
         private void CreateTab(UserControl userControl, string name)
