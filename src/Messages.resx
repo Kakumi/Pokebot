@@ -273,6 +273,9 @@
   <data name="Tab_LogsPanel" xml:space="preserve">
     <value>Logs</value>
   </data>
+  <data name="Tab_SettingsPanel" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Tab_ViewerOpponentName" xml:space="preserve">
     <value>Opponent</value>
   </data>

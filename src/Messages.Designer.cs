@@ -529,6 +529,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Settings.
+        /// </summary>
+        internal static string Tab_SettingsPanel {
+            get {
+                return ResourceManager.GetString("Tab_SettingsPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Opponent.
         /// </summary>
         internal static string Tab_ViewerOpponentName {

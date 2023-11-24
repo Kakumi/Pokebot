@@ -1,6 +1,7 @@
 ﻿using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Pokebot.Exceptions;
 using Pokebot.Factories;
 using Pokebot.Factories.Bots;
@@ -73,19 +74,12 @@ namespace Pokebot
         public EncounterStatsPanel EncounterStatsPanel { get; private set; }
         public BotPanel BotPanel { get; private set; }
         public LogsPanel LogsPanel { get; private set; }
+        public SettingsPanel SettingsPanel { get; private set; }
 
         public PokemonWatcher? PokemonWatcher { get; private set; }
         public PokebotDebug? DebugWindow { get; private set; }
-        private SettingsConfig? _settingsConfig;
-        public SettingsConfig SettingsConfig
-        {
-            get => _settingsConfig!;
-            set
-            {
-                _settingsConfig = value;
-                UpdateSettings();
-            }
-        }
+        public GithubServices GithubServices { get; private set; }
+        public DiscordWebhookServices? DiscordWebhookServices { get; private set; }
 
         WaitTask? _waitTask;
 
@@ -97,16 +91,11 @@ namespace Pokebot
 
             var configText = Encoding.UTF8.GetString(Resources.appconfig);
             AppConfig = JsonConvert.DeserializeObject<AppConfig>(configText)!;
-
-            _seedText.Minimum = 0;
-            _seedText.Maximum = uint.MaxValue;
+            GithubServices = new GithubServices(AppConfig.Github.Url);
 
             _versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
             _newVersionLabel.Hide();
-            _delayTooltip.SetToolTip(_delayLabel, Messages.Tooltip_Delay);
-
-            SettingsConfig = SettingsConfig.Load();
-            LogsPanel = new LogsPanel();
+            _tabControl.Hide();
 
             CreateTabPages();
 
@@ -119,8 +108,7 @@ namespace Pokebot
         {
             try
             {
-                var githubService = new GithubServices(AppConfig.Github.Url);
-                var latestRelease = await githubService.GetLatestRelease(AppConfig.Github.Owner, AppConfig.Github.Repository);
+                var latestRelease = await GithubServices.GetLatestRelease(AppConfig.Github.Owner, AppConfig.Github.Repository);
                 var currentVersion = $"v{GetType().Assembly.GetName().Version}";
                 if (latestRelease.Name != currentVersion)
                 {
@@ -148,9 +136,7 @@ namespace Pokebot
 
         private void InitAPIContainer()
         {
-            _soundCheckbox.Checked = APIContainer?.EmuClient.GetSoundOn() ?? true;
-            _pauseCheckbox.Checked = APIContainer?.EmuClient.IsPaused() ?? false;
-            _tabControl.Visible = false;
+            SettingsPanel_SettingsConfigChanged(SettingsPanel!.SettingsConfig);
 
 #if DEBUG
             if (APIContainer != null && DebugWindow == null)
@@ -170,6 +156,8 @@ namespace Pokebot
 
         private void CreateTabPages()
         {
+            LogsPanel = new LogsPanel();
+
             OpponentViewerPanel = new PokemonViewerPanel();
             OpponentViewerPanel.Dock = DockStyle.Fill;
             OpponentViewerPanel.Hide();
@@ -184,6 +172,13 @@ namespace Pokebot
             BotPanel.BotChanged += BotPanel_BotChanged;
             BotPanel.Dock = DockStyle.Fill;
 
+            SettingsPanel = new SettingsPanel();
+            SettingsPanel.SettingsConfigChanged += SettingsPanel_SettingsConfigChanged;
+            SettingsPanel.PauseClicked += SettingsPanel_PauseClicked;
+            SettingsPanel.SeedClicked += SettingsPanel_SeedClicked;
+            SettingsPanel.Dock = DockStyle.Fill;
+
+            CreateTab(SettingsPanel, Messages.Tab_SettingsPanel);
             CreateTab(BotPanel, Messages.Tab_BotPanel);
             CreateTab(EncounterStatsPanel, Messages.Tab_EncounterStats);
             CreateTab(OpponentViewerPanel, Messages.Tab_ViewerOpponentName);
@@ -198,12 +193,11 @@ namespace Pokebot
             EncounterStatsPanel.Clear();
             OpponentViewerPanel.Hide();
             PartyViewerPanel.Clear();
-
             Bot = null;
 
             if (IsReady)
             {
-                _seedText.Value = GameVersion!.Memory.GetSeed();
+                SettingsPanel.SetSeed(GameVersion!.Memory.GetSeed());
                 CreateBot(BotPanel.GetBotCode());
                 PokemonWatcher = new PokemonWatcher(GameVersion);
                 PokemonWatcher.OpponentChanged += PokemonWatcher_OpponentChanged;
@@ -318,68 +312,31 @@ namespace Pokebot
 
         #endregion
 
-        #region Settings
+        #region Settings Events
 
-        private void UpdateSettings()
+        private void SettingsPanel_SettingsConfigChanged(SettingsConfig settingsConfig)
         {
-            _accelerateCheckbox.Checked = SettingsConfig.Speed;
-            _soundCheckbox.Checked = SettingsConfig.Sound;
-            _discordWebhookText.Text = SettingsConfig.DiscordWebhook;
-            _delayUpDown.Value = (decimal)SettingsConfig.DelayBetweenActions;
-            _waitTask = new WaitTask(SettingsConfig.DelayBetweenActions);
-        }
+            APIContainer?.Emulation.LimitFramerate(!settingsConfig.Speed);
+            APIContainer?.EmuClient.SetSoundOn(settingsConfig.Sound);
+            _waitTask = new WaitTask(settingsConfig.DelayBetweenActions);
 
-        private void AccelerateCheckChanged(object sender, EventArgs e)
-        {
-            if (sender is CheckBox checkBox)
+            if (string.IsNullOrWhiteSpace(settingsConfig.DiscordWebhook))
             {
-                SettingsConfig.Speed = checkBox.Checked;
-                APIContainer?.Emulation.LimitFramerate(!SettingsConfig.Speed);
-                SettingsConfig.Save();
+                DiscordWebhookServices = null;
+            } else
+            {
+                DiscordWebhookServices = new DiscordWebhookServices(settingsConfig.DiscordWebhook);
             }
         }
 
-        private void SoundCheckboxChanged(object sender, EventArgs e)
-        {
-            if (sender is CheckBox checkBox)
-            {
-                SettingsConfig.Sound = checkBox.Checked;
-                APIContainer?.EmuClient.SetSoundOn(SettingsConfig.Sound);
-                SettingsConfig.Save();
-            }
-        }
-
-        private void PauseCheckboxChanged(object sender, EventArgs e)
+        private void SettingsPanel_PauseClicked()
         {
             APIContainer?.EmuClient.TogglePause();
         }
 
-        private void DiscordWebhookTextChanged(object sender, EventArgs e)
+        private void SettingsPanel_SeedClicked(uint seed)
         {
-            try
-            {
-                SettingsConfig.DiscordWebhook = _discordWebhookText.Text;
-                SettingsConfig.Save();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-            }
-        }
-
-        private void DelayUpDownChanged(object sender, EventArgs e)
-        {
-            SettingsConfig.DelayBetweenActions = (double)_delayUpDown.Value;
-            _waitTask = new WaitTask(SettingsConfig.DelayBetweenActions);
-        }
-
-        private void InjectSeedClicked(object sender, EventArgs e)
-        {
-            if (IsReady)
-            {
-                uint value = (uint)_seedText.Value;
-                GameVersion!.Memory.SetSeed(value);
-            }
+            GameVersion!.Memory.SetSeed(seed);
         }
 
         #endregion
@@ -415,8 +372,11 @@ namespace Pokebot
 
         private void Bot_PokemonFound(Pokemon pokemon)
         {
-            var trainer = GameVersion!.Memory.GetPlayer();
-            new DiscordWebhookServices(SettingsConfig.DiscordWebhook).SendPokemonWebhook(pokemon, trainer);
+            if (DiscordWebhookServices != null)
+            {
+                var trainer = GameVersion!.Memory.GetPlayer();
+                DiscordWebhookServices.SendPokemonWebhook(pokemon, trainer);
+            }
         }
 
         private void Bot_PokemonEncountered(Pokemon pokemon)
