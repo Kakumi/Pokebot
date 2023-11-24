@@ -45,12 +45,35 @@ namespace Pokebot.Factories.Bots
             Enabled = true;
             StateChanged?.Invoke(Enabled);
 
-            if (APIContainer.Emulation.FrameCount() >= Control.GetTargetFrame())
+            bool shouldLoad = false;
+            if (APIContainer.EmuClient.HasSaveState(GetSaveStateName()))
             {
-                throw new BotException(Messages.BotPokeFinder_InvalidFrame);
-            } else
+                var result = MessageBox.Show(Messages.Bot_FileExistReplaceMessage, Messages.Bot_FileExistReplaceTitle, MessageBoxButtons.YesNo);
+                shouldLoad = result == DialogResult.Yes;
+            }
+
+            bool loaded = false;
+            if (shouldLoad)
             {
-                APIContainer.EmuClient.SaveState(GetSaveStateName());
+                try
+                {
+                    loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
+                }
+                catch (FileNotFoundException) //If the save state doesn't exists
+                {
+                }
+            }
+
+            if (!loaded)
+            {
+                if (APIContainer.Emulation.FrameCount() >= Control.GetTargetFrame())
+                {
+                    throw new BotException(Messages.BotPokeFinder_InvalidFrame);
+                }
+                else
+                {
+                    APIContainer.EmuClient.SaveState(GetSaveStateName());
+                }
             }
         }
 
@@ -90,29 +113,9 @@ namespace Pokebot.Factories.Bots
             }
         }
 
-        private void LoadOrStop()
-        {
-            bool loaded = false;
-            try
-            {
-                loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
-            }
-            catch (FileNotFoundException) //If the save state doesn't exists
-            {
-
-            }
-            finally
-            {
-                if (!loaded)
-                {
-                    throw new BotException(Messages.BotPokeFinder_InvalidSaveState);
-                }
-            }
-        }
-
         private void Control_RetryClick()
         {
-            LoadOrStop();
+            _ = APIContainer.EmuClient.LoadOrStop(GetSaveStateName());
             Enabled = true;
             StateChanged?.Invoke(Enabled);
 

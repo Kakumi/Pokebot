@@ -147,6 +147,12 @@
   <data name="BotStarter_WrongStartPosition" xml:space="preserve">
     <value>Bot is unable to start because the player is not in front of starters.</value>
   </data>
+  <data name="Bot_FileExistReplaceMessage" xml:space="preserve">
+    <value>A save state already exists for this bot. Do you want to use it ?</value>
+  </data>
+  <data name="Bot_FileExistReplaceTitle" xml:space="preserve">
+    <value>File already exists</value>
+  </data>
   <data name="Bot_NotRunning" xml:space="preserve">
     <value>Bot is not running</value>
   </data>

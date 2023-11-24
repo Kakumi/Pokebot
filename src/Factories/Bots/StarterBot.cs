@@ -5,6 +5,7 @@ using Pokebot.Models;
 using Pokebot.Models.Player;
 using Pokebot.Panels;
 using Pokebot.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -54,37 +55,45 @@ namespace Pokebot.Factories.Bots
 
             var playerData = GameVersion.Memory.GetPlayer();
 
+            bool shouldLoad = false;
+            if (APIContainer.EmuClient.HasSaveState(GetSaveStateName()))
+            {
+                var result = MessageBox.Show(Messages.Bot_FileExistReplaceMessage, Messages.Bot_FileExistReplaceTitle, MessageBoxButtons.YesNo);
+                shouldLoad = result == DialogResult.Yes;
+            }
+
             bool loaded = false;
-            try
+            if (shouldLoad)
             {
-                loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
-            }
-            catch (FileNotFoundException) //If the save state doesn't exists
-            {
-            }
-            finally
-            {
-                if (!loaded)
+                try
                 {
-                    var starterBotConfig = GameVersion.VersionInfo.BotsConfig.Starter;
-                    //Check if the player is at the right position
-                    if (playerData.Position == starterBotConfig.Position && starterBotConfig.Facing == PlayerFacingDirection.Up)
-                    {
-                        APIContainer.EmuClient.SaveState(GetSaveStateName());
-                    }
-                    else
-                    {
-                        throw new BotException(Messages.BotStarter_WrongStartPosition);
-                    }
+                    loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
                 }
-
-                if (GameVersion.Memory.GetPartyCount() != 0)
+                catch (FileNotFoundException) //If the save state doesn't exists
                 {
-                    throw new BotException(Messages.BotStarter_PartyNotEmpty);
                 }
-
-                UpdateSeed();
             }
+
+            if (!loaded)
+            {
+                var starterBotConfig = GameVersion.VersionInfo.BotsConfig.Starter;
+                //Check if the player is at the right position
+                if (playerData.Position == starterBotConfig.Position && starterBotConfig.Facing == PlayerFacingDirection.Up)
+                {
+                    APIContainer.EmuClient.SaveState(GetSaveStateName());
+                }
+                else
+                {
+                    throw new BotException(Messages.BotStarter_WrongStartPosition);
+                }
+            }
+
+            if (GameVersion.Memory.GetPartyCount() != 0)
+            {
+                throw new BotException(Messages.BotStarter_PartyNotEmpty);
+            }
+
+            UpdateRNG();
         }
 
         public void Stop()
@@ -108,7 +117,10 @@ namespace Pokebot.Factories.Bots
                 }
                 else
                 {
-                    LoadOrStop();
+                    if (APIContainer.EmuClient.LoadOrStop(GetSaveStateName()))
+                    {
+                        UpdateRNG();
+                    }
                 }
             }
         }
@@ -118,31 +130,7 @@ namespace Pokebot.Factories.Bots
             return $"{GameVersion.VersionInfo.Name}_starter";
         }
 
-        private void LoadOrStop()
-        {
-            bool loaded = false;
-            try
-            {
-                loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
-            }
-            catch (FileNotFoundException) //If the save state doesn't exists
-            {
-
-            }
-            finally
-            {
-                if (loaded)
-                {
-                    UpdateSeed();
-                }
-                else
-                {
-                    throw new BotException(Messages.BotStarter_InvalidSaveState);
-                }
-            }
-        }
-
-        private void UpdateSeed()
+        private void UpdateRNG()
         {
             uint random;
             do

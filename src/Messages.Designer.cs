@@ -79,6 +79,24 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à A save state already exists for this bot. Do you want to use it ?.
+        /// </summary>
+        internal static string Bot_FileExistReplaceMessage {
+            get {
+                return ResourceManager.GetString("Bot_FileExistReplaceMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à File already exists.
+        /// </summary>
+        internal static string Bot_FileExistReplaceTitle {
+            get {
+                return ResourceManager.GetString("Bot_FileExistReplaceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Bot is not running.
         /// </summary>
         internal static string Bot_NotRunning {
