@@ -10,6 +10,7 @@ namespace Pokebot.Models
         public bool Speed { get; set; }
         public bool Sound { get; set; }
         public string DiscordWebhook { get; set; }
+        public string DiscordUserID { get; set; }
         public double DelayBetweenActions { get; set; }
 
         public SettingsConfig()
@@ -17,6 +18,7 @@ namespace Pokebot.Models
             Speed = false;
             Sound = false;
             DiscordWebhook = string.Empty;
+            DiscordUserID = string.Empty;
             DelayBetweenActions = 0.1;
         }
 

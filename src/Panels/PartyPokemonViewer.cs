@@ -14,6 +14,7 @@ namespace Pokebot.Panels
     public partial class PartyPokemonViewer : UserControl
     {
         public PokemonViewerPanel PokemonViewerPanel { get; }
+
         public PartyPokemonViewer()
         {
             InitializeComponent();
@@ -44,7 +45,11 @@ namespace Pokebot.Panels
 
         public void Clear()
         {
-            _partyBox_SelectedIndexChanged(_panelViewer, new EventArgs());
+            _partyBox.Items.Clear();
+            _partyBox.SelectedItem = null;
+            _partyBox.SelectedValue = null;
+            _partyBox.Text = null;
+            PokemonViewerPanel.Hide();
         }
 
         private void _partyBox_SelectedIndexChanged(object sender, EventArgs e)

@@ -187,6 +187,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Hey {0} ! {1}.
+        /// </summary>
+        internal static string Discord_ContentWithUser {
+            get {
+                return ResourceManager.GetString("Discord_ContentWithUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Item.
         /// </summary>
         internal static string Discord_Item {
@@ -498,6 +507,60 @@ namespace Pokebot {
         internal static string Symbols_Empty {
             get {
                 return ResourceManager.GetString("Symbols_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bot.
+        /// </summary>
+        internal static string Tab_BotPanel {
+            get {
+                return ResourceManager.GetString("Tab_BotPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bot Stats.
+        /// </summary>
+        internal static string Tab_EncounterStats {
+            get {
+                return ResourceManager.GetString("Tab_EncounterStats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Logs.
+        /// </summary>
+        internal static string Tab_LogsPanel {
+            get {
+                return ResourceManager.GetString("Tab_LogsPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Settings.
+        /// </summary>
+        internal static string Tab_SettingsPanel {
+            get {
+                return ResourceManager.GetString("Tab_SettingsPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Opponent.
+        /// </summary>
+        internal static string Tab_ViewerOpponentName {
+            get {
+                return ResourceManager.GetString("Tab_ViewerOpponentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Party.
+        /// </summary>
+        internal static string Tab_ViewerPartyName {
+            get {
+                return ResourceManager.GetString("Tab_ViewerPartyName", resourceCulture);
             }
         }
         
