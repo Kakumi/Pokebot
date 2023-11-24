@@ -23,7 +23,7 @@ namespace Pokebot.Services.DiscordWebhook.Models
             Embeds = new List<DiscordWebhookEmbed>();
         }
 
-        public DiscordWebhook(Pokemon pokemon) : this(Messages.AppName, Messages.Discord_Content)
+        public DiscordWebhook(string content, Pokemon pokemon) : this(Messages.AppName, content)
         {
             var embed = new DiscordWebhookEmbed($"{pokemon.RealName} ({pokemon.MetLevel})");
             embed.Thumbnail = new DiscordWebhookImage($"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{pokemon.DexId}.png");

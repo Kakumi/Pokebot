@@ -37,6 +37,7 @@ namespace Pokebot.Panels
             _accelerateCheckbox.Checked = SettingsConfig.Speed;
             _soundCheckbox.Checked = SettingsConfig.Sound;
             _discordWebhookText.Text = SettingsConfig.DiscordWebhook;
+            _discordUserID.Text = SettingsConfig.DiscordUserID;
             _delayUpDown.Value = (decimal)SettingsConfig.DelayBetweenActions;
             _delayTooltip.SetToolTip(_delayLabel, Messages.Tooltip_Delay);
         }
@@ -68,6 +69,13 @@ namespace Pokebot.Panels
         private void _discordWebhookText_TextChanged(object sender, EventArgs e)
         {
             SettingsConfig.DiscordWebhook = _discordWebhookText.Text;
+            SettingsConfigChanged?.Invoke(SettingsConfig);
+            SettingsConfig.Save();
+        }
+
+        private void _discordUserID_TextChanged(object sender, EventArgs e)
+        {
+            SettingsConfig.DiscordUserID = _discordUserID.Text;
             SettingsConfigChanged?.Invoke(SettingsConfig);
             SettingsConfig.Save();
         }

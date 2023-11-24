@@ -325,7 +325,7 @@ namespace Pokebot
                 DiscordWebhookServices = null;
             } else
             {
-                DiscordWebhookServices = new DiscordWebhookServices(settingsConfig.DiscordWebhook);
+                DiscordWebhookServices = new DiscordWebhookServices(settingsConfig.DiscordWebhook, settingsConfig.DiscordUserID);
             }
         }
 
@@ -374,8 +374,7 @@ namespace Pokebot
         {
             if (DiscordWebhookServices != null)
             {
-                var trainer = GameVersion!.Memory.GetPlayer();
-                DiscordWebhookServices.SendPokemonWebhook(pokemon, trainer);
+                DiscordWebhookServices.SendPokemonWebhook(pokemon);
             }
         }
 

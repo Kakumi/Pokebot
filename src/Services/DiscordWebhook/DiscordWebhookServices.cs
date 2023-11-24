@@ -16,17 +16,29 @@ namespace Pokebot.Services.DiscordWebhook
     public class DiscordWebhookServices
     {
         public string Url { get; }
-        public DiscordWebhookServices(string url) {
+        public string UserID { get; }
+        public DiscordWebhookServices(string url, string userID) {
             Url = url;
+            UserID = userID;
         }
 
-        public void SendPokemonWebhook(Pokemon pokemon, PlayerData trainer)
+        public void SendPokemonWebhook(Pokemon pokemon)
         {
             try
             {
                 if (!string.IsNullOrWhiteSpace(Url))
                 {
-                    var webhook = new Models.DiscordWebhook(pokemon);
+                    string content;
+                    if (string.IsNullOrWhiteSpace(UserID))
+                    {
+                        content = Messages.Discord_Content;
+                    } else
+                    {
+                        var pingUserID = $"<@{UserID}>";
+                        content = string.Format(Messages.Discord_ContentWithUser, pingUserID, Messages.Discord_Content);
+                    }
+
+                    var webhook = new Models.DiscordWebhook(content, pokemon);
                     var json = JsonConvert.SerializeObject(webhook);
 
                     Task.Run(async () =>

@@ -187,6 +187,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Hey {0} ! {1}.
+        /// </summary>
+        internal static string Discord_ContentWithUser {
+            get {
+                return ResourceManager.GetString("Discord_ContentWithUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Item.
         /// </summary>
         internal static string Discord_Item {

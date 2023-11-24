@@ -39,6 +39,8 @@
             this._soundCheckbox = new System.Windows.Forms.CheckBox();
             this._accelerateCheckbox = new System.Windows.Forms.CheckBox();
             this._delayTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this._discordUserIDLabel = new System.Windows.Forms.Label();
+            this._discordUserID = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this._delayUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._seedText)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +48,7 @@
             // _delayLabel
             // 
             this._delayLabel.AutoSize = true;
-            this._delayLabel.Location = new System.Drawing.Point(129, 140);
+            this._delayLabel.Location = new System.Drawing.Point(128, 167);
             this._delayLabel.Name = "_delayLabel";
             this._delayLabel.Size = new System.Drawing.Size(219, 16);
             this._delayLabel.TabIndex = 20;
@@ -60,7 +62,7 @@
             0,
             0,
             65536});
-            this._delayUpDown.Location = new System.Drawing.Point(3, 138);
+            this._delayUpDown.Location = new System.Drawing.Point(2, 165);
             this._delayUpDown.Maximum = new decimal(new int[] {
             10,
             0,
@@ -138,10 +140,29 @@
             this._accelerateCheckbox.UseVisualStyleBackColor = true;
             this._accelerateCheckbox.CheckedChanged += new System.EventHandler(this._accelerateCheckbox_CheckedChanged);
             // 
+            // _discordUserIDLabel
+            // 
+            this._discordUserIDLabel.AutoSize = true;
+            this._discordUserIDLabel.Location = new System.Drawing.Point(250, 140);
+            this._discordUserIDLabel.Name = "_discordUserIDLabel";
+            this._discordUserIDLabel.Size = new System.Drawing.Size(173, 16);
+            this._discordUserIDLabel.TabIndex = 22;
+            this._discordUserIDLabel.Text = "Discord User ID (facultative)";
+            // 
+            // _discordUserID
+            // 
+            this._discordUserID.Location = new System.Drawing.Point(3, 137);
+            this._discordUserID.Name = "_discordUserID";
+            this._discordUserID.Size = new System.Drawing.Size(241, 22);
+            this._discordUserID.TabIndex = 21;
+            this._discordUserID.TextChanged += new System.EventHandler(this._discordUserID_TextChanged);
+            // 
             // SettingsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._discordUserIDLabel);
+            this.Controls.Add(this._discordUserID);
             this.Controls.Add(this._delayLabel);
             this.Controls.Add(this._delayUpDown);
             this.Controls.Add(this._discordWebhookLabel);
@@ -172,5 +193,7 @@
         private System.Windows.Forms.CheckBox _soundCheckbox;
         private System.Windows.Forms.CheckBox _accelerateCheckbox;
         private System.Windows.Forms.ToolTip _delayTooltip;
+        private System.Windows.Forms.Label _discordUserIDLabel;
+        private System.Windows.Forms.TextBox _discordUserID;
     }
 }
