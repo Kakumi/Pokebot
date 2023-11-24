@@ -7,11 +7,11 @@ using Pokebot.Factories.Bots;
 using Pokebot.Factories.Versions;
 using Pokebot.Models;
 using Pokebot.Models.Config;
-using Pokebot.Models.Discord;
 using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Properties;
+using Pokebot.Services.DiscordWebhook;
 using Pokebot.Services.Github;
 using Pokebot.Utils;
 using System;
@@ -31,6 +31,8 @@ namespace Pokebot
     [ExternalTool("Pokebot")]
     public partial class Pokebot : ToolFormBase, IExternalToolForm
     {
+        protected override string WindowTitleStatic => Messages.AppName;
+
         private ApiContainer? _apiContainer;
         public ApiContainer? APIContainer
         {
@@ -63,17 +65,15 @@ namespace Pokebot
             get => IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null;
         }
 
-        public bool IsBotReady
-        {
-            get => IsReady && Bot != null;
-        }
-
         public GameVersion? GameVersion { get; private set; }
         public IBot? Bot { get; private set; }
 
-        protected override string WindowTitleStatic => Messages.AppName;
-        public PokemonViewerPanel OpponentViewerPanel { get; }
-        public PartyPokemonViewer PartyViewerPanel { get; }
+        public PokemonViewerPanel OpponentViewerPanel { get; private set; }
+        public PartyPokemonViewer PartyViewerPanel { get; private set; }
+        public EncounterStatsPanel EncounterStatsPanel { get; private set; }
+        public BotPanel BotPanel { get; private set; }
+        public LogsPanel LogsPanel { get; private set; }
+
         public PokemonWatcher? PokemonWatcher { get; private set; }
         private SettingsConfig? _settingsConfig;
         public SettingsConfig SettingsConfig
@@ -95,21 +95,8 @@ namespace Pokebot
             InitializeComponent();
 
             var configText = Encoding.UTF8.GetString(Resources.appconfig);
-            AppConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<AppConfig>(configText)!;
+            AppConfig = JsonConvert.DeserializeObject<AppConfig>(configText)!;
 
-            Log.LogReceived += Log_LogReceived;
-
-            OpponentViewerPanel = new PokemonViewerPanel();
-            OpponentViewerPanel.Dock = DockStyle.Fill;
-            OpponentViewerPanel.Hide();
-
-            PartyViewerPanel = new PartyPokemonViewer();
-            PartyViewerPanel.Dock = DockStyle.Fill;
-
-            _opponentViewer.Controls.Clear();
-            _opponentViewer.Controls.Add(OpponentViewerPanel);
-            _partyViewer.Controls.Clear();
-            _partyViewer.Controls.Add(PartyViewerPanel);
             _seedText.Minimum = 0;
             _seedText.Maximum = uint.MaxValue;
 
@@ -118,6 +105,9 @@ namespace Pokebot
             _delayTooltip.SetToolTip(_delayLabel, Messages.Tooltip_Delay);
 
             SettingsConfig = SettingsConfig.Load();
+            LogsPanel = new LogsPanel();
+
+            CreateTabPages();
 
             var worker = new BackgroundWorker();
             worker.DoWork += GetGithubLatestReleaseWorker;
@@ -160,81 +150,55 @@ namespace Pokebot
             _soundCheckbox.Checked = APIContainer?.EmuClient.GetSoundOn() ?? true;
             _pauseCheckbox.Checked = APIContainer?.EmuClient.IsPaused() ?? false;
             _tabControl.Visible = false;
+        }
 
-            _botComboBox.DataSource = AppConfig.BotTypes;
-            _botComboBox.ValueMember = nameof(BotType.Code);
-            _botComboBox.DisplayMember = nameof(BotType.Name);
+        private void CreateTab(UserControl userControl, string name)
+        {
+            TabPage tabPage = new TabPage(name);
+            tabPage.Controls.Add(userControl);
+            _tabControl.TabPages.Add(tabPage);
+        }
+
+        private void CreateTabPages()
+        {
+            OpponentViewerPanel = new PokemonViewerPanel();
+            OpponentViewerPanel.Dock = DockStyle.Fill;
+            OpponentViewerPanel.Hide();
+
+            PartyViewerPanel = new PartyPokemonViewer();
+            PartyViewerPanel.Dock = DockStyle.Fill;
+
+            EncounterStatsPanel = new EncounterStatsPanel();
+            EncounterStatsPanel.Dock = DockStyle.Fill;
+
+            BotPanel = new BotPanel(AppConfig.BotTypes);
+            BotPanel.BotChanged += BotPanel_BotChanged;
+            BotPanel.Dock = DockStyle.Fill;
+
+            CreateTab(BotPanel, Messages.Tab_BotPanel);
+            CreateTab(EncounterStatsPanel, Messages.Tab_EncounterStats);
+            CreateTab(OpponentViewerPanel, Messages.Tab_ViewerOpponentName);
+            CreateTab(PartyViewerPanel, Messages.Tab_ViewerPartyName);
+            CreateTab(LogsPanel, Messages.Tab_LogsPanel);
         }
 
         private void RomLoadedUpdated()
         {
             _tabControl.Visible = IsRomLoaded;
-            Bot = null;
-            _botPanel.Controls.Clear();
-            _statsListView.Items.Clear();
-            _botComboBox.SelectedIndex = 0;
-            _statusBot.Text = Messages.Bot_NotRunning;
-            _startBotButton.Enabled = false;
-            _stopBotButton.Enabled = false;
+            BotPanel.Reset();
+            EncounterStatsPanel.Clear();
+            OpponentViewerPanel.Hide();
+            PartyViewerPanel.Clear();
 
-            UpdateBotUI();
+            Bot = null;
 
             if (IsReady)
             {
                 _seedText.Value = GameVersion!.Memory.GetSeed();
+                CreateBot(BotPanel.GetBotCode());
                 PokemonWatcher = new PokemonWatcher(GameVersion);
                 PokemonWatcher.OpponentChanged += PokemonWatcher_OpponentChanged;
                 PokemonWatcher.PartyChanged += PokemonWatcher_PartyChanged;
-            }
-        }
-
-        private void PokemonWatcher_OpponentChanged(Pokemon? pokemon)
-        {
-            if (pokemon != null)
-            {
-                OpponentViewerPanel.Show();
-                OpponentViewerPanel.SetPokemon(pokemon);
-            }
-            else
-            {
-                OpponentViewerPanel.Hide();
-            }
-        }
-
-        private void PokemonWatcher_PartyChanged(System.Collections.Generic.IReadOnlyCollection<Pokemon> pokemons)
-        {
-            PartyViewerPanel.SetParty(pokemons.ToList());
-        }
-
-        #endregion
-
-        #region Events Callback
-
-        private void Log_LogReceived(LogEventArgs e)
-        {
-            var item = new ListViewItem(e.Level.ToString());
-            switch (e.Level)
-            {
-                case LogLevel.Debug:
-                case LogLevel.Info:
-                    item.ForeColor = Color.Black;
-                    break;
-                case LogLevel.Warn:
-                    item.ForeColor = Color.Orange;
-                    break;
-                case LogLevel.Error:
-                case LogLevel.Fatal:
-                    item.ForeColor = Color.Red;
-                    break;
-            }
-
-            item.SubItems.Add(e.Message);
-
-            _logsListView.Items.Add(item);
-
-            for (int i = 0; i < _logsListView.Columns.Count; i++)
-            {
-                _logsListView.Columns[i].Width = -1;
             }
         }
 
@@ -318,7 +282,7 @@ namespace Pokebot
             }
             catch (BotException ex)
             {
-                StopBot();
+                BotPanel.StopBot();
                 Log.Error(ex.Message);
             }
             catch (Exception ex)
@@ -400,17 +364,6 @@ namespace Pokebot
             _waitTask = new WaitTask(SettingsConfig.DelayBetweenActions);
         }
 
-        #endregion
-
-        private void LoadTestClick(object sender, EventArgs e)
-        {
-            var success = APIContainer?.EmuClient.OpenRom(@$"D:\VisualStudioProjects\Pokebot\BizHawk\Roms\Pokemon - Version Emeraude (FR).gba");
-            if (success ?? false)
-            {
-                IsRomLoaded = APIContainer?.EmuClient.LoadState("Emerald_pokefinder") ?? false; //starter
-            }
-        }
-
         private void InjectSeedClicked(object sender, EventArgs e)
         {
             if (IsReady)
@@ -420,39 +373,26 @@ namespace Pokebot
             }
         }
 
-        #region Bot
+        #endregion
 
-        private void UpdateBotUI()
+        #region Bot Events
+
+        private void BotPanel_BotChanged(BotCode code)
+        {
+            CreateBot(code);
+        }
+
+        private void CreateBot(BotCode code)
         {
             if (IsReady)
             {
-                _botPanel.Controls.Clear();
+                BotPanel.ClearPanel();
 
-                var value = (BotType)_botComboBox.SelectedItem;
-                var type = (BotCode)value.Code;
-                Bot = BotFactory.Create(type, APIContainer!, GameVersion!);
-                Bot.PokemonEncountered += PokemonEncountered;
+                Bot = BotFactory.Create(code, APIContainer!, GameVersion!); 
                 Bot.StateChanged += Bot_StateChanged;
+                Bot.PokemonEncountered += Bot_PokemonEncountered;
                 Bot.PokemonFound += Bot_PokemonFound;
-                _botPanel.Controls.Add(Bot.GetPanel());
-                _startBotButton.Enabled = true;
-                _stopBotButton.Enabled = false;
-            }
-        }
-
-        private void BotSelectionChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                UpdateBotUI();
-            }
-            catch (NotSupportedException ex)
-            {
-                Log.Error(ex.Message);
-            }
-            catch (Exception)
-            {
-                Log.Error(Messages.Error_ReadingBotType);
+                BotPanel.SetBot(Bot);
             }
         }
 
@@ -460,149 +400,41 @@ namespace Pokebot
         {
             if (enabled)
             {
-                _statsListView.Items.Clear();
-                _stopBotButton.Enabled = true;
-                _startBotButton.Enabled = false;
-                SetBotStatus(Messages.Bot_Running);
-            }
-            else
-            {
-                _startBotButton.Enabled = true;
-                _stopBotButton.Enabled = false;
-                SetBotStatus(Messages.Bot_NotRunning);
-            }
-        }
-
-        public void SendPokemonWebhook(Pokemon pokemon)
-        {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(SettingsConfig.DiscordWebhook))
-                {
-                    var trainer = GameVersion!.Memory.GetPlayer();
-                    var webhook = new DiscordWebhook(pokemon);
-                    var json = JsonConvert.SerializeObject(webhook);
-
-                    Task.Run(async () =>
-                    {
-                        try
-                        {
-                            using (var client = new HttpClient())
-                            {
-                                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                                await client.PostAsync(SettingsConfig.DiscordWebhook, content);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.Error(string.Format(Messages.DiscordWebhook_Failed, ex.Message));
-                        }
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(string.Format(Messages.DiscordWebhook_Failed, ex.Message));
+                EncounterStatsPanel.Clear();
             }
         }
 
         private void Bot_PokemonFound(Pokemon pokemon)
         {
-            SendPokemonWebhook(pokemon);
+            var trainer = GameVersion!.Memory.GetPlayer();
+            new DiscordWebhookServices(SettingsConfig.DiscordWebhook).SendPokemonWebhook(pokemon, trainer);
         }
 
-        private void PokemonEncountered(Pokemon pokemon)
+        private void Bot_PokemonEncountered(Pokemon pokemon)
         {
-            AddPokemonStat(pokemon);
-        }
-
-        private void StartBotClicked(object sender, EventArgs e)
-        {
-            StartBot();
-        }
-
-        private void StopBotClicked(object sender, EventArgs e)
-        {
-            StopBot();
-        }
-
-        private void StartBot()
-        {
-            try
-            {
-                if (IsReady && !Bot!.Enabled)
-                {
-                    Bot.Start();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-                StopBot();
-                SetBotStatus(ex.Message, Color.Red);
-            }
-        }
-
-        private void StopBot()
-        {
-            try
-            {
-                if (IsReady && Bot!.Enabled)
-                {
-                    Bot.Stop();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-                SetBotStatus(ex.Message, Color.Red);
-            }
-        }
-
-        private void SetBotStatus(string message, Color? color = null)
-        {
-            _statusBot.Text = message;
-            _statusBot.ForeColor = color ?? Color.Black;
+            EncounterStatsPanel.AddPokemonStat(pokemon);
         }
 
         #endregion
 
-        #region Statistiques
+        #region Pokemon Watcher Events
 
-        public void AddPokemonStat(Pokemon pokemon)
+        private void PokemonWatcher_OpponentChanged(Pokemon? pokemon)
         {
-            var encounters = 1;
-            var shinyEncounters = pokemon.IsShiny ? 1 : 0;
-            var found = false;
-
-            for (int i = 0; i < _statsListView.Items.Count; i++)
+            if (pokemon != null)
             {
-                var item = _statsListView.Items[i];
-                if (item != null && item.Text == pokemon.RealName)
-                {
-                    if (int.TryParse(item.SubItems[1].Text, out encounters) && int.TryParse(item.SubItems[2].Text, out int currentShinyEncounters))
-                    {
-                        encounters += 1;
-                        currentShinyEncounters += shinyEncounters;
-
-                        item.SubItems[1].Text = encounters.ToString();
-                        item.SubItems[2].Text = currentShinyEncounters.ToString();
-                        item.SubItems[3].Text = $"{(shinyEncounters / encounters) * 100}%";
-                    }
-
-                    found = true;
-                }
+                OpponentViewerPanel.Show();
+                OpponentViewerPanel.SetPokemon(pokemon);
             }
-
-            if (!found)
+            else
             {
-                var item = new ListViewItem(pokemon.RealName);
-                item.SubItems.Add(encounters.ToString());
-                item.SubItems.Add(shinyEncounters.ToString());
-                item.SubItems.Add($"{(shinyEncounters / encounters) * 100}%");
-
-                _statsListView.Items.Add(item);
+                OpponentViewerPanel.Hide();
             }
+        }
+
+        private void PokemonWatcher_PartyChanged(System.Collections.Generic.IReadOnlyCollection<Pokemon> pokemons)
+        {
+            PartyViewerPanel.SetParty(pokemons.ToList());
         }
 
         #endregion

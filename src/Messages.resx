@@ -264,6 +264,21 @@
   <data name="Symbols_Empty" xml:space="preserve">
     <value>No symbols found for this game.</value>
   </data>
+  <data name="Tab_BotPanel" xml:space="preserve">
+    <value>Bot</value>
+  </data>
+  <data name="Tab_EncounterStats" xml:space="preserve">
+    <value>Bot Stats</value>
+  </data>
+  <data name="Tab_LogsPanel" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Tab_ViewerOpponentName" xml:space="preserve">
+    <value>Opponent</value>
+  </data>
+  <data name="Tab_ViewerPartyName" xml:space="preserve">
+    <value>Party</value>
+  </data>
   <data name="Tooltip_Delay" xml:space="preserve">
     <value>It's better to have some delay between each actions to avoid the bot to freeze while doing input. 0.1 is recommanded.</value>
   </data>

@@ -502,6 +502,51 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bot.
+        /// </summary>
+        internal static string Tab_BotPanel {
+            get {
+                return ResourceManager.GetString("Tab_BotPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bot Stats.
+        /// </summary>
+        internal static string Tab_EncounterStats {
+            get {
+                return ResourceManager.GetString("Tab_EncounterStats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Logs.
+        /// </summary>
+        internal static string Tab_LogsPanel {
+            get {
+                return ResourceManager.GetString("Tab_LogsPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Opponent.
+        /// </summary>
+        internal static string Tab_ViewerOpponentName {
+            get {
+                return ResourceManager.GetString("Tab_ViewerOpponentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Party.
+        /// </summary>
+        internal static string Tab_ViewerPartyName {
+            get {
+                return ResourceManager.GetString("Tab_ViewerPartyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à It&apos;s better to have some delay between each actions to avoid the bot to freeze while doing input. 0.1 is recommanded..
         /// </summary>
         internal static string Tooltip_Delay {
