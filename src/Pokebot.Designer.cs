@@ -34,6 +34,7 @@
             this._versionLabel = new System.Windows.Forms.Label();
             this._delayTooltip = new System.Windows.Forms.ToolTip(this.components);
             this._newVersionLabel = new System.Windows.Forms.Label();
+            this._bugButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // _statusLabel
@@ -76,11 +77,22 @@
             this._newVersionLabel.TabIndex = 4;
             this._newVersionLabel.Text = "new version check";
             // 
+            // _bugButton
+            // 
+            this._bugButton.Location = new System.Drawing.Point(713, 34);
+            this._bugButton.Name = "_bugButton";
+            this._bugButton.Size = new System.Drawing.Size(75, 28);
+            this._bugButton.TabIndex = 5;
+            this._bugButton.Text = "Bug";
+            this._bugButton.UseVisualStyleBackColor = true;
+            this._bugButton.Click += new System.EventHandler(this._bugButton_Click);
+            // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._bugButton);
             this.Controls.Add(this._newVersionLabel);
             this.Controls.Add(this._tabControl);
             this.Controls.Add(this._versionLabel);
@@ -99,5 +111,6 @@
         private System.Windows.Forms.Label _versionLabel;
         private System.Windows.Forms.ToolTip _delayTooltip;
         private System.Windows.Forms.Label _newVersionLabel;
+        private System.Windows.Forms.Button _bugButton;
     }
 }

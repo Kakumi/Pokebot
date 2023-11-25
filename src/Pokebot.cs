@@ -312,6 +312,15 @@ namespace Pokebot
 
         #endregion
 
+        #region Pokebot Events
+
+        private void _bugButton_Click(object sender, EventArgs e)
+        {
+            GithubServices.OpenIssues(AppConfig.Github.Owner, AppConfig.Github.Repository);
+        }
+
+        #endregion
+
         #region Settings Events
 
         private void SettingsPanel_SettingsConfigChanged(SettingsConfig settingsConfig)
