@@ -19761,8 +19761,12 @@
       "Code": 1
     },
     {
+      "Name": "Static",
+      "Code": 2
+    },
+    {
       "Name": "PokeFinder",
-      "Code": 4
+      "Code": 3
     }
   ],
   "Github": {

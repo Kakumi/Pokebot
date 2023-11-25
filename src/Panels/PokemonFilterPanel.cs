@@ -38,6 +38,11 @@ namespace Pokebot.Panels
             InitializeDefaultComboBox(_pokemonComboBox, items);
         }
 
+        public void HidePokemons()
+        {
+            _pokemonComboBox.Hide();
+        }
+
         public void SetNatures(IEnumerable<PokemonNature> natures)
         {
             var items = new List<ComboBoxItem>();
@@ -69,6 +74,7 @@ namespace Pokebot.Panels
             comboBox.DisplayMember = nameof(ComboBoxItem.Name);
             comboBox.ValueMember = nameof(ComboBoxItem.Id);
             comboBox.SelectedIndex = 0;
+            comboBox.Show();
         }
 
         private void IvSpDefense_ValueChanged(object sender, EventArgs e)

@@ -16,6 +16,8 @@ namespace Pokebot.Factories
                     return new StarterBot(apiContainer, gameVersion);
                 case BotCode.Spin:
                     return new SpinBot(apiContainer, gameVersion);
+                case BotCode.Static:
+                    return new LegendaryBot(apiContainer, gameVersion);
                 case BotCode.PokeFinder:
                     return new PokeFinderBot(apiContainer, gameVersion);
             }

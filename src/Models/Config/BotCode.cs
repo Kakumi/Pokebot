@@ -4,8 +4,7 @@
     {
         Starter = 0,
         Spin = 1,
-        Egg = 2,
-        StaticLegendary = 3,
-        PokeFinder = 4
+        Static = 2,
+        PokeFinder = 3
     }
 }
