@@ -38,6 +38,7 @@ namespace Pokebot.Factories.Bots
             Control.RetryClick += Control_RetryClick;
             Control.Dock = DockStyle.Fill;
             Control.SetInfo(gameVersion.Memory.GetTID(), gameVersion.Memory.GetSID());
+            Control.SetPokeFinderTypes(GameVersion.VersionInfo.PokeFinderTypes);
         }
 
         public void Start()
@@ -87,6 +88,7 @@ namespace Pokebot.Factories.Bots
         {
             var frame = APIContainer.Emulation.FrameCount();
             long targetFrame = Control.GetTargetFrame();
+            Control.SetCurrentFrame(frame);
 
             if (frame == targetFrame)
             {

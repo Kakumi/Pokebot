@@ -19240,6 +19240,16 @@
           "PokemonId": 283
         }
       ],
+      "PokeFinderTypes": [
+        {
+          "Name": "None",
+          "FrameAdvance": 0
+        },
+        {
+          "Name": "Starter",
+          "FrameAdvance": 10
+        }
+      ],
       "BotsConfig": {
         "Starter": {
           "Position": {
@@ -19385,6 +19395,12 @@
         {
           "PositionIndex": 2,
           "PokemonId": 283
+        }
+      ],
+      "PokeFinderTypes": [
+        {
+          "Name": "None",
+          "FrameAdvance": 0
         }
       ],
       "BotsConfig": {
@@ -19534,6 +19550,12 @@
           "PokemonId": 283
         }
       ],
+      "PokeFinderTypes": [
+        {
+          "Name": "None",
+          "FrameAdvance": 0
+        }
+      ],
       "BotsConfig": {
         "Starter": {
           "Position": {
@@ -19620,6 +19642,12 @@
           "PokemonId": 7
         }
       ],
+      "PokeFinderTypes": [
+        {
+          "Name": "None",
+          "FrameAdvance": 0
+        }
+      ],
       "BotsConfig": {
         "Starter": {
           "Position": {
@@ -19704,6 +19732,12 @@
         {
           "PositionIndex": 2,
           "PokemonId": 7
+        }
+      ],
+      "PokeFinderTypes": [
+        {
+          "Name": "None",
+          "FrameAdvance": 0
         }
       ],
       "BotsConfig": {

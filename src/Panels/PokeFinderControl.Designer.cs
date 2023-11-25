@@ -38,6 +38,9 @@
             this._hitFrameField = new System.Windows.Forms.NumericUpDown();
             this._hitFrameLabel = new System.Windows.Forms.Label();
             this._retryButton = new System.Windows.Forms.Button();
+            this._frameLabel = new System.Windows.Forms.Label();
+            this._pokefinderTypesComboBox = new System.Windows.Forms.ComboBox();
+            this._pokefinderTypeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this._inputFrame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._hitFrameField)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +59,7 @@
             // _labelInputFrame
             // 
             this._labelInputFrame.AutoSize = true;
-            this._labelInputFrame.Location = new System.Drawing.Point(138, 86);
+            this._labelInputFrame.Location = new System.Drawing.Point(138, 133);
             this._labelInputFrame.Name = "_labelInputFrame";
             this._labelInputFrame.Size = new System.Drawing.Size(46, 16);
             this._labelInputFrame.TabIndex = 2;
@@ -64,7 +67,7 @@
             // 
             // _inputFrame
             // 
-            this._inputFrame.Location = new System.Drawing.Point(6, 84);
+            this._inputFrame.Location = new System.Drawing.Point(6, 131);
             this._inputFrame.Maximum = new decimal(new int[] {
             1410065407,
             2,
@@ -77,7 +80,7 @@
             // _inputPID
             // 
             this._inputPID.Enabled = false;
-            this._inputPID.Location = new System.Drawing.Point(6, 140);
+            this._inputPID.Location = new System.Drawing.Point(6, 187);
             this._inputPID.Name = "_inputPID";
             this._inputPID.Size = new System.Drawing.Size(178, 22);
             this._inputPID.TabIndex = 6;
@@ -85,7 +88,7 @@
             // _labelPID
             // 
             this._labelPID.AutoSize = true;
-            this._labelPID.Location = new System.Drawing.Point(190, 143);
+            this._labelPID.Location = new System.Drawing.Point(190, 190);
             this._labelPID.Name = "_labelPID";
             this._labelPID.Size = new System.Drawing.Size(29, 16);
             this._labelPID.TabIndex = 7;
@@ -104,7 +107,7 @@
             // 
             // _hitFrameField
             // 
-            this._hitFrameField.Location = new System.Drawing.Point(6, 112);
+            this._hitFrameField.Location = new System.Drawing.Point(6, 159);
             this._hitFrameField.Maximum = new decimal(new int[] {
             1410065407,
             2,
@@ -118,7 +121,7 @@
             // _hitFrameLabel
             // 
             this._hitFrameLabel.AutoSize = true;
-            this._hitFrameLabel.Location = new System.Drawing.Point(138, 114);
+            this._hitFrameLabel.Location = new System.Drawing.Point(138, 161);
             this._hitFrameLabel.Name = "_hitFrameLabel";
             this._hitFrameLabel.Size = new System.Drawing.Size(65, 16);
             this._hitFrameLabel.TabIndex = 9;
@@ -127,7 +130,7 @@
             // _retryButton
             // 
             this._retryButton.Enabled = false;
-            this._retryButton.Location = new System.Drawing.Point(6, 168);
+            this._retryButton.Location = new System.Drawing.Point(6, 215);
             this._retryButton.Name = "_retryButton";
             this._retryButton.Size = new System.Drawing.Size(129, 26);
             this._retryButton.TabIndex = 11;
@@ -135,10 +138,42 @@
             this._retryButton.UseVisualStyleBackColor = true;
             this._retryButton.Click += new System.EventHandler(this._retryButton_Click);
             // 
+            // _frameLabel
+            // 
+            this._frameLabel.AutoSize = true;
+            this._frameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._frameLabel.Location = new System.Drawing.Point(3, 82);
+            this._frameLabel.MaximumSize = new System.Drawing.Size(740, 0);
+            this._frameLabel.Name = "_frameLabel";
+            this._frameLabel.Size = new System.Drawing.Size(97, 16);
+            this._frameLabel.TabIndex = 12;
+            this._frameLabel.Text = "Current Frame :";
+            // 
+            // _pokefinderTypesComboBox
+            // 
+            this._pokefinderTypesComboBox.FormattingEnabled = true;
+            this._pokefinderTypesComboBox.Location = new System.Drawing.Point(6, 101);
+            this._pokefinderTypesComboBox.Name = "_pokefinderTypesComboBox";
+            this._pokefinderTypesComboBox.Size = new System.Drawing.Size(178, 24);
+            this._pokefinderTypesComboBox.TabIndex = 13;
+            this._pokefinderTypesComboBox.SelectedIndexChanged += new System.EventHandler(this._pokefinderTypesComboBox_SelectedIndexChanged);
+            // 
+            // _pokefinderTypeLabel
+            // 
+            this._pokefinderTypeLabel.AutoSize = true;
+            this._pokefinderTypeLabel.Location = new System.Drawing.Point(190, 104);
+            this._pokefinderTypeLabel.Name = "_pokefinderTypeLabel";
+            this._pokefinderTypeLabel.Size = new System.Drawing.Size(110, 16);
+            this._pokefinderTypeLabel.TabIndex = 14;
+            this._pokefinderTypeLabel.Text = "Type (facultative)";
+            // 
             // PokeFinderControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._pokefinderTypeLabel);
+            this.Controls.Add(this._pokefinderTypesComboBox);
+            this.Controls.Add(this._frameLabel);
             this.Controls.Add(this._retryButton);
             this.Controls.Add(this._hitFrameField);
             this.Controls.Add(this._hitFrameLabel);
@@ -168,5 +203,8 @@
         private System.Windows.Forms.NumericUpDown _hitFrameField;
         private System.Windows.Forms.Label _hitFrameLabel;
         private System.Windows.Forms.Button _retryButton;
+        private System.Windows.Forms.Label _frameLabel;
+        private System.Windows.Forms.ComboBox _pokefinderTypesComboBox;
+        private System.Windows.Forms.Label _pokefinderTypeLabel;
     }
 }

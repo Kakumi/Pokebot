@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokebot.Models.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,9 +16,16 @@ namespace Pokebot.Panels
         public delegate void RetryEventHandler();
         public event RetryEventHandler RetryClick;
 
+        public delegate void PokeFinderTypeEventHandler(PokeFinderType type);
+        public event PokeFinderTypeEventHandler PokeFinderTypeChanged;
+
+        public int FrameAdvance { get; private set; }
+
         public PokeFinderControl()
         {
             InitializeComponent();
+
+            FrameAdvance = 0;
         }
 
         public long GetInputFrame()
@@ -35,6 +43,19 @@ namespace Pokebot.Panels
             _labelTIDSID.Text = string.Format(Messages.BotPokeFinder_TrainerInfo, tid, sid);
         }
 
+        public void SetPokeFinderTypes(List<PokeFinderType> types)
+        {
+            _pokefinderTypesComboBox.Items.Clear();
+            _pokefinderTypesComboBox.Items.AddRange(types.ToArray());
+            _pokefinderTypesComboBox.DisplayMember = nameof(PokeFinderType.Name);
+            _pokefinderTypesComboBox.SelectedIndex = 0;
+        }
+
+        public void SetCurrentFrame(int frame)
+        {
+            _frameLabel.Text = string.Format(Messages.PokeFinder_CurrentFrame, frame.ToString());
+        }
+
         public long GetHitFrame()
         {
             return (long)_hitFrameField.Value;
@@ -42,12 +63,16 @@ namespace Pokebot.Panels
 
         public long GetTargetFrame()
         {
+            long targetFrame;
             if (GetHitFrame() != 0)
             {
-                return GetInputFrame() - Math.Abs(GetHitFrame() - GetInputFrame());
+                targetFrame = GetInputFrame() - Math.Abs(GetHitFrame() - GetInputFrame());
+            } else
+            {
+                targetFrame = GetInputFrame();
             }
 
-            return GetInputFrame();
+            return targetFrame - FrameAdvance;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -63,6 +88,15 @@ namespace Pokebot.Panels
         internal void SetPID(string pid)
         {
             _inputPID.Text = pid;
+        }
+
+        private void _pokefinderTypesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_pokefinderTypesComboBox.SelectedItem is PokeFinderType pokeFinderType)
+            {
+                FrameAdvance = pokeFinderType.FrameAdvance;
+                PokeFinderTypeChanged?.Invoke(pokeFinderType);
+            }
         }
     }
 }

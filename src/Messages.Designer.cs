@@ -421,6 +421,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Current Frame: {0}.
+        /// </summary>
+        internal static string PokeFinder_CurrentFrame {
+            get {
+                return ResourceManager.GetString("PokeFinder_CurrentFrame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pokemon with filters found..
         /// </summary>
         internal static string Pokemon_Found {
