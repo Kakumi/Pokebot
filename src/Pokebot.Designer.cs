@@ -35,6 +35,7 @@
             this._delayTooltip = new System.Windows.Forms.ToolTip(this.components);
             this._newVersionLabel = new System.Windows.Forms.Label();
             this._bugButton = new System.Windows.Forms.Button();
+            this._joinDiscordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // _statusLabel
@@ -87,11 +88,22 @@
             this._bugButton.UseVisualStyleBackColor = true;
             this._bugButton.Click += new System.EventHandler(this._bugButton_Click);
             // 
+            // _joinDiscordButton
+            // 
+            this._joinDiscordButton.Location = new System.Drawing.Point(571, 34);
+            this._joinDiscordButton.Name = "_joinDiscordButton";
+            this._joinDiscordButton.Size = new System.Drawing.Size(136, 28);
+            this._joinDiscordButton.TabIndex = 6;
+            this._joinDiscordButton.Text = "Join Discord";
+            this._joinDiscordButton.UseVisualStyleBackColor = true;
+            this._joinDiscordButton.Click += new System.EventHandler(this._joinDiscordButton_Click);
+            // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._joinDiscordButton);
             this.Controls.Add(this._bugButton);
             this.Controls.Add(this._newVersionLabel);
             this.Controls.Add(this._tabControl);
@@ -112,5 +124,6 @@
         private System.Windows.Forms.ToolTip _delayTooltip;
         private System.Windows.Forms.Label _newVersionLabel;
         private System.Windows.Forms.Button _bugButton;
+        private System.Windows.Forms.Button _joinDiscordButton;
     }
 }

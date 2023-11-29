@@ -17,6 +17,7 @@ using Pokebot.Services.Github;
 using Pokebot.Utils;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -317,6 +318,11 @@ namespace Pokebot
         private void _bugButton_Click(object sender, EventArgs e)
         {
             GithubServices.OpenIssues(AppConfig.Github.Owner, AppConfig.Github.Repository);
+        }
+
+        private void _joinDiscordButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(AppConfig.DiscordInvite);
         }
 
         #endregion
