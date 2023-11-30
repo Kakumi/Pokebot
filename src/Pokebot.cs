@@ -233,6 +233,12 @@ namespace Pokebot
                         else
                         {
                             GameVersion = VersionFactory.Create(APIContainer, gameInfo.Hash);
+#if DEBUG
+                            if (DebugWindow != null)
+                            {
+                                DebugWindow.SetGameVersion(GameVersion);
+                            }
+#endif
                             SetStatus(romName);
                             Log.Info(string.Format(Messages.Rom_Loaded, romName));
                             IsRomLoaded = true;
@@ -281,6 +287,13 @@ namespace Pokebot
                     if (executeBot)
                     {
                         ExecuteBot(state);
+
+#if DEBUG
+                        if (DebugWindow != null)
+                        {
+                            DebugWindow.Execute(state);
+                        }
+#endif
                     }
                 }
             }
