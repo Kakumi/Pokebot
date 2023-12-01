@@ -88,14 +88,14 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 
  | Nom                | Hash                                     | Supported | Tested |
  |--------------------|------------------------------------------|-----------|--------|
- | USA (Europe)       | 41cb23d8dccc8ebd7c649cd8fbb58eeace6e2fdc |     ❌     |    ❌   |
- | USA (Europe) rev 1 | dd5945db9b930750cb39d00c84da8571feebf417 |     ❌     |    ❌   |
- | French             | fc663907256f06a3a09e2d6b967bc9af4919f111 |     ❌     |    ❌   |
- | Deutch             | 18a3758ceeef2c77b315144be2c3910d6f1f69fe |     ❌     |    ❌   |
- | Italian            | 66a9d415205321376b4318534c0dce5f69d28362 |     ❌     |    ❌   |
- | Japanese           | 04139887b6cd8f53269aca098295b006ddba6cfe |     ❌     |    ❌   |
- | Japanese rev 1     | 7c7107b87c3ccf6e3dbceb9cf80ceeffb25a1857 |     ❌     |    ❌   |
- | Spanish            | ab8f6bfe0ccdaf41188cd015c8c74c314d02296a |     ❌     |    ❌   |
+ | USA (Europe)       | 41cb23d8dccc8ebd7c649cd8fbb58eeace6e2fdc |     ✅     |    ✅   |
+ | USA (Europe) rev 1 | dd5945db9b930750cb39d00c84da8571feebf417 |     ✅     |    ❌   |
+ | French             | fc663907256f06a3a09e2d6b967bc9af4919f111 |     ✅     |    ❌   |
+ | Deutch             | 18a3758ceeef2c77b315144be2c3910d6f1f69fe |     ✅     |    ❌   |
+ | Italian            | 66a9d415205321376b4318534c0dce5f69d28362 |     ✅     |    ❌   |
+ | Japanese           | 04139887b6cd8f53269aca098295b006ddba6cfe |     ✅     |    ❌   |
+ | Japanese rev 1     | 7c7107b87c3ccf6e3dbceb9cf80ceeffb25a1857 |     ✅     |    ❌   |
+ | Spanish            | ab8f6bfe0ccdaf41188cd015c8c74c314d02296a |     ✅     |    ❌   |
 </details>
 
 <details>
@@ -103,14 +103,14 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 
  | Nom                | Hash                                     | Supported | Tested |
  |--------------------|------------------------------------------|-----------|--------|
- | USA (Europe)       | 574fa542ffebb14be69902d1d36f1ec0a4afd71e |     ❌     |    ❌   |
- | USA (Europe) rev 1 | 7862c67bdecbe21d1d69ce082ce34327e1c6ed5e |     ❌     |    ❌   |
- | French             | 4b5758c14d0a07b70ef3ef0bd7fa5e7ce6978672 |     ❌     |    ❌   |
- | Deutch             | 0802d1fb185ee3ed48d9a22afb25e66424076dac |     ❌     |    ❌   |
- | Italian            | a1dfea1493d26d1f024be8ba1de3d193fcfc651e |     ❌     |    ❌   |
- | Japanese           | 5946f1b59e8d71cc61249661464d864185c92a5f |     ❌     |    ❌   |
- | Japanese rev 1     | de9d5a844f9bfb63a4448cccd4a2d186ecf455c3 |     ❌     |    ❌   |
- | Spanish            | f9ebee5d228cb695f18ef2ced41630a09fa9eb05 |     ❌     |    ❌   |
+ | USA (Europe)       | 574fa542ffebb14be69902d1d36f1ec0a4afd71e |     ✅     |    ❌   |
+ | USA (Europe) rev 1 | 7862c67bdecbe21d1d69ce082ce34327e1c6ed5e |     ✅     |    ❌   |
+ | French             | 4b5758c14d0a07b70ef3ef0bd7fa5e7ce6978672 |     ✅     |    ❌   |
+ | Deutch             | 0802d1fb185ee3ed48d9a22afb25e66424076dac |     ✅     |    ❌   |
+ | Italian            | a1dfea1493d26d1f024be8ba1de3d193fcfc651e |     ✅     |    ❌   |
+ | Japanese           | 5946f1b59e8d71cc61249661464d864185c92a5f |     ✅     |    ❌   |
+ | Japanese rev 1     | de9d5a844f9bfb63a4448cccd4a2d186ecf455c3 |     ✅     |    ❌   |
+ | Spanish            | f9ebee5d228cb695f18ef2ced41630a09fa9eb05 |     ✅     |    ❌   |
 </details>
 
 # <a name="overview"></a>Overview
