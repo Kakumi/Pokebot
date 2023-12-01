@@ -6,9 +6,9 @@
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 	<PropertyGroup>
-		<Version>1.0.0</Version>
-		<AssemblyVersion>1.0.0.0</AssemblyVersion>
-		<FileVersion>1.0.0.0</FileVersion>
+		<Version>1.0.1</Version>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>1.0.1</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)' == 'Release' ">
 		<VersionSuffix>release</VersionSuffix>
