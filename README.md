@@ -16,6 +16,7 @@ Jump to:
   * [Video](#overview-video)
   * [Features](#overview-features)
   * [Bots](#overview-bots)
+* [How to export save file] (#export-save)
 * [Code Documentation](#code-documentation)
 * [Todo & Ideas](#todo)
 * [Known bugs](#known-bugs)
@@ -103,7 +104,7 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 
  | Nom                | Hash                                     | Supported | Tested |
  |--------------------|------------------------------------------|-----------|--------|
- | USA (Europe)       | 574fa542ffebb14be69902d1d36f1ec0a4afd71e |     ✅     |    ❌   |
+ | USA (Europe)       | 574fa542ffebb14be69902d1d36f1ec0a4afd71e |     ✅     |    ✅   |
  | USA (Europe) rev 1 | 7862c67bdecbe21d1d69ce082ce34327e1c6ed5e |     ✅     |    ❌   |
  | French             | 4b5758c14d0a07b70ef3ef0bd7fa5e7ce6978672 |     ✅     |    ❌   |
  | Deutch             | 0802d1fb185ee3ed48d9a22afb25e66424076dac |     ✅     |    ❌   |
@@ -138,15 +139,21 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 * PokeFinder
   * This bot will press A at the specified frame. Sometimes the hit frame is different from the specified frame. In this case, you can use PokeFinder to find the hit frame and include it in the bot for adjustment. (To use this bot, your emulator must simulate dead battery)
 
+## <a name="export-save"></a>How to export save file
+BizHawk saves game data in the `GBA/SaveRam` directory. To export this save as a `.sav` extension for most games, you can simply rename the file extension to `.sav` without having to make any changes. 
+Sometimes, however, the file may be invalid, so you need to remove the very last line using a hexadecimal editor ([HxD](https://mh-nexus.de/en/hxd/)). 
+You can follow this [tutorial](https://gbatemp.net/threads/cant-make-pokemon-emerald-sav-file-to-work-on-vba.631681/#post-10136922).
+
 # <a name="code-documentation"></a>Code Documentation
 The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/wiki). You will find explanations on how to add supported games, bots or even features.
 
 # <a name="todo"></a>Todo & Ideas (implementation not comfirmed)
 * Add bot for eggs
-* Add bot for legendary
 * Add bot for fishing
 * Support translations
 * Add feature to PokeFinder bot to save before the specified frame and not at start.
+* Read seed
+* Transform SaveRam to sav file automatically
 
 <details>
 	<summary>Done</summary>
@@ -154,13 +161,13 @@ The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/
 * Add feature that works with [PokeFinder](https://github.com/Admiral-Fish/PokeFinder) ✔️
 * Show trainer ID & Secret in the view (PokeFinder bot) ✔️
 * Ability to execute bot every x seconds instead of every frame ✔️
-* Inject custom seed ✔️
 * Discord Webhook ✔️
+* Add bot for static pokemon️ ✔️
 * Save & load settings to/from config file ✔️
 </details>
 
 # <a name="known-bugs"></a> Known bugs
-* Sometimes the logs show "Invalid pokemon", but it doesn't always appear, and that's because it can't read the data after a certain number of times.
+_Yeah! There's nothing here!_
 
 # <a name="sources"></a>Sources
 * [BizHawk Documentation](https://github.com/TASEmulators/BizHawk)
