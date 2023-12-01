@@ -1,38 +1,40 @@
 ﻿using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
-using BizHawk.Common;
-using BizHawk.Emulation.Common;
-using Pokebot.Properties;
-using Pokebot.Utils;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Pokebot.Exceptions;
+using Pokebot.Factories;
+using Pokebot.Factories.Bots;
+using Pokebot.Factories.Versions;
+using Pokebot.Models;
 using Pokebot.Models.Config;
+using Pokebot.Models.Player;
+using Pokebot.Models.Pokemons;
+using Pokebot.Panels;
+using Pokebot.Properties;
+using Pokebot.Services.DiscordWebhook;
+using Pokebot.Services.Github;
+using Pokebot.Utils;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
+using static System.Windows.Forms.AxHost;
 using Log = Pokebot.Utils.Log;
-using Pokebot.Panels;
-using Pokebot.Factories;
-using Pokebot.Models.Pokemons;
-using Pokebot.Models.Player;
-using Pokebot.Models;
-using BizHawk.Common.IOExtensions;
-using System.Reflection;
-using static BizHawk.Client.EmuHawk.BatchRunner.Result;
-using Pokebot.Factories.Bots;
-using Pokebot.Factories.Versions;
-using Pokebot.Exceptions;
-using System.Numerics;
 
 namespace Pokebot
 {
     [ExternalTool("Pokebot")]
     public partial class Pokebot : ToolFormBase, IExternalToolForm
     {
+        protected override string WindowTitleStatic => Messages.AppName;
+
         private ApiContainer? _apiContainer;
         public ApiContainer? APIContainer
         {
@@ -62,14 +64,25 @@ namespace Pokebot
 
         public bool IsReady
         {
-            get => IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null && Bot != null; // && !APIContainer.EmuClient.IsPaused()
-        } 
+            get => IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null;
+        }
 
-        public IGameVersion? GameVersion { get; private set; }
+        public GameVersion? GameVersion { get; private set; }
         public IBot? Bot { get; private set; }
 
-        protected override string WindowTitleStatic => "Pokébot";
-        private PokemonViewerPanel PokemonViewerPanel { get; }
+        public PokemonViewerPanel OpponentViewerPanel { get; private set; }
+        public PartyPokemonViewer PartyViewerPanel { get; private set; }
+        public EncounterStatsPanel EncounterStatsPanel { get; private set; }
+        public BotPanel BotPanel { get; private set; }
+        public LogsPanel LogsPanel { get; private set; }
+        public SettingsPanel SettingsPanel { get; private set; }
+
+        public PokemonWatcher? PokemonWatcher { get; private set; }
+        public PokebotDebug? DebugWindow { get; private set; }
+        public GithubServices GithubServices { get; private set; }
+        public DiscordWebhookServices? DiscordWebhookServices { get; private set; }
+
+        WaitTask? _waitTask;
 
         #region Init
 
@@ -78,71 +91,117 @@ namespace Pokebot
             InitializeComponent();
 
             var configText = Encoding.UTF8.GetString(Resources.appconfig);
-            AppConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<AppConfig>(configText)!;
-
-            Log.LogReceived += Log_LogReceived;
-
-            PokemonViewerPanel = new PokemonViewerPanel();
-            PokemonViewerPanel.Dock = DockStyle.Fill;
-            PokemonViewerPanel.Hide();
-            _tabPagePokemon.Controls.Clear();
-            _tabPagePokemon.Controls.Add(PokemonViewerPanel);
+            AppConfig = JsonConvert.DeserializeObject<AppConfig>(configText)!;
+            GithubServices = new GithubServices(AppConfig.Github.Url);
 
             _versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
+            _newVersionLabel.Hide();
+            _tabControl.Hide();
+
+            CreateTabPages();
+
+            var worker = new BackgroundWorker();
+            worker.DoWork += GetGithubLatestReleaseWorker;
+            worker.RunWorkerAsync();
+        }
+
+        private async void GetGithubLatestReleaseWorker(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                var latestRelease = await GithubServices.GetLatestRelease(AppConfig.Github.Owner, AppConfig.Github.Repository);
+                var currentVersion = $"v{GetType().Assembly.GetName().Version}";
+                if (latestRelease.Name != currentVersion)
+                {
+                    _newVersionLabel.BeginInvoke(() =>
+                    {
+                        _newVersionLabel.Show();
+                        _newVersionLabel.Text = string.Format(Messages.NewVersion_MessageLabel, latestRelease.Name);
+                    });
+
+                    string message = string.Format(Messages.NewVersion_Message, latestRelease.Name);
+                    string title = Messages.NewVersion_Title;
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    DialogResult result = MessageBox.Show(message, title, buttons);
+                    if (result == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(latestRelease.Url);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
         }
 
         private void InitAPIContainer()
         {
-            _soundCheckbox.Checked = APIContainer?.EmuClient.GetSoundOn() ?? true;
-            _pauseCheckbox.Checked = APIContainer?.EmuClient.IsPaused() ?? false;
-            _tabControl.Visible = false;
+            SettingsPanel_SettingsConfigChanged(SettingsPanel!.SettingsConfig);
 
-            _botComboBox.DataSource = AppConfig.BotTypes;
-            _botComboBox.ValueMember = nameof(BotType.Code);
-            _botComboBox.DisplayMember = nameof(BotType.Name);
+#if DEBUG
+            if (APIContainer != null && DebugWindow == null)
+            {
+                DebugWindow = new PokebotDebug(APIContainer);
+                DebugWindow.Show();
+            }
+#endif
+        }
+
+        private void CreateTab(UserControl userControl, string name)
+        {
+            TabPage tabPage = new TabPage(name);
+            tabPage.Controls.Add(userControl);
+            _tabControl.TabPages.Add(tabPage);
+        }
+
+        private void CreateTabPages()
+        {
+            LogsPanel = new LogsPanel();
+
+            OpponentViewerPanel = new PokemonViewerPanel();
+            OpponentViewerPanel.Dock = DockStyle.Fill;
+            OpponentViewerPanel.Hide();
+
+            PartyViewerPanel = new PartyPokemonViewer();
+            PartyViewerPanel.Dock = DockStyle.Fill;
+
+            EncounterStatsPanel = new EncounterStatsPanel();
+            EncounterStatsPanel.Dock = DockStyle.Fill;
+
+            BotPanel = new BotPanel(AppConfig.BotTypes);
+            BotPanel.BotChanged += BotPanel_BotChanged;
+            BotPanel.Dock = DockStyle.Fill;
+
+            SettingsPanel = new SettingsPanel();
+            SettingsPanel.SettingsConfigChanged += SettingsPanel_SettingsConfigChanged;
+            SettingsPanel.PauseClicked += SettingsPanel_PauseClicked;
+            SettingsPanel.SeedClicked += SettingsPanel_SeedClicked;
+            SettingsPanel.Dock = DockStyle.Fill;
+
+            CreateTab(SettingsPanel, Messages.Tab_SettingsPanel);
+            CreateTab(BotPanel, Messages.Tab_BotPanel);
+            CreateTab(EncounterStatsPanel, Messages.Tab_EncounterStats);
+            CreateTab(OpponentViewerPanel, Messages.Tab_ViewerOpponentName);
+            CreateTab(PartyViewerPanel, Messages.Tab_ViewerPartyName);
+            CreateTab(LogsPanel, Messages.Tab_LogsPanel);
         }
 
         private void RomLoadedUpdated()
         {
             _tabControl.Visible = IsRomLoaded;
+            BotPanel.Reset();
+            EncounterStatsPanel.Clear();
+            OpponentViewerPanel.Hide();
+            PartyViewerPanel.Clear();
             Bot = null;
-            _botPanel.Controls.Clear();
-            _statsListView.Items.Clear();
-            _botComboBox.SelectedIndex = 0;
-            _statusBot.Text = "Bot is not running";
-            _startBotButton.Enabled = false;
-            _stopBotButton.Enabled = false;
-        }
 
-        #endregion
-
-        #region Events Callback
-
-        private void Log_LogReceived(LogEventArgs e)
-        {
-            var item = new ListViewItem(e.Level.ToString());
-            switch (e.Level)
+            if (IsReady)
             {
-                case LogLevel.Debug:
-                case LogLevel.Info:
-                    item.ForeColor = Color.Black;
-                    break;
-                case LogLevel.Warn:
-                    item.ForeColor = Color.Orange;
-                    break;
-                case LogLevel.Error:
-                case LogLevel.Fatal:
-                    item.ForeColor = Color.Red;
-                    break;
-            }
-
-            item.SubItems.Add(e.Message);
-
-            _logsListView.Items.Add(item);
-
-            for(int i = 0; i < _logsListView.Columns.Count; i++)
-            {
-                _logsListView.Columns[i].Width = -1;
+                CreateBot(BotPanel.GetBotCode());
+                PokemonWatcher = new PokemonWatcher(GameVersion!);
+                PokemonWatcher.OpponentChanged += PokemonWatcher_OpponentChanged;
+                PokemonWatcher.PartyChanged += PokemonWatcher_PartyChanged;
             }
         }
 
@@ -168,73 +227,93 @@ namespace Pokebot
 
                         if (isEmpty)
                         {
-                            SetStatus("No ROM loaded", Color.Red);
-                        } else
+                            SetStatus(Messages.Rom_NotLoaded, Color.Red);
+                        }
+                        else
                         {
                             GameVersion = VersionFactory.Create(APIContainer, gameInfo.Hash);
+#if DEBUG
+                            if (DebugWindow != null)
+                            {
+                                DebugWindow.SetGameVersion(GameVersion);
+                            }
+#endif
                             SetStatus(romName);
-                            Log.Info($"ROM {romName} loaded");
+                            Log.Info(string.Format(Messages.Rom_Loaded, romName));
                             IsRomLoaded = true;
                         }
                     }
                 }
-            } catch (NotSupportedException ex) 
+            }
+            catch (NotSupportedException ex)
             {
                 SetStatus(ex.Message, Color.Red);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Log.Error(ex.Message);
                 IsRomLoaded = false;
             }
         }
 
-        protected override void UpdateAfter() //Or UpdateAfterFast
+        protected override void UpdateAfter()
         {
             try
             {
-                //Show current pokemon in Viewer
-                if (IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null)
+                if (IsReady)
                 {
-                    GameState state = GameVersion!.GetGameState();
-                    if (state == GameState.Battle)
+                    GameState state = GameVersion!.Memory.GetGameState();
+
+                    if (PokemonWatcher != null)
                     {
-                        var pokemon = GameVersion.GetOpponent();
-                        if (pokemon != null)
-                        {
-                            PokemonViewerPanel.Show();
-                            PokemonViewerPanel.SetPokemon(pokemon);
-                        }
-                    } else
-                    {
-                        PokemonViewerPanel.Hide();
+                        PokemonWatcher.Execute(state);
                     }
-                }
 
-                //Main call for bots
-                if (IsReady && Bot!.Enabled)
-                {
-                    PlayerData player = GameVersion!.GetPlayer();
-                    GameState state = GameVersion.GetGameState();
-                    Bot.Execute(player, state);
-
-                    if (state == GameState.Battle)
+                    var executeBot = false;
+                    if (_waitTask != null)
                     {
-                        var pokemon = GameVersion.GetOpponent();
-                        if (pokemon != null)
+                        if (_waitTask.Seconds == 0 || (!Bot?.UseDelay() ?? false))
                         {
-                            PokemonViewerPanel.SetPokemon(pokemon);
+                            executeBot = true;
                         }
+                        else if (!_waitTask.IsBusy)
+                        {
+                            executeBot = true;
+                            _waitTask.Start();
+                        }
+                    }
+
+                    if (executeBot)
+                    {
+                        ExecuteBot(state);
+
+#if DEBUG
+                        if (DebugWindow != null)
+                        {
+                            DebugWindow.Execute(state);
+                        }
+#endif
                     }
                 }
             }
             catch (BotException ex)
             {
-                StopBot();
+                BotPanel.StopBot();
                 Log.Error(ex.Message);
             }
             catch (Exception ex)
             {
                 Log.Error(ex.Message);
+            }
+        }
+
+        private void ExecuteBot(GameState state)
+        {
+            //Main call for bots
+            if (IsReady && Bot != null && Bot.Enabled)
+            {
+                PlayerData player = GameVersion!.Memory.GetPlayer();
+                Bot.Execute(player, state);
             }
         }
 
@@ -246,67 +325,67 @@ namespace Pokebot
 
         #endregion
 
-        #region Settings
+        #region Pokebot Events
 
-        private void AccelerateCheckChanged(object sender, EventArgs e)
+        private void _bugButton_Click(object sender, EventArgs e)
         {
-            if (sender is CheckBox checkBox)
-            {
-                APIContainer?.Emulation.LimitFramerate(!checkBox.Checked);
-            }
+            GithubServices.OpenIssues(AppConfig.Github.Owner, AppConfig.Github.Repository);
         }
 
-        private void SoundCheckboxChanged(object sender, EventArgs e)
+        private void _joinDiscordButton_Click(object sender, EventArgs e)
         {
-            if (sender is CheckBox checkBox)
-            {
-                APIContainer?.EmuClient.SetSoundOn(checkBox.Checked);
-            }
-        }
-
-        private void PauseCheckboxChanged(object sender, EventArgs e)
-        {
-            APIContainer?.EmuClient.TogglePause();
+            Process.Start(AppConfig.DiscordInvite);
         }
 
         #endregion
 
-        private void LoadTestClick(object sender, EventArgs e)
+        #region Settings Events
+
+        private void SettingsPanel_SettingsConfigChanged(SettingsConfig settingsConfig)
         {
-            var success = APIContainer?.EmuClient.OpenRom(@$"D:\VisualStudioProjects\Pokebot\BizHawk\Roms\Pokemon - Version Emeraude (FR).gba");
-            if (success ?? false)
+            APIContainer?.Emulation.LimitFramerate(!settingsConfig.Speed);
+            APIContainer?.EmuClient.SetSoundOn(settingsConfig.Sound);
+            _waitTask = new WaitTask(settingsConfig.DelayBetweenActions);
+
+            if (string.IsNullOrWhiteSpace(settingsConfig.DiscordWebhook))
             {
-                IsRomLoaded = APIContainer?.EmuClient.LoadState("wild") ?? false; //starter
+                DiscordWebhookServices = null;
+            } else
+            {
+                DiscordWebhookServices = new DiscordWebhookServices(settingsConfig.DiscordWebhook, settingsConfig.DiscordUserID);
             }
         }
 
-        #region Bot
-
-        private void BotSelectionChanged(object sender, EventArgs e)
+        private void SettingsPanel_PauseClicked()
         {
-            try
-            {
-                if (sender is ComboBox comboBox)
-                {
-                    _botPanel.Controls.Clear();
+            APIContainer?.EmuClient.TogglePause();
+        }
 
-                    var value = (BotType)comboBox.SelectedItem;
-                    var type = (BotCode)value.Code;
-                    Bot = BotFactory.Create(type, APIContainer!, GameVersion!);
-                    Bot.PokemonEncountered += PokemonEncountered;
-                    Bot.StateChanged += Bot_StateChanged;
-                    _botPanel.Controls.Add(Bot.GetPanel());
-                    _startBotButton.Enabled = true;
-                    _stopBotButton.Enabled = false;
-                }
-            }
-            catch (NotSupportedException ex)
+        private void SettingsPanel_SeedClicked(uint seed)
+        {
+            GameVersion!.Memory.SetSeed(seed);
+        }
+
+        #endregion
+
+        #region Bot Events
+
+        private void BotPanel_BotChanged(BotCode code)
+        {
+            CreateBot(code);
+        }
+
+        private void CreateBot(BotCode code)
+        {
+            if (IsReady)
             {
-                Log.Error(ex.Message);
-            }
-            catch (Exception)
-            {
-                Log.Error($"Error occurred while reading bot type.");
+                BotPanel.ClearPanel();
+
+                Bot = BotFactory.Create(code, APIContainer!, GameVersion!); 
+                Bot.StateChanged += Bot_StateChanged;
+                Bot.PokemonEncountered += Bot_PokemonEncountered;
+                Bot.PokemonFound += Bot_PokemonFound;
+                BotPanel.SetBot(Bot);
             }
         }
 
@@ -314,108 +393,43 @@ namespace Pokebot
         {
             if (enabled)
             {
-                _stopBotButton.Enabled = true;
-                _startBotButton.Enabled = false;
-                SetBotStatus("Bot is running...");
-            } else
-            {
-                _startBotButton.Enabled = true;
-                _stopBotButton.Enabled = false;
-                SetBotStatus("Bot is not running");
+                EncounterStatsPanel.Clear();
             }
         }
 
-        private void PokemonEncountered(Pokemon pokemon)
+        private void Bot_PokemonFound(Pokemon pokemon)
         {
-            AddPokemonStat(pokemon);
-        }
-
-        private void StartBotClicked(object sender, EventArgs e)
-        {
-            StartBot();
-        }
-
-        private void StopBotClicked(object sender, EventArgs e)
-        {
-            StopBot();
-        }
-
-        private void StartBot()
-        {
-            try
+            if (DiscordWebhookServices != null)
             {
-                if (IsReady && !Bot!.Enabled)
-                {
-                    Bot.Start();
-                }
-            } catch(Exception ex)
-            {
-                Log.Error(ex.Message);
-                StopBot();
-                SetBotStatus(ex.Message, Color.Red);
+                DiscordWebhookServices.SendPokemonWebhook(pokemon);
             }
         }
 
-        private void StopBot()
+        private void Bot_PokemonEncountered(Pokemon pokemon)
         {
-            try
-            {
-                if (IsReady && Bot!.Enabled)
-                {
-                    Bot.Stop();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-                SetBotStatus(ex.Message, Color.Red);
-            }
-        }
-
-        private void SetBotStatus(string message, Color? color = null)
-        {
-            _statusBot.Text = message;
-            _statusBot.ForeColor = color ?? Color.Black;
+            EncounterStatsPanel.AddPokemonStat(pokemon);
         }
 
         #endregion
 
-        #region Statistiques
+        #region Pokemon Watcher Events
 
-        public void AddPokemonStat(Pokemon pokemon)
+        private void PokemonWatcher_OpponentChanged(Pokemon? pokemon)
         {
-            var encounters = 1;
-            var shinyEncounters = pokemon.IsShiny ? 1 : 0;
-            var found = false;
-
-            for(int i = 0; i < _statsListView.Items.Count; i++)
+            if (pokemon != null)
             {
-                var item = _statsListView.Items[i];
-                if (item != null && item.Text == pokemon.RealName)
-                {
-                    if (int.TryParse(item.SubItems[1].Text, out encounters) && int.TryParse(item.SubItems[2].Text, out int currentShinyEncounters))
-                    {
-                        encounters += 1;
-                        currentShinyEncounters += shinyEncounters;
-
-                        item.SubItems[1].Text = encounters.ToString();
-                        item.SubItems[2].Text = currentShinyEncounters.ToString();
-                        item.SubItems[3].Text = $"{(shinyEncounters / encounters) * 100}%";
-                    }
-
-                    found = true;
-                }
+                OpponentViewerPanel.Show();
+                OpponentViewerPanel.SetPokemon(pokemon);
             }
-
-            if (!found)
+            else
             {
-                var item = new ListViewItem(pokemon.RealName);
-                item.SubItems.Add(encounters.ToString());
-                item.SubItems.Add(shinyEncounters.ToString());
-                item.SubItems.Add($"{(shinyEncounters / encounters) * 100}%");
-
-                _statsListView.Items.Add(item);
+                OpponentViewerPanel.Hide();
             }
+        }
+
+        private void PokemonWatcher_PartyChanged(System.Collections.Generic.IReadOnlyCollection<Pokemon> pokemons)
+        {
+            PartyViewerPanel.SetParty(pokemons.ToList());
         }
 
         #endregion

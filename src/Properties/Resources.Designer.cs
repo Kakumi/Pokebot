@@ -69,15 +69,5 @@ namespace Pokebot.Properties {
                 return ((byte[])(obj));
             }
         }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
-        /// </summary>
-        internal static byte[] pokeemerald {
-            get {
-                object obj = ResourceManager.GetObject("pokeemerald", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

@@ -6,7 +6,9 @@
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 	<PropertyGroup>
-		<Version>0.0.1</Version>
+		<Version>1.0.0</Version>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)' == 'Release' ">
 		<VersionSuffix>release</VersionSuffix>
@@ -21,14 +23,6 @@
 		<BIZHAWK_DATA_HOME>$(BIZHAWK_HOME)</BIZHAWK_DATA_HOME><!-- ignore this; on NixOS these are different dirs -->
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Symbols\pokeemerald.sym" />
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Include="Symbols\pokeemerald.sym">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<Reference Include="BizHawk.Bizware.BizwareGL">
@@ -37,11 +31,17 @@
 		<Reference Include="BizHawk.Emulation.Common">
 		  <HintPath>..\BizHawk\dll\BizHawk.Emulation.Common.dll</HintPath>
 		</Reference>
+		<Reference Include="System.Net.Http">
+		  <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Net.Http.dll</HintPath>
+		</Reference>
 		<Reference Include="System.Windows.Forms" />
 		<Reference Include="BizHawk.Client.Common" HintPath="$(BIZHAWK_HOME)dll/BizHawk.Client.Common.dll" />
 		<Reference Include="BizHawk.Client.EmuHawk" HintPath="$(BIZHAWK_HOME)EmuHawk.exe" />
 		<Reference Include="BizHawk.Common" HintPath="$(BIZHAWK_HOME)dll/BizHawk.Common.dll" />
 		<Reference Include="BizHawk.WinForms.Controls" HintPath="$(BIZHAWK_HOME)dll/BizHawk.WinForms.Controls.dll" />
+		<Reference Include="WindowsBase">
+		  <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\WindowsBase.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Images\ResourcesPokemon.Designer.cs">
@@ -54,10 +54,23 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ResourcesPokemonShiny.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Messages.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Messages.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Panels\StaticControl.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
 	  <Compile Update="Properties\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Symbols\ResourceSymbols.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ResourceSymbols.resx</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
@@ -69,9 +82,17 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ResourcesPokemonShiny.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Messages.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Properties\Resources.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Symbols\ResourceSymbols.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ResourceSymbols.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

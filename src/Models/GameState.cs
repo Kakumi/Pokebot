@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pokebot.Models
+﻿namespace Pokebot.Models
 {
     public enum GameState
     {
@@ -19,5 +13,6 @@ namespace Pokebot.Models
         ChangeMap = 8,
         PartyMenu = 9,
         Overworld = 10,
+        NamingScreen = 11
     }
 }
