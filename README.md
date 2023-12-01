@@ -6,6 +6,8 @@ Want to know how this tool has been developed and how it works ? [Visit my websi
 [![(latest) release | GitHub](https://img.shields.io/github/release/Kakumi/Pokebot.svg?logo=github&logoColor=333333&sort=semver&style=popout)](https://github.com/Kakumi/Pokebot/releases/latest)
 [![GitHub open issues counter](https://img.shields.io/github/issues-raw/Kakumi/Pokebot.svg?logo=github&logoColor=333333&style=popout)](https://github.com/Kakumi/Pokebot/issues)
 
+<a href="https://discord.gg/wvQKYmuMnK"><img src="https://discordapp.com/api/guilds/1178966789477126176/widget.png?style=banner2" alt="Discord server"></a>
+
 ---
 
 Jump to:
@@ -16,7 +18,7 @@ Jump to:
   * [Video](#overview-video)
   * [Features](#overview-features)
   * [Bots](#overview-bots)
-* [How to export save file] (#export-save)
+* [How to export save file](#export-save)
 * [Code Documentation](#code-documentation)
 * [Todo & Ideas](#todo)
 * [Known bugs](#known-bugs)
@@ -136,6 +138,8 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
   * This bot will choose your selected starter and see if it matches your set filters. If not, it will change the seed and reload the game in a loop.
 * Spin
   * This bot will spin your character on the map and when the battle start, it will check if the opponent pokemon matches your set filters. If not, it will escape the fight and try again.
+* Static
+  * This bot will start a battle against a static pokemon and check if it matches your set filters. If not, it will change the seed and reload the game in a loop.
 * PokeFinder
   * This bot will press A at the specified frame. Sometimes the hit frame is different from the specified frame. In this case, you can use PokeFinder to find the hit frame and include it in the bot for adjustment. (To use this bot, your emulator must simulate dead battery)
 
