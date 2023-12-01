@@ -1,160 +1,62 @@
 ﻿using BizHawk.Client.Common;
-using Pokebot.Exceptions;
-using Pokebot.Factories.Versions;
-using Pokebot.Models.Player;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using Pokebot.Models.Memory;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Pokebot.Models.ActionRunners
 {
-    public class EmeraldRubySapphireActionRunner : IActionRunner
+    public class EmeraldRubySapphireActionRunner : CommonActionRunner
     {
-        public ApiContainer APIContainer { get; }
-        public IGameVersion GameVersion { get; }
-        private StepsStarter _stepStarter;
-        private Dictionary<PlayerFacingDirection, string> _nextDirections;
-        BackgroundWorker _waitTask;
+        private StepStarterMode _stepStarter;
 
-        public EmeraldRubySapphireActionRunner(ApiContainer apiContainer, IGameVersion gameVersion)
+        public EmeraldRubySapphireActionRunner(ApiContainer apiContainer, IGameMemory gameVersion) : base(apiContainer, gameVersion)
         {
-            APIContainer = apiContainer;
-            GameVersion = gameVersion;
-            _stepStarter = StepsStarter.None;
-            _nextDirections = new Dictionary<PlayerFacingDirection, string>()
-            {
-                { PlayerFacingDirection.Up, "Right" },
-                { PlayerFacingDirection.Right, "Down" },
-                { PlayerFacingDirection.Down, "Left" },
-                { PlayerFacingDirection.Left, "Up" },
-            };
-
-            _waitTask = new BackgroundWorker();
-            _waitTask.DoWork += (s, e) =>
-            {
-                Task.Delay(100).Wait();
-            };
+            _stepStarter = StepStarterMode.None;
         }
 
-        public bool ExecuteStarter(int indexStarter)
+        public override bool ExecuteStarter(int indexStarter)
         {
             var state = GameVersion.GetGameState();
             if (state == GameState.Overworld)
             {
-                //Up
-                //Down
-                //Left
-                //Right
-                //A
-                //B
-                //L
-                //Power
-                //R
-                //Select
-                //Start
-
-                APIContainer.Joypad.Set("A", true);
+                PressA();
 
                 return false;
             }
 
-            if (state == GameState.ChooseStarter)
-            {
-                var tasks = GameVersion.GetTasks();
-                var taskChoose = tasks.FirstOrDefault(x => x.Name == "Task_HandleStarterChooseInput");
-                if (taskChoose != null)
-                {
-                    if (taskChoose.Data[0] == indexStarter)
-                    {
-                        APIContainer.Joypad.Set("A", true);
-                        _stepStarter = StepsStarter.Confirm;
-                    }
-                    else if (taskChoose.Data[0] > indexStarter)
-                    {
-                        APIContainer.Joypad.Set("Left", true);
-                    }
-                    else if (taskChoose.Data[0] < indexStarter)
-                    {
-                        APIContainer.Joypad.Set("Right", true);
-                    }
-                }
-
-                if (_stepStarter == StepsStarter.Confirm)
-                {
-                    var taskConfirmChoose = tasks.FirstOrDefault(x => x.Name == "Task_HandleConfirmStarterInput");
-                    if (taskConfirmChoose != null)
-                    {
-                        APIContainer.Joypad.Set("A", true);
-                    }
-                }
-            }
-
             if (state == GameState.Battle)
             {
                 return true;
             }
 
-            return false;
-        }
-
-        public bool Spin()
-        {
-            var player = GameVersion.GetPlayer();
-            if (_nextDirections.ContainsKey(player.FacingDirection))
+            var tasks = GameVersion.GetTasks();
+            var taskChoose = tasks.FirstOrDefault(x => x.Name == "Task_HandleStarterChooseInput" || x.Name == "Task_StarterChoose2");
+            if (taskChoose != null)
             {
-                APIContainer.Joypad.Set(_nextDirections[player.FacingDirection], true);
-
-                return true;
+                if (taskChoose.Data[0] == indexStarter)
+                {
+                    PressA();
+                    _stepStarter = StepStarterMode.Confirm;
+                }
+                else if (taskChoose.Data[0] > indexStarter)
+                {
+                    PressLeft();
+                }
+                else if (taskChoose.Data[0] < indexStarter)
+                {
+                    PressRight();
+                }
             }
 
-            return false;
-        }
-
-        public bool Escape()
-        {
-            var state = GameVersion.GetGameState();
-            if (state == GameState.Battle)
+            if (_stepStarter == StepStarterMode.Confirm)
             {
-                var action = (BattleActionSelectionCursor) GameVersion.GetActionSelectionCursor();
-
-                switch(action)
+                var taskConfirmChoose = tasks.FirstOrDefault(x => x.Name == "Task_HandleConfirmStarterInput" || x.Name == "Task_StarterChoose5");
+                if (taskConfirmChoose != null)
                 {
-                    case BattleActionSelectionCursor.Moves:
-                        if (!_waitTask.IsBusy)
-                        {
-                            APIContainer.Joypad.Set("B", true);
-                            APIContainer.Joypad.Set("Right", true);
-                            _waitTask.RunWorkerAsync();
-                        }
-
-                        return false;
-                    case BattleActionSelectionCursor.Bag:
-                        APIContainer.Joypad.Set("Down", true);
-                        return false;
-                    case BattleActionSelectionCursor.Team:
-                        APIContainer.Joypad.Set("Up", true);
-                        return false;
-                    case BattleActionSelectionCursor.Escape:
-                        if (!_waitTask.IsBusy)
-                        {
-                            APIContainer.Joypad.Set("A", true);
-                            _waitTask.RunWorkerAsync();
-                        }
-                        return false;
+                    PressA();
                 }
             }
 
             return false;
-        }
-
-        private enum StepsStarter
-        {
-            None,
-            Confirm
         }
     }
 }

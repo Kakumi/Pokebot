@@ -1,13 +1,9 @@
 ﻿using BizHawk.Client.Common;
 using Pokebot.Models;
-using Pokebot.Models.Config;
-using Pokebot.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokebot.Utils
 {
@@ -35,11 +31,6 @@ namespace Pokebot.Utils
 
         public static IReadOnlyList<Symbol> Load(byte[] resource)
         {
-            return Load(resource, new List<SymbolOverride>());
-        }
-
-        public static IReadOnlyList<Symbol> Load(byte[] resource, List<SymbolOverride> overrides)
-        {
             List<Symbol> symbols = new List<Symbol>();
             var text = Encoding.UTF8.GetString(resource);
             var lines = text.Split('\n');
@@ -59,12 +50,6 @@ namespace Pokebot.Utils
                     char letter = Convert.ToChar(arguments[1]);
                     int size = Convert.ToInt32(arguments[2], 16);
                     string name = arguments[3];
-
-                    var customSymbol = overrides.FirstOrDefault(x => x.Name == name);
-                    if (customSymbol != null)
-                    {
-                        address = customSymbol.Address;
-                    }
 
                     symbols.Add(new Symbol(address, letter, size, name));
                 }

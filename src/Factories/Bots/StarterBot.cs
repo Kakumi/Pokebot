@@ -1,19 +1,15 @@
 ﻿using BizHawk.Client.Common;
-using Pokebot.Models.Config;
+using Pokebot.Exceptions;
+using Pokebot.Factories.Versions;
 using Pokebot.Models;
 using Pokebot.Models.Player;
-using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Pokebot.Factories.Versions;
-using Pokebot.Exceptions;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Pokebot.Factories.Bots
 {
@@ -21,19 +17,20 @@ namespace Pokebot.Factories.Bots
     {
         public bool Enabled { get; private set; }
         public ApiContainer APIContainer { get; }
-        public IGameVersion GameVersion { get; }
+        public GameVersion GameVersion { get; }
         public StarterControl Control { get; }
 
         public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
         public event IBot.StateChangedEventHandler? StateChanged;
+        public event IBot.PokemonFoundEventHandler? PokemonFound;
 
         private List<uint> _seedsHistory;
 
-        public StarterBot(ApiContainer apiContainer, IGameVersion gameVersion)
+        public StarterBot(ApiContainer apiContainer, GameVersion gameVersion)
         {
+            Enabled = false;
             APIContainer = apiContainer;
             GameVersion = gameVersion;
-            Enabled = false;
 
             _seedsHistory = new List<uint>();
 
@@ -56,37 +53,47 @@ namespace Pokebot.Factories.Bots
             Enabled = true;
             StateChanged?.Invoke(Enabled);
 
-            var playerData = GameVersion.GetPlayer();
+            var playerData = GameVersion.Memory.GetPlayer();
+
+            bool shouldLoad = false;
+            if (APIContainer.EmuClient.HasSaveState(GetSaveStateName()))
+            {
+                var result = MessageBox.Show(Messages.Bot_FileExistReplaceMessage, Messages.Bot_FileExistReplaceTitle, MessageBoxButtons.YesNo);
+                shouldLoad = result == DialogResult.Yes;
+            }
 
             bool loaded = false;
-            try
+            if (shouldLoad)
             {
-                loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
-            } catch(FileNotFoundException) //If the save state doesn't exists
-            {
-            } finally
-            {
-                if (!loaded)
+                try
                 {
-                    var starterBotConfig = GameVersion.VersionInfo.BotConfig.Starter;
-                    //Check if the player is at the right position
-                    if (playerData.Position == starterBotConfig.Position && starterBotConfig.Facing == PlayerFacingDirection.Up)
-                    {
-                        APIContainer.EmuClient.SaveState(GetSaveStateName());
-                    }
-                    else
-                    {
-                        throw new BotException($"Bot is unable to start because the player is not in front of starters.");
-                    }
+                    loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
                 }
-
-                if (GameVersion.GetPartyCount() != 0)
+                catch (FileNotFoundException) //If the save state doesn't exists
                 {
-                    throw new BotException("This bot cannot be used because the party is not empty.");
                 }
-
-                UpdateSeed();
             }
+
+            if (!loaded)
+            {
+                var starterBotConfig = GameVersion.VersionInfo.BotsConfig.Starter;
+                //Check if the player is at the right position
+                if (playerData.Position == starterBotConfig.Position && starterBotConfig.Facing == PlayerFacingDirection.Up)
+                {
+                    APIContainer.EmuClient.SaveState(GetSaveStateName());
+                }
+                else
+                {
+                    throw new BotException(Messages.BotStarter_WrongStartPosition);
+                }
+            }
+
+            if (GameVersion.Memory.GetPartyCount() != 0)
+            {
+                throw new BotException(Messages.BotStarter_PartyNotEmpty);
+            }
+
+            UpdateRNG();
         }
 
         public void Stop()
@@ -98,18 +105,22 @@ namespace Pokebot.Factories.Bots
         public void Execute(PlayerData playerData, GameState state)
         {
             var starter = GameVersion.VersionInfo.Starters.FirstOrDefault(x => x.PokemonId == Control.FilterPanel.Comparator.IndexPokemon);
-            if (starter != null && GameVersion.ActionRunner.ExecuteStarter(starter.PositionIndex))
+            if (starter != null && GameVersion.Runner.ExecuteStarter(starter.PositionIndex))
             {
-                var pokemon = GameVersion.GetParty()[0];
+                var pokemon = GameVersion.Memory.GetParty()[0];
                 PokemonEncountered?.Invoke(pokemon);
                 if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
-                    Log.Info($"Pokemon with filters found.");
+                    Log.Info(Messages.Pokemon_Found);
+                    PokemonFound?.Invoke(pokemon);
                     Stop();
                 }
                 else
                 {
-                    LoadOrStop();
+                    if (APIContainer.EmuClient.LoadOrStop(GetSaveStateName()))
+                    {
+                        UpdateRNG();
+                    }
                 }
             }
         }
@@ -119,37 +130,20 @@ namespace Pokebot.Factories.Bots
             return $"{GameVersion.VersionInfo.Name}_starter";
         }
 
-        private void LoadOrStop()
-        {
-            bool loaded = false;
-            try
-            {
-                loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
-            }
-            catch (FileNotFoundException) //If the save state doesn't exists
-            {
-                
-            } finally
-            {
-                if (loaded)
-                {
-                    UpdateSeed();
-                } else
-                {
-                    throw new BotException($"Bot is unable to start because the save state doesn't exists anymore.");
-                }
-            }
-        }
-
-        private void UpdateSeed()
+        private void UpdateRNG()
         {
             uint random;
             do
             {
-                random = GameVersion.SetRandomSeed();
+                random = GameVersion.Memory.SetRandomRNG();
             } while (_seedsHistory.Contains(random));
 
             _seedsHistory.Add(random);
+        }
+
+        public bool UseDelay()
+        {
+            return true;
         }
     }
 }

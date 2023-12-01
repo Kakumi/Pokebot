@@ -1,21 +1,19 @@
 ﻿using BizHawk.Client.Common;
-using BizHawk.Common;
-using BizHawk.Emulation.Common;
+using Pokebot.Exceptions;
 using Pokebot.Factories.Versions;
+using Pokebot.Models.ActionRunners;
 using Pokebot.Models.Config;
+using Pokebot.Models.Memory;
 using Pokebot.Properties;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Pokebot.Factories
 {
     public static class VersionFactory
     {
-        public static IGameVersion Create(ApiContainer apiContainer, string hash)
+        public static GameVersion Create(ApiContainer apiContainer, string hash)
         {
             var configText = Encoding.UTF8.GetString(Resources.appconfig);
             var config = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Config.AppConfig>(configText);
@@ -37,20 +35,44 @@ namespace Pokebot.Factories
                     var version = tupleVersion.Item1;
                     var hashData = tupleVersion.Item2;
 
-                    var generation = config.Generations.FirstOrDefault(x => x.Code == version.Code);
+                    if (string.IsNullOrEmpty(hashData.Symbols?.Main))
+                    {
+                        throw new PokebotException(Messages.Symbols_Empty);
+                    }
+
+                    var generation = config.Generations.FirstOrDefault(x => x.Code == version.Generation);
                     if (generation != null)
                     {
+                        IGameMemory? memory = null;
+                        IActionRunner? runner = null;
+
                         var versionType = (VersionCode)version.Code;
                         switch (versionType)
                         {
                             case VersionCode.Emerald:
-                                return new EmeraldVersion(apiContainer, version, hashData, generation);
+                            case VersionCode.Sapphire:
+                            case VersionCode.Ruby:
+                                memory = new Gen3Memory(apiContainer, version, hashData, generation);
+                                runner = new EmeraldRubySapphireActionRunner(apiContainer, memory);
+                                break;
+                            case VersionCode.LeafGreen:
+                            case VersionCode.FireRed:
+                                memory = new Gen3Memory(apiContainer, version, hashData, generation);
+                                runner = new FireRedLeafGreenActionRunner(apiContainer, memory);
+                                break;
                         }
+
+                        if (memory == null || runner == null)
+                        {
+                            throw new NotSupportedException(Messages.Rom_NotSupported);
+                        }
+
+                        return new GameVersion(apiContainer, version, hashData, generation, memory, runner);
                     }
                 }
             }
 
-            throw new NotSupportedException("This ROM is not supported");
+            throw new NotSupportedException(Messages.Rom_NotSupported);
         }
     }
 }

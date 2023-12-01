@@ -1,34 +1,28 @@
 ﻿using BizHawk.Client.Common;
 using Pokebot.Factories.Bots;
+using Pokebot.Factories.Versions;
 using Pokebot.Models.Config;
-using Pokebot.Panels;
-using Pokebot.Properties;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Pokebot.Factories
 {
     public static class BotFactory
     {
-        public static IBot Create(BotCode code, ApiContainer apiContainer, Versions.IGameVersion gameVersion)
+        public static IBot Create(BotCode code, ApiContainer apiContainer, GameVersion gameVersion)
         {
             switch (code)
             {
-                case BotCode.None:
-                    break;
                 case BotCode.Starter:
                     return new StarterBot(apiContainer, gameVersion);
                 case BotCode.Spin:
                     return new SpinBot(apiContainer, gameVersion);
-                case BotCode.Egg:
-                    break;
+                case BotCode.Static:
+                    return new LegendaryBot(apiContainer, gameVersion);
+                case BotCode.PokeFinder:
+                    return new PokeFinderBot(apiContainer, gameVersion);
             }
 
-            throw new NotSupportedException("Bot type is not supported");
+            throw new NotSupportedException(Messages.BotFactory_NotSupported);
         }
     }
 }

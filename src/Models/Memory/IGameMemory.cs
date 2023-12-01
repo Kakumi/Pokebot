@@ -1,22 +1,15 @@
-﻿using Pokebot.Models;
-using Pokebot.Models.ActionRunners;
-using Pokebot.Models.Config;
+﻿using Pokebot.Models.Config;
 using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Pokebot.Factories.Versions
+namespace Pokebot.Models.Memory
 {
-    public interface IGameVersion
+    public interface IGameMemory
     {
         VersionInfo VersionInfo { get; }
         HashData HashData { get; }
         GenerationInfo GenerationInfo { get; }
-        IActionRunner ActionRunner { get; }
 
         int GetPartyCount();
         IReadOnlyList<Pokemon> GetParty();
@@ -27,6 +20,12 @@ namespace Pokebot.Factories.Versions
         GameState GetGameState();
         ICollection<GTask> GetTasks();
         int GetActionSelectionCursor();
+        uint GetRandomRNG();
+        uint SetRandomRNG();
         uint SetRandomSeed();
+        void SetSeed(uint seed);
+        uint GetSeed();
+        int GetTID();
+        int GetSID();
     }
 }

@@ -6,11 +6,6 @@ using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pokebot.Factories.Bots
@@ -19,15 +14,16 @@ namespace Pokebot.Factories.Bots
     {
         public bool Enabled { get; private set; }
         public ApiContainer APIContainer { get; }
-        public IGameVersion GameVersion { get; }
+        public GameVersion GameVersion { get; }
         public SpinControl Control { get; }
 
         public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
         public event IBot.StateChangedEventHandler? StateChanged;
+        public event IBot.PokemonFoundEventHandler? PokemonFound;
 
         private Pokemon? _lastEncountered;
 
-        public SpinBot(ApiContainer apiContainer, IGameVersion gameVersion)
+        public SpinBot(ApiContainer apiContainer, GameVersion gameVersion)
         {
             Enabled = false;
             APIContainer = apiContainer;
@@ -43,14 +39,14 @@ namespace Pokebot.Factories.Bots
         {
             if (state == GameState.Overworld)
             {
-                if (!GameVersion.ActionRunner.Spin())
+                if (!GameVersion.Runner.Spin())
                 {
-                    throw new BotException("Can't spin the player, next move is unknown");
+                    throw new BotException(Messages.SpinBot_UnknowNextMove);
                 }
             }
             else if (state == GameState.Battle || state == GameState.BagMenu)
             {
-                Pokemon pokemon = GameVersion.GetOpponent();
+                Pokemon pokemon = GameVersion.Memory.GetOpponent();
                 if (_lastEncountered?.Checksum != pokemon.Checksum)
                 {
                     _lastEncountered = pokemon;
@@ -59,11 +55,13 @@ namespace Pokebot.Factories.Bots
 
                 if (Control.FilterPanel.Comparator.Compare(pokemon))
                 {
-                    Log.Warn($"Pokemon with filters found. Catch it manually.");
+                    Log.Warn(Messages.Pokemon_FoundCatch);
+                    PokemonFound?.Invoke(pokemon);
                     Stop();
-                } else
+                }
+                else
                 {
-                    GameVersion.ActionRunner.Escape();
+                    GameVersion.Runner.Escape();
                 }
             }
         }
@@ -73,10 +71,10 @@ namespace Pokebot.Factories.Bots
             Enabled = true;
             StateChanged?.Invoke(Enabled);
 
-            var state = GameVersion.GetGameState();
+            var state = GameVersion.Memory.GetGameState();
             if (state != GameState.Overworld)
             {
-                throw new BotException("Start this bot while you are on the map");
+                throw new BotException(Messages.SpinBot_StartOnlyMap);
             }
         }
 
@@ -89,6 +87,11 @@ namespace Pokebot.Factories.Bots
         public UserControl GetPanel()
         {
             return Control;
+        }
+
+        public bool UseDelay()
+        {
+            return true;
         }
     }
 }

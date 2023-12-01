@@ -1,9 +1,5 @@
 ﻿using Pokebot.Models.Pokemons;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokebot.Models
 {
@@ -22,15 +18,16 @@ namespace Pokebot.Models
         public int IVSpAttack { get; set; }
         public int IVSpDefense { get; set; }
 
-        public PokemonComparator() {
+        public PokemonComparator()
+        {
             IsShiny = false;
-            IndexPokemon = -1; 
+            IndexPokemon = -1;
             IndexNature = -1;
             IndexType = -1;
             IndexHeldItem = -1;
             ExactIV = false;
             IVHP = -1;
-            IVSpeed = -1; 
+            IVSpeed = -1;
             IVAttack = -1;
             IVDefense = -1;
             IVSpAttack = -1;

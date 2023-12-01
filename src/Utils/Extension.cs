@@ -1,8 +1,10 @@
-﻿using System;
+﻿using BizHawk.Client.Common;
+using Pokebot.Exceptions;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokebot.Utils
 {
@@ -36,6 +38,35 @@ namespace Pokebot.Utils
         public static int ToUInt16(this byte[] bytes)
         {
             return BitConverter.ToUInt16(bytes, 0) & 0xFFFF;
+        }
+
+        public static bool HasSaveState(this IEmuClientApi emuClient, string name)
+        {
+            var directory = Environment.CurrentDirectory;
+            var fullDirectory = Path.Combine(directory, "GBA", "State", $"{name}.State");
+            return File.Exists(fullDirectory);
+        }
+
+        public static bool LoadOrStop(this IEmuClientApi emuClient, string name)
+        {
+            bool loaded = false;
+            try
+            {
+                loaded = emuClient.LoadState(name);
+            }
+            catch (FileNotFoundException) //If the save state doesn't exists
+            {
+
+            }
+            finally
+            {
+                if (!loaded)
+                {
+                    throw new BotException(Messages.BotPokeFinder_InvalidSaveState);
+                }
+            }
+
+            return loaded;
         }
     }
 }
