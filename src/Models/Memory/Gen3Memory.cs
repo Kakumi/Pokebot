@@ -467,6 +467,9 @@ namespace Pokebot.Models.Memory
                         return GameState.PartyMenu;
                     case "CB2_OVERWORLD":
                         return GameState.Overworld;
+                    case "CB2_LOADNAMINGSCREEN":
+                    case "CB2_NAMINGSCREEN":
+                        return GameState.NamingScreen;
                     case "CB2_LOADMAP":
                     case "CB2_LOADMAP2":
                     case "CB2_DOCHANGEMAP":

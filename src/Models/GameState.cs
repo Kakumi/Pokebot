@@ -13,5 +13,6 @@
         ChangeMap = 8,
         PartyMenu = 9,
         Overworld = 10,
+        NamingScreen = 11
     }
 }

@@ -19635,11 +19635,11 @@
         },
         {
           "PositionIndex": 1,
-          "PokemonId": 4
+          "PokemonId": 7
         },
         {
           "PositionIndex": 2,
-          "PokemonId": 7
+          "PokemonId": 4
         }
       ],
       "PokeFinderTypes": [
@@ -19651,8 +19651,8 @@
       "BotsConfig": {
         "Starter": {
           "Position": {
-            "X": 0,
-            "Y": 0
+            "X": 16,
+            "Y": 12
           },
           "Facing": 34
         }
@@ -19727,11 +19727,11 @@
         },
         {
           "PositionIndex": 1,
-          "PokemonId": 4
+          "PokemonId": 7
         },
         {
           "PositionIndex": 2,
-          "PokemonId": 7
+          "PokemonId": 4
         }
       ],
       "PokeFinderTypes": [
@@ -19743,8 +19743,8 @@
       "BotsConfig": {
         "Starter": {
           "Position": {
-            "X": 0,
-            "Y": 0
+            "X": 16,
+            "Y": 12
           },
           "Facing": 34
         }

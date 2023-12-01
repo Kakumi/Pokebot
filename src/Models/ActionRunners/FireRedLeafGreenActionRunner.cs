@@ -6,11 +6,8 @@ namespace Pokebot.Models.ActionRunners
 {
     public class FireRedLeafGreenActionRunner : CommonActionRunner
     {
-        private StepStarterMode _stepStarter;
-
         public FireRedLeafGreenActionRunner(ApiContainer apiContainer, IGameMemory gameVersion) : base(apiContainer, gameVersion)
         {
-            _stepStarter = StepStarterMode.None;
         }
 
         public override bool ExecuteStarter(int indexStarter)
@@ -18,19 +15,37 @@ namespace Pokebot.Models.ActionRunners
             var state = GameVersion.GetGameState();
             if (state == GameState.Overworld)
             {
-                PressA();
+                var starterBotConfig = GameVersion.VersionInfo.BotsConfig.Starter;
+                var player = GameVersion.GetPlayer();
+                var playerIndex = (player.Position.X - starterBotConfig.Position.X) + 1; //0 = left, 1 = center, 2 = right
+                if (playerIndex == indexStarter)
+                {
+                    if (player.FacingDirection != starterBotConfig.Facing)
+                    {
+                        PressUp();
+                    } else
+                    {
+                        PressA();
+                    }
+                }
+                else if (playerIndex > indexStarter)
+                {
+                    PressLeft();
+                }
+                else if (playerIndex < indexStarter)
+                {
+                    PressRight();
+                }
 
                 return false;
             }
 
-            if (state == GameState.Battle)
+            if (state == GameState.NamingScreen)
             {
                 return true;
             }
 
-            var tasks = GameVersion.GetTasks();
-
-            throw new NotImplementedException();
+            return false;
         }
     }
 }
