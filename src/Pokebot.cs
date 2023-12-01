@@ -82,6 +82,7 @@ namespace Pokebot
         public PokebotDebug? DebugWindow { get; private set; }
         public GithubServices GithubServices { get; private set; }
         public DiscordWebhookServices? DiscordWebhookServices { get; private set; }
+        public FileVersionInfo PokebotVersion { get; }
 
         WaitTask? _waitTask;
 
@@ -94,9 +95,10 @@ namespace Pokebot
             var configText = Encoding.UTF8.GetString(Resources.appconfig);
             AppConfig = JsonConvert.DeserializeObject<AppConfig>(configText)!;
             GithubServices = new GithubServices(AppConfig.Github.Url);
+            PokebotVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
 
             //_versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
-            _versionLabel.Text = $"{WindowTitleStatic} v{FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
+            _versionLabel.Text = $"{WindowTitleStatic} v{PokebotVersion.ProductVersion.Substring(0, 5)}";
             _newVersionLabel.Hide();
             _tabControl.Hide();
 
@@ -111,9 +113,8 @@ namespace Pokebot
         {
             try
             {
-                FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
                 var latestRelease = await GithubServices.GetLatestRelease(AppConfig.Github.Owner, AppConfig.Github.Repository);
-                if (latestRelease.Name != versionInfo.ProductVersion)
+                if (latestRelease.Name != PokebotVersion.ProductVersion.Substring(0, 5))
                 {
                     _newVersionLabel.BeginInvoke(() =>
                     {
