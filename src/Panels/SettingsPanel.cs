@@ -32,19 +32,12 @@ namespace Pokebot.Panels
             InitializeComponent();
             SettingsConfig = SettingsConfig.Load();
 
-            _seedText.Minimum = 0;
-            _seedText.Maximum = uint.MaxValue;
             _accelerateCheckbox.Checked = SettingsConfig.Speed;
             _soundCheckbox.Checked = SettingsConfig.Sound;
             _discordWebhookText.Text = SettingsConfig.DiscordWebhook;
             _discordUserID.Text = SettingsConfig.DiscordUserID;
             _delayUpDown.Value = (decimal)SettingsConfig.DelayBetweenActions;
             _delayTooltip.SetToolTip(_delayLabel, Messages.Tooltip_Delay);
-        }
-
-        public void SetSeed(uint seed)
-        {
-            _seedText.Text = seed.ToString();
         }
 
         private void _accelerateCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -85,12 +78,6 @@ namespace Pokebot.Panels
             SettingsConfig.DelayBetweenActions = (double)_delayUpDown.Value;
             SettingsConfigChanged?.Invoke(SettingsConfig);
             SettingsConfig.Save();
-        }
-
-        private void _injectSeedButton_Click(object sender, EventArgs e)
-        {
-            uint value = (uint)_seedText.Value;
-            SeedClicked?.Invoke(value);
         }
     }
 }

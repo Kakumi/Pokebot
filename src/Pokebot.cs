@@ -198,9 +198,8 @@ namespace Pokebot
 
             if (IsReady)
             {
-                SettingsPanel.SetSeed(GameVersion!.Memory.GetSeed());
                 CreateBot(BotPanel.GetBotCode());
-                PokemonWatcher = new PokemonWatcher(GameVersion);
+                PokemonWatcher = new PokemonWatcher(GameVersion!);
                 PokemonWatcher.OpponentChanged += PokemonWatcher_OpponentChanged;
                 PokemonWatcher.PartyChanged += PokemonWatcher_PartyChanged;
             }

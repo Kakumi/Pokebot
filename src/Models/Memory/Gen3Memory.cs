@@ -580,6 +580,12 @@ namespace Pokebot.Models.Memory
             return bytes[0];
         }
 
+        public virtual uint GetRandomRNG()
+        {
+            var symbol = Symbols.First(x => x.Name == "gRngValue");
+            return SymbolUtil.Read(APIContainer, symbol, 0, 4).ToUInt32();
+        }
+
         public virtual uint SetRandomRNG()
         {
             Random random = new Random();
