@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -94,7 +95,8 @@ namespace Pokebot
             AppConfig = JsonConvert.DeserializeObject<AppConfig>(configText)!;
             GithubServices = new GithubServices(AppConfig.Github.Url);
 
-            _versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
+            //_versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
+            _versionLabel.Text = $"{WindowTitleStatic} v{FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
             _newVersionLabel.Hide();
             _tabControl.Hide();
 
@@ -109,9 +111,9 @@ namespace Pokebot
         {
             try
             {
+                FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
                 var latestRelease = await GithubServices.GetLatestRelease(AppConfig.Github.Owner, AppConfig.Github.Repository);
-                var currentVersion = $"v{GetType().Assembly.GetName().Version}";
-                if (latestRelease.Name != currentVersion)
+                if (latestRelease.Name != versionInfo.ProductVersion)
                 {
                     _newVersionLabel.BeginInvoke(() =>
                     {
