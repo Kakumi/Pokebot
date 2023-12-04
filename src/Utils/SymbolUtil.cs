@@ -36,7 +36,7 @@ namespace Pokebot.Utils
             var lines = text.Split('\n');
             foreach (var line in lines)
             {
-                if (string.IsNullOrEmpty(line)) continue;
+                if (string.IsNullOrEmpty(line) || line.StartsWith("#")) continue;
 
                 var arguments = line.Split(' ');
                 if (arguments.Count() != 4)

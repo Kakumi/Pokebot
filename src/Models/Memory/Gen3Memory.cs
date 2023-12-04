@@ -73,6 +73,9 @@ namespace Pokebot.Models.Memory
                                 }
 
                                 symbols.Add(new Symbol(address, letter, size, name));
+                            } else if (tempSymbol.Letter == 'a') //add custom line
+                            {
+                                symbols.Add(tempSymbol);
                             }
                         }
                     }
@@ -580,13 +583,13 @@ namespace Pokebot.Models.Memory
             return bytes[0];
         }
 
-        public virtual uint GetRandomRNG()
+        public virtual uint GetCurrentSeed()
         {
             var symbol = Symbols.First(x => x.Name == "gRngValue");
             return SymbolUtil.Read(APIContainer, symbol, 0, 4).ToUInt32();
         }
 
-        public virtual uint SetRandomRNG()
+        public virtual uint RandomizeCurrentSeed()
         {
             Random random = new Random();
             var bytes = new byte[4];
@@ -597,31 +600,6 @@ namespace Pokebot.Models.Memory
             SymbolUtil.Write(APIContainer, symbol, bytes);
 
             return randomNumber;
-        }
-
-        public virtual uint SetRandomSeed()
-        {
-            Random random = new Random();
-            var bytes = new byte[4];
-            random.NextBytes(bytes);
-            uint randomNumber = bytes.ToUInt32();
-
-            SetSeed(randomNumber);
-
-            return randomNumber;
-        }
-
-        public virtual void SetSeed(uint seed)
-        {
-            var bytes = BitConverter.GetBytes(seed);
-            var symbol = Symbols.First(x => x.Name == "SeedRng");
-            SymbolUtil.Write(APIContainer, symbol, bytes);
-        }
-
-        public virtual uint GetSeed()
-        {
-            var symbol = Symbols.First(x => x.Name == "SeedRng");
-            return SymbolUtil.Read(APIContainer, symbol, 0, 4).ToUInt32();
         }
 
         //With Gen 3 you should follow the save block in memory using pointer

@@ -179,7 +179,6 @@ namespace Pokebot
             SettingsPanel = new SettingsPanel();
             SettingsPanel.SettingsConfigChanged += SettingsPanel_SettingsConfigChanged;
             SettingsPanel.PauseClicked += SettingsPanel_PauseClicked;
-            SettingsPanel.SeedClicked += SettingsPanel_SeedClicked;
             SettingsPanel.Dock = DockStyle.Fill;
 
             CreateTab(SettingsPanel, Messages.Tab_SettingsPanel);
@@ -362,11 +361,6 @@ namespace Pokebot
         private void SettingsPanel_PauseClicked()
         {
             APIContainer?.EmuClient.TogglePause();
-        }
-
-        private void SettingsPanel_SeedClicked(uint seed)
-        {
-            GameVersion!.Memory.SetSeed(seed);
         }
 
         #endregion

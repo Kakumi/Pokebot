@@ -114,7 +114,7 @@ namespace Pokebot.Factories.Bots
             uint random;
             do
             {
-                random = GameVersion.Memory.SetRandomRNG();
+                random = GameVersion.Memory.RandomizeCurrentSeed();
             } while (_seedsHistory.Contains(random));
 
             _seedsHistory.Add(random);
