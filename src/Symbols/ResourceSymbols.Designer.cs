@@ -113,6 +113,26 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
+        internal static byte[] patchruby_fr {
+            get {
+                object obj = ResourceManager.GetObject("patchruby_fr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] patchsapphire_fr {
+            get {
+                object obj = ResourceManager.GetObject("patchsapphire_fr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
         internal static byte[] pokeemerald {
             get {
                 object obj = ResourceManager.GetObject("pokeemerald", resourceCulture);

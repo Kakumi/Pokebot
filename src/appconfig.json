@@ -19561,7 +19561,9 @@
           "Hash": "c269b5692b2d0e5800ba1ddf117fda95ac648634", //French
           "Symbols": {
             "Main": "pokesapphire",
-            "Patches": []
+            "Patches": [
+              "patchsapphire_fr"
+            ]
           }
         },
         {
@@ -19688,7 +19690,9 @@
           "Hash": "a6ee94202bec0641c55d242757e84dc89336d4cb", //French
           "Symbols": {
             "Main": "pokeruby",
-            "Patches": []
+            "Patches": [
+              "patchruby_fr"
+            ]
           }
         },
         {

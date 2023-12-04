@@ -578,7 +578,7 @@ namespace Pokebot.Models.Memory
         public virtual int GetActionSelectionCursor()
         {
             var symbol = Symbols.First(x => x.Name == "gActionSelectionCursor");
-            var bytes = SymbolUtil.Read(APIContainer, symbol);
+            var bytes = SymbolUtil.Read(APIContainer, symbol, 0, 1);
 
             return bytes[0];
         }

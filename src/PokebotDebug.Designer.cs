@@ -57,6 +57,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this._filterAdd = new System.Windows.Forms.Button();
+            this._finderOffsetUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this._finderInspectReverse = new System.Windows.Forms.Button();
             this._tabControl.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this._playerTab.SuspendLayout();
@@ -64,6 +70,7 @@
             this._tabFinder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // _tabControl
@@ -188,6 +195,10 @@
             // 
             // _tabFinder
             // 
+            this._tabFinder.Controls.Add(this._finderInspectReverse);
+            this._tabFinder.Controls.Add(this.label5);
+            this._tabFinder.Controls.Add(this._finderOffsetUpDown);
+            this._tabFinder.Controls.Add(this._filterAdd);
             this._tabFinder.Controls.Add(this.label4);
             this._tabFinder.Controls.Add(this.label3);
             this._tabFinder.Controls.Add(this.label2);
@@ -211,7 +222,7 @@
             // 
             this._runFinderButton.Location = new System.Drawing.Point(8, 124);
             this._runFinderButton.Name = "_runFinderButton";
-            this._runFinderButton.Size = new System.Drawing.Size(275, 23);
+            this._runFinderButton.Size = new System.Drawing.Size(207, 23);
             this._runFinderButton.TabIndex = 0;
             this._runFinderButton.Text = "run";
             this._runFinderButton.UseVisualStyleBackColor = true;
@@ -250,9 +261,9 @@
             // 
             // _finderListenButton
             // 
-            this._finderListenButton.Location = new System.Drawing.Point(289, 124);
+            this._finderListenButton.Location = new System.Drawing.Point(221, 124);
             this._finderListenButton.Name = "_finderListenButton";
-            this._finderListenButton.Size = new System.Drawing.Size(275, 23);
+            this._finderListenButton.Size = new System.Drawing.Size(208, 23);
             this._finderListenButton.TabIndex = 5;
             this._finderListenButton.Text = "run (3s delay)";
             this._finderListenButton.UseVisualStyleBackColor = true;
@@ -260,9 +271,9 @@
             // 
             // _finderClear
             // 
-            this._finderClear.Location = new System.Drawing.Point(570, 124);
+            this._finderClear.Location = new System.Drawing.Point(620, 124);
             this._finderClear.Name = "_finderClear";
-            this._finderClear.Size = new System.Drawing.Size(214, 23);
+            this._finderClear.Size = new System.Drawing.Size(160, 23);
             this._finderClear.TabIndex = 6;
             this._finderClear.Text = "clear";
             this._finderClear.UseVisualStyleBackColor = true;
@@ -274,7 +285,9 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
             this._finderList.GridLines = true;
             this._finderList.HideSelection = false;
             this._finderList.Location = new System.Drawing.Point(8, 153);
@@ -287,12 +300,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Address";
-            this.columnHeader1.Width = 326;
+            this.columnHeader1.Width = 161;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Value";
-            this.columnHeader2.Width = 302;
+            this.columnHeader2.Width = 162;
             // 
             // _finderSymbolsCB
             // 
@@ -308,10 +321,12 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Expected";
+            this.columnHeader3.Width = 130;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Size";
+            this.columnHeader4.Width = 65;
             // 
             // label1
             // 
@@ -349,6 +364,51 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "Size";
             // 
+            // _filterAdd
+            // 
+            this._filterAdd.Location = new System.Drawing.Point(435, 124);
+            this._filterAdd.Name = "_filterAdd";
+            this._filterAdd.Size = new System.Drawing.Size(179, 23);
+            this._filterAdd.TabIndex = 13;
+            this._filterAdd.Text = "add symbol";
+            this._filterAdd.UseVisualStyleBackColor = true;
+            this._filterAdd.Click += new System.EventHandler(this._filterAdd_Click);
+            // 
+            // _finderOffsetUpDown
+            // 
+            this._finderOffsetUpDown.Location = new System.Drawing.Point(435, 96);
+            this._finderOffsetUpDown.Name = "_finderOffsetUpDown";
+            this._finderOffsetUpDown.Size = new System.Drawing.Size(179, 22);
+            this._finderOffsetUpDown.TabIndex = 14;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(620, 98);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 16);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Offset";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Offset";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Value Raw";
+            this.columnHeader6.Width = 180;
+            // 
+            // _finderInspectReverse
+            // 
+            this._finderInspectReverse.Location = new System.Drawing.Point(569, 10);
+            this._finderInspectReverse.Name = "_finderInspectReverse";
+            this._finderInspectReverse.Size = new System.Drawing.Size(211, 23);
+            this._finderInspectReverse.TabIndex = 16;
+            this._finderInspectReverse.Text = "inspect reverse addr";
+            this._finderInspectReverse.UseVisualStyleBackColor = true;
+            this._finderInspectReverse.Click += new System.EventHandler(this._finderInspectReverse_Click);
+            // 
             // PokebotDebug
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -367,6 +427,7 @@
             this._tabFinder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -402,5 +463,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button _filterAdd;
+        private System.Windows.Forms.NumericUpDown _finderOffsetUpDown;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.Button _finderInspectReverse;
     }
 }

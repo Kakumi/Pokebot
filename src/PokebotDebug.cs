@@ -127,7 +127,8 @@ namespace Pokebot
                     {
                         int address = int.Parse(lvi.Text, System.Globalization.NumberStyles.HexNumber);
                         int size = int.Parse(lvi.SubItems[3].Text);
-                        var bytes = SymbolUtil.Read(APIContainer, address, 0, size);
+                        int offset = int.Parse(lvi.SubItems[4].Text);
+                        var bytes = SymbolUtil.Read(APIContainer, address, offset, size);
                         string value;
                         if (size == 1)
                         {
@@ -147,6 +148,7 @@ namespace Pokebot
                         }
 
                         lvi.SubItems[1].Text = value;
+                        lvi.SubItems[5].Text = string.Join("-", bytes);
                     }
                 }
             }
@@ -156,35 +158,26 @@ namespace Pokebot
         {
             try
             {
-                //string addressHexa = _finderAddressTextBox.Text;
-                //int address;
-                //if (addressHexa.Contains("x"))
-                //{
-                //    address = Convert.ToInt32(_finderAddressTextBox.Text, 16);
-                //}
-                //else
-                //{
-                //    address = int.Parse(addressHexa, System.Globalization.NumberStyles.HexNumber);
-                //}
-
                 var symbol = _finderSymbolsCB.SelectedItem as Symbol;
-                int address = (int)symbol.Address;
-                var result = MemoryAddressFinder.Search(GameVersion.APIContainer, address, (int)_finderIterationUpDown.Value, _finderValueTextBox.Text, (int)_finderSize.Value);
+                int address = (int)symbol!.Address;
+                var result = MemoryAddressFinder.Search(GameVersion!.APIContainer, address, (int)_finderIterationUpDown.Value, _finderValueTextBox.Text, (int)_finderSize.Value);
                 if (result.Count == 0)
                 {
                     MessageBox.Show($"Not found");
                 }
                 else
                 {
-                    _finderList.Invoke(() => _finderList.Items.AddRange(result.Select(x =>
+                    _finderList.Items.AddRange(result.Select(x =>
                     {
                         var lvi = new ListViewItem(x);
                         lvi.SubItems.Add("_");
                         lvi.SubItems.Add(_finderValueTextBox.Text);
                         lvi.SubItems.Add(_finderSize.Value.ToString());
+                        lvi.SubItems.Add("0");
+                        lvi.SubItems.Add("_");
 
                         return lvi;
-                    }).ToArray()));
+                    }).ToArray());
                 }
             } catch(Exception ex)
             {
@@ -198,7 +191,7 @@ namespace Pokebot
             worker.DoWork += async (s, e) =>
             {
                 await Task.Delay(3000);
-                runFinderButton_Click(s, e);
+                _finderSymbolsCB.Invoke(() => runFinderButton_Click(s, e));
             };
 
             worker.RunWorkerAsync();
@@ -217,6 +210,28 @@ namespace Pokebot
                 _finderSymbolsCB.DisplayMember = nameof(Symbol.Name);
                 _finderSymbolsCB.SelectedIndex = 0;
             }
+        }
+
+        private void _filterAdd_Click(object sender, EventArgs e)
+        {
+            var symbol = _finderSymbolsCB.SelectedItem as Symbol;
+            int address = (int)symbol!.Address;
+            var lvi = new ListViewItem(address.ToString());
+            lvi.SubItems.Add("_");
+            lvi.SubItems.Add(_finderValueTextBox.Text);
+            lvi.SubItems.Add(_finderSize.Value.ToString());
+            lvi.SubItems.Add(_finderOffsetUpDown.Value.ToString());
+            lvi.SubItems.Add("_");
+            _finderList.Items.Add(lvi);
+        }
+
+        private void _finderInspectReverse_Click(object sender, EventArgs e)
+        {
+            var symbol = _finderSymbolsCB.SelectedItem as Symbol;
+            int address = (int)symbol!.Address;
+            var bytes = SymbolUtil.Read(APIContainer, address, (int)_finderOffsetUpDown.Value, (int)_finderSize.Value);
+            var cb2Address = bytes.ToUInt32();
+            MessageBox.Show($"Reverse address for {symbol.Name} is {(cb2Address - 1).ToString("X")}");
         }
     }
 
