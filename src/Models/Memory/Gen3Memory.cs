@@ -623,5 +623,10 @@ namespace Pokebot.Models.Memory
             //var bytes = SymbolUtil.Read(APIContainer, ptr, 0, symbol.Size);
             return SymbolUtil.Read(APIContainer, ptr, 0x0C, 2).ToUInt16();
         }
+
+        public IReadOnlyList<Symbol> GetSymbols()
+        {
+            return Symbols;
+        }
     }
 }

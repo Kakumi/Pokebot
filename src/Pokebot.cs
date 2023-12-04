@@ -237,6 +237,7 @@ namespace Pokebot
 #if DEBUG
                             if (DebugWindow != null)
                             {
+                                DebugWindow.APIContainer = APIContainer;
                                 DebugWindow.SetGameVersion(GameVersion);
                             }
 #endif

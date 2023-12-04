@@ -24,5 +24,6 @@ namespace Pokebot.Models.Memory
         uint RandomizeCurrentSeed();
         int GetTID();
         int GetSID();
+        IReadOnlyList<Symbol> GetSymbols();
     }
 }
