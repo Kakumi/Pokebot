@@ -113,66 +113,6 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
-        internal static byte[] patchruby {
-            get {
-                object obj = ResourceManager.GetObject("patchruby", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
-        /// </summary>
-        internal static byte[] patchruby_rev1 {
-            get {
-                object obj = ResourceManager.GetObject("patchruby_rev1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
-        /// </summary>
-        internal static byte[] patchruby_rev2 {
-            get {
-                object obj = ResourceManager.GetObject("patchruby_rev2", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
-        /// </summary>
-        internal static byte[] patchsapphire {
-            get {
-                object obj = ResourceManager.GetObject("patchsapphire", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
-        /// </summary>
-        internal static byte[] patchsapphire_rev1 {
-            get {
-                object obj = ResourceManager.GetObject("patchsapphire_rev1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
-        /// </summary>
-        internal static byte[] patchsapphire_rev2 {
-            get {
-                object obj = ResourceManager.GetObject("patchsapphire_rev2", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
-        /// </summary>
         internal static byte[] pokeemerald {
             get {
                 object obj = ResourceManager.GetObject("pokeemerald", resourceCulture);

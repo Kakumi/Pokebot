@@ -133,24 +133,6 @@
   <data name="patchemerald_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>emerald\patchemerald_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="patchruby" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>pokeruby\patchruby.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="patchruby_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>pokeruby_rev1\patchruby_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="patchruby_rev2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>pokeruby_rev2\patchruby_rev2.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="patchsapphire" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>sapphire\patchsapphire.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="patchsapphire_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>sapphire_rev1\patchsapphire_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="patchsapphire_rev2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>sapphire_rev2\patchsapphire_rev2.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="pokeemerald" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>emerald\pokeemerald.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
