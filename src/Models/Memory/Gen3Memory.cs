@@ -606,22 +606,37 @@ namespace Pokebot.Models.Memory
         //https://bulbapedia.bulbagarden.net/wiki/Save_data_structure_(Generation_III)#Game_save_A.2C_Game_save_B
         public int GetTID()
         {
-            var symbol = Symbols.First(x => x.Name == "gSaveblock2");
-            var symbolPtr = Symbols.First(x => x.Name == "gSaveBlock2Ptr");
-            var ptr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
+            var symbolPtr = Symbols.FirstOrDefault(x => x.Name == "gSaveBlock2Ptr");
+            uint addr;
+            if (symbolPtr != null)
+            {
+                addr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
+            }
+            else
+            {
+                var symbol = Symbols.First(x => x.Name == "gSaveBlock2");
+                addr = (uint)symbol.Address;
+            }
             //var bytes = SymbolUtil.Read(APIContainer, ptr, 0, symbol.Size);
-            return SymbolUtil.Read(APIContainer, ptr, 0x0A, 2).ToUInt16();
+            return SymbolUtil.Read(APIContainer, addr, 0x0A, 2).ToUInt16();
         }
 
         //With Gen 3 you should follow the save block in memory using pointer
         //https://bulbapedia.bulbagarden.net/wiki/Save_data_structure_(Generation_III)#Game_save_A.2C_Game_save_B
         public int GetSID()
         {
-            var symbol = Symbols.First(x => x.Name == "gSaveblock2");
-            var symbolPtr = Symbols.First(x => x.Name == "gSaveBlock2Ptr");
-            var ptr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
+            var symbolPtr = Symbols.FirstOrDefault(x => x.Name == "gSaveBlock2Ptr");
+            uint addr;
+            if (symbolPtr != null)
+            {
+                addr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
+            } else
+            {
+                var symbol = Symbols.First(x => x.Name == "gSaveBlock2");
+                addr = (uint)symbol.Address;
+            }
             //var bytes = SymbolUtil.Read(APIContainer, ptr, 0, symbol.Size);
-            return SymbolUtil.Read(APIContainer, ptr, 0x0C, 2).ToUInt16();
+            return SymbolUtil.Read(APIContainer, addr, 0x0C, 2).ToUInt16();
         }
 
         public IReadOnlyList<Symbol> GetSymbols()
