@@ -182,6 +182,7 @@ _Yeah! There's nothing here!_
 * [PokeFinder](https://github.com/Admiral-Fish/PokeFinder)
 * [Hexa to Decimal Converter](https://www.rapidtables.com/convert/number/hex-to-decimal.html)
 * [GBA Backup Tool](https://www.gamebrew.org/wiki/GBA_Backup_Tool)
+* [GBA Memory Domains](https://corrupt.wiki/systems/gameboy-advance/bizhawk-memory-domains)
 
 # <a name="license"></a>License
 Pokebot can be used by anyone for any purpose allowed by the permissive MIT License.
