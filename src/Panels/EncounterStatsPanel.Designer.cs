@@ -56,21 +56,22 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Pokemon";
-            this.columnHeader1.Width = 78;
+            this.columnHeader1.Width = 150;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Encounters";
-            this.columnHeader2.Width = 89;
+            this.columnHeader2.Width = 100;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Shiny encounters";
-            this.columnHeader3.Width = 125;
+            this.columnHeader3.Width = 100;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Ratio";
+            this.columnHeader4.Width = 100;
             // 
             // EncounterStatsPanel
             // 

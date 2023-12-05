@@ -222,7 +222,7 @@
             // 
             // _pokemonComboBox
             // 
-            this._pokemonComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this._pokemonComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this._pokemonComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this._pokemonComboBox.FormattingEnabled = true;
             this._pokemonComboBox.Location = new System.Drawing.Point(0, 29);
@@ -233,6 +233,8 @@
             // 
             // _heldItemComboBox
             // 
+            this._heldItemComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this._heldItemComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this._heldItemComboBox.FormattingEnabled = true;
             this._heldItemComboBox.Location = new System.Drawing.Point(0, 59);
             this._heldItemComboBox.Name = "_heldItemComboBox";
@@ -242,6 +244,8 @@
             // 
             // _naturesComboBox
             // 
+            this._naturesComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this._naturesComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this._naturesComboBox.FormattingEnabled = true;
             this._naturesComboBox.Location = new System.Drawing.Point(0, 89);
             this._naturesComboBox.Name = "_naturesComboBox";
@@ -251,6 +255,8 @@
             // 
             // _typesComboBox
             // 
+            this._typesComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this._typesComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this._typesComboBox.FormattingEnabled = true;
             this._typesComboBox.Location = new System.Drawing.Point(0, 119);
             this._typesComboBox.Name = "_typesComboBox";
