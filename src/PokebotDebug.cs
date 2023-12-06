@@ -156,10 +156,10 @@ namespace Pokebot
                         } else
                         {
                             lvi.BackColor = Color.White;
+                        }
                     }
                 }
             }
-        }
         }
 
         private void runFinderButton_Click(object sender, EventArgs e)
@@ -240,6 +240,110 @@ namespace Pokebot
             var bytes = SymbolUtil.Read(APIContainer, address, (int)_finderOffsetUpDown.Value, (int)_finderSize.Value);
             var cb2Address = bytes.ToUInt32();
             MessageBox.Show($"Reverse address for {symbol.Name} is {(cb2Address - 1).ToString("X")}");
+        }
+
+        private void SearchGMain()
+        {
+            var result = SearchTest();
+
+            _finderList.Items.AddRange(result.Select(x =>
+            {
+                var lvi = new ListViewItem(x.Item1.ToString("X"));
+                lvi.SubItems.Add("_");
+                lvi.SubItems.Add(x.Item2 + "");
+                lvi.SubItems.Add("4");
+                lvi.SubItems.Add("0");
+                lvi.SubItems.Add("_");
+
+                return lvi;
+            }).ToArray());
+        }
+
+        private List<Tuple<int, uint>> SearchTest()
+        {
+            var potentials = new List<Tuple<int, uint>>();
+            int minAddr = 0x03000000;
+            int maxAddr = 0x03007FFF;
+            int size = maxAddr - minAddr;
+            int length = 4;
+
+            var bytes = SymbolUtil.Read(APIContainer, minAddr, 0, size);
+
+            for (int i = 0; i < size - length; i++) { 
+                var value = bytes.Skip(i).Take(length).ToUInt32();
+                var addresses = new List<uint>()
+                {
+                    134571444,
+                    134267604
+                };
+                if (addresses.Contains(value) || addresses.Contains(value - 1) || addresses.Contains(value + 1) || value.ToString("X").StartsWith("08") || value.ToString("X").StartsWith("8"))
+                {
+                    if (value >= 0x08000000)
+                    {
+                        potentials.Add(new Tuple<int, uint>(minAddr + i, value));
+                    }
+                }
+            }
+
+            return potentials;
+        }
+
+        private void SearchTasks()
+        {
+            try
+            {
+                int minAddr = 0x03000000;
+                int maxAddr = 0x03007FFF;
+                int size = maxAddr - minAddr;
+                int length = 0x280;
+
+                var bytes = SymbolUtil.Read(APIContainer, minAddr, 0, size);
+
+                for (int i = 0; i < size; i++)
+                {
+                    var bytesTask = bytes.Skip(i).Take(length).ToArray();
+                    var tasks = new List<GTask>();
+                    for (int j = 0; j < 16; j++)
+                    {
+                        var offset = j * 40;
+                        var isActive = bytesTask[offset + 4] == 1;
+                        if (isActive)
+                        {
+                            var bytesName = bytesTask.Skip(offset).Take(4);
+                            var addr = bytesName.ToUInt32() - 1;
+                            string taskName = addr.ToString();
+
+                            var prev = (int)bytesTask[offset + 5];
+                            var next = (int)bytesTask[offset + 6];
+                            var priority = (int)bytesTask[offset + 7];
+                            var data = bytesTask.Skip(offset + 8).Take(32).ToArray();
+
+                            tasks.Add(new GTask(
+                                taskName,
+                                isActive,
+                                prev,
+                                next,
+                                priority,
+                                data
+                            ));
+                        }
+                    }
+
+                    if (tasks.Count == 3)
+                    {
+                        if (tasks[0].Data.All(x => x == 0) && tasks[1].Data.All(x => x == 0) && tasks[2].Data[0] == 0 && tasks[2].Data[1] == 0 && tasks[2].Data[2] == 3)
+                        {
+                            int target = 0x03005090;
+                            int current = minAddr + i;
+                            if (current == target)
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
         }
     }
 

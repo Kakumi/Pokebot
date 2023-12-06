@@ -41,36 +41,36 @@
             this._tasksLabel = new System.Windows.Forms.Label();
             this._stateLabel = new System.Windows.Forms.Label();
             this._tabFinder = new System.Windows.Forms.TabPage();
-            this._runFinderButton = new System.Windows.Forms.Button();
-            this._finderIterationUpDown = new System.Windows.Forms.NumericUpDown();
-            this._finderValueTextBox = new System.Windows.Forms.TextBox();
-            this._finderSize = new System.Windows.Forms.NumericUpDown();
-            this._finderListenButton = new System.Windows.Forms.Button();
-            this._finderClear = new System.Windows.Forms.Button();
+            this._finderInspectReverse = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this._finderOffsetUpDown = new System.Windows.Forms.NumericUpDown();
+            this._filterAdd = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this._finderSymbolsCB = new System.Windows.Forms.ComboBox();
             this._finderList = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this._finderSymbolsCB = new System.Windows.Forms.ComboBox();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this._filterAdd = new System.Windows.Forms.Button();
-            this._finderOffsetUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this._finderInspectReverse = new System.Windows.Forms.Button();
+            this._finderClear = new System.Windows.Forms.Button();
+            this._finderListenButton = new System.Windows.Forms.Button();
+            this._finderSize = new System.Windows.Forms.NumericUpDown();
+            this._finderValueTextBox = new System.Windows.Forms.TextBox();
+            this._finderIterationUpDown = new System.Windows.Forms.NumericUpDown();
+            this._runFinderButton = new System.Windows.Forms.Button();
             this._tabControl.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this._playerTab.SuspendLayout();
             this._tabTasks.SuspendLayout();
             this._tabFinder.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._finderSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._finderSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // _tabControl
@@ -218,66 +218,88 @@
             this._tabFinder.Text = "Finder";
             this._tabFinder.UseVisualStyleBackColor = true;
             // 
-            // _runFinderButton
+            // _finderInspectReverse
             // 
-            this._runFinderButton.Location = new System.Drawing.Point(8, 124);
-            this._runFinderButton.Name = "_runFinderButton";
-            this._runFinderButton.Size = new System.Drawing.Size(207, 23);
-            this._runFinderButton.TabIndex = 0;
-            this._runFinderButton.Text = "run";
-            this._runFinderButton.UseVisualStyleBackColor = true;
-            this._runFinderButton.Click += new System.EventHandler(this.runFinderButton_Click);
+            this._finderInspectReverse.Location = new System.Drawing.Point(569, 10);
+            this._finderInspectReverse.Name = "_finderInspectReverse";
+            this._finderInspectReverse.Size = new System.Drawing.Size(211, 23);
+            this._finderInspectReverse.TabIndex = 16;
+            this._finderInspectReverse.Text = "inspect reverse addr";
+            this._finderInspectReverse.UseVisualStyleBackColor = true;
+            this._finderInspectReverse.Click += new System.EventHandler(this._finderInspectReverse_Click);
             // 
-            // _finderIterationUpDown
+            // label5
             // 
-            this._finderIterationUpDown.Location = new System.Drawing.Point(8, 40);
-            this._finderIterationUpDown.Name = "_finderIterationUpDown";
-            this._finderIterationUpDown.Size = new System.Drawing.Size(275, 22);
-            this._finderIterationUpDown.TabIndex = 1;
-            this._finderIterationUpDown.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(620, 98);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 16);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Offset";
             // 
-            // _finderValueTextBox
+            // _finderOffsetUpDown
             // 
-            this._finderValueTextBox.Location = new System.Drawing.Point(8, 68);
-            this._finderValueTextBox.Name = "_finderValueTextBox";
-            this._finderValueTextBox.Size = new System.Drawing.Size(275, 22);
-            this._finderValueTextBox.TabIndex = 3;
+            this._finderOffsetUpDown.Location = new System.Drawing.Point(435, 96);
+            this._finderOffsetUpDown.Name = "_finderOffsetUpDown";
+            this._finderOffsetUpDown.Size = new System.Drawing.Size(179, 22);
+            this._finderOffsetUpDown.TabIndex = 14;
             // 
-            // _finderSize
+            // _filterAdd
             // 
-            this._finderSize.Location = new System.Drawing.Point(8, 96);
-            this._finderSize.Name = "_finderSize";
-            this._finderSize.Size = new System.Drawing.Size(275, 22);
-            this._finderSize.TabIndex = 4;
-            this._finderSize.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
+            this._filterAdd.Location = new System.Drawing.Point(435, 124);
+            this._filterAdd.Name = "_filterAdd";
+            this._filterAdd.Size = new System.Drawing.Size(179, 23);
+            this._filterAdd.TabIndex = 13;
+            this._filterAdd.Text = "add symbol";
+            this._filterAdd.UseVisualStyleBackColor = true;
+            this._filterAdd.Click += new System.EventHandler(this._filterAdd_Click);
             // 
-            // _finderListenButton
+            // label4
             // 
-            this._finderListenButton.Location = new System.Drawing.Point(221, 124);
-            this._finderListenButton.Name = "_finderListenButton";
-            this._finderListenButton.Size = new System.Drawing.Size(208, 23);
-            this._finderListenButton.TabIndex = 5;
-            this._finderListenButton.Text = "run (3s delay)";
-            this._finderListenButton.UseVisualStyleBackColor = true;
-            this._finderListenButton.Click += new System.EventHandler(this._finderListenButton_Click);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(289, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 16);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Size";
             // 
-            // _finderClear
+            // label3
             // 
-            this._finderClear.Location = new System.Drawing.Point(620, 124);
-            this._finderClear.Name = "_finderClear";
-            this._finderClear.Size = new System.Drawing.Size(160, 23);
-            this._finderClear.TabIndex = 6;
-            this._finderClear.Text = "clear";
-            this._finderClear.UseVisualStyleBackColor = true;
-            this._finderClear.Click += new System.EventHandler(this._finderClear_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(289, 71);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(64, 16);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Expected";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(289, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(86, 16);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Number of try";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(289, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 16);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Symbol";
+            // 
+            // _finderSymbolsCB
+            // 
+            this._finderSymbolsCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this._finderSymbolsCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this._finderSymbolsCB.FormattingEnabled = true;
+            this._finderSymbolsCB.Location = new System.Drawing.Point(8, 10);
+            this._finderSymbolsCB.Name = "_finderSymbolsCB";
+            this._finderSymbolsCB.Size = new System.Drawing.Size(275, 24);
+            this._finderSymbolsCB.TabIndex = 8;
+            this._finderSymbolsCB.Click += new System.EventHandler(this._finderSymbolsCB_Click);
             // 
             // _finderList
             // 
@@ -307,17 +329,6 @@
             this.columnHeader2.Text = "Value";
             this.columnHeader2.Width = 162;
             // 
-            // _finderSymbolsCB
-            // 
-            this._finderSymbolsCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this._finderSymbolsCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this._finderSymbolsCB.FormattingEnabled = true;
-            this._finderSymbolsCB.Location = new System.Drawing.Point(8, 10);
-            this._finderSymbolsCB.Name = "_finderSymbolsCB";
-            this._finderSymbolsCB.Size = new System.Drawing.Size(275, 24);
-            this._finderSymbolsCB.TabIndex = 8;
-            this._finderSymbolsCB.Click += new System.EventHandler(this._finderSymbolsCB_Click);
-            // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Expected";
@@ -328,68 +339,6 @@
             this.columnHeader4.Text = "Size";
             this.columnHeader4.Width = 65;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(289, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 16);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Symbol";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(289, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 16);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Number of try";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(289, 71);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 16);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Expected";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(289, 98);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 16);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Size";
-            // 
-            // _filterAdd
-            // 
-            this._filterAdd.Location = new System.Drawing.Point(435, 124);
-            this._filterAdd.Name = "_filterAdd";
-            this._filterAdd.Size = new System.Drawing.Size(179, 23);
-            this._filterAdd.TabIndex = 13;
-            this._filterAdd.Text = "add symbol";
-            this._filterAdd.UseVisualStyleBackColor = true;
-            this._filterAdd.Click += new System.EventHandler(this._filterAdd_Click);
-            // 
-            // _finderOffsetUpDown
-            // 
-            this._finderOffsetUpDown.Location = new System.Drawing.Point(435, 96);
-            this._finderOffsetUpDown.Name = "_finderOffsetUpDown";
-            this._finderOffsetUpDown.Size = new System.Drawing.Size(179, 22);
-            this._finderOffsetUpDown.TabIndex = 14;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(620, 98);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 16);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Offset";
-            // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Offset";
@@ -399,15 +348,71 @@
             this.columnHeader6.Text = "Value Raw";
             this.columnHeader6.Width = 180;
             // 
-            // _finderInspectReverse
+            // _finderClear
             // 
-            this._finderInspectReverse.Location = new System.Drawing.Point(569, 10);
-            this._finderInspectReverse.Name = "_finderInspectReverse";
-            this._finderInspectReverse.Size = new System.Drawing.Size(211, 23);
-            this._finderInspectReverse.TabIndex = 16;
-            this._finderInspectReverse.Text = "inspect reverse addr";
-            this._finderInspectReverse.UseVisualStyleBackColor = true;
-            this._finderInspectReverse.Click += new System.EventHandler(this._finderInspectReverse_Click);
+            this._finderClear.Location = new System.Drawing.Point(620, 124);
+            this._finderClear.Name = "_finderClear";
+            this._finderClear.Size = new System.Drawing.Size(160, 23);
+            this._finderClear.TabIndex = 6;
+            this._finderClear.Text = "clear";
+            this._finderClear.UseVisualStyleBackColor = true;
+            this._finderClear.Click += new System.EventHandler(this._finderClear_Click);
+            // 
+            // _finderListenButton
+            // 
+            this._finderListenButton.Location = new System.Drawing.Point(221, 124);
+            this._finderListenButton.Name = "_finderListenButton";
+            this._finderListenButton.Size = new System.Drawing.Size(208, 23);
+            this._finderListenButton.TabIndex = 5;
+            this._finderListenButton.Text = "run (3s delay)";
+            this._finderListenButton.UseVisualStyleBackColor = true;
+            this._finderListenButton.Click += new System.EventHandler(this._finderListenButton_Click);
+            // 
+            // _finderSize
+            // 
+            this._finderSize.Location = new System.Drawing.Point(8, 96);
+            this._finderSize.Name = "_finderSize";
+            this._finderSize.Size = new System.Drawing.Size(275, 22);
+            this._finderSize.TabIndex = 4;
+            this._finderSize.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            // 
+            // _finderValueTextBox
+            // 
+            this._finderValueTextBox.Location = new System.Drawing.Point(8, 68);
+            this._finderValueTextBox.Name = "_finderValueTextBox";
+            this._finderValueTextBox.Size = new System.Drawing.Size(275, 22);
+            this._finderValueTextBox.TabIndex = 3;
+            // 
+            // _finderIterationUpDown
+            // 
+            this._finderIterationUpDown.Location = new System.Drawing.Point(8, 40);
+            this._finderIterationUpDown.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this._finderIterationUpDown.Name = "_finderIterationUpDown";
+            this._finderIterationUpDown.Size = new System.Drawing.Size(275, 22);
+            this._finderIterationUpDown.TabIndex = 1;
+            this._finderIterationUpDown.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // _runFinderButton
+            // 
+            this._runFinderButton.Location = new System.Drawing.Point(8, 124);
+            this._runFinderButton.Name = "_runFinderButton";
+            this._runFinderButton.Size = new System.Drawing.Size(207, 23);
+            this._runFinderButton.TabIndex = 0;
+            this._runFinderButton.Text = "run";
+            this._runFinderButton.UseVisualStyleBackColor = true;
+            this._runFinderButton.Click += new System.EventHandler(this.runFinderButton_Click);
             // 
             // PokebotDebug
             // 
@@ -425,9 +430,9 @@
             this._tabTasks.PerformLayout();
             this._tabFinder.ResumeLayout(false);
             this._tabFinder.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._finderSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._finderSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
