@@ -111,6 +111,7 @@ namespace Pokebot.Panels
         public void ClearPanel()
         {
             _botPanel.Controls.Clear();
+            SetBotStatus(Messages.Bot_NotRunning);
         }
 
         public BotCode GetBotCode()
