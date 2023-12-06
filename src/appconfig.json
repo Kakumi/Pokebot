@@ -19897,7 +19897,9 @@
           "Hash": "fc663907256f06a3a09e2d6b967bc9af4919f111", //French
           "Symbols": {
             "Main": "pokefirered",
-            "Patches": []
+            "Patches": [
+              "patchfirered_fr"
+            ]
           }
         },
         {
