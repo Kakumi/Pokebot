@@ -123,6 +123,16 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
+        internal static byte[] patchleafgreen_fr {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_fr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
         internal static byte[] patchruby_fr {
             get {
                 object obj = ResourceManager.GetObject("patchruby_fr", resourceCulture);

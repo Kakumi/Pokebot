@@ -19805,7 +19805,9 @@
           "Hash": "4b5758c14d0a07b70ef3ef0bd7fa5e7ce6978672", //French
           "Symbols": {
             "Main": "pokeleafgreen",
-            "Patches": []
+            "Patches": [
+              "patchleafgreen_fr"
+            ]
           }
         },
         {

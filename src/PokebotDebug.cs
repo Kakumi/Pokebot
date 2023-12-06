@@ -244,9 +244,33 @@ namespace Pokebot
 
         private void SearchGMain()
         {
-            var result = SearchTest();
+            var potentials = new List<Tuple<int, uint>>();
+            int minAddr = 0x03000000;
+            int maxAddr = 0x03007FFF;
+            int size = maxAddr - minAddr;
+            int length = 4;
 
-            _finderList.Items.AddRange(result.Select(x =>
+            var bytes = SymbolUtil.Read(APIContainer, minAddr, 0, size);
+
+            for (int i = 0; i < size - length; i++)
+            {
+                var value = bytes.Skip(i).Take(length).ToUInt32();
+
+                var addresses = new List<uint>()
+                {
+                    134571444,
+                    134267604,
+                };
+                if (addresses.Contains(value) || addresses.Contains(value - 1) || addresses.Contains(value + 1) || value.ToString("X").StartsWith("08") || value.ToString("X").StartsWith("8"))
+                {
+                    if (value >= 0x08000000)
+                    {
+                        potentials.Add(new Tuple<int, uint>(minAddr + i, value));
+                    }
+                }
+            }
+
+            _finderList.Items.AddRange(potentials.Select(x =>
             {
                 var lvi = new ListViewItem(x.Item1.ToString("X"));
                 lvi.SubItems.Add("_");
@@ -259,7 +283,7 @@ namespace Pokebot
             }).ToArray());
         }
 
-        private List<Tuple<int, uint>> SearchTest()
+        private void SearchPtr()
         {
             var potentials = new List<Tuple<int, uint>>();
             int minAddr = 0x03000000;
@@ -269,23 +293,93 @@ namespace Pokebot
 
             var bytes = SymbolUtil.Read(APIContainer, minAddr, 0, size);
 
-            for (int i = 0; i < size - length; i++) { 
+            for (int i = 0; i < size - length; i++)
+            {
                 var value = bytes.Skip(i).Take(length).ToUInt32();
-                var addresses = new List<uint>()
+
+                var tid = SymbolUtil.Read(APIContainer, value, 0xA, 2).ToUInt16();
+                var sid = SymbolUtil.Read(APIContainer, value, 0xC, 2).ToUInt16();
+
+                if (tid == 14586 && sid == 28463)
                 {
-                    134571444,
-                    134267604
-                };
-                if (addresses.Contains(value) || addresses.Contains(value - 1) || addresses.Contains(value + 1) || value.ToString("X").StartsWith("08") || value.ToString("X").StartsWith("8"))
-                {
-                    if (value >= 0x08000000)
-                    {
-                        potentials.Add(new Tuple<int, uint>(minAddr + i, value));
-                    }
+                    potentials.Add(new Tuple<int, uint>(minAddr + i, value));
                 }
             }
 
-            return potentials;
+            _finderList.Items.AddRange(potentials.Select(x =>
+            {
+                var lvi = new ListViewItem(x.Item1.ToString("X"));
+                lvi.SubItems.Add("_");
+                lvi.SubItems.Add(x.Item2 + "");
+                lvi.SubItems.Add("4");
+                lvi.SubItems.Add("0");
+                lvi.SubItems.Add("_");
+
+                return lvi;
+            }).ToArray());
+        }
+
+        public void TestTIDSID()
+        {
+            var symbolPtr = GameVersion.Memory.GetSymbols().FirstOrDefault(x => x.Name == "gSaveBlock2Ptr");
+            var symbolDMA = GameVersion.Memory.GetSymbols().FirstOrDefault(x => x.Name == "gSaveBlock2_DMA");
+            var symbol = GameVersion.Memory.GetSymbols().FirstOrDefault(x => x.Name == "gSaveBlock2");
+
+            var potentials = SearchTIDSID();
+            var addrPtr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
+            var addrBase = symbol.Address;
+            var bytesDMA = SymbolUtil.Read(APIContainer, symbolDMA);
+            var bytesDMASlice4 = new List<byte[]>();
+            var bytesDMASlice2 = new List<byte[]>();
+            for (int i = 0; i < bytesDMA.Count(); i += 4)
+            {
+                bytesDMASlice4.Add(bytesDMA.Skip(i).Take(4).ToArray());
+            }
+
+            for (int i = 0; i < bytesDMA.Count(); i += 2)
+            {
+                bytesDMASlice2.Add(bytesDMA.Skip(i).Take(2).ToArray());
+            }
+
+            //778 diff
+            //4 diff
+            var tid1 = SymbolUtil.Read(APIContainer, 0x0202427E, 0x00A, 2).ToUInt16();
+            var sid1 = SymbolUtil.Read(APIContainer, 0x0202427E, 0x00C, 2).ToUInt16();
+            var tid2 = SymbolUtil.Read(APIContainer, 0x0202458C, 0x00A, 2).ToUInt16();
+            var sid2 = SymbolUtil.Read(APIContainer, 0x0202458C, 0x00C, 2).ToUInt16();
+
+            var addr4DMA = bytesDMASlice4.Select(x => x.ToUInt32()).Where(x => x != 0).ToList();
+            var addr2DMA = bytesDMASlice4.Select(x => x.ToUInt16()).Where(x => x != 0).ToList();
+            var test = bytesDMA.Select(x =>
+            {
+                return APIContainer.Memory.ReadByteRange(0x02024588 + 0xA + x, 2).ToUInt16();
+            }).ToList();
+        }
+
+        private List<int> SearchTIDSID()
+        {
+            var list = new List<int>();
+            try
+            {
+                int minAddr = 0x020254ac; //0x02024588; //0x02000000;
+                int maxAddr = 0x020254ac + 0x80; //0x02030000;
+                int size = maxAddr - minAddr;
+
+                var bytes = SymbolUtil.Read(APIContainer, minAddr, 0, size);
+
+                for (int i = 0; i < size; i++)
+                {
+                    var tid = bytes.Skip(i).Take(2).ToUInt16();
+                    var sid = bytes.Skip(i + 2).Take(2).ToUInt16();
+                    if (tid == 7678 && sid == 53485)
+                    {
+                        list.Add((minAddr + i) - 0x00A);
+                    }
+                }
+            }
+            catch { }
+
+            return list;
         }
 
         private void SearchTasks()

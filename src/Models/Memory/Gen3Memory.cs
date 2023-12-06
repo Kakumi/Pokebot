@@ -604,18 +604,17 @@ namespace Pokebot.Models.Memory
 
         protected virtual uint GetSaveBlock2Address()
         {
-            //With FR / LG / Sapphire / Ruby it will select this symbol
-            //With emerald it will not because the name is not 'gSaveblock2' but it's ok because in emerald with need the ptr
-            var symbol = Symbols.FirstOrDefault(x => x.Name == "gSaveBlock2");
+            //With FR / LG / Emerald it will select this symbol because of DMA (Dynamic Memory Address) we need this pointer
+            var symbolPtr = Symbols.FirstOrDefault(x => x.Name == "gSaveBlock2Ptr");
             uint addr;
-            if (symbol == null)
+            if (symbolPtr == null)
             {
-                var symbolPtr = Symbols.FirstOrDefault(x => x.Name == "gSaveBlock2Ptr");
-                addr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
+                var symbol = Symbols.FirstOrDefault(x => x.Name == "gSaveBlock2");
+                addr = (uint)symbol.Address;
             }
             else
             {
-                addr = (uint)symbol.Address;
+                addr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
             }
 
             return addr;

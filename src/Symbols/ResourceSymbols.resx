@@ -136,6 +136,9 @@
   <data name="patchfirered_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>firered\patchfirered_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="patchleafgreen_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="patchruby_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokeruby\patchruby_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
