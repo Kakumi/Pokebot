@@ -108,7 +108,7 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
  |--------------------|------------------------------------------|-----------|--------|
  | USA (Europe)       | 574fa542ffebb14be69902d1d36f1ec0a4afd71e |     ✅     |    ✅   |
  | USA (Europe) rev 1 | 7862c67bdecbe21d1d69ce082ce34327e1c6ed5e |     ✅     |    ❌   |
- | French             | 4b5758c14d0a07b70ef3ef0bd7fa5e7ce6978672 |     ✅     |    ❌   |
+ | French             | 4b5758c14d0a07b70ef3ef0bd7fa5e7ce6978672 |     ✅     |    ✅   |
  | Deutch             | 0802d1fb185ee3ed48d9a22afb25e66424076dac |     ✅     |    ❌   |
  | Italian            | a1dfea1493d26d1f024be8ba1de3d193fcfc651e |     ✅     |    ❌   |
  | Japanese           | 5946f1b59e8d71cc61249661464d864185c92a5f |     ✅     |    ❌   |
