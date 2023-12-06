@@ -132,6 +132,8 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
   * View opponent pokemon & party stats such as hidden power, moves, IVs.
 * Version Checker
   * A popup will appear when a new version is available.
+* Discord Webhook
+  * Get a notification in any discord server using webhooks.
 
 ## <a name="overview-bots"></a>Bots
 * Starter
