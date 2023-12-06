@@ -313,10 +313,15 @@ namespace Pokebot
         private void ExecuteBot(GameState state)
         {
             //Main call for bots
-            if (IsReady && Bot != null && Bot.Enabled)
+            if (IsReady && Bot != null)
             {
-                PlayerData player = GameVersion!.Memory.GetPlayer();
-                Bot.Execute(player, state);
+                Bot.UpdateUI(state);
+
+                if (Bot.Enabled)
+                {
+                    PlayerData player = GameVersion!.Memory.GetPlayer();
+                    Bot.Execute(player, state);
+                }
             }
         }
 

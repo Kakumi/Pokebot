@@ -21,6 +21,7 @@ namespace Pokebot.Factories.Bots
         void Start();
         void Stop();
         void Execute(PlayerData playerData, GameState state);
+        void UpdateUI(GameState state);
         UserControl GetPanel();
     }
 }
