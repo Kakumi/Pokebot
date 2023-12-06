@@ -118,6 +118,7 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
 
 # <a name="overview"></a>Overview
 ## <a name="overview-video"></a>Video
+[![Youtube Video](https://img.youtube.com/vi/d4jsNaeF-hI/0.jpg)](https://www.youtube.com/watch?v=d4jsNaeF-hI)
 
 ## <a name="overview-features"></a>Features
 * Settings
