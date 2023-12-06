@@ -157,6 +157,7 @@ The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/
 # <a name="todo"></a>Todo & Ideas (implementation not comfirmed)
 * Add bot for eggs
 * Add bot for fishing
+* Add bot for exp farm
 * Support translations
 * Add feature to PokeFinder bot to save before the specified frame and not at start.
 * Read seed
