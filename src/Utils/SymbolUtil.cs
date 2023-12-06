@@ -36,7 +36,7 @@ namespace Pokebot.Utils
             var lines = text.Split('\n');
             foreach (var line in lines)
             {
-                if (string.IsNullOrEmpty(line)) continue;
+                if (string.IsNullOrEmpty(line) || line.StartsWith("#") || line.StartsWith("\r")) continue;
 
                 var arguments = line.Split(' ');
                 if (arguments.Count() != 4)
@@ -49,7 +49,7 @@ namespace Pokebot.Utils
                     int address = Convert.ToInt32(arguments[0], 16);
                     char letter = Convert.ToChar(arguments[1]);
                     int size = Convert.ToInt32(arguments[2], 16);
-                    string name = arguments[3];
+                    string name = arguments[3].Replace("\r", ""); ;
 
                     symbols.Add(new Symbol(address, letter, size, name));
                 }

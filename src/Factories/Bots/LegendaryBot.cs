@@ -114,7 +114,7 @@ namespace Pokebot.Factories.Bots
             uint random;
             do
             {
-                random = GameVersion.Memory.SetRandomRNG();
+                random = GameVersion.Memory.RandomizeCurrentSeed();
             } while (_seedsHistory.Contains(random));
 
             _seedsHistory.Add(random);
@@ -128,6 +128,10 @@ namespace Pokebot.Factories.Bots
         public bool UseDelay()
         {
             return true;
+        }
+
+        public void UpdateUI(GameState state)
+        {
         }
     }
 }

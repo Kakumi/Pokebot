@@ -73,6 +73,9 @@ namespace Pokebot.Models.Memory
                                 }
 
                                 symbols.Add(new Symbol(address, letter, size, name));
+                            } else if (tempSymbol.Letter == 'a') //add custom line
+                            {
+                                symbols.Add(tempSymbol);
                             }
                         }
                     }
@@ -575,18 +578,18 @@ namespace Pokebot.Models.Memory
         public virtual int GetActionSelectionCursor()
         {
             var symbol = Symbols.First(x => x.Name == "gActionSelectionCursor");
-            var bytes = SymbolUtil.Read(APIContainer, symbol);
+            var bytes = SymbolUtil.Read(APIContainer, symbol, 0, 1);
 
             return bytes[0];
         }
 
-        public virtual uint GetRandomRNG()
+        public virtual uint GetCurrentSeed()
         {
             var symbol = Symbols.First(x => x.Name == "gRngValue");
             return SymbolUtil.Read(APIContainer, symbol, 0, 4).ToUInt32();
         }
 
-        public virtual uint SetRandomRNG()
+        public virtual uint RandomizeCurrentSeed()
         {
             Random random = new Random();
             var bytes = new byte[4];
@@ -599,51 +602,43 @@ namespace Pokebot.Models.Memory
             return randomNumber;
         }
 
-        public virtual uint SetRandomSeed()
+        protected virtual uint GetSaveBlock2Address()
         {
-            Random random = new Random();
-            var bytes = new byte[4];
-            random.NextBytes(bytes);
-            uint randomNumber = bytes.ToUInt32();
+            //With FR / LG / Emerald it will select this symbol because of DMA (Dynamic Memory Address) we need this pointer
+            var symbolPtr = Symbols.FirstOrDefault(x => x.Name == "gSaveBlock2Ptr");
+            uint addr;
+            if (symbolPtr == null)
+            {
+                var symbol = Symbols.FirstOrDefault(x => x.Name == "gSaveBlock2");
+                addr = (uint)symbol.Address;
+            }
+            else
+            {
+                addr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
+            }
 
-            SetSeed(randomNumber);
-
-            return randomNumber;
-        }
-
-        public virtual void SetSeed(uint seed)
-        {
-            var bytes = BitConverter.GetBytes(seed);
-            var symbol = Symbols.First(x => x.Name == "SeedRng");
-            SymbolUtil.Write(APIContainer, symbol, bytes);
-        }
-
-        public virtual uint GetSeed()
-        {
-            var symbol = Symbols.First(x => x.Name == "SeedRng");
-            return SymbolUtil.Read(APIContainer, symbol, 0, 4).ToUInt32();
+            return addr;
         }
 
         //With Gen 3 you should follow the save block in memory using pointer
         //https://bulbapedia.bulbagarden.net/wiki/Save_data_structure_(Generation_III)#Game_save_A.2C_Game_save_B
         public int GetTID()
         {
-            var symbol = Symbols.First(x => x.Name == "gSaveblock2");
-            var symbolPtr = Symbols.First(x => x.Name == "gSaveBlock2Ptr");
-            var ptr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
             //var bytes = SymbolUtil.Read(APIContainer, ptr, 0, symbol.Size);
-            return SymbolUtil.Read(APIContainer, ptr, 0x0A, 2).ToUInt16();
+            return SymbolUtil.Read(APIContainer, GetSaveBlock2Address(), 0x0A, 2).ToUInt16();
         }
 
         //With Gen 3 you should follow the save block in memory using pointer
         //https://bulbapedia.bulbagarden.net/wiki/Save_data_structure_(Generation_III)#Game_save_A.2C_Game_save_B
         public int GetSID()
         {
-            var symbol = Symbols.First(x => x.Name == "gSaveblock2");
-            var symbolPtr = Symbols.First(x => x.Name == "gSaveBlock2Ptr");
-            var ptr = SymbolUtil.Read(APIContainer, symbolPtr).ToUInt32();
             //var bytes = SymbolUtil.Read(APIContainer, ptr, 0, symbol.Size);
-            return SymbolUtil.Read(APIContainer, ptr, 0x0C, 2).ToUInt16();
+            return SymbolUtil.Read(APIContainer, GetSaveBlock2Address(), 0x0C, 2).ToUInt16();
+        }
+
+        public IReadOnlyList<Symbol> GetSymbols()
+        {
+            return Symbols;
         }
     }
 }

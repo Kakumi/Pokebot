@@ -179,7 +179,6 @@ namespace Pokebot
             SettingsPanel = new SettingsPanel();
             SettingsPanel.SettingsConfigChanged += SettingsPanel_SettingsConfigChanged;
             SettingsPanel.PauseClicked += SettingsPanel_PauseClicked;
-            SettingsPanel.SeedClicked += SettingsPanel_SeedClicked;
             SettingsPanel.Dock = DockStyle.Fill;
 
             CreateTab(SettingsPanel, Messages.Tab_SettingsPanel);
@@ -238,6 +237,7 @@ namespace Pokebot
 #if DEBUG
                             if (DebugWindow != null)
                             {
+                                DebugWindow.APIContainer = APIContainer;
                                 DebugWindow.SetGameVersion(GameVersion);
                             }
 #endif
@@ -313,10 +313,15 @@ namespace Pokebot
         private void ExecuteBot(GameState state)
         {
             //Main call for bots
-            if (IsReady && Bot != null && Bot.Enabled)
+            if (IsReady && Bot != null)
             {
-                PlayerData player = GameVersion!.Memory.GetPlayer();
-                Bot.Execute(player, state);
+                Bot.UpdateUI(state);
+
+                if (Bot.Enabled)
+                {
+                    PlayerData player = GameVersion!.Memory.GetPlayer();
+                    Bot.Execute(player, state);
+                }
             }
         }
 
@@ -362,11 +367,6 @@ namespace Pokebot
         private void SettingsPanel_PauseClicked()
         {
             APIContainer?.EmuClient.TogglePause();
-        }
-
-        private void SettingsPanel_SeedClicked(uint seed)
-        {
-            GameVersion!.Memory.SetSeed(seed);
         }
 
         #endregion

@@ -41,7 +41,7 @@ namespace Pokebot.Panels
 
                         item.SubItems[1].Text = encounters.ToString();
                         item.SubItems[2].Text = currentShinyEncounters.ToString();
-                        item.SubItems[3].Text = $"{(shinyEncounters / encounters) * 100}%";
+                        item.SubItems[3].Text = GetRatio(shinyEncounters, encounters);
                     }
 
                     found = true;
@@ -53,10 +53,15 @@ namespace Pokebot.Panels
                 var item = new ListViewItem(pokemon.RealName);
                 item.SubItems.Add(encounters.ToString());
                 item.SubItems.Add(shinyEncounters.ToString());
-                item.SubItems.Add($"{(shinyEncounters / encounters) * 100}%");
+                item.SubItems.Add(GetRatio(shinyEncounters, encounters));
 
                 _statsListView.Items.Add(item);
             }
+        }
+
+        private string GetRatio(int shiny, int normal)
+        {
+            return ((double)shiny / normal).ToString("0.########%");
         }
     }
 }

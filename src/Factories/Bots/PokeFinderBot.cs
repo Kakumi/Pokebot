@@ -141,5 +141,11 @@ namespace Pokebot.Factories.Bots
         {
             return false;
         }
+
+        public void UpdateUI(GameState state)
+        {
+            var frame = APIContainer.Emulation.FrameCount();
+            Control.SetCurrentFrame(frame);
+        }
     }
 }

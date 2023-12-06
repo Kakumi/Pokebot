@@ -20,12 +20,10 @@ namespace Pokebot.Models.Memory
         GameState GetGameState();
         ICollection<GTask> GetTasks();
         int GetActionSelectionCursor();
-        uint GetRandomRNG();
-        uint SetRandomRNG();
-        uint SetRandomSeed();
-        void SetSeed(uint seed);
-        uint GetSeed();
+        uint GetCurrentSeed();
+        uint RandomizeCurrentSeed();
         int GetTID();
         int GetSID();
+        IReadOnlyList<Symbol> GetSymbols();
     }
 }

@@ -15,5 +15,6 @@ namespace Pokebot.Models.Config
         public List<PokemonType> HiddenPowers { get; set; }
         public List<PokemonConfig> Pokemons { get; set; }
         public List<string> Characters { get; set; }
+        public List<string> CharactersJP { get; set; }
     }
 }

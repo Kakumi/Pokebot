@@ -22,9 +22,6 @@ namespace Pokebot.Panels
         public delegate void PauseToggleEventHandler();
         public event PauseToggleEventHandler? PauseClicked;
 
-        public delegate void ClickSeedEventHandler(uint seed);
-        public event ClickSeedEventHandler? SeedClicked;
-
         public SettingsConfig SettingsConfig { get; }
 
         public SettingsPanel()

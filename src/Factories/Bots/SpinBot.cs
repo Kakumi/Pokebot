@@ -93,5 +93,9 @@ namespace Pokebot.Factories.Bots
         {
             return true;
         }
+
+        public void UpdateUI(GameState state)
+        {
+        }
     }
 }
