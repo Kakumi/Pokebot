@@ -149,9 +149,17 @@ namespace Pokebot
 
                         lvi.SubItems[1].Text = value;
                         lvi.SubItems[5].Text = string.Join("-", bytes);
+
+                        if (value != lvi.SubItems[2].Text)
+                        {
+                            lvi.BackColor = Color.Yellow;
+                        } else
+                        {
+                            lvi.BackColor = Color.White;
                     }
                 }
             }
+        }
         }
 
         private void runFinderButton_Click(object sender, EventArgs e)
