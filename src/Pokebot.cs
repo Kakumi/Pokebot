@@ -65,7 +65,7 @@ namespace Pokebot
 
         public bool IsReady
         {
-            get => IsLoaded && IsRomLoaded && APIContainer != null && GameVersion != null;
+            get => IsRomLoaded && APIContainer != null && GameVersion != null; //&& IsLoaded
         }
 
         public GameVersion? GameVersion { get; private set; }
@@ -313,7 +313,7 @@ namespace Pokebot
         private void ExecuteBot(GameState state)
         {
             //Main call for bots
-            if (IsReady && Bot != null)
+            if (Bot != null)
             {
                 Bot.UpdateUI(state);
 
