@@ -103,11 +103,16 @@ namespace Pokebot.Factories.Bots
                         var pokemon = party[0];
                         PokemonEncountered?.Invoke(pokemon);
                         Control.SetPID(pokemon.PID.ToString("X"));
-                        if (pokemon.PID.ToString("X") == Control.GetPID())
+
+                        var opponent = GameVersion.Memory.GetOpponent();
+                        if (opponent != null)
                         {
-                            Log.Info(Messages.Pokemon_Found);
-                            PokemonFound?.Invoke(pokemon);
+                            PokemonEncountered?.Invoke(opponent);
+                            Control.SetOpponentPID(opponent.PID.ToString("X"));
                         }
+
+                        Log.Info(Messages.Pokemon_Found);
+                        PokemonFound?.Invoke(pokemon);
 
                         Stop();
                     }

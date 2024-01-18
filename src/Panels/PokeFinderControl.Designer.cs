@@ -41,6 +41,8 @@
             this._frameLabel = new System.Windows.Forms.Label();
             this._pokefinderTypesComboBox = new System.Windows.Forms.ComboBox();
             this._pokefinderTypeLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this._opponentPID = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this._inputFrame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._hitFrameField)).BeginInit();
             this.SuspendLayout();
@@ -167,10 +169,29 @@
             this._pokefinderTypeLabel.TabIndex = 14;
             this._pokefinderTypeLabel.Text = "Type (facultative)";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(409, 190);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 16);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Opponent PID";
+            // 
+            // _opponentPID
+            // 
+            this._opponentPID.Enabled = false;
+            this._opponentPID.Location = new System.Drawing.Point(225, 187);
+            this._opponentPID.Name = "_opponentPID";
+            this._opponentPID.Size = new System.Drawing.Size(178, 22);
+            this._opponentPID.TabIndex = 15;
+            // 
             // PokeFinderControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this._opponentPID);
             this.Controls.Add(this._pokefinderTypeLabel);
             this.Controls.Add(this._pokefinderTypesComboBox);
             this.Controls.Add(this._frameLabel);
@@ -206,5 +227,7 @@
         private System.Windows.Forms.Label _frameLabel;
         private System.Windows.Forms.ComboBox _pokefinderTypesComboBox;
         private System.Windows.Forms.Label _pokefinderTypeLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox _opponentPID;
     }
 }

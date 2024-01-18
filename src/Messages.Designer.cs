@@ -700,6 +700,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à PID: {0}.
+        /// </summary>
+        internal static string Viewer_PID {
+            get {
+                return ResourceManager.GetString("Viewer_PID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Shiny.
         /// </summary>
         internal static string Viewer_Shiny {

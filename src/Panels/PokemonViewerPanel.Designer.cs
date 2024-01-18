@@ -33,21 +33,22 @@
             this._pokemonPictureBox = new System.Windows.Forms.PictureBox();
             this._abilityLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this._move4Label = new System.Windows.Forms.Label();
+            this._move3Label = new System.Windows.Forms.Label();
+            this._move2Label = new System.Windows.Forms.Label();
+            this._move1Label = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this._ivSpDefenseLabel = new System.Windows.Forms.Label();
+            this._ivSpAttackLabel = new System.Windows.Forms.Label();
+            this._ivDefenseLabel = new System.Windows.Forms.Label();
+            this._ivAttackLabel = new System.Windows.Forms.Label();
+            this._ivSpeedLabel = new System.Windows.Forms.Label();
+            this._ivHPLabel = new System.Windows.Forms.Label();
             this._hiddenPowerType = new System.Windows.Forms.Label();
             this._hiddenPowerDamage = new System.Windows.Forms.Label();
             this._itemLabel = new System.Windows.Forms.Label();
-            this._move1Label = new System.Windows.Forms.Label();
-            this._move2Label = new System.Windows.Forms.Label();
-            this._move3Label = new System.Windows.Forms.Label();
-            this._move4Label = new System.Windows.Forms.Label();
-            this._ivHPLabel = new System.Windows.Forms.Label();
-            this._ivSpeedLabel = new System.Windows.Forms.Label();
-            this._ivAttackLabel = new System.Windows.Forms.Label();
-            this._ivDefenseLabel = new System.Windows.Forms.Label();
-            this._ivSpAttackLabel = new System.Windows.Forms.Label();
-            this._ivSpDefenseLabel = new System.Windows.Forms.Label();
             this._shinyLabel = new System.Windows.Forms.Label();
+            this._pid = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this._pokemonPictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -65,7 +66,7 @@
             // _natureLabel
             // 
             this._natureLabel.AutoSize = true;
-            this._natureLabel.Location = new System.Drawing.Point(137, 19);
+            this._natureLabel.Location = new System.Drawing.Point(137, 35);
             this._natureLabel.Name = "_natureLabel";
             this._natureLabel.Size = new System.Drawing.Size(44, 16);
             this._natureLabel.TabIndex = 1;
@@ -83,7 +84,7 @@
             // _abilityLabel
             // 
             this._abilityLabel.AutoSize = true;
-            this._abilityLabel.Location = new System.Drawing.Point(137, 35);
+            this._abilityLabel.Location = new System.Drawing.Point(137, 51);
             this._abilityLabel.Name = "_abilityLabel";
             this._abilityLabel.Size = new System.Drawing.Size(44, 16);
             this._abilityLabel.TabIndex = 3;
@@ -102,6 +103,42 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Moves";
             // 
+            // _move4Label
+            // 
+            this._move4Label.AutoSize = true;
+            this._move4Label.Location = new System.Drawing.Point(6, 66);
+            this._move4Label.Name = "_move4Label";
+            this._move4Label.Size = new System.Drawing.Size(44, 16);
+            this._move4Label.TabIndex = 12;
+            this._move4Label.Text = "label3";
+            // 
+            // _move3Label
+            // 
+            this._move3Label.AutoSize = true;
+            this._move3Label.Location = new System.Drawing.Point(6, 50);
+            this._move3Label.Name = "_move3Label";
+            this._move3Label.Size = new System.Drawing.Size(44, 16);
+            this._move3Label.TabIndex = 11;
+            this._move3Label.Text = "label3";
+            // 
+            // _move2Label
+            // 
+            this._move2Label.AutoSize = true;
+            this._move2Label.Location = new System.Drawing.Point(6, 34);
+            this._move2Label.Name = "_move2Label";
+            this._move2Label.Size = new System.Drawing.Size(44, 16);
+            this._move2Label.TabIndex = 10;
+            this._move2Label.Text = "label3";
+            // 
+            // _move1Label
+            // 
+            this._move1Label.AutoSize = true;
+            this._move1Label.Location = new System.Drawing.Point(6, 18);
+            this._move1Label.Name = "_move1Label";
+            this._move1Label.Size = new System.Drawing.Size(44, 16);
+            this._move1Label.TabIndex = 9;
+            this._move1Label.Text = "label3";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this._ivSpDefenseLabel);
@@ -117,68 +154,50 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "IVs";
             // 
-            // _hiddenPowerType
+            // _ivSpDefenseLabel
             // 
-            this._hiddenPowerType.AutoSize = true;
-            this._hiddenPowerType.Location = new System.Drawing.Point(137, 51);
-            this._hiddenPowerType.Name = "_hiddenPowerType";
-            this._hiddenPowerType.Size = new System.Drawing.Size(44, 16);
-            this._hiddenPowerType.TabIndex = 6;
-            this._hiddenPowerType.Text = "label3";
+            this._ivSpDefenseLabel.AutoSize = true;
+            this._ivSpDefenseLabel.Location = new System.Drawing.Point(6, 82);
+            this._ivSpDefenseLabel.Name = "_ivSpDefenseLabel";
+            this._ivSpDefenseLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivSpDefenseLabel.TabIndex = 18;
+            this._ivSpDefenseLabel.Text = "label3";
             // 
-            // _hiddenPowerDamage
+            // _ivSpAttackLabel
             // 
-            this._hiddenPowerDamage.AutoSize = true;
-            this._hiddenPowerDamage.Location = new System.Drawing.Point(137, 67);
-            this._hiddenPowerDamage.Name = "_hiddenPowerDamage";
-            this._hiddenPowerDamage.Size = new System.Drawing.Size(44, 16);
-            this._hiddenPowerDamage.TabIndex = 7;
-            this._hiddenPowerDamage.Text = "label3";
+            this._ivSpAttackLabel.AutoSize = true;
+            this._ivSpAttackLabel.Location = new System.Drawing.Point(6, 66);
+            this._ivSpAttackLabel.Name = "_ivSpAttackLabel";
+            this._ivSpAttackLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivSpAttackLabel.TabIndex = 17;
+            this._ivSpAttackLabel.Text = "label3";
             // 
-            // _itemLabel
+            // _ivDefenseLabel
             // 
-            this._itemLabel.AutoSize = true;
-            this._itemLabel.Location = new System.Drawing.Point(137, 83);
-            this._itemLabel.Name = "_itemLabel";
-            this._itemLabel.Size = new System.Drawing.Size(44, 16);
-            this._itemLabel.TabIndex = 8;
-            this._itemLabel.Text = "label3";
+            this._ivDefenseLabel.AutoSize = true;
+            this._ivDefenseLabel.Location = new System.Drawing.Point(6, 50);
+            this._ivDefenseLabel.Name = "_ivDefenseLabel";
+            this._ivDefenseLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivDefenseLabel.TabIndex = 16;
+            this._ivDefenseLabel.Text = "label3";
             // 
-            // _move1Label
+            // _ivAttackLabel
             // 
-            this._move1Label.AutoSize = true;
-            this._move1Label.Location = new System.Drawing.Point(6, 18);
-            this._move1Label.Name = "_move1Label";
-            this._move1Label.Size = new System.Drawing.Size(44, 16);
-            this._move1Label.TabIndex = 9;
-            this._move1Label.Text = "label3";
+            this._ivAttackLabel.AutoSize = true;
+            this._ivAttackLabel.Location = new System.Drawing.Point(6, 34);
+            this._ivAttackLabel.Name = "_ivAttackLabel";
+            this._ivAttackLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivAttackLabel.TabIndex = 15;
+            this._ivAttackLabel.Text = "label3";
             // 
-            // _move2Label
+            // _ivSpeedLabel
             // 
-            this._move2Label.AutoSize = true;
-            this._move2Label.Location = new System.Drawing.Point(6, 34);
-            this._move2Label.Name = "_move2Label";
-            this._move2Label.Size = new System.Drawing.Size(44, 16);
-            this._move2Label.TabIndex = 10;
-            this._move2Label.Text = "label3";
-            // 
-            // _move3Label
-            // 
-            this._move3Label.AutoSize = true;
-            this._move3Label.Location = new System.Drawing.Point(6, 50);
-            this._move3Label.Name = "_move3Label";
-            this._move3Label.Size = new System.Drawing.Size(44, 16);
-            this._move3Label.TabIndex = 11;
-            this._move3Label.Text = "label3";
-            // 
-            // _move4Label
-            // 
-            this._move4Label.AutoSize = true;
-            this._move4Label.Location = new System.Drawing.Point(6, 66);
-            this._move4Label.Name = "_move4Label";
-            this._move4Label.Size = new System.Drawing.Size(44, 16);
-            this._move4Label.TabIndex = 12;
-            this._move4Label.Text = "label3";
+            this._ivSpeedLabel.AutoSize = true;
+            this._ivSpeedLabel.Location = new System.Drawing.Point(6, 98);
+            this._ivSpeedLabel.Name = "_ivSpeedLabel";
+            this._ivSpeedLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivSpeedLabel.TabIndex = 14;
+            this._ivSpeedLabel.Text = "label3";
             // 
             // _ivHPLabel
             // 
@@ -189,64 +208,56 @@
             this._ivHPLabel.TabIndex = 13;
             this._ivHPLabel.Text = "label3";
             // 
-            // _ivSpeedLabel
+            // _hiddenPowerType
             // 
-            this._ivSpeedLabel.AutoSize = true;
-            this._ivSpeedLabel.Location = new System.Drawing.Point(6, 34);
-            this._ivSpeedLabel.Name = "_ivSpeedLabel";
-            this._ivSpeedLabel.Size = new System.Drawing.Size(44, 16);
-            this._ivSpeedLabel.TabIndex = 14;
-            this._ivSpeedLabel.Text = "label3";
+            this._hiddenPowerType.AutoSize = true;
+            this._hiddenPowerType.Location = new System.Drawing.Point(137, 67);
+            this._hiddenPowerType.Name = "_hiddenPowerType";
+            this._hiddenPowerType.Size = new System.Drawing.Size(44, 16);
+            this._hiddenPowerType.TabIndex = 6;
+            this._hiddenPowerType.Text = "label3";
             // 
-            // _ivAttackLabel
+            // _hiddenPowerDamage
             // 
-            this._ivAttackLabel.AutoSize = true;
-            this._ivAttackLabel.Location = new System.Drawing.Point(6, 50);
-            this._ivAttackLabel.Name = "_ivAttackLabel";
-            this._ivAttackLabel.Size = new System.Drawing.Size(44, 16);
-            this._ivAttackLabel.TabIndex = 15;
-            this._ivAttackLabel.Text = "label3";
+            this._hiddenPowerDamage.AutoSize = true;
+            this._hiddenPowerDamage.Location = new System.Drawing.Point(137, 83);
+            this._hiddenPowerDamage.Name = "_hiddenPowerDamage";
+            this._hiddenPowerDamage.Size = new System.Drawing.Size(44, 16);
+            this._hiddenPowerDamage.TabIndex = 7;
+            this._hiddenPowerDamage.Text = "label3";
             // 
-            // _ivDefenseLabel
+            // _itemLabel
             // 
-            this._ivDefenseLabel.AutoSize = true;
-            this._ivDefenseLabel.Location = new System.Drawing.Point(6, 66);
-            this._ivDefenseLabel.Name = "_ivDefenseLabel";
-            this._ivDefenseLabel.Size = new System.Drawing.Size(44, 16);
-            this._ivDefenseLabel.TabIndex = 16;
-            this._ivDefenseLabel.Text = "label3";
-            // 
-            // _ivSpAttackLabel
-            // 
-            this._ivSpAttackLabel.AutoSize = true;
-            this._ivSpAttackLabel.Location = new System.Drawing.Point(6, 82);
-            this._ivSpAttackLabel.Name = "_ivSpAttackLabel";
-            this._ivSpAttackLabel.Size = new System.Drawing.Size(44, 16);
-            this._ivSpAttackLabel.TabIndex = 17;
-            this._ivSpAttackLabel.Text = "label3";
-            // 
-            // _ivSpDefenseLabel
-            // 
-            this._ivSpDefenseLabel.AutoSize = true;
-            this._ivSpDefenseLabel.Location = new System.Drawing.Point(6, 98);
-            this._ivSpDefenseLabel.Name = "_ivSpDefenseLabel";
-            this._ivSpDefenseLabel.Size = new System.Drawing.Size(44, 16);
-            this._ivSpDefenseLabel.TabIndex = 18;
-            this._ivSpDefenseLabel.Text = "label3";
+            this._itemLabel.AutoSize = true;
+            this._itemLabel.Location = new System.Drawing.Point(137, 99);
+            this._itemLabel.Name = "_itemLabel";
+            this._itemLabel.Size = new System.Drawing.Size(44, 16);
+            this._itemLabel.TabIndex = 8;
+            this._itemLabel.Text = "label3";
             // 
             // _shinyLabel
             // 
             this._shinyLabel.AutoSize = true;
-            this._shinyLabel.Location = new System.Drawing.Point(137, 99);
+            this._shinyLabel.Location = new System.Drawing.Point(137, 115);
             this._shinyLabel.Name = "_shinyLabel";
             this._shinyLabel.Size = new System.Drawing.Size(44, 16);
             this._shinyLabel.TabIndex = 9;
             this._shinyLabel.Text = "label3";
             // 
+            // _pid
+            // 
+            this._pid.AutoSize = true;
+            this._pid.Location = new System.Drawing.Point(137, 19);
+            this._pid.Name = "_pid";
+            this._pid.Size = new System.Drawing.Size(44, 16);
+            this._pid.TabIndex = 10;
+            this._pid.Text = "label3";
+            // 
             // PokemonViewerPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._pid);
             this.Controls.Add(this._shinyLabel);
             this.Controls.Add(this._itemLabel);
             this.Controls.Add(this._hiddenPowerDamage);
@@ -291,5 +302,6 @@
         private System.Windows.Forms.Label _ivSpeedLabel;
         private System.Windows.Forms.Label _ivHPLabel;
         private System.Windows.Forms.Label _shinyLabel;
+        private System.Windows.Forms.Label _pid;
     }
 }
