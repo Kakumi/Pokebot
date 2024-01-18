@@ -8,7 +8,7 @@
 	<PropertyGroup>
 		<Version>1.1.2</Version>
 		<AssemblyVersion>1.0.0</AssemblyVersion>
-		<FileVersion>1.1.1</FileVersion>
+		<FileVersion>1.1.2</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)' == 'Release' ">
 		<VersionSuffix>release</VersionSuffix>
