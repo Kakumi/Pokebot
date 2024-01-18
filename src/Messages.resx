@@ -330,6 +330,9 @@
   <data name="Viewer_NotShiny" xml:space="preserve">
     <value>Not shiny</value>
   </data>
+  <data name="Viewer_PID" xml:space="preserve">
+    <value>PID: {0}</value>
+  </data>
   <data name="Viewer_Shiny" xml:space="preserve">
     <value>Shiny</value>
   </data>

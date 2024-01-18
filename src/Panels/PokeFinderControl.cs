@@ -38,6 +38,11 @@ namespace Pokebot.Panels
             return _inputPID.Text;
         }
 
+        public string GetOpponentPID()
+        {
+            return _opponentPID.Text;
+        }
+
         public void SetInfo(int tid, int sid)
         {
             _labelTIDSID.Text = string.Format(Messages.BotPokeFinder_TrainerInfo, tid, sid);
@@ -88,6 +93,11 @@ namespace Pokebot.Panels
         internal void SetPID(string pid)
         {
             _inputPID.Text = pid;
+        }
+
+        internal void SetOpponentPID(string pid)
+        {
+            _opponentPID.Text = pid;
         }
 
         private void _pokefinderTypesComboBox_SelectedIndexChanged(object sender, EventArgs e)

@@ -21,6 +21,7 @@ namespace Pokebot.Panels
                 sb.Append(" (").Append(partyPokemon.Level).Append(")");
             }
             _pokemonName.Text = sb.ToString();
+            _pid.Text = string.Format(Messages.Viewer_PID, pokemon.PID.ToString("X"));
             _natureLabel.Text = string.Format(Messages.Viewer_Nature, pokemon.Nature.Name);
             _abilityLabel.Text = string.Format(Messages.Viewer_Ability, pokemon.Ability);
             _hiddenPowerType.Text = string.Format(Messages.Viewer_HiddenPowerType, pokemon.HiddenPower.Name);
