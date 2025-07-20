@@ -26,7 +26,7 @@ Jump to:
 * [License](#license)
 
 # <a name="dependencies"></a>Dependencies
-* Download [BizHawk](https://github.com/TASEmulators/BizHawk) emulator
+* Download [BizHawk](https://github.com/TASEmulators/BizHawk) emulator (Latest tested is version 2.10)
 * Download [this tool](https://github.com/Kakumi/Pokebot/releases/latest)
 
 # <a name="install"></a>Installation
