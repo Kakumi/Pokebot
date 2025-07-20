@@ -26,7 +26,7 @@ Jump to:
 * [License](#license)
 
 # <a name="dependencies"></a>Dependencies
-* Download [BizHawk](https://github.com/TASEmulators/BizHawk) emulator
+* Download [BizHawk](https://github.com/TASEmulators/BizHawk) emulator (Latest tested is version 2.10)
 * Download [this tool](https://github.com/Kakumi/Pokebot/releases/latest)
 
 # <a name="install"></a>Installation
@@ -56,8 +56,8 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
  | USA (Europe) rev 2 | 5b64eacf892920518db4ec664e62a086dd5f5bc8 |     ✅     |    ❌   |
  | French             | a6ee94202bec0641c55d242757e84dc89336d4cb |     ✅     |    ✅   |
  | French rev 1       | ba888dfba231a231cbd60fe228e894b54fb1ed79 |     ✅     |    ❌   |
- | Deutch             | 1c2a53332382e14dab8815e3a6dd81ad89534050 |     ✅     |    ❌   |
- | Deutch rev 1       | 424740be1fc67a5ddb954794443646e6aeee2c1b |     ✅     |    ❌   |
+ | Deutch             | 1c2a53332382e14dab8815e3a6dd81ad89534050 |     ✅     |    ✅   |
+ | Deutch rev 1       | 424740be1fc67a5ddb954794443646e6aeee2c1b |     ✅     |    ✅   |
  | Italian            | 2b3134224392f58da00f802faa1bf4b5cf6270be |     ✅     |    ❌   |
  | Italian rev 1      | 015a5d380afe316a2a6fcc561798ebff9dfb3009 |     ✅     |    ❌   |
  | Japanese           | 5c5e546720300b99ae45d2aa35c646c8b8ff5c56 |     ✅     |    ❌   |
@@ -76,8 +76,8 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
  | USA (Europe) rev 2 | 89b45fb172e6b55d51fc0e61989775187f6fe63c |     ✅     |    ❌   |
  | French             | c269b5692b2d0e5800ba1ddf117fda95ac648634 |     ✅     |    ✅   |
  | French rev 1       | 860e93f5ea44f4278132f6c1ee5650d07b852fd8 |     ✅     |    ❌   |
- | Deutch             | 5a087835009d552d4c5c1f96be3be3206e378153 |     ✅     |    ❌   |
- | Deutch rev 1       | 7e6e034f9cdca6d2c4a270fdb50a94def5883d17 |     ✅     |    ❌   |
+ | Deutch             | 5a087835009d552d4c5c1f96be3be3206e378153 |     ✅     |    ✅   |
+ | Deutch rev 1       | 7e6e034f9cdca6d2c4a270fdb50a94def5883d17 |     ✅     |    ✅   |
  | Italian            | f729dd571fb2c09e72c5c1d68fe0a21e72713d34 |     ✅     |    ❌   |
  | Italian rev 1      | 73edf67b9b82ff12795622dca412733755d2c0fe |     ✅     |    ❌   |
  | Japanese           | 3233342c2f3087e6ffe6c1791cd5867db07df842 |     ✅     |    ❌   |
