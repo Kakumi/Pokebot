@@ -5,9 +5,9 @@
     },
     "Run": {
       "commandName": "Executable",
-      "executablePath": "D:\\VisualStudioProjects\\Pokebot\\BizHawk\\EmuHawk.exe",
+      "executablePath": "C:\\Users\\manga\\source\\repos\\Pokebot\\BizHawk\\EmuHawk.exe",
       "commandLineArgs": "--open-ext-tool-dll=Pokebot",
-      "workingDirectory": "D:\\VisualStudioProjects\\Pokebot\\BizHawk\\"
+      "workingDirectory": "C:\\Users\\manga\\source\\repos\\Pokebot\\BizHawk\\"
     }
   }
 }

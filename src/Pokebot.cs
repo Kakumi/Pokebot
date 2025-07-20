@@ -143,10 +143,15 @@ namespace Pokebot
             SettingsPanel_SettingsConfigChanged(SettingsPanel!.SettingsConfig);
 
 #if DEBUG
-            if (APIContainer != null && DebugWindow == null)
+            try {
+                if (APIContainer != null && DebugWindow == null)
+                {
+                    DebugWindow = new PokebotDebug(APIContainer);
+                    DebugWindow.Show();
+                }
+            } catch(Exception ex)
             {
-                DebugWindow = new PokebotDebug(APIContainer);
-                DebugWindow.Show();
+                Log.Error("Can't load debug window: " + ex.Message);
             }
 #endif
         }
