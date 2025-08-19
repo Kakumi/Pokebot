@@ -15,128 +15,28 @@ using Pokebot.Utils;
 
 namespace Pokebot.Factories.Bots
 {
-    public class EeveeBot : IBot
+    public class EeveeBot : StaticBot
     {
-        public bool Enabled { get; private set; }
-        public ApiContainer APIContainer { get; }
-        public GameVersion GameVersion { get; }
-        public StaticControl Control { get; }
-
-        public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
-        public event IBot.PokemonFoundEventHandler? PokemonFound;
-        public event IBot.StateChangedEventHandler? StateChanged;
-
-        private List<uint> _seedsHistory;
-
-        public EeveeBot(ApiContainer apiContainer, GameVersion gameVersion)
+        public EeveeBot(ApiContainer apiContainer, GameVersion gameVersion) : base(apiContainer, gameVersion)
         {
-            Enabled = false;
-            APIContainer = apiContainer;
-            GameVersion = gameVersion;
-
-            _seedsHistory = new List<uint>();
-
-            Control = new StaticControl();
-            Control.Dock = DockStyle.Fill;
-            Control.SetFilterPanel(GameVersion.GenerationInfo);
         }
 
-        public void Start()
-        {
-            Enabled = true;
-            StateChanged?.Invoke(Enabled);
-
-            bool shouldLoad = false;
-            if (APIContainer.EmuClient.HasSaveState(GetSaveStateName()))
-            {
-                var result = MessageBox.Show(Messages.Bot_FileExistReplaceMessage, Messages.Bot_FileExistReplaceTitle, MessageBoxButtons.YesNo);
-                shouldLoad = result == DialogResult.Yes;
-            }
-
-            bool loaded = false;
-            if (shouldLoad)
-            {
-                try
-                {
-                    loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
-                }
-                catch (FileNotFoundException) //If the save state doesn't exists
-                {
-                }
-            }
-
-            if (!loaded)
-            {
-                APIContainer.EmuClient.SaveState(GetSaveStateName());
-            }
-
-            UpdateRNG();
-        }
-
-        public void Stop()
-        {
-            Enabled = false;
-            StateChanged?.Invoke(Enabled);
-        }
-
-        public async void Execute(PlayerData playerData, GameState state)
+        public override void Execute(PlayerData playerData, GameState state)
         {
             var task = GameVersion.Memory.GetTasks().FirstOrDefault(x => x.Name == "Task_YesNoMenu_HandleInput");
             if (task != null)
             {
                 Pokemon pokemon = GameVersion.Memory.GetParty().FirstOrDefault(x => x.DexId == 133);
-                if (pokemon != null)
-                {
-                    PokemonEncountered?.Invoke(pokemon);
-                }
-
-                if (pokemon != null && Control.FilterPanel.Comparator.Compare(pokemon))
-                {
-                    Log.Warn(Messages.Pokemon_FoundCatch);
-                    PokemonFound?.Invoke(pokemon);
-                    Stop();
-                }
-                else
-                {
-                    if (APIContainer.EmuClient.LoadOrStop(GetSaveStateName()))
-                    {
-                        UpdateRNG();
-                    }
-                }
+                Check(pokemon);
             } else
             {
                 APIContainer.Joypad.Set("A", true);
             }
         }
 
-        private string GetSaveStateName()
+        protected override string GetSaveStateName()
         {
             return $"{GameVersion.VersionInfo.Name}_eevee";
-        }
-
-        private void UpdateRNG()
-        {
-            uint random;
-            do
-            {
-                random = GameVersion.Memory.RandomizeCurrentSeed();
-            } while (_seedsHistory.Contains(random));
-
-            _seedsHistory.Add(random);
-        }
-
-        public UserControl GetPanel()
-        {
-            return Control;
-        }
-
-        public bool UseDelay()
-        {
-            return true;
-        }
-
-        public void UpdateUI(GameState state)
-        {
         }
     }
 }
