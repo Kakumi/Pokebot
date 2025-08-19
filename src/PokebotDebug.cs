@@ -30,7 +30,7 @@ namespace Pokebot
         {
             InitializeComponent();
             this.APIContainer = APIContainer;
-            BizhawkPath = @"D:\VisualStudioProjects\Pokebot\BizHawk";
+            BizhawkPath = @"C:\Users\manga\source\repos\Pokebot\BizHawk";
 
             var saveStates = GetSaveStates();
             if (saveStates.Count() > 0 )

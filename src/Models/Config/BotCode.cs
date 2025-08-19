@@ -5,6 +5,7 @@
         Starter = 0,
         Spin = 1,
         Static = 2,
-        PokeFinder = 3
+        PokeFinder = 3,
+        Eevee = 4,
     }
 }

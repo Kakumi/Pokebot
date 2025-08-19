@@ -177,7 +177,7 @@ namespace Pokebot
             EncounterStatsPanel = new EncounterStatsPanel();
             EncounterStatsPanel.Dock = DockStyle.Fill;
 
-            BotPanel = new BotPanel(AppConfig.BotTypes);
+            BotPanel = new BotPanel();
             BotPanel.BotChanged += BotPanel_BotChanged;
             BotPanel.Dock = DockStyle.Fill;
 
@@ -197,7 +197,6 @@ namespace Pokebot
         private void RomLoadedUpdated()
         {
             _tabControl.Visible = IsRomLoaded;
-            BotPanel.Reset();
             EncounterStatsPanel.Clear();
             OpponentViewerPanel.Hide();
             PartyViewerPanel.Clear();
@@ -205,6 +204,7 @@ namespace Pokebot
 
             if (IsReady)
             {
+                BotPanel.Reset(AppConfig.BotTypes.Where(x => x.Supported.Contains(GameVersion!.VersionInfo.Code)).ToList());
                 CreateBot(BotPanel.GetBotCode());
                 PokemonWatcher = new PokemonWatcher(GameVersion!);
                 PokemonWatcher.OpponentChanged += PokemonWatcher_OpponentChanged;
