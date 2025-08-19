@@ -24,11 +24,10 @@ namespace Pokebot.Panels
 
         public IBot Bot { get; private set; }
 
-        public BotPanel(List<BotType> types)
+        public BotPanel()
         {
             InitializeComponent();
 
-            _botComboBox.DataSource = types;
             _botComboBox.ValueMember = nameof(BotType.Code);
             _botComboBox.DisplayMember = nameof(BotType.Name);
         }
@@ -98,10 +97,11 @@ namespace Pokebot.Panels
             _statusBot.ForeColor = color ?? Color.Black;
         }
 
-        public void Reset()
+        public void Reset(List<BotType> types)
         {
             ClearPanel();
 
+            _botComboBox.DataSource = types;
             _botComboBox.SelectedIndex = 0;
             _statusBot.Text = Messages.Bot_NotRunning;
             _startBotButton.Enabled = false;

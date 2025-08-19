@@ -19872,7 +19872,7 @@
     },
     {
       "Name": "Fire Red",
-      "Code": 3,
+      "Code": 4,
       "Hashs": [
         {
           "Hash": "18a3758ceeef2c77b315144be2c3910d6f1f69fe", //Deutch
@@ -19968,19 +19968,28 @@
   "BotTypes": [
     {
       "Name": "Starter",
-      "Code": 0
+      "Code": 0,
+      "Supported": [ 0, 1, 2, 3, 4 ]
     },
     {
       "Name": "Spin",
-      "Code": 1
+      "Code": 1,
+      "Supported": [ 0, 1, 2, 3, 4 ]
     },
     {
       "Name": "Static",
-      "Code": 2
+      "Code": 2,
+      "Supported": [ 0, 1, 2, 3, 4 ]
     },
     {
       "Name": "PokeFinder",
-      "Code": 3
+      "Code": 3,
+      "Supported": [ 0, 1, 2, 3, 4 ]
+    },
+    {
+      "Name": "Eevee",
+      "Code": 4,
+      "Supported": [ 3, 4 ]
     }
   ],
   "Github": {

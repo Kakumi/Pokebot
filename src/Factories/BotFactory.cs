@@ -20,6 +20,8 @@ namespace Pokebot.Factories
                     return new LegendaryBot(apiContainer, gameVersion);
                 case BotCode.PokeFinder:
                     return new PokeFinderBot(apiContainer, gameVersion);
+                case BotCode.Eevee:
+                    return new EeveeBot(apiContainer, gameVersion);
             }
 
             throw new NotSupportedException(Messages.BotFactory_NotSupported);
