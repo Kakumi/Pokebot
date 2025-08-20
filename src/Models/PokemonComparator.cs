@@ -17,6 +17,7 @@ namespace Pokebot.Models
         public int IVDefense { get; set; }
         public int IVSpAttack { get; set; }
         public int IVSpDefense { get; set; }
+        public int PokemonGender { get; set; }
 
         public PokemonComparator()
         {
@@ -32,6 +33,7 @@ namespace Pokebot.Models
             IVDefense = -1;
             IVSpAttack = -1;
             IVSpDefense = -1;
+            PokemonGender = -1;
         }
 
         public bool Compare(Pokemon pokemon)
@@ -57,6 +59,11 @@ namespace Pokebot.Models
             }
 
             if (IndexHeldItem != -1 && pokemon.HeldItem?.Id != IndexHeldItem)
+            {
+                return false;
+            }
+
+            if (PokemonGender != -1 && (int) pokemon.Gender != PokemonGender)
             {
                 return false;
             }

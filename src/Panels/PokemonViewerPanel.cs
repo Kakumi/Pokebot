@@ -46,6 +46,7 @@ namespace Pokebot.Panels
             _ivDefenseLabel.Text = string.Format(Messages.Viewer_Defense, pokemon.IVs.Defense);
             _ivSpAttackLabel.Text = string.Format(Messages.Viewer_SpAttack, pokemon.IVs.SpAttack);
             _ivSpDefenseLabel.Text = string.Format(Messages.Viewer_SpDefense, pokemon.IVs.SpDefense);
+            _gender.Text = string.Format(Messages.Viewer_Gender, pokemon.GetGenderMessage());
             SetMove(_move1Label, 0, pokemon);
             SetMove(_move2Label, 1, pokemon);
             SetMove(_move3Label, 2, pokemon);

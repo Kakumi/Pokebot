@@ -6,7 +6,9 @@ using Pokebot.Symbols;
 using Pokebot.Utils;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Pokebot.Models.Memory
@@ -161,6 +163,36 @@ namespace Pokebot.Models.Memory
             var experience = subStructuresData['G'].Skip(4).Take(4).ToUInt32();
             var ppBonuses = (int)subStructuresData['G'][8];
             var friendship = (int)subStructuresData['G'][9];
+
+            //Gender
+            var gSpeciesInfoSymbol = Symbols.First(x => x.Name == "gSpeciesInfo");
+            var size = 0x1C;
+            var s2 = SymbolUtil.Read(APIContainer, gSpeciesInfoSymbol.Address, 4480, 100);
+            var gSpeciesInfo = SymbolUtil.Read(APIContainer, gSpeciesInfoSymbol.Address, species * size, size);
+            var genderRatio = gSpeciesInfo[0x10];
+            var currentGenderRatio = PID & 0xFF;
+            PokemonGender gender = PokemonGender.Unknow;
+            bool genderFound = false;
+            foreach (var item in Enum.GetValues(typeof(PokemonGender)).Cast<PokemonGender>())
+            {
+                if (genderRatio == (int)item)
+                {
+                    gender = item;
+                    genderFound = true;
+                    break;
+                }
+            }
+
+            if (!genderFound)
+            {
+                if (genderRatio > currentGenderRatio)
+                {
+                    gender = PokemonGender.Female;
+                } else
+                {
+                    gender = PokemonGender.Male;
+                }
+            }
 
             #endregion
 
@@ -354,6 +386,7 @@ namespace Pokebot.Models.Memory
                     ability,
                     hiddenPower,
                     hiddenPowerDamage,
+                    gender,
                     statusCondition,
                     level,
                     hasPokerus, currentHP,
@@ -397,7 +430,8 @@ namespace Pokebot.Models.Memory
                 types,
                 ability,
                 hiddenPower,
-                hiddenPowerDamage
+                hiddenPowerDamage,
+                gender
             );
         }
 

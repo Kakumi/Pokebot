@@ -213,6 +213,9 @@
   <data name="Error_ReadingBotType" xml:space="preserve">
     <value>Error occurred while reading bot type.</value>
   </data>
+  <data name="Filter_AnyGender" xml:space="preserve">
+    <value>Any gender</value>
+  </data>
   <data name="Filter_AnyItem" xml:space="preserve">
     <value>Any item</value>
   </data>
@@ -224,6 +227,18 @@
   </data>
   <data name="Filter_AnyType" xml:space="preserve">
     <value>Any type</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="Gender_Genderless" xml:space="preserve">
+    <value>Genderless</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="Gender_Unknow" xml:space="preserve">
+    <value>Unknow</value>
   </data>
   <data name="Item_Nothing" xml:space="preserve">
     <value>Nothing</value>
@@ -305,6 +320,9 @@
   </data>
   <data name="Viewer_Defense" xml:space="preserve">
     <value>Defense: {0}</value>
+  </data>
+  <data name="Viewer_Gender" xml:space="preserve">
+    <value>Gender: {0}</value>
   </data>
   <data name="Viewer_HiddenPowerDamage" xml:space="preserve">
     <value>Hidden Power Damage: {0}</value>

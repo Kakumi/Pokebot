@@ -49,6 +49,7 @@
             this._itemLabel = new System.Windows.Forms.Label();
             this._shinyLabel = new System.Windows.Forms.Label();
             this._pid = new System.Windows.Forms.Label();
+            this._gender = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this._pokemonPictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -57,26 +58,29 @@
             // _pokemonName
             // 
             this._pokemonName.AutoSize = true;
-            this._pokemonName.Location = new System.Drawing.Point(137, 3);
+            this._pokemonName.Location = new System.Drawing.Point(103, 2);
+            this._pokemonName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._pokemonName.Name = "_pokemonName";
-            this._pokemonName.Size = new System.Drawing.Size(44, 16);
+            this._pokemonName.Size = new System.Drawing.Size(35, 13);
             this._pokemonName.TabIndex = 0;
             this._pokemonName.Text = "label1";
             // 
             // _natureLabel
             // 
             this._natureLabel.AutoSize = true;
-            this._natureLabel.Location = new System.Drawing.Point(137, 35);
+            this._natureLabel.Location = new System.Drawing.Point(103, 28);
+            this._natureLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._natureLabel.Name = "_natureLabel";
-            this._natureLabel.Size = new System.Drawing.Size(44, 16);
+            this._natureLabel.Size = new System.Drawing.Size(35, 13);
             this._natureLabel.TabIndex = 1;
             this._natureLabel.Text = "label2";
             // 
             // _pokemonPictureBox
             // 
-            this._pokemonPictureBox.Location = new System.Drawing.Point(3, 3);
+            this._pokemonPictureBox.Location = new System.Drawing.Point(2, 2);
+            this._pokemonPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this._pokemonPictureBox.Name = "_pokemonPictureBox";
-            this._pokemonPictureBox.Size = new System.Drawing.Size(128, 128);
+            this._pokemonPictureBox.Size = new System.Drawing.Size(96, 104);
             this._pokemonPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this._pokemonPictureBox.TabIndex = 2;
             this._pokemonPictureBox.TabStop = false;
@@ -84,9 +88,10 @@
             // _abilityLabel
             // 
             this._abilityLabel.AutoSize = true;
-            this._abilityLabel.Location = new System.Drawing.Point(137, 51);
+            this._abilityLabel.Location = new System.Drawing.Point(103, 41);
+            this._abilityLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._abilityLabel.Name = "_abilityLabel";
-            this._abilityLabel.Size = new System.Drawing.Size(44, 16);
+            this._abilityLabel.Size = new System.Drawing.Size(35, 13);
             this._abilityLabel.TabIndex = 3;
             this._abilityLabel.Text = "label3";
             // 
@@ -96,9 +101,11 @@
             this.groupBox1.Controls.Add(this._move3Label);
             this.groupBox1.Controls.Add(this._move2Label);
             this.groupBox1.Controls.Add(this._move1Label);
-            this.groupBox1.Location = new System.Drawing.Point(3, 137);
+            this.groupBox1.Location = new System.Drawing.Point(2, 111);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(348, 140);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(261, 114);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Moves";
@@ -106,36 +113,40 @@
             // _move4Label
             // 
             this._move4Label.AutoSize = true;
-            this._move4Label.Location = new System.Drawing.Point(6, 66);
+            this._move4Label.Location = new System.Drawing.Point(4, 54);
+            this._move4Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._move4Label.Name = "_move4Label";
-            this._move4Label.Size = new System.Drawing.Size(44, 16);
+            this._move4Label.Size = new System.Drawing.Size(35, 13);
             this._move4Label.TabIndex = 12;
             this._move4Label.Text = "label3";
             // 
             // _move3Label
             // 
             this._move3Label.AutoSize = true;
-            this._move3Label.Location = new System.Drawing.Point(6, 50);
+            this._move3Label.Location = new System.Drawing.Point(4, 41);
+            this._move3Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._move3Label.Name = "_move3Label";
-            this._move3Label.Size = new System.Drawing.Size(44, 16);
+            this._move3Label.Size = new System.Drawing.Size(35, 13);
             this._move3Label.TabIndex = 11;
             this._move3Label.Text = "label3";
             // 
             // _move2Label
             // 
             this._move2Label.AutoSize = true;
-            this._move2Label.Location = new System.Drawing.Point(6, 34);
+            this._move2Label.Location = new System.Drawing.Point(4, 28);
+            this._move2Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._move2Label.Name = "_move2Label";
-            this._move2Label.Size = new System.Drawing.Size(44, 16);
+            this._move2Label.Size = new System.Drawing.Size(35, 13);
             this._move2Label.TabIndex = 10;
             this._move2Label.Text = "label3";
             // 
             // _move1Label
             // 
             this._move1Label.AutoSize = true;
-            this._move1Label.Location = new System.Drawing.Point(6, 18);
+            this._move1Label.Location = new System.Drawing.Point(4, 15);
+            this._move1Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._move1Label.Name = "_move1Label";
-            this._move1Label.Size = new System.Drawing.Size(44, 16);
+            this._move1Label.Size = new System.Drawing.Size(35, 13);
             this._move1Label.TabIndex = 9;
             this._move1Label.Text = "label3";
             // 
@@ -147,9 +158,11 @@
             this.groupBox2.Controls.Add(this._ivAttackLabel);
             this.groupBox2.Controls.Add(this._ivSpeedLabel);
             this.groupBox2.Controls.Add(this._ivHPLabel);
-            this.groupBox2.Location = new System.Drawing.Point(357, 137);
+            this.groupBox2.Location = new System.Drawing.Point(268, 111);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(390, 140);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(292, 114);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "IVs";
@@ -157,106 +170,128 @@
             // _ivSpDefenseLabel
             // 
             this._ivSpDefenseLabel.AutoSize = true;
-            this._ivSpDefenseLabel.Location = new System.Drawing.Point(6, 82);
+            this._ivSpDefenseLabel.Location = new System.Drawing.Point(4, 67);
+            this._ivSpDefenseLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._ivSpDefenseLabel.Name = "_ivSpDefenseLabel";
-            this._ivSpDefenseLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivSpDefenseLabel.Size = new System.Drawing.Size(35, 13);
             this._ivSpDefenseLabel.TabIndex = 18;
             this._ivSpDefenseLabel.Text = "label3";
             // 
             // _ivSpAttackLabel
             // 
             this._ivSpAttackLabel.AutoSize = true;
-            this._ivSpAttackLabel.Location = new System.Drawing.Point(6, 66);
+            this._ivSpAttackLabel.Location = new System.Drawing.Point(4, 54);
+            this._ivSpAttackLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._ivSpAttackLabel.Name = "_ivSpAttackLabel";
-            this._ivSpAttackLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivSpAttackLabel.Size = new System.Drawing.Size(35, 13);
             this._ivSpAttackLabel.TabIndex = 17;
             this._ivSpAttackLabel.Text = "label3";
             // 
             // _ivDefenseLabel
             // 
             this._ivDefenseLabel.AutoSize = true;
-            this._ivDefenseLabel.Location = new System.Drawing.Point(6, 50);
+            this._ivDefenseLabel.Location = new System.Drawing.Point(4, 41);
+            this._ivDefenseLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._ivDefenseLabel.Name = "_ivDefenseLabel";
-            this._ivDefenseLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivDefenseLabel.Size = new System.Drawing.Size(35, 13);
             this._ivDefenseLabel.TabIndex = 16;
             this._ivDefenseLabel.Text = "label3";
             // 
             // _ivAttackLabel
             // 
             this._ivAttackLabel.AutoSize = true;
-            this._ivAttackLabel.Location = new System.Drawing.Point(6, 34);
+            this._ivAttackLabel.Location = new System.Drawing.Point(4, 28);
+            this._ivAttackLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._ivAttackLabel.Name = "_ivAttackLabel";
-            this._ivAttackLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivAttackLabel.Size = new System.Drawing.Size(35, 13);
             this._ivAttackLabel.TabIndex = 15;
             this._ivAttackLabel.Text = "label3";
             // 
             // _ivSpeedLabel
             // 
             this._ivSpeedLabel.AutoSize = true;
-            this._ivSpeedLabel.Location = new System.Drawing.Point(6, 98);
+            this._ivSpeedLabel.Location = new System.Drawing.Point(4, 80);
+            this._ivSpeedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._ivSpeedLabel.Name = "_ivSpeedLabel";
-            this._ivSpeedLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivSpeedLabel.Size = new System.Drawing.Size(35, 13);
             this._ivSpeedLabel.TabIndex = 14;
             this._ivSpeedLabel.Text = "label3";
             // 
             // _ivHPLabel
             // 
             this._ivHPLabel.AutoSize = true;
-            this._ivHPLabel.Location = new System.Drawing.Point(6, 18);
+            this._ivHPLabel.Location = new System.Drawing.Point(4, 15);
+            this._ivHPLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._ivHPLabel.Name = "_ivHPLabel";
-            this._ivHPLabel.Size = new System.Drawing.Size(44, 16);
+            this._ivHPLabel.Size = new System.Drawing.Size(35, 13);
             this._ivHPLabel.TabIndex = 13;
             this._ivHPLabel.Text = "label3";
             // 
             // _hiddenPowerType
             // 
             this._hiddenPowerType.AutoSize = true;
-            this._hiddenPowerType.Location = new System.Drawing.Point(137, 67);
+            this._hiddenPowerType.Location = new System.Drawing.Point(103, 54);
+            this._hiddenPowerType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._hiddenPowerType.Name = "_hiddenPowerType";
-            this._hiddenPowerType.Size = new System.Drawing.Size(44, 16);
+            this._hiddenPowerType.Size = new System.Drawing.Size(35, 13);
             this._hiddenPowerType.TabIndex = 6;
             this._hiddenPowerType.Text = "label3";
             // 
             // _hiddenPowerDamage
             // 
             this._hiddenPowerDamage.AutoSize = true;
-            this._hiddenPowerDamage.Location = new System.Drawing.Point(137, 83);
+            this._hiddenPowerDamage.Location = new System.Drawing.Point(103, 67);
+            this._hiddenPowerDamage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._hiddenPowerDamage.Name = "_hiddenPowerDamage";
-            this._hiddenPowerDamage.Size = new System.Drawing.Size(44, 16);
+            this._hiddenPowerDamage.Size = new System.Drawing.Size(35, 13);
             this._hiddenPowerDamage.TabIndex = 7;
             this._hiddenPowerDamage.Text = "label3";
             // 
             // _itemLabel
             // 
             this._itemLabel.AutoSize = true;
-            this._itemLabel.Location = new System.Drawing.Point(137, 99);
+            this._itemLabel.Location = new System.Drawing.Point(103, 80);
+            this._itemLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._itemLabel.Name = "_itemLabel";
-            this._itemLabel.Size = new System.Drawing.Size(44, 16);
+            this._itemLabel.Size = new System.Drawing.Size(35, 13);
             this._itemLabel.TabIndex = 8;
             this._itemLabel.Text = "label3";
             // 
             // _shinyLabel
             // 
             this._shinyLabel.AutoSize = true;
-            this._shinyLabel.Location = new System.Drawing.Point(137, 115);
+            this._shinyLabel.Location = new System.Drawing.Point(103, 93);
+            this._shinyLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._shinyLabel.Name = "_shinyLabel";
-            this._shinyLabel.Size = new System.Drawing.Size(44, 16);
+            this._shinyLabel.Size = new System.Drawing.Size(35, 13);
             this._shinyLabel.TabIndex = 9;
             this._shinyLabel.Text = "label3";
             // 
             // _pid
             // 
             this._pid.AutoSize = true;
-            this._pid.Location = new System.Drawing.Point(137, 19);
+            this._pid.Location = new System.Drawing.Point(103, 15);
+            this._pid.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this._pid.Name = "_pid";
-            this._pid.Size = new System.Drawing.Size(44, 16);
+            this._pid.Size = new System.Drawing.Size(35, 13);
             this._pid.TabIndex = 10;
             this._pid.Text = "label3";
             // 
+            // _gender
+            // 
+            this._gender.AutoSize = true;
+            this._gender.Location = new System.Drawing.Point(272, 2);
+            this._gender.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this._gender.Name = "_gender";
+            this._gender.Size = new System.Drawing.Size(35, 13);
+            this._gender.TabIndex = 11;
+            this._gender.Text = "label1";
+            // 
             // PokemonViewerPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._gender);
             this.Controls.Add(this._pid);
             this.Controls.Add(this._shinyLabel);
             this.Controls.Add(this._itemLabel);
@@ -268,8 +303,9 @@
             this.Controls.Add(this._pokemonPictureBox);
             this.Controls.Add(this._natureLabel);
             this.Controls.Add(this._pokemonName);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "PokemonViewerPanel";
-            this.Size = new System.Drawing.Size(750, 280);
+            this.Size = new System.Drawing.Size(562, 228);
             ((System.ComponentModel.ISupportInitialize)(this._pokemonPictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -303,5 +339,6 @@
         private System.Windows.Forms.Label _ivHPLabel;
         private System.Windows.Forms.Label _shinyLabel;
         private System.Windows.Forms.Label _pid;
+        private System.Windows.Forms.Label _gender;
     }
 }
