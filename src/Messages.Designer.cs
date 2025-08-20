@@ -430,6 +430,15 @@ namespace Pokebot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The registered item cannot be used.
+        /// </summary>
+        internal static string InvalidRegisteredItem {
+            get {
+                return ResourceManager.GetString("InvalidRegisteredItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nothing.
         /// </summary>
         internal static string Item_Nothing {

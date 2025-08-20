@@ -22,6 +22,8 @@ namespace Pokebot.Factories
                     return new PokeFinderBot(apiContainer, gameVersion);
                 case BotCode.Eevee:
                     return new EeveeBot(apiContainer, gameVersion);
+                case BotCode.Fishing:
+                    return new FishingBot(apiContainer, gameVersion);
             }
 
             throw new NotSupportedException(Messages.BotFactory_NotSupported);

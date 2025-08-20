@@ -19990,6 +19990,11 @@
       "Name": "Eevee",
       "Code": 4,
       "Supported": [ 3, 4 ]
+    },
+    {
+      "Name": "Fishing",
+      "Code": 5,
+      "Supported": [ 0, 1, 2, 3, 4 ]
     }
   ],
   "Github": {

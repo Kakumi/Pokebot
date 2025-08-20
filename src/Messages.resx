@@ -240,6 +240,9 @@
   <data name="Gender_Unknow" xml:space="preserve">
     <value>Unknow</value>
   </data>
+  <data name="InvalidRegisteredItem" xml:space="preserve">
+    <value>The registered item cannot be used</value>
+  </data>
   <data name="Item_Nothing" xml:space="preserve">
     <value>Nothing</value>
   </data>
