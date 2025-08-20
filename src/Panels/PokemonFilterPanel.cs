@@ -25,6 +25,7 @@ namespace Pokebot.Panels
             SetNatures(generationInfo.Natures);
             SetTypes(generationInfo.Types);
             SetItems(generationInfo.Items);
+            SetGenders();
         }
 
         public void SetPokemons(IEnumerable<PokemonConfig> pokemons, bool any = true)
@@ -65,6 +66,18 @@ namespace Pokebot.Panels
             items.Add(new ComboBoxItem(-1, Messages.Filter_AnyItem));
             items.AddRange(pokemonItems.Select(x => new ComboBoxItem(x.Id, x.Name)));
             InitializeDefaultComboBox(_heldItemComboBox, items);
+        }
+
+        public void SetGenders()
+        {
+            var items = new List<ComboBoxItem>
+            {
+                new ComboBoxItem(-1, Messages.Filter_AnyGender),
+                new ComboBoxItem((int)PokemonGender.Male, Messages.Gender_Male),
+                new ComboBoxItem((int)PokemonGender.Female, Messages.Gender_Female),
+                new ComboBoxItem((int)PokemonGender.Genderless, Messages.Gender_Genderless)
+            };
+            InitializeDefaultComboBox(_genderComboBox, items);
         }
 
         private void InitializeDefaultComboBox(ComboBox comboBox, List<ComboBoxItem> items)
@@ -135,6 +148,11 @@ namespace Pokebot.Panels
         private void TypeSelectionChanged(object sender, EventArgs e)
         {
             Comparator.IndexType = ((ComboBoxItem)((ComboBox)sender).SelectedItem).Id;
+        }
+
+        private void GenderComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Comparator.PokemonGender = ((ComboBoxItem)((ComboBox)sender).SelectedItem).Id;
         }
     }
 }

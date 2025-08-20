@@ -7,5 +7,6 @@
         Static = 2,
         PokeFinder = 3,
         Eevee = 4,
+        Fishing = 5,
     }
 }

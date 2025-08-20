@@ -67,6 +67,13 @@ namespace Pokebot.Models.ActionRunners
             return false;
         }
 
+        public virtual bool UseRegisteredItem()
+        {
+            PressSelect();
+
+            return true;
+        }
+
         public void PressA() => APIContainer.Joypad.Set("A", true);
         public void PressB() => APIContainer.Joypad.Set("B", true);
         public void PressX() => APIContainer.Joypad.Set("X", true);
