@@ -1,10 +1,4 @@
-﻿using BizHawk.Client.Common;
-using Pokebot.Factories.Versions;
-using Pokebot.Models;
-using Pokebot.Models.Player;
-using Pokebot.Symbols;
-using Pokebot.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -13,6 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BizHawk.Client.Common;
+using Pokebot.Factories.Versions;
+using Pokebot.Models;
+using Pokebot.Models.Player;
+using Pokebot.Models.Tools;
+using Pokebot.Symbols;
+using Pokebot.Utils;
 
 namespace Pokebot
 {
@@ -28,7 +29,7 @@ namespace Pokebot
         {
             InitializeComponent();
             this.APIContainer = APIContainer;
-            BizhawkPath = @"C:\Users\manga\source\repos\Pokebot\BizHawk";
+            BizhawkPath = @"D:\VSProjects\Pokebot\BizHawk";
 
             var saveStates = GetSaveStates();
             if (saveStates.Count() > 0)
@@ -169,24 +170,34 @@ namespace Pokebot
             {
                 var symbol = _finderSymbolsCB.SelectedItem as Symbol;
                 int address = (int)symbol!.Address;
-                var result = MemoryAddressFinder.Search(GameVersion!.APIContainer, address, (int)_finderIterationUpDown.Value, _finderValueTextBox.Text, (int)_finderSize.Value);
+                var result = MemoryAddressFinder.Search(
+                    GameVersion!.APIContainer,
+                    address,
+                    (int)_finderIterationUpDown.Value,
+                    _finderValueTextBox.Text,
+                    (int)_finderSize.Value
+                );
                 if (result.Count == 0)
                 {
                     MessageBox.Show($"Not found");
                 }
                 else
                 {
-                    _finderList.Items.AddRange(result.Select(x =>
-                    {
-                        var lvi = new ListViewItem(x);
-                        lvi.SubItems.Add("_");
-                        lvi.SubItems.Add(_finderValueTextBox.Text);
-                        lvi.SubItems.Add(_finderSize.Value.ToString());
-                        lvi.SubItems.Add("0");
-                        lvi.SubItems.Add("_");
+                    _finderList.Items.AddRange(
+                        result
+                            .Select(x =>
+                            {
+                                var lvi = new ListViewItem(x);
+                                lvi.SubItems.Add("_");
+                                lvi.SubItems.Add(_finderValueTextBox.Text);
+                                lvi.SubItems.Add(_finderSize.Value.ToString());
+                                lvi.SubItems.Add("0");
+                                lvi.SubItems.Add("_");
 
-                        return lvi;
-                    }).ToArray());
+                                return lvi;
+                            })
+                            .ToArray()
+                    );
                 }
             }
             catch (Exception ex)
@@ -258,12 +269,14 @@ namespace Pokebot
             {
                 var value = bytes.Skip(i).Take(length).ToUInt32();
 
-                var addresses = new List<uint>()
-                {
-                    134571444,
-                    134267604,
-                };
-                if (addresses.Contains(value) || addresses.Contains(value - 1) || addresses.Contains(value + 1) || value.ToString("X").StartsWith("08") || value.ToString("X").StartsWith("8"))
+                var addresses = new List<uint>() { 134571444, 134267604 };
+                if (
+                    addresses.Contains(value)
+                    || addresses.Contains(value - 1)
+                    || addresses.Contains(value + 1)
+                    || value.ToString("X").StartsWith("08")
+                    || value.ToString("X").StartsWith("8")
+                )
                 {
                     if (value >= 0x08000000)
                     {
@@ -272,17 +285,21 @@ namespace Pokebot
                 }
             }
 
-            _finderList.Items.AddRange(potentials.Select(x =>
-            {
-                var lvi = new ListViewItem(x.Item1.ToString("X"));
-                lvi.SubItems.Add("_");
-                lvi.SubItems.Add(x.Item2 + "");
-                lvi.SubItems.Add("4");
-                lvi.SubItems.Add("0");
-                lvi.SubItems.Add("_");
+            _finderList.Items.AddRange(
+                potentials
+                    .Select(x =>
+                    {
+                        var lvi = new ListViewItem(x.Item1.ToString("X"));
+                        lvi.SubItems.Add("_");
+                        lvi.SubItems.Add(x.Item2 + "");
+                        lvi.SubItems.Add("4");
+                        lvi.SubItems.Add("0");
+                        lvi.SubItems.Add("_");
 
-                return lvi;
-            }).ToArray());
+                        return lvi;
+                    })
+                    .ToArray()
+            );
         }
 
         private void SearchPtr()
@@ -308,17 +325,21 @@ namespace Pokebot
                 }
             }
 
-            _finderList.Items.AddRange(potentials.Select(x =>
-            {
-                var lvi = new ListViewItem(x.Item1.ToString("X"));
-                lvi.SubItems.Add("_");
-                lvi.SubItems.Add(x.Item2 + "");
-                lvi.SubItems.Add("4");
-                lvi.SubItems.Add("0");
-                lvi.SubItems.Add("_");
+            _finderList.Items.AddRange(
+                potentials
+                    .Select(x =>
+                    {
+                        var lvi = new ListViewItem(x.Item1.ToString("X"));
+                        lvi.SubItems.Add("_");
+                        lvi.SubItems.Add(x.Item2 + "");
+                        lvi.SubItems.Add("4");
+                        lvi.SubItems.Add("0");
+                        lvi.SubItems.Add("_");
 
-                return lvi;
-            }).ToArray());
+                        return lvi;
+                    })
+                    .ToArray()
+            );
         }
 
         public void TestTIDSID()
@@ -352,10 +373,12 @@ namespace Pokebot
 
             var addr4DMA = bytesDMASlice4.Select(x => x.ToUInt32()).Where(x => x != 0).ToList();
             var addr2DMA = bytesDMASlice4.Select(x => x.ToUInt16()).Where(x => x != 0).ToList();
-            var test = bytesDMA.Select(x =>
-            {
-                return APIContainer.Memory.ReadByteRange(0x02024588 + 0xA + x, 2).ToUInt16();
-            }).ToList();
+            var test = bytesDMA
+                .Select(x =>
+                {
+                    return APIContainer.Memory.ReadByteRange(0x02024588 + 0xA + x, 2).ToUInt16();
+                })
+                .ToList();
         }
 
         private List<int> SearchTIDSID()
@@ -382,6 +405,85 @@ namespace Pokebot
             catch { }
 
             return list;
+        }
+
+        private void _scanObjectEventsBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                var x = (ushort)_scannerXUpDown.Value;
+                var y = (ushort)_scannerYUpDown.Value;
+                PlayerFacingDirection? facing = _scannerFacingCB.SelectedIndex switch
+                {
+                    1 => PlayerFacingDirection.Down,
+                    2 => PlayerFacingDirection.Up,
+                    3 => PlayerFacingDirection.Left,
+                    4 => PlayerFacingDirection.Right,
+                    _ => null,
+                };
+
+                var results = scanner.FindObjectEventsBase(x, y, facing);
+                ShowScanResults("gObjectEvents", results);
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+            }
+        }
+
+        private void _scanPlayerAvatarBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                byte gender = _scannerGenderCB.Checked ? (byte)1 : (byte)0;
+                var results = scanner.FindPlayerAvatarBase(gender);
+                ShowScanResults("gPlayerAvatar", results);
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+            }
+        }
+
+        private void _scanTasksBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                var results = scanner.FindTasksBase();
+                ShowScanResults("gTasks", results);
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+            }
+        }
+
+        private void _scannerCopyBtn_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_scannerResultsText.Text))
+            {
+                Clipboard.SetText(_scannerResultsText.Text);
+            }
+        }
+
+        private void ShowScanResults(string symbolName, List<SymbolScanResult> results)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"=== {symbolName} — {results.Count} candidate(s) found ===");
+            foreach (var r in results)
+            {
+                sb.AppendLine($"{r.Hex}  →  {r.Address.ToString("X8")} c 00000000 {symbolName}");
+            }
+
+            if (results.Count == 0)
+            {
+                sb.AppendLine("No match. Check X/Y values and make sure the player is standing still.");
+            }
+
+            _scannerResultsText.Text = sb.ToString();
         }
 
         private record SymbolFinderOptions(string SymbolName, int MaxTry, int Size, int Offset, byte[] Expected);
@@ -453,27 +555,23 @@ namespace Pokebot
                             var priority = (int)bytesTask[offset + 7];
                             var data = bytesTask.Skip(offset + 8).Take(32).ToArray();
 
-                            tasks.Add(new GTask(
-                                taskName,
-                                isActive,
-                                prev,
-                                next,
-                                priority,
-                                data
-                            ));
+                            tasks.Add(new GTask(taskName, isActive, prev, next, priority, data));
                         }
                     }
 
                     if (tasks.Count == 3)
                     {
-                        if (tasks[0].Data.All(x => x == 0) && tasks[1].Data.All(x => x == 0) && tasks[2].Data[0] == 0 && tasks[2].Data[1] == 0 && tasks[2].Data[2] == 3)
+                        if (
+                            tasks[0].Data.All(x => x == 0)
+                            && tasks[1].Data.All(x => x == 0)
+                            && tasks[2].Data[0] == 0
+                            && tasks[2].Data[1] == 0
+                            && tasks[2].Data[2] == 3
+                        )
                         {
                             int target = 0x03005090;
                             int current = minAddr + i;
-                            if (current == target)
-                            {
-
-                            }
+                            if (current == target) { }
                         }
                     }
                 }

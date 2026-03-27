@@ -42,6 +42,19 @@
             this._tasksLabel = new System.Windows.Forms.Label();
             this._stateLabel = new System.Windows.Forms.Label();
             this._tabFinder = new System.Windows.Forms.TabPage();
+            this._tabScanner = new System.Windows.Forms.TabPage();
+            this._scannerXLabel = new System.Windows.Forms.Label();
+            this._scannerXUpDown = new System.Windows.Forms.NumericUpDown();
+            this._scannerYLabel = new System.Windows.Forms.Label();
+            this._scannerYUpDown = new System.Windows.Forms.NumericUpDown();
+            this._scannerFacingLabel = new System.Windows.Forms.Label();
+            this._scannerFacingCB = new System.Windows.Forms.ComboBox();
+            this._scannerGenderCB = new System.Windows.Forms.CheckBox();
+            this._scanObjectEventsBtn = new System.Windows.Forms.Button();
+            this._scanPlayerAvatarBtn = new System.Windows.Forms.Button();
+            this._scannerResultsText = new System.Windows.Forms.TextBox();
+            this._scannerCopyBtn = new System.Windows.Forms.Button();
+            this._scanTasksBtn = new System.Windows.Forms.Button();
             this._finderInspectReverse = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this._finderOffsetUpDown = new System.Windows.Forms.NumericUpDown();
@@ -69,6 +82,9 @@
             this._playerTab.SuspendLayout();
             this._tabTasks.SuspendLayout();
             this._tabFinder.SuspendLayout();
+            this._tabScanner.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._scannerXUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._scannerYUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).BeginInit();
@@ -80,6 +96,7 @@
             this._tabControl.Controls.Add(this._playerTab);
             this._tabControl.Controls.Add(this._tabTasks);
             this._tabControl.Controls.Add(this._tabFinder);
+            this._tabControl.Controls.Add(this._tabScanner);
             this._tabControl.Location = new System.Drawing.Point(0, 0);
             this._tabControl.Margin = new System.Windows.Forms.Padding(2);
             this._tabControl.Name = "_tabControl";
@@ -465,6 +482,142 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PokebotDebug";
             this.Text = "PokebotDebug";
+            //
+            // _tabScanner
+            //
+            this._tabScanner.Controls.Add(this._scannerXLabel);
+            this._tabScanner.Controls.Add(this._scannerXUpDown);
+            this._tabScanner.Controls.Add(this._scannerYLabel);
+            this._tabScanner.Controls.Add(this._scannerYUpDown);
+            this._tabScanner.Controls.Add(this._scannerFacingLabel);
+            this._tabScanner.Controls.Add(this._scannerFacingCB);
+            this._tabScanner.Controls.Add(this._scannerGenderCB);
+            this._tabScanner.Controls.Add(this._scanObjectEventsBtn);
+            this._tabScanner.Controls.Add(this._scanPlayerAvatarBtn);
+            this._tabScanner.Controls.Add(this._scannerResultsText);
+            this._tabScanner.Controls.Add(this._scannerCopyBtn);
+            this._tabScanner.Controls.Add(this._scanTasksBtn);
+            this._tabScanner.Location = new System.Drawing.Point(4, 22);
+            this._tabScanner.Margin = new System.Windows.Forms.Padding(2);
+            this._tabScanner.Name = "_tabScanner";
+            this._tabScanner.Size = new System.Drawing.Size(590, 336);
+            this._tabScanner.TabIndex = 5;
+            this._tabScanner.Text = "Scanner";
+            this._tabScanner.UseVisualStyleBackColor = true;
+            //
+            // _scannerXLabel
+            //
+            this._scannerXLabel.AutoSize = true;
+            this._scannerXLabel.Location = new System.Drawing.Point(6, 12);
+            this._scannerXLabel.Name = "_scannerXLabel";
+            this._scannerXLabel.Size = new System.Drawing.Size(50, 13);
+            this._scannerXLabel.TabIndex = 0;
+            this._scannerXLabel.Text = "Player X:";
+            //
+            // _scannerXUpDown
+            //
+            this._scannerXUpDown.Location = new System.Drawing.Point(80, 10);
+            this._scannerXUpDown.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
+            this._scannerXUpDown.Name = "_scannerXUpDown";
+            this._scannerXUpDown.Size = new System.Drawing.Size(80, 20);
+            this._scannerXUpDown.TabIndex = 1;
+            //
+            // _scannerYLabel
+            //
+            this._scannerYLabel.AutoSize = true;
+            this._scannerYLabel.Location = new System.Drawing.Point(6, 36);
+            this._scannerYLabel.Name = "_scannerYLabel";
+            this._scannerYLabel.Size = new System.Drawing.Size(50, 13);
+            this._scannerYLabel.TabIndex = 2;
+            this._scannerYLabel.Text = "Player Y:";
+            //
+            // _scannerYUpDown
+            //
+            this._scannerYUpDown.Location = new System.Drawing.Point(80, 34);
+            this._scannerYUpDown.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
+            this._scannerYUpDown.Name = "_scannerYUpDown";
+            this._scannerYUpDown.Size = new System.Drawing.Size(80, 20);
+            this._scannerYUpDown.TabIndex = 3;
+            //
+            // _scannerFacingLabel
+            //
+            this._scannerFacingLabel.AutoSize = true;
+            this._scannerFacingLabel.Location = new System.Drawing.Point(6, 60);
+            this._scannerFacingLabel.Name = "_scannerFacingLabel";
+            this._scannerFacingLabel.Size = new System.Drawing.Size(43, 13);
+            this._scannerFacingLabel.TabIndex = 4;
+            this._scannerFacingLabel.Text = "Facing:";
+            //
+            // _scannerFacingCB
+            //
+            this._scannerFacingCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._scannerFacingCB.FormattingEnabled = true;
+            this._scannerFacingCB.Items.AddRange(new object[] { "Any", "Down", "Up", "Left", "Right" });
+            this._scannerFacingCB.Location = new System.Drawing.Point(80, 57);
+            this._scannerFacingCB.Name = "_scannerFacingCB";
+            this._scannerFacingCB.Size = new System.Drawing.Size(80, 21);
+            this._scannerFacingCB.SelectedIndex = 0;
+            this._scannerFacingCB.TabIndex = 5;
+            //
+            // _scannerGenderCB
+            //
+            this._scannerGenderCB.AutoSize = true;
+            this._scannerGenderCB.Location = new System.Drawing.Point(6, 84);
+            this._scannerGenderCB.Name = "_scannerGenderCB";
+            this._scannerGenderCB.Size = new System.Drawing.Size(120, 17);
+            this._scannerGenderCB.TabIndex = 6;
+            this._scannerGenderCB.Text = "Female character";
+            //
+            // _scanObjectEventsBtn
+            //
+            this._scanObjectEventsBtn.Location = new System.Drawing.Point(6, 108);
+            this._scanObjectEventsBtn.Name = "_scanObjectEventsBtn";
+            this._scanObjectEventsBtn.Size = new System.Drawing.Size(160, 22);
+            this._scanObjectEventsBtn.TabIndex = 7;
+            this._scanObjectEventsBtn.Text = "Scan gObjectEvents";
+            this._scanObjectEventsBtn.UseVisualStyleBackColor = true;
+            this._scanObjectEventsBtn.Click += new System.EventHandler(this._scanObjectEventsBtn_Click);
+            //
+            // _scanPlayerAvatarBtn
+            //
+            this._scanPlayerAvatarBtn.Location = new System.Drawing.Point(172, 108);
+            this._scanPlayerAvatarBtn.Name = "_scanPlayerAvatarBtn";
+            this._scanPlayerAvatarBtn.Size = new System.Drawing.Size(160, 22);
+            this._scanPlayerAvatarBtn.TabIndex = 8;
+            this._scanPlayerAvatarBtn.Text = "Scan gPlayerAvatar";
+            this._scanPlayerAvatarBtn.UseVisualStyleBackColor = true;
+            this._scanPlayerAvatarBtn.Click += new System.EventHandler(this._scanPlayerAvatarBtn_Click);
+            //
+            // _scannerResultsText
+            //
+            this._scannerResultsText.Location = new System.Drawing.Point(6, 136);
+            this._scannerResultsText.Multiline = true;
+            this._scannerResultsText.Name = "_scannerResultsText";
+            this._scannerResultsText.ReadOnly = true;
+            this._scannerResultsText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this._scannerResultsText.Size = new System.Drawing.Size(578, 168);
+            this._scannerResultsText.TabIndex = 9;
+            //
+            // _scannerCopyBtn
+            //
+            this._scannerCopyBtn.Location = new System.Drawing.Point(6, 308);
+            this._scannerCopyBtn.Name = "_scannerCopyBtn";
+            this._scannerCopyBtn.Size = new System.Drawing.Size(120, 22);
+            this._scannerCopyBtn.TabIndex = 10;
+            this._scannerCopyBtn.Text = "Copy results";
+            this._scannerCopyBtn.UseVisualStyleBackColor = true;
+            this._scannerCopyBtn.Click += new System.EventHandler(this._scannerCopyBtn_Click);
+            //
+            // _scanTasksBtn
+            //
+            this._scanTasksBtn.Location = new System.Drawing.Point(338, 108);
+            this._scanTasksBtn.Name = "_scanTasksBtn";
+            this._scanTasksBtn.Size = new System.Drawing.Size(160, 22);
+            this._scanTasksBtn.TabIndex = 11;
+            this._scanTasksBtn.Text = "Scan gTasks";
+            this._scanTasksBtn.UseVisualStyleBackColor = true;
+            this._scanTasksBtn.Click += new System.EventHandler(this._scanTasksBtn_Click);
+            //
             this._tabControl.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this._playerTab.ResumeLayout(false);
@@ -473,9 +626,13 @@
             this._tabTasks.PerformLayout();
             this._tabFinder.ResumeLayout(false);
             this._tabFinder.PerformLayout();
+            this._tabScanner.ResumeLayout(false);
+            this._tabScanner.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._scannerXUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._scannerYUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -518,5 +675,18 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Button _finderInspectReverse;
         private System.Windows.Forms.Button _checkOpponentBtn;
+        private System.Windows.Forms.TabPage _tabScanner;
+        private System.Windows.Forms.Label _scannerXLabel;
+        private System.Windows.Forms.NumericUpDown _scannerXUpDown;
+        private System.Windows.Forms.Label _scannerYLabel;
+        private System.Windows.Forms.NumericUpDown _scannerYUpDown;
+        private System.Windows.Forms.Label _scannerFacingLabel;
+        private System.Windows.Forms.ComboBox _scannerFacingCB;
+        private System.Windows.Forms.CheckBox _scannerGenderCB;
+        private System.Windows.Forms.Button _scanObjectEventsBtn;
+        private System.Windows.Forms.Button _scanPlayerAvatarBtn;
+        private System.Windows.Forms.TextBox _scannerResultsText;
+        private System.Windows.Forms.Button _scannerCopyBtn;
+        private System.Windows.Forms.Button _scanTasksBtn;
     }
 }

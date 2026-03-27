@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(__NEW_LINE_2299930f4328ff1c__ echo:*)"
+    ]
+  }
+}
