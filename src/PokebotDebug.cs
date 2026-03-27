@@ -12,6 +12,7 @@ using Pokebot.Factories.Versions;
 using Pokebot.Models;
 using Pokebot.Models.Player;
 using Pokebot.Models.Tools;
+using Pokebot.Panels.Tools;
 using Pokebot.Symbols;
 using Pokebot.Utils;
 
@@ -82,6 +83,52 @@ namespace Pokebot
         public void SetGameVersion(GameVersion gameVersion)
         {
             GameVersion = gameVersion;
+            InitializeScannerDropdown(gameVersion.VersionInfo.Generation);
+        }
+
+        private ScannerPanel _currentScannerPanel;
+
+        private void InitializeScannerDropdown(int generation)
+        {
+            _scannerDropdown.Items.Clear();
+            _scannerPanelContainer.Controls.Clear();
+            _currentScannerPanel = null;
+
+            var items = ScannerRegistry.GetForGeneration(generation);
+            _scannerDropdown.Items.AddRange(items);
+
+            if (_scannerDropdown.Items.Count > 0)
+            {
+                _scannerDropdown.SelectedIndex = 0;
+            }
+        }
+
+        private void _scannerDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_scannerDropdown.SelectedItem is ScannerItem item)
+            {
+                _scannerPanelContainer.Controls.Clear();
+                _currentScannerPanel = item.Create();
+                _currentScannerPanel.Dock = DockStyle.Fill;
+                _scannerPanelContainer.Controls.Add(_currentScannerPanel);
+            }
+        }
+
+        private void _scannerStartBtn_Click(object sender, EventArgs e)
+        {
+            if (_currentScannerPanel == null)
+            {
+                return;
+            }
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                _scannerResultsText.Text = _currentScannerPanel.Run(scanner);
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+            }
         }
 
         public void Execute(GameState state)
@@ -407,207 +454,12 @@ namespace Pokebot
             return list;
         }
 
-        private void _scanObjectEventsBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var scanner = new SymbolScanner(APIContainer);
-                var x = (ushort)_scannerXUpDown.Value;
-                var y = (ushort)_scannerYUpDown.Value;
-                PlayerFacingDirection? facing = _scannerFacingCB.SelectedIndex switch
-                {
-                    1 => PlayerFacingDirection.Down,
-                    2 => PlayerFacingDirection.Up,
-                    3 => PlayerFacingDirection.Left,
-                    4 => PlayerFacingDirection.Right,
-                    _ => null,
-                };
-
-                var results = scanner.FindObjectEventsBase(x, y, facing);
-                ShowScanResults("gObjectEvents", results);
-            }
-            catch (Exception ex)
-            {
-                _scannerResultsText.Text = "Error: " + ex.Message;
-            }
-        }
-
-        private void _scanPlayerAvatarBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var scanner = new SymbolScanner(APIContainer);
-                byte gender = _scannerGenderCB.Checked ? (byte)1 : (byte)0;
-                var results = scanner.FindPlayerAvatarBase(gender);
-                ShowScanResults("gPlayerAvatar", results);
-            }
-            catch (Exception ex)
-            {
-                _scannerResultsText.Text = "Error: " + ex.Message;
-            }
-        }
-
-        private void _scanTasksBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var scanner = new SymbolScanner(APIContainer);
-                var results = scanner.FindTasksBase();
-                ShowScanResults("gTasks", results);
-            }
-            catch (Exception ex)
-            {
-                _scannerResultsText.Text = "Error: " + ex.Message;
-            }
-        }
-
-        private void _scanMainBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var scanner = new SymbolScanner(APIContainer);
-                var results = scanner.FindMainBase();
-                ShowScanResults("gMain", results);
-            }
-            catch (Exception ex)
-            {
-                _scannerResultsText.Text = "Error: " + ex.Message;
-            }
-        }
-
-        private void _scanEnemyPartyBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var scanner = new SymbolScanner(APIContainer);
-                byte level = (byte)_enemyLvlUpDown.Value;
-                byte count = (byte)_enemyCountUpDown.Value;
-
-                var partyResults = scanner.FindEnemyPartyBase(level);
-
-                var sb = new StringBuilder();
-                sb.AppendLine($"=== gEnemyParty — {partyResults.Count} candidate(s) found ===");
-                foreach (var r in partyResults)
-                {
-                    sb.AppendLine($"{r.Hex}  →  {r.Address.ToString("X8")} g 00000258 gEnemyParty");
-
-                    var countResults = scanner.FindPartyCountNear(r.Address, count);
-                    if (countResults.Count > 0)
-                    {
-                        foreach (var cr in countResults)
-                        {
-                            sb.AppendLine($"  → gEnemyPartyCount candidate: {cr.Hex}");
-                        }
-                    }
-                    else
-                    {
-                        sb.AppendLine("  → gEnemyPartyCount: not found near this address");
-                    }
-                }
-
-                if (partyResults.Count == 0)
-                {
-                    sb.AppendLine("No match. Enter the correct level and MaxHP and be in an active battle.");
-                }
-
-                _scannerResultsText.Text = sb.ToString();
-            }
-            catch (Exception ex)
-            {
-                _scannerResultsText.Text = "Error: " + ex.Message;
-            }
-        }
-
-        private void _scanPlayerPartyBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var scanner = new SymbolScanner(APIContainer);
-                byte level = (byte)_enemyLvlUpDown.Value;
-                ushort? hp    = _enemyHpUpDown.Value > 0    ? (ushort?)_enemyHpUpDown.Value    : null;
-                ushort? maxHp = _enemyMaxHpUpDown.Value > 0 ? (ushort?)_enemyMaxHpUpDown.Value : null;
-                byte count = (byte)_enemyCountUpDown.Value;
-
-                var partyResults = scanner.FindPlayerPartyBase(level, hp, maxHp);
-
-                var sb = new StringBuilder();
-                sb.AppendLine($"=== gPlayerParty — {partyResults.Count} candidate(s) found ===");
-                foreach (var r in partyResults)
-                {
-                    sb.AppendLine($"{r.Hex}  →  {r.Address.ToString("X8")} g 00000258 gPlayerParty");
-
-                    var countResults = scanner.FindPartyCountNear(r.Address, count);
-                    if (countResults.Count > 0)
-                    {
-                        foreach (var cr in countResults)
-                        {
-                            sb.AppendLine($"  → gPlayerPartyCount candidate: {cr.Hex}");
-                        }
-                    }
-                    else
-                    {
-                        sb.AppendLine("  → gPlayerPartyCount: not found near this address");
-                    }
-                }
-
-                if (partyResults.Count == 0)
-                {
-                    sb.AppendLine("No match. Enter the correct level and HP values from the party screen.");
-                }
-
-                _scannerResultsText.Text = sb.ToString();
-            }
-            catch (Exception ex)
-            {
-                _scannerResultsText.Text = "Error: " + ex.Message;
-            }
-        }
-
-        private void _scanSpeciesInfoBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var scanner = new SymbolScanner(APIContainer);
-                var results = scanner.FindSpeciesInfoBase(
-                    speciesIndex: (int)_speciesIdxUpDown.Value,
-                    baseHp:       (byte)_speciesHpUpDown.Value,
-                    baseAttack:   (byte)_speciesAtkUpDown.Value,
-                    baseDefense:  (byte)_speciesDefUpDown.Value,
-                    baseSpeed:    (byte)_speciesSpdUpDown.Value,
-                    baseSpAttack: (byte)_speciesSpAUpDown.Value,
-                    baseSpDefense:(byte)_speciesSpDUpDown.Value
-                );
-                ShowScanResults("gSpeciesInfo", results);
-            }
-            catch (Exception ex)
-            {
-                _scannerResultsText.Text = "Error: " + ex.Message;
-            }
-        }
-
         private void _scannerCopyBtn_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_scannerResultsText.Text))
             {
                 Clipboard.SetText(_scannerResultsText.Text);
             }
-        }
-
-        private void ShowScanResults(string symbolName, List<SymbolScanResult> results)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"=== {symbolName} — {results.Count} candidate(s) found ===");
-            foreach (var r in results)
-            {
-                sb.AppendLine($"{r.Hex}  →  {r.Address.ToString("X8")} c 00000000 {symbolName}");
-            }
-
-            if (results.Count == 0)
-            {
-                sb.AppendLine("No match. Check X/Y values and make sure the player is standing still.");
-            }
-
-            _scannerResultsText.Text = sb.ToString();
         }
 
         private record SymbolFinderOptions(string SymbolName, int MaxTry, int Size, int Offset, byte[] Expected);

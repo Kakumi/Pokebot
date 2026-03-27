@@ -43,44 +43,11 @@
             this._stateLabel = new System.Windows.Forms.Label();
             this._tabFinder = new System.Windows.Forms.TabPage();
             this._tabScanner = new System.Windows.Forms.TabPage();
-            this._scannerXLabel = new System.Windows.Forms.Label();
-            this._scannerXUpDown = new System.Windows.Forms.NumericUpDown();
-            this._scannerYLabel = new System.Windows.Forms.Label();
-            this._scannerYUpDown = new System.Windows.Forms.NumericUpDown();
-            this._scannerFacingLabel = new System.Windows.Forms.Label();
-            this._scannerFacingCB = new System.Windows.Forms.ComboBox();
-            this._scannerGenderCB = new System.Windows.Forms.CheckBox();
-            this._scanObjectEventsBtn = new System.Windows.Forms.Button();
-            this._scanPlayerAvatarBtn = new System.Windows.Forms.Button();
+            this._scannerDropdown = new System.Windows.Forms.ComboBox();
+            this._scannerStartBtn = new System.Windows.Forms.Button();
+            this._scannerPanelContainer = new System.Windows.Forms.Panel();
             this._scannerResultsText = new System.Windows.Forms.TextBox();
             this._scannerCopyBtn = new System.Windows.Forms.Button();
-            this._scanTasksBtn = new System.Windows.Forms.Button();
-            this._scanMainBtn = new System.Windows.Forms.Button();
-            this._scanSpeciesInfoBtn = new System.Windows.Forms.Button();
-            this._speciesIdxLabel = new System.Windows.Forms.Label();
-            this._speciesIdxUpDown = new System.Windows.Forms.NumericUpDown();
-            this._speciesHpLabel = new System.Windows.Forms.Label();
-            this._speciesHpUpDown = new System.Windows.Forms.NumericUpDown();
-            this._speciesAtkLabel = new System.Windows.Forms.Label();
-            this._speciesAtkUpDown = new System.Windows.Forms.NumericUpDown();
-            this._speciesDefLabel = new System.Windows.Forms.Label();
-            this._speciesDefUpDown = new System.Windows.Forms.NumericUpDown();
-            this._speciesSpdLabel = new System.Windows.Forms.Label();
-            this._speciesSpdUpDown = new System.Windows.Forms.NumericUpDown();
-            this._speciesSpALabel = new System.Windows.Forms.Label();
-            this._speciesSpAUpDown = new System.Windows.Forms.NumericUpDown();
-            this._speciesSpDLabel = new System.Windows.Forms.Label();
-            this._speciesSpDUpDown = new System.Windows.Forms.NumericUpDown();
-            this._scanEnemyPartyBtn = new System.Windows.Forms.Button();
-            this._scanPlayerPartyBtn = new System.Windows.Forms.Button();
-            this._enemyLvlLabel = new System.Windows.Forms.Label();
-            this._enemyLvlUpDown = new System.Windows.Forms.NumericUpDown();
-            this._enemyHpLabel = new System.Windows.Forms.Label();
-            this._enemyHpUpDown = new System.Windows.Forms.NumericUpDown();
-            this._enemyMaxHpLabel = new System.Windows.Forms.Label();
-            this._enemyMaxHpUpDown = new System.Windows.Forms.NumericUpDown();
-            this._enemyCountLabel = new System.Windows.Forms.Label();
-            this._enemyCountUpDown = new System.Windows.Forms.NumericUpDown();
             this._finderInspectReverse = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this._finderOffsetUpDown = new System.Windows.Forms.NumericUpDown();
@@ -109,19 +76,6 @@
             this._tabTasks.SuspendLayout();
             this._tabFinder.SuspendLayout();
             this._tabScanner.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._scannerXUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._scannerYUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesIdxUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesHpUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesAtkUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesDefUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesSpdUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesSpAUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesSpDUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._enemyLvlUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._enemyHpUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._enemyMaxHpUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._enemyCountUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).BeginInit();
@@ -522,44 +476,11 @@
             //
             // _tabScanner
             //
-            this._tabScanner.Controls.Add(this._scannerXLabel);
-            this._tabScanner.Controls.Add(this._scannerXUpDown);
-            this._tabScanner.Controls.Add(this._scannerYLabel);
-            this._tabScanner.Controls.Add(this._scannerYUpDown);
-            this._tabScanner.Controls.Add(this._scannerFacingLabel);
-            this._tabScanner.Controls.Add(this._scannerFacingCB);
-            this._tabScanner.Controls.Add(this._scannerGenderCB);
-            this._tabScanner.Controls.Add(this._scanObjectEventsBtn);
-            this._tabScanner.Controls.Add(this._scanPlayerAvatarBtn);
+            this._tabScanner.Controls.Add(this._scannerDropdown);
+            this._tabScanner.Controls.Add(this._scannerStartBtn);
+            this._tabScanner.Controls.Add(this._scannerPanelContainer);
             this._tabScanner.Controls.Add(this._scannerResultsText);
             this._tabScanner.Controls.Add(this._scannerCopyBtn);
-            this._tabScanner.Controls.Add(this._scanTasksBtn);
-            this._tabScanner.Controls.Add(this._scanMainBtn);
-            this._tabScanner.Controls.Add(this._scanSpeciesInfoBtn);
-            this._tabScanner.Controls.Add(this._scanEnemyPartyBtn);
-            this._tabScanner.Controls.Add(this._scanPlayerPartyBtn);
-            this._tabScanner.Controls.Add(this._enemyLvlLabel);
-            this._tabScanner.Controls.Add(this._enemyLvlUpDown);
-            this._tabScanner.Controls.Add(this._enemyHpLabel);
-            this._tabScanner.Controls.Add(this._enemyHpUpDown);
-            this._tabScanner.Controls.Add(this._enemyMaxHpLabel);
-            this._tabScanner.Controls.Add(this._enemyMaxHpUpDown);
-            this._tabScanner.Controls.Add(this._enemyCountLabel);
-            this._tabScanner.Controls.Add(this._enemyCountUpDown);
-            this._tabScanner.Controls.Add(this._speciesIdxLabel);
-            this._tabScanner.Controls.Add(this._speciesIdxUpDown);
-            this._tabScanner.Controls.Add(this._speciesHpLabel);
-            this._tabScanner.Controls.Add(this._speciesHpUpDown);
-            this._tabScanner.Controls.Add(this._speciesAtkLabel);
-            this._tabScanner.Controls.Add(this._speciesAtkUpDown);
-            this._tabScanner.Controls.Add(this._speciesDefLabel);
-            this._tabScanner.Controls.Add(this._speciesDefUpDown);
-            this._tabScanner.Controls.Add(this._speciesSpdLabel);
-            this._tabScanner.Controls.Add(this._speciesSpdUpDown);
-            this._tabScanner.Controls.Add(this._speciesSpALabel);
-            this._tabScanner.Controls.Add(this._speciesSpAUpDown);
-            this._tabScanner.Controls.Add(this._speciesSpDLabel);
-            this._tabScanner.Controls.Add(this._speciesSpDUpDown);
             this._tabScanner.Location = new System.Drawing.Point(4, 22);
             this._tabScanner.Margin = new System.Windows.Forms.Padding(2);
             this._tabScanner.Name = "_tabScanner";
@@ -568,340 +489,52 @@
             this._tabScanner.Text = "Scanner";
             this._tabScanner.UseVisualStyleBackColor = true;
             //
-            // _scannerXLabel
+            // _scannerDropdown
             //
-            this._scannerXLabel.AutoSize = true;
-            this._scannerXLabel.Location = new System.Drawing.Point(6, 12);
-            this._scannerXLabel.Name = "_scannerXLabel";
-            this._scannerXLabel.Size = new System.Drawing.Size(50, 13);
-            this._scannerXLabel.TabIndex = 0;
-            this._scannerXLabel.Text = "Player X:";
+            this._scannerDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._scannerDropdown.FormattingEnabled = true;
+            this._scannerDropdown.Location = new System.Drawing.Point(6, 6);
+            this._scannerDropdown.Name = "_scannerDropdown";
+            this._scannerDropdown.Size = new System.Drawing.Size(240, 21);
+            this._scannerDropdown.TabIndex = 0;
+            this._scannerDropdown.SelectedIndexChanged += new System.EventHandler(this._scannerDropdown_SelectedIndexChanged);
             //
-            // _scannerXUpDown
+            // _scannerStartBtn
             //
-            this._scannerXUpDown.Location = new System.Drawing.Point(80, 10);
-            this._scannerXUpDown.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
-            this._scannerXUpDown.Name = "_scannerXUpDown";
-            this._scannerXUpDown.Size = new System.Drawing.Size(80, 20);
-            this._scannerXUpDown.TabIndex = 1;
+            this._scannerStartBtn.Location = new System.Drawing.Point(252, 5);
+            this._scannerStartBtn.Name = "_scannerStartBtn";
+            this._scannerStartBtn.Size = new System.Drawing.Size(80, 23);
+            this._scannerStartBtn.TabIndex = 1;
+            this._scannerStartBtn.Text = "Start";
+            this._scannerStartBtn.UseVisualStyleBackColor = true;
+            this._scannerStartBtn.Click += new System.EventHandler(this._scannerStartBtn_Click);
             //
-            // _scannerYLabel
+            // _scannerPanelContainer
             //
-            this._scannerYLabel.AutoSize = true;
-            this._scannerYLabel.Location = new System.Drawing.Point(6, 36);
-            this._scannerYLabel.Name = "_scannerYLabel";
-            this._scannerYLabel.Size = new System.Drawing.Size(50, 13);
-            this._scannerYLabel.TabIndex = 2;
-            this._scannerYLabel.Text = "Player Y:";
-            //
-            // _scannerYUpDown
-            //
-            this._scannerYUpDown.Location = new System.Drawing.Point(80, 34);
-            this._scannerYUpDown.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
-            this._scannerYUpDown.Name = "_scannerYUpDown";
-            this._scannerYUpDown.Size = new System.Drawing.Size(80, 20);
-            this._scannerYUpDown.TabIndex = 3;
-            //
-            // _scannerFacingLabel
-            //
-            this._scannerFacingLabel.AutoSize = true;
-            this._scannerFacingLabel.Location = new System.Drawing.Point(6, 60);
-            this._scannerFacingLabel.Name = "_scannerFacingLabel";
-            this._scannerFacingLabel.Size = new System.Drawing.Size(43, 13);
-            this._scannerFacingLabel.TabIndex = 4;
-            this._scannerFacingLabel.Text = "Facing:";
-            //
-            // _scannerFacingCB
-            //
-            this._scannerFacingCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._scannerFacingCB.FormattingEnabled = true;
-            this._scannerFacingCB.Items.AddRange(new object[] { "Any", "Down", "Up", "Left", "Right" });
-            this._scannerFacingCB.Location = new System.Drawing.Point(80, 57);
-            this._scannerFacingCB.Name = "_scannerFacingCB";
-            this._scannerFacingCB.Size = new System.Drawing.Size(80, 21);
-            this._scannerFacingCB.SelectedIndex = 0;
-            this._scannerFacingCB.TabIndex = 5;
-            //
-            // _scannerGenderCB
-            //
-            this._scannerGenderCB.AutoSize = true;
-            this._scannerGenderCB.Location = new System.Drawing.Point(6, 84);
-            this._scannerGenderCB.Name = "_scannerGenderCB";
-            this._scannerGenderCB.Size = new System.Drawing.Size(120, 17);
-            this._scannerGenderCB.TabIndex = 6;
-            this._scannerGenderCB.Text = "Female character";
-            //
-            // _scanObjectEventsBtn
-            //
-            this._scanObjectEventsBtn.Location = new System.Drawing.Point(6, 108);
-            this._scanObjectEventsBtn.Name = "_scanObjectEventsBtn";
-            this._scanObjectEventsBtn.Size = new System.Drawing.Size(160, 22);
-            this._scanObjectEventsBtn.TabIndex = 7;
-            this._scanObjectEventsBtn.Text = "Scan gObjectEvents";
-            this._scanObjectEventsBtn.UseVisualStyleBackColor = true;
-            this._scanObjectEventsBtn.Click += new System.EventHandler(this._scanObjectEventsBtn_Click);
-            //
-            // _scanPlayerAvatarBtn
-            //
-            this._scanPlayerAvatarBtn.Location = new System.Drawing.Point(172, 108);
-            this._scanPlayerAvatarBtn.Name = "_scanPlayerAvatarBtn";
-            this._scanPlayerAvatarBtn.Size = new System.Drawing.Size(160, 22);
-            this._scanPlayerAvatarBtn.TabIndex = 8;
-            this._scanPlayerAvatarBtn.Text = "Scan gPlayerAvatar";
-            this._scanPlayerAvatarBtn.UseVisualStyleBackColor = true;
-            this._scanPlayerAvatarBtn.Click += new System.EventHandler(this._scanPlayerAvatarBtn_Click);
+            this._scannerPanelContainer.Location = new System.Drawing.Point(6, 34);
+            this._scannerPanelContainer.Name = "_scannerPanelContainer";
+            this._scannerPanelContainer.Size = new System.Drawing.Size(578, 90);
+            this._scannerPanelContainer.TabIndex = 2;
             //
             // _scannerResultsText
             //
-            this._scannerResultsText.Location = new System.Drawing.Point(6, 240);
+            this._scannerResultsText.Location = new System.Drawing.Point(6, 130);
             this._scannerResultsText.Multiline = true;
             this._scannerResultsText.Name = "_scannerResultsText";
             this._scannerResultsText.ReadOnly = true;
             this._scannerResultsText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this._scannerResultsText.Size = new System.Drawing.Size(578, 90);
-            this._scannerResultsText.TabIndex = 9;
+            this._scannerResultsText.Size = new System.Drawing.Size(578, 188);
+            this._scannerResultsText.TabIndex = 3;
             //
             // _scannerCopyBtn
             //
-            this._scannerCopyBtn.Location = new System.Drawing.Point(6, 334);
+            this._scannerCopyBtn.Location = new System.Drawing.Point(6, 322);
             this._scannerCopyBtn.Name = "_scannerCopyBtn";
             this._scannerCopyBtn.Size = new System.Drawing.Size(120, 22);
-            this._scannerCopyBtn.TabIndex = 10;
+            this._scannerCopyBtn.TabIndex = 4;
             this._scannerCopyBtn.Text = "Copy results";
             this._scannerCopyBtn.UseVisualStyleBackColor = true;
             this._scannerCopyBtn.Click += new System.EventHandler(this._scannerCopyBtn_Click);
-            //
-            // _scanTasksBtn
-            //
-            this._scanTasksBtn.Location = new System.Drawing.Point(338, 108);
-            this._scanTasksBtn.Name = "_scanTasksBtn";
-            this._scanTasksBtn.Size = new System.Drawing.Size(160, 22);
-            this._scanTasksBtn.TabIndex = 11;
-            this._scanTasksBtn.Text = "Scan gTasks";
-            this._scanTasksBtn.UseVisualStyleBackColor = true;
-            this._scanTasksBtn.Click += new System.EventHandler(this._scanTasksBtn_Click);
-            //
-            // _scanMainBtn
-            //
-            this._scanMainBtn.Location = new System.Drawing.Point(6, 134);
-            this._scanMainBtn.Name = "_scanMainBtn";
-            this._scanMainBtn.Size = new System.Drawing.Size(160, 22);
-            this._scanMainBtn.TabIndex = 12;
-            this._scanMainBtn.Text = "Scan gMain";
-            this._scanMainBtn.UseVisualStyleBackColor = true;
-            this._scanMainBtn.Click += new System.EventHandler(this._scanMainBtn_Click);
-            //
-            // _scanSpeciesInfoBtn
-            //
-            this._scanSpeciesInfoBtn.Location = new System.Drawing.Point(172, 134);
-            this._scanSpeciesInfoBtn.Name = "_scanSpeciesInfoBtn";
-            this._scanSpeciesInfoBtn.Size = new System.Drawing.Size(160, 22);
-            this._scanSpeciesInfoBtn.TabIndex = 13;
-            this._scanSpeciesInfoBtn.Text = "Scan gSpeciesInfo";
-            this._scanSpeciesInfoBtn.UseVisualStyleBackColor = true;
-            this._scanSpeciesInfoBtn.Click += new System.EventHandler(this._scanSpeciesInfoBtn_Click);
-            //
-            // _scanEnemyPartyBtn
-            //
-            this._scanEnemyPartyBtn.Location = new System.Drawing.Point(338, 134);
-            this._scanEnemyPartyBtn.Name = "_scanEnemyPartyBtn";
-            this._scanEnemyPartyBtn.Size = new System.Drawing.Size(160, 22);
-            this._scanEnemyPartyBtn.TabIndex = 28;
-            this._scanEnemyPartyBtn.Text = "Scan gEnemyParty";
-            this._scanEnemyPartyBtn.UseVisualStyleBackColor = true;
-            this._scanEnemyPartyBtn.Click += new System.EventHandler(this._scanEnemyPartyBtn_Click);
-            //
-            // _scanPlayerPartyBtn
-            //
-            this._scanPlayerPartyBtn.Location = new System.Drawing.Point(6, 160);
-            this._scanPlayerPartyBtn.Name = "_scanPlayerPartyBtn";
-            this._scanPlayerPartyBtn.Size = new System.Drawing.Size(160, 22);
-            this._scanPlayerPartyBtn.TabIndex = 35;
-            this._scanPlayerPartyBtn.Text = "Scan gPlayerParty";
-            this._scanPlayerPartyBtn.UseVisualStyleBackColor = true;
-            this._scanPlayerPartyBtn.Click += new System.EventHandler(this._scanPlayerPartyBtn_Click);
-            //
-            // _enemyHpLabel
-            //
-            this._enemyHpLabel.AutoSize = true;
-            this._enemyHpLabel.Location = new System.Drawing.Point(83, 217);
-            this._enemyHpLabel.Name = "_enemyHpLabel";
-            this._enemyHpLabel.TabIndex = 36;
-            this._enemyHpLabel.Text = "HP:";
-            //
-            // _enemyHpUpDown
-            //
-            this._enemyHpUpDown.Location = new System.Drawing.Point(104, 214);
-            this._enemyHpUpDown.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
-            this._enemyHpUpDown.Name = "_enemyHpUpDown";
-            this._enemyHpUpDown.Size = new System.Drawing.Size(55, 20);
-            this._enemyHpUpDown.TabIndex = 37;
-            //
-            // _enemyMaxHpLabel
-            //
-            this._enemyMaxHpLabel.AutoSize = true;
-            this._enemyMaxHpLabel.Location = new System.Drawing.Point(164, 217);
-            this._enemyMaxHpLabel.Name = "_enemyMaxHpLabel";
-            this._enemyMaxHpLabel.TabIndex = 38;
-            this._enemyMaxHpLabel.Text = "MaxHP:";
-            //
-            // _enemyMaxHpUpDown
-            //
-            this._enemyMaxHpUpDown.Location = new System.Drawing.Point(210, 214);
-            this._enemyMaxHpUpDown.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
-            this._enemyMaxHpUpDown.Name = "_enemyMaxHpUpDown";
-            this._enemyMaxHpUpDown.Size = new System.Drawing.Size(55, 20);
-            this._enemyMaxHpUpDown.TabIndex = 39;
-            //
-            // _enemyLvlLabel
-            //
-            this._enemyLvlLabel.AutoSize = true;
-            this._enemyLvlLabel.Location = new System.Drawing.Point(6, 217);
-            this._enemyLvlLabel.Name = "_enemyLvlLabel";
-            this._enemyLvlLabel.TabIndex = 29;
-            this._enemyLvlLabel.Text = "Lvl:";
-            //
-            // _enemyLvlUpDown
-            //
-            this._enemyLvlUpDown.Location = new System.Drawing.Point(30, 214);
-            this._enemyLvlUpDown.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-            this._enemyLvlUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            this._enemyLvlUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            this._enemyLvlUpDown.Name = "_enemyLvlUpDown";
-            this._enemyLvlUpDown.Size = new System.Drawing.Size(48, 20);
-            this._enemyLvlUpDown.TabIndex = 30;
-            //
-            // _enemyCountLabel
-            //
-            this._enemyCountLabel.AutoSize = true;
-            this._enemyCountLabel.Location = new System.Drawing.Point(270, 217);
-            this._enemyCountLabel.Name = "_enemyCountLabel";
-            this._enemyCountLabel.TabIndex = 33;
-            this._enemyCountLabel.Text = "Cnt:";
-            //
-            // _enemyCountUpDown
-            //
-            this._enemyCountUpDown.Location = new System.Drawing.Point(294, 214);
-            this._enemyCountUpDown.Maximum = new decimal(new int[] { 6, 0, 0, 0 });
-            this._enemyCountUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            this._enemyCountUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            this._enemyCountUpDown.Name = "_enemyCountUpDown";
-            this._enemyCountUpDown.Size = new System.Drawing.Size(40, 20);
-            this._enemyCountUpDown.TabIndex = 34;
-            //
-            // _speciesIdxLabel
-            //
-            this._speciesIdxLabel.AutoSize = true;
-            this._speciesIdxLabel.Location = new System.Drawing.Point(6, 191);
-            this._speciesIdxLabel.Name = "_speciesIdxLabel";
-            this._speciesIdxLabel.TabIndex = 14;
-            this._speciesIdxLabel.Text = "Idx:";
-            //
-            // _speciesIdxUpDown
-            //
-            this._speciesIdxUpDown.Location = new System.Drawing.Point(30, 188);
-            this._speciesIdxUpDown.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
-            this._speciesIdxUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            this._speciesIdxUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            this._speciesIdxUpDown.Name = "_speciesIdxUpDown";
-            this._speciesIdxUpDown.Size = new System.Drawing.Size(50, 20);
-            this._speciesIdxUpDown.TabIndex = 15;
-            //
-            // _speciesHpLabel
-            //
-            this._speciesHpLabel.AutoSize = true;
-            this._speciesHpLabel.Location = new System.Drawing.Point(85, 191);
-            this._speciesHpLabel.Name = "_speciesHpLabel";
-            this._speciesHpLabel.TabIndex = 16;
-            this._speciesHpLabel.Text = "HP:";
-            //
-            // _speciesHpUpDown
-            //
-            this._speciesHpUpDown.Location = new System.Drawing.Point(107, 188);
-            this._speciesHpUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
-            this._speciesHpUpDown.Name = "_speciesHpUpDown";
-            this._speciesHpUpDown.Size = new System.Drawing.Size(42, 20);
-            this._speciesHpUpDown.TabIndex = 17;
-            //
-            // _speciesAtkLabel
-            //
-            this._speciesAtkLabel.AutoSize = true;
-            this._speciesAtkLabel.Location = new System.Drawing.Point(154, 191);
-            this._speciesAtkLabel.Name = "_speciesAtkLabel";
-            this._speciesAtkLabel.TabIndex = 18;
-            this._speciesAtkLabel.Text = "Atk:";
-            //
-            // _speciesAtkUpDown
-            //
-            this._speciesAtkUpDown.Location = new System.Drawing.Point(178, 188);
-            this._speciesAtkUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
-            this._speciesAtkUpDown.Name = "_speciesAtkUpDown";
-            this._speciesAtkUpDown.Size = new System.Drawing.Size(42, 20);
-            this._speciesAtkUpDown.TabIndex = 19;
-            //
-            // _speciesDefLabel
-            //
-            this._speciesDefLabel.AutoSize = true;
-            this._speciesDefLabel.Location = new System.Drawing.Point(225, 191);
-            this._speciesDefLabel.Name = "_speciesDefLabel";
-            this._speciesDefLabel.TabIndex = 20;
-            this._speciesDefLabel.Text = "Def:";
-            //
-            // _speciesDefUpDown
-            //
-            this._speciesDefUpDown.Location = new System.Drawing.Point(249, 188);
-            this._speciesDefUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
-            this._speciesDefUpDown.Name = "_speciesDefUpDown";
-            this._speciesDefUpDown.Size = new System.Drawing.Size(42, 20);
-            this._speciesDefUpDown.TabIndex = 21;
-            //
-            // _speciesSpdLabel
-            //
-            this._speciesSpdLabel.AutoSize = true;
-            this._speciesSpdLabel.Location = new System.Drawing.Point(296, 191);
-            this._speciesSpdLabel.Name = "_speciesSpdLabel";
-            this._speciesSpdLabel.TabIndex = 22;
-            this._speciesSpdLabel.Text = "Spd:";
-            //
-            // _speciesSpdUpDown
-            //
-            this._speciesSpdUpDown.Location = new System.Drawing.Point(320, 188);
-            this._speciesSpdUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
-            this._speciesSpdUpDown.Name = "_speciesSpdUpDown";
-            this._speciesSpdUpDown.Size = new System.Drawing.Size(42, 20);
-            this._speciesSpdUpDown.TabIndex = 23;
-            //
-            // _speciesSpALabel
-            //
-            this._speciesSpALabel.AutoSize = true;
-            this._speciesSpALabel.Location = new System.Drawing.Point(367, 191);
-            this._speciesSpALabel.Name = "_speciesSpALabel";
-            this._speciesSpALabel.TabIndex = 24;
-            this._speciesSpALabel.Text = "SpA:";
-            //
-            // _speciesSpAUpDown
-            //
-            this._speciesSpAUpDown.Location = new System.Drawing.Point(391, 188);
-            this._speciesSpAUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
-            this._speciesSpAUpDown.Name = "_speciesSpAUpDown";
-            this._speciesSpAUpDown.Size = new System.Drawing.Size(42, 20);
-            this._speciesSpAUpDown.TabIndex = 25;
-            //
-            // _speciesSpDLabel
-            //
-            this._speciesSpDLabel.AutoSize = true;
-            this._speciesSpDLabel.Location = new System.Drawing.Point(438, 191);
-            this._speciesSpDLabel.Name = "_speciesSpDLabel";
-            this._speciesSpDLabel.TabIndex = 26;
-            this._speciesSpDLabel.Text = "SpD:";
-            //
-            // _speciesSpDUpDown
-            //
-            this._speciesSpDUpDown.Location = new System.Drawing.Point(462, 188);
-            this._speciesSpDUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
-            this._speciesSpDUpDown.Name = "_speciesSpDUpDown";
-            this._speciesSpDUpDown.Size = new System.Drawing.Size(42, 20);
-            this._speciesSpDUpDown.TabIndex = 27;
             //
             this._tabControl.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -916,19 +549,6 @@
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._scannerXUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._scannerYUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesIdxUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesHpUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesAtkUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesDefUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesSpdUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesSpAUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._speciesSpDUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._enemyLvlUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._enemyHpUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._enemyMaxHpUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._enemyCountUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -972,43 +592,10 @@
         private System.Windows.Forms.Button _finderInspectReverse;
         private System.Windows.Forms.Button _checkOpponentBtn;
         private System.Windows.Forms.TabPage _tabScanner;
-        private System.Windows.Forms.Label _scannerXLabel;
-        private System.Windows.Forms.NumericUpDown _scannerXUpDown;
-        private System.Windows.Forms.Label _scannerYLabel;
-        private System.Windows.Forms.NumericUpDown _scannerYUpDown;
-        private System.Windows.Forms.Label _scannerFacingLabel;
-        private System.Windows.Forms.ComboBox _scannerFacingCB;
-        private System.Windows.Forms.CheckBox _scannerGenderCB;
-        private System.Windows.Forms.Button _scanObjectEventsBtn;
-        private System.Windows.Forms.Button _scanPlayerAvatarBtn;
+        private System.Windows.Forms.ComboBox _scannerDropdown;
+        private System.Windows.Forms.Button _scannerStartBtn;
+        private System.Windows.Forms.Panel _scannerPanelContainer;
         private System.Windows.Forms.TextBox _scannerResultsText;
         private System.Windows.Forms.Button _scannerCopyBtn;
-        private System.Windows.Forms.Button _scanTasksBtn;
-        private System.Windows.Forms.Button _scanMainBtn;
-        private System.Windows.Forms.Button _scanSpeciesInfoBtn;
-        private System.Windows.Forms.Button _scanEnemyPartyBtn;
-        private System.Windows.Forms.Button _scanPlayerPartyBtn;
-        private System.Windows.Forms.Label _enemyHpLabel;
-        private System.Windows.Forms.NumericUpDown _enemyHpUpDown;
-        private System.Windows.Forms.Label _enemyMaxHpLabel;
-        private System.Windows.Forms.NumericUpDown _enemyMaxHpUpDown;
-        private System.Windows.Forms.Label _enemyLvlLabel;
-        private System.Windows.Forms.NumericUpDown _enemyLvlUpDown;
-        private System.Windows.Forms.Label _enemyCountLabel;
-        private System.Windows.Forms.NumericUpDown _enemyCountUpDown;
-        private System.Windows.Forms.Label _speciesIdxLabel;
-        private System.Windows.Forms.NumericUpDown _speciesIdxUpDown;
-        private System.Windows.Forms.Label _speciesHpLabel;
-        private System.Windows.Forms.NumericUpDown _speciesHpUpDown;
-        private System.Windows.Forms.Label _speciesAtkLabel;
-        private System.Windows.Forms.NumericUpDown _speciesAtkUpDown;
-        private System.Windows.Forms.Label _speciesDefLabel;
-        private System.Windows.Forms.NumericUpDown _speciesDefUpDown;
-        private System.Windows.Forms.Label _speciesSpdLabel;
-        private System.Windows.Forms.NumericUpDown _speciesSpdUpDown;
-        private System.Windows.Forms.Label _speciesSpALabel;
-        private System.Windows.Forms.NumericUpDown _speciesSpAUpDown;
-        private System.Windows.Forms.Label _speciesSpDLabel;
-        private System.Windows.Forms.NumericUpDown _speciesSpDUpDown;
     }
 }
