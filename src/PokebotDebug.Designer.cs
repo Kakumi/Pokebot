@@ -72,8 +72,13 @@
             this._speciesSpDLabel = new System.Windows.Forms.Label();
             this._speciesSpDUpDown = new System.Windows.Forms.NumericUpDown();
             this._scanEnemyPartyBtn = new System.Windows.Forms.Button();
+            this._scanPlayerPartyBtn = new System.Windows.Forms.Button();
             this._enemyLvlLabel = new System.Windows.Forms.Label();
             this._enemyLvlUpDown = new System.Windows.Forms.NumericUpDown();
+            this._enemyHpLabel = new System.Windows.Forms.Label();
+            this._enemyHpUpDown = new System.Windows.Forms.NumericUpDown();
+            this._enemyMaxHpLabel = new System.Windows.Forms.Label();
+            this._enemyMaxHpUpDown = new System.Windows.Forms.NumericUpDown();
             this._enemyCountLabel = new System.Windows.Forms.Label();
             this._enemyCountUpDown = new System.Windows.Forms.NumericUpDown();
             this._finderInspectReverse = new System.Windows.Forms.Button();
@@ -114,6 +119,8 @@
             ((System.ComponentModel.ISupportInitialize)(this._speciesSpAUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._speciesSpDUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._enemyLvlUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._enemyHpUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._enemyMaxHpUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._enemyCountUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).BeginInit();
@@ -530,8 +537,13 @@
             this._tabScanner.Controls.Add(this._scanMainBtn);
             this._tabScanner.Controls.Add(this._scanSpeciesInfoBtn);
             this._tabScanner.Controls.Add(this._scanEnemyPartyBtn);
+            this._tabScanner.Controls.Add(this._scanPlayerPartyBtn);
             this._tabScanner.Controls.Add(this._enemyLvlLabel);
             this._tabScanner.Controls.Add(this._enemyLvlUpDown);
+            this._tabScanner.Controls.Add(this._enemyHpLabel);
+            this._tabScanner.Controls.Add(this._enemyHpUpDown);
+            this._tabScanner.Controls.Add(this._enemyMaxHpLabel);
+            this._tabScanner.Controls.Add(this._enemyMaxHpUpDown);
             this._tabScanner.Controls.Add(this._enemyCountLabel);
             this._tabScanner.Controls.Add(this._enemyCountUpDown);
             this._tabScanner.Controls.Add(this._speciesIdxLabel);
@@ -641,12 +653,12 @@
             //
             // _scannerResultsText
             //
-            this._scannerResultsText.Location = new System.Drawing.Point(6, 214);
+            this._scannerResultsText.Location = new System.Drawing.Point(6, 240);
             this._scannerResultsText.Multiline = true;
             this._scannerResultsText.Name = "_scannerResultsText";
             this._scannerResultsText.ReadOnly = true;
             this._scannerResultsText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this._scannerResultsText.Size = new System.Drawing.Size(578, 116);
+            this._scannerResultsText.Size = new System.Drawing.Size(578, 90);
             this._scannerResultsText.TabIndex = 9;
             //
             // _scannerCopyBtn
@@ -699,17 +711,59 @@
             this._scanEnemyPartyBtn.UseVisualStyleBackColor = true;
             this._scanEnemyPartyBtn.Click += new System.EventHandler(this._scanEnemyPartyBtn_Click);
             //
+            // _scanPlayerPartyBtn
+            //
+            this._scanPlayerPartyBtn.Location = new System.Drawing.Point(6, 160);
+            this._scanPlayerPartyBtn.Name = "_scanPlayerPartyBtn";
+            this._scanPlayerPartyBtn.Size = new System.Drawing.Size(160, 22);
+            this._scanPlayerPartyBtn.TabIndex = 35;
+            this._scanPlayerPartyBtn.Text = "Scan gPlayerParty";
+            this._scanPlayerPartyBtn.UseVisualStyleBackColor = true;
+            this._scanPlayerPartyBtn.Click += new System.EventHandler(this._scanPlayerPartyBtn_Click);
+            //
+            // _enemyHpLabel
+            //
+            this._enemyHpLabel.AutoSize = true;
+            this._enemyHpLabel.Location = new System.Drawing.Point(83, 217);
+            this._enemyHpLabel.Name = "_enemyHpLabel";
+            this._enemyHpLabel.TabIndex = 36;
+            this._enemyHpLabel.Text = "HP:";
+            //
+            // _enemyHpUpDown
+            //
+            this._enemyHpUpDown.Location = new System.Drawing.Point(104, 214);
+            this._enemyHpUpDown.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
+            this._enemyHpUpDown.Name = "_enemyHpUpDown";
+            this._enemyHpUpDown.Size = new System.Drawing.Size(55, 20);
+            this._enemyHpUpDown.TabIndex = 37;
+            //
+            // _enemyMaxHpLabel
+            //
+            this._enemyMaxHpLabel.AutoSize = true;
+            this._enemyMaxHpLabel.Location = new System.Drawing.Point(164, 217);
+            this._enemyMaxHpLabel.Name = "_enemyMaxHpLabel";
+            this._enemyMaxHpLabel.TabIndex = 38;
+            this._enemyMaxHpLabel.Text = "MaxHP:";
+            //
+            // _enemyMaxHpUpDown
+            //
+            this._enemyMaxHpUpDown.Location = new System.Drawing.Point(210, 214);
+            this._enemyMaxHpUpDown.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
+            this._enemyMaxHpUpDown.Name = "_enemyMaxHpUpDown";
+            this._enemyMaxHpUpDown.Size = new System.Drawing.Size(55, 20);
+            this._enemyMaxHpUpDown.TabIndex = 39;
+            //
             // _enemyLvlLabel
             //
             this._enemyLvlLabel.AutoSize = true;
-            this._enemyLvlLabel.Location = new System.Drawing.Point(6, 191);
+            this._enemyLvlLabel.Location = new System.Drawing.Point(6, 217);
             this._enemyLvlLabel.Name = "_enemyLvlLabel";
             this._enemyLvlLabel.TabIndex = 29;
             this._enemyLvlLabel.Text = "Lvl:";
             //
             // _enemyLvlUpDown
             //
-            this._enemyLvlUpDown.Location = new System.Drawing.Point(30, 188);
+            this._enemyLvlUpDown.Location = new System.Drawing.Point(30, 214);
             this._enemyLvlUpDown.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             this._enemyLvlUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this._enemyLvlUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
@@ -720,14 +774,14 @@
             // _enemyCountLabel
             //
             this._enemyCountLabel.AutoSize = true;
-            this._enemyCountLabel.Location = new System.Drawing.Point(196, 191);
+            this._enemyCountLabel.Location = new System.Drawing.Point(270, 217);
             this._enemyCountLabel.Name = "_enemyCountLabel";
             this._enemyCountLabel.TabIndex = 33;
             this._enemyCountLabel.Text = "Cnt:";
             //
             // _enemyCountUpDown
             //
-            this._enemyCountUpDown.Location = new System.Drawing.Point(220, 188);
+            this._enemyCountUpDown.Location = new System.Drawing.Point(294, 214);
             this._enemyCountUpDown.Maximum = new decimal(new int[] { 6, 0, 0, 0 });
             this._enemyCountUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this._enemyCountUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
@@ -738,14 +792,14 @@
             // _speciesIdxLabel
             //
             this._speciesIdxLabel.AutoSize = true;
-            this._speciesIdxLabel.Location = new System.Drawing.Point(6, 165);
+            this._speciesIdxLabel.Location = new System.Drawing.Point(6, 191);
             this._speciesIdxLabel.Name = "_speciesIdxLabel";
             this._speciesIdxLabel.TabIndex = 14;
             this._speciesIdxLabel.Text = "Idx:";
             //
             // _speciesIdxUpDown
             //
-            this._speciesIdxUpDown.Location = new System.Drawing.Point(30, 162);
+            this._speciesIdxUpDown.Location = new System.Drawing.Point(30, 188);
             this._speciesIdxUpDown.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
             this._speciesIdxUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this._speciesIdxUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
@@ -756,14 +810,14 @@
             // _speciesHpLabel
             //
             this._speciesHpLabel.AutoSize = true;
-            this._speciesHpLabel.Location = new System.Drawing.Point(85, 165);
+            this._speciesHpLabel.Location = new System.Drawing.Point(85, 191);
             this._speciesHpLabel.Name = "_speciesHpLabel";
             this._speciesHpLabel.TabIndex = 16;
             this._speciesHpLabel.Text = "HP:";
             //
             // _speciesHpUpDown
             //
-            this._speciesHpUpDown.Location = new System.Drawing.Point(107, 162);
+            this._speciesHpUpDown.Location = new System.Drawing.Point(107, 188);
             this._speciesHpUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             this._speciesHpUpDown.Name = "_speciesHpUpDown";
             this._speciesHpUpDown.Size = new System.Drawing.Size(42, 20);
@@ -772,14 +826,14 @@
             // _speciesAtkLabel
             //
             this._speciesAtkLabel.AutoSize = true;
-            this._speciesAtkLabel.Location = new System.Drawing.Point(154, 165);
+            this._speciesAtkLabel.Location = new System.Drawing.Point(154, 191);
             this._speciesAtkLabel.Name = "_speciesAtkLabel";
             this._speciesAtkLabel.TabIndex = 18;
             this._speciesAtkLabel.Text = "Atk:";
             //
             // _speciesAtkUpDown
             //
-            this._speciesAtkUpDown.Location = new System.Drawing.Point(178, 162);
+            this._speciesAtkUpDown.Location = new System.Drawing.Point(178, 188);
             this._speciesAtkUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             this._speciesAtkUpDown.Name = "_speciesAtkUpDown";
             this._speciesAtkUpDown.Size = new System.Drawing.Size(42, 20);
@@ -788,14 +842,14 @@
             // _speciesDefLabel
             //
             this._speciesDefLabel.AutoSize = true;
-            this._speciesDefLabel.Location = new System.Drawing.Point(225, 165);
+            this._speciesDefLabel.Location = new System.Drawing.Point(225, 191);
             this._speciesDefLabel.Name = "_speciesDefLabel";
             this._speciesDefLabel.TabIndex = 20;
             this._speciesDefLabel.Text = "Def:";
             //
             // _speciesDefUpDown
             //
-            this._speciesDefUpDown.Location = new System.Drawing.Point(249, 162);
+            this._speciesDefUpDown.Location = new System.Drawing.Point(249, 188);
             this._speciesDefUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             this._speciesDefUpDown.Name = "_speciesDefUpDown";
             this._speciesDefUpDown.Size = new System.Drawing.Size(42, 20);
@@ -804,14 +858,14 @@
             // _speciesSpdLabel
             //
             this._speciesSpdLabel.AutoSize = true;
-            this._speciesSpdLabel.Location = new System.Drawing.Point(296, 165);
+            this._speciesSpdLabel.Location = new System.Drawing.Point(296, 191);
             this._speciesSpdLabel.Name = "_speciesSpdLabel";
             this._speciesSpdLabel.TabIndex = 22;
             this._speciesSpdLabel.Text = "Spd:";
             //
             // _speciesSpdUpDown
             //
-            this._speciesSpdUpDown.Location = new System.Drawing.Point(320, 162);
+            this._speciesSpdUpDown.Location = new System.Drawing.Point(320, 188);
             this._speciesSpdUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             this._speciesSpdUpDown.Name = "_speciesSpdUpDown";
             this._speciesSpdUpDown.Size = new System.Drawing.Size(42, 20);
@@ -820,14 +874,14 @@
             // _speciesSpALabel
             //
             this._speciesSpALabel.AutoSize = true;
-            this._speciesSpALabel.Location = new System.Drawing.Point(367, 165);
+            this._speciesSpALabel.Location = new System.Drawing.Point(367, 191);
             this._speciesSpALabel.Name = "_speciesSpALabel";
             this._speciesSpALabel.TabIndex = 24;
             this._speciesSpALabel.Text = "SpA:";
             //
             // _speciesSpAUpDown
             //
-            this._speciesSpAUpDown.Location = new System.Drawing.Point(391, 162);
+            this._speciesSpAUpDown.Location = new System.Drawing.Point(391, 188);
             this._speciesSpAUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             this._speciesSpAUpDown.Name = "_speciesSpAUpDown";
             this._speciesSpAUpDown.Size = new System.Drawing.Size(42, 20);
@@ -836,14 +890,14 @@
             // _speciesSpDLabel
             //
             this._speciesSpDLabel.AutoSize = true;
-            this._speciesSpDLabel.Location = new System.Drawing.Point(438, 165);
+            this._speciesSpDLabel.Location = new System.Drawing.Point(438, 191);
             this._speciesSpDLabel.Name = "_speciesSpDLabel";
             this._speciesSpDLabel.TabIndex = 26;
             this._speciesSpDLabel.Text = "SpD:";
             //
             // _speciesSpDUpDown
             //
-            this._speciesSpDUpDown.Location = new System.Drawing.Point(462, 162);
+            this._speciesSpDUpDown.Location = new System.Drawing.Point(462, 188);
             this._speciesSpDUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             this._speciesSpDUpDown.Name = "_speciesSpDUpDown";
             this._speciesSpDUpDown.Size = new System.Drawing.Size(42, 20);
@@ -872,6 +926,8 @@
             ((System.ComponentModel.ISupportInitialize)(this._speciesSpAUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._speciesSpDUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._enemyLvlUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._enemyHpUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._enemyMaxHpUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._enemyCountUpDown)).EndInit();
             this.ResumeLayout(false);
 
@@ -931,6 +987,11 @@
         private System.Windows.Forms.Button _scanMainBtn;
         private System.Windows.Forms.Button _scanSpeciesInfoBtn;
         private System.Windows.Forms.Button _scanEnemyPartyBtn;
+        private System.Windows.Forms.Button _scanPlayerPartyBtn;
+        private System.Windows.Forms.Label _enemyHpLabel;
+        private System.Windows.Forms.NumericUpDown _enemyHpUpDown;
+        private System.Windows.Forms.Label _enemyMaxHpLabel;
+        private System.Windows.Forms.NumericUpDown _enemyMaxHpUpDown;
         private System.Windows.Forms.Label _enemyLvlLabel;
         private System.Windows.Forms.NumericUpDown _enemyLvlUpDown;
         private System.Windows.Forms.Label _enemyCountLabel;

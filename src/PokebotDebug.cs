@@ -491,7 +491,7 @@ namespace Pokebot
                 {
                     sb.AppendLine($"{r.Hex}  →  {r.Address.ToString("X8")} g 00000258 gEnemyParty");
 
-                    var countResults = scanner.FindEnemyPartyCountNear(r.Address, count);
+                    var countResults = scanner.FindPartyCountNear(r.Address, count);
                     if (countResults.Count > 0)
                     {
                         foreach (var cr in countResults)
@@ -508,6 +508,51 @@ namespace Pokebot
                 if (partyResults.Count == 0)
                 {
                     sb.AppendLine("No match. Enter the correct level and MaxHP and be in an active battle.");
+                }
+
+                _scannerResultsText.Text = sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+            }
+        }
+
+        private void _scanPlayerPartyBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                byte level = (byte)_enemyLvlUpDown.Value;
+                ushort? hp    = _enemyHpUpDown.Value > 0    ? (ushort?)_enemyHpUpDown.Value    : null;
+                ushort? maxHp = _enemyMaxHpUpDown.Value > 0 ? (ushort?)_enemyMaxHpUpDown.Value : null;
+                byte count = (byte)_enemyCountUpDown.Value;
+
+                var partyResults = scanner.FindPlayerPartyBase(level, hp, maxHp);
+
+                var sb = new StringBuilder();
+                sb.AppendLine($"=== gPlayerParty — {partyResults.Count} candidate(s) found ===");
+                foreach (var r in partyResults)
+                {
+                    sb.AppendLine($"{r.Hex}  →  {r.Address.ToString("X8")} g 00000258 gPlayerParty");
+
+                    var countResults = scanner.FindPartyCountNear(r.Address, count);
+                    if (countResults.Count > 0)
+                    {
+                        foreach (var cr in countResults)
+                        {
+                            sb.AppendLine($"  → gPlayerPartyCount candidate: {cr.Hex}");
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendLine("  → gPlayerPartyCount: not found near this address");
+                    }
+                }
+
+                if (partyResults.Count == 0)
+                {
+                    sb.AppendLine("No match. Enter the correct level and HP values from the party screen.");
                 }
 
                 _scannerResultsText.Text = sb.ToString();

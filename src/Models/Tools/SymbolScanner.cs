@@ -481,7 +481,7 @@ namespace Pokebot.Models.Tools
         /// </summary>
         /// <param name="partyBase">Confirmed gEnemyParty address from FindEnemyPartyBase.</param>
         /// <param name="count">Known number of enemy Pokemon (1-6).</param>
-        public List<SymbolScanResult> FindEnemyPartyCountNear(long partyBase, byte count)
+        public List<SymbolScanResult> FindPartyCountNear(long partyBase, byte count)
         {
             const int searchRange = 0x400;
 
@@ -502,6 +502,67 @@ namespace Pokebot.Models.Tools
             };
 
             return Scan(conditions, scanStart, scanSize, alignment: 1);
+        }
+
+        // -------------------------------------------------------------------------
+        // Gen 3 – gPlayerParty / gPlayerPartyCount
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Finds the base address of gPlayerParty by matching the first slot of the
+        /// player's party (gPlayerParty[0]) using values visible in the party menu.
+        ///
+        /// How to use:
+        ///   • Open the party menu so the Pokemon's exact HP and Max HP are displayed.
+        ///   • Read level, current HP, and Max HP from the screen.
+        ///   • The first party slot is always used as the anchor.
+        ///
+        /// Unlike gEnemyParty, the player can read exact HP numbers from the party screen,
+        /// making currentHp and maxHp very effective discriminators.
+        ///
+        /// Same Pokemon struct offsets as gEnemyParty:
+        ///   +0x13  flags  = 0x02 (hasSpecies=1)
+        ///   +0x50  status = 0    (if no status condition)
+        ///   +0x54  level  (u8)
+        ///   +0x56  hp     (u16) — current HP, visible in party menu
+        ///   +0x58  maxHP  (u16) — visible in party menu
+        /// </summary>
+        /// <param name="level">Level of the first party Pokemon.</param>
+        /// <param name="currentHp">
+        ///   Optional: current HP shown in the party menu (left side of the slash).
+        ///   Use a healthy Pokemon with full HP so currentHp == maxHp for tighter matching.
+        /// </param>
+        /// <param name="maxHp">Optional: max HP shown in the party menu (right side of the slash).</param>
+        /// <param name="requireNoStatus">
+        ///   true (default): require status==0. Only works if the first Pokemon has no condition.
+        /// </param>
+        public List<SymbolScanResult> FindPlayerPartyBase(byte level, ushort? currentHp = null, ushort? maxHp = null, bool requireNoStatus = true)
+        {
+            var conditions = new List<ScanCondition>
+            {
+                ScanCondition.U8(0x13, 0x02),  // hasSpecies=1, isBadEgg=0, isEgg=0
+                ScanCondition.U8(0x54, level), // level
+            };
+
+            if (currentHp.HasValue)
+            {
+                conditions.Add(ScanCondition.U16(0x56, currentHp.Value));
+            }
+
+            if (maxHp.HasValue)
+            {
+                conditions.Add(ScanCondition.U16(0x58, maxHp.Value));
+            }
+
+            if (requireNoStatus)
+            {
+                conditions.Add(ScanCondition.U32(0x50, 0));
+            }
+
+            // gPlayerParty is in EWRAM for FR/LG/Emerald, IWRAM for R/S.
+            var ewram = ScanEwram(conditions, alignment: 4);
+            var iwram = ScanIwram(conditions, alignment: 4);
+            return ewram.Concat(iwram).ToList();
         }
 
         // -------------------------------------------------------------------------
