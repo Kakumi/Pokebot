@@ -84,6 +84,10 @@ namespace Pokebot
 
         public Pokebot()
         {
+            // Apply the saved language before any UI is constructed so all Messages.*
+            // lookups (including WindowTitleStatic and tab names) use the right culture.
+            SettingsConfig.ApplyLanguageFromSavedConfig();
+
             InitializeComponent();
 
             var configText = Encoding.UTF8.GetString(Resources.appconfig);

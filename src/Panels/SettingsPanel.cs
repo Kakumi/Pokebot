@@ -14,6 +14,8 @@ namespace Pokebot.Panels
 
         public SettingsConfig SettingsConfig { get; }
 
+        private static readonly string[] _languageCodes = { "en", "fr", "de", "it", "es", "ja" };
+
         public SettingsPanel()
         {
             InitializeComponent();
@@ -25,6 +27,18 @@ namespace Pokebot.Panels
             _discordUserID.Text = SettingsConfig.DiscordUserID;
             _delayUpDown.Value = (decimal)SettingsConfig.DelayBetweenActions;
             _delayTooltip.SetToolTip(_delayLabel, Messages.Tooltip_Delay);
+
+            // Populate language dropdown. Add handler AFTER setting SelectedIndex so
+            // the initial assignment does not trigger the changed event.
+            _languageComboBox.Items.Add("English");
+            _languageComboBox.Items.Add("Français");
+            _languageComboBox.Items.Add("Deutsch");
+            _languageComboBox.Items.Add("Italiano");
+            _languageComboBox.Items.Add("Español");
+            _languageComboBox.Items.Add("日本語");
+            int langIndex = Array.IndexOf(_languageCodes, SettingsConfig.Language);
+            _languageComboBox.SelectedIndex = langIndex >= 0 ? langIndex : 0;
+            _languageComboBox.SelectedIndexChanged += _languageComboBox_SelectedIndexChanged;
         }
 
         private void _accelerateCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -65,6 +79,27 @@ namespace Pokebot.Panels
             SettingsConfig.DelayBetweenActions = (double)_delayUpDown.Value;
             SettingsConfigChanged?.Invoke(SettingsConfig);
             SettingsConfig.Save();
+        }
+
+        private void _languageComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = _languageComboBox.SelectedIndex;
+            if (index < 0 || index >= _languageCodes.Length)
+            {
+                return;
+            }
+
+            string code = _languageCodes[index];
+            SettingsConfig.Language = code;
+            SettingsConfig.Save();
+            SettingsConfig.ApplyLanguage(code);
+
+            MessageBox.Show(
+                "Language saved. Please restart Pokebot to apply all translations.",
+                "Language / Langue",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
     }
 }
