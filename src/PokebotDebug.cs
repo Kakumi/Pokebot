@@ -112,6 +112,8 @@ namespace Pokebot
                 _currentScannerPanel.Dock = DockStyle.Fill;
                 _scannerPanelContainer.Controls.Add(_currentScannerPanel);
             }
+            // Reset Next — the new panel has no previous results yet.
+            _scannerNextBtn.Enabled = false;
         }
 
         private void _scannerStartBtn_Click(object sender, EventArgs e)
@@ -124,6 +126,26 @@ namespace Pokebot
             {
                 var scanner = new SymbolScanner(APIContainer);
                 _scannerResultsText.Text = _currentScannerPanel.Run(scanner);
+                // Enable Next only if the panel supports multi-pass refinement.
+                _scannerNextBtn.Enabled = _currentScannerPanel.SupportsRefine;
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+                _scannerNextBtn.Enabled = false;
+            }
+        }
+
+        private void _scannerNextBtn_Click(object sender, EventArgs e)
+        {
+            if (_currentScannerPanel == null)
+            {
+                return;
+            }
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                _scannerResultsText.Text = _currentScannerPanel.Refine(scanner);
             }
             catch (Exception ex)
             {

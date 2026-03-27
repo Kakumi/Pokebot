@@ -637,6 +637,254 @@ namespace Pokebot.Models.Tools
         }
 
         // -------------------------------------------------------------------------
+        // Multi-pass refinement
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Re-evaluates a previous set of scan results against new conditions, returning only
+        /// addresses where all new conditions are satisfied (intersection / narrowing).
+        ///
+        /// Use this to progressively narrow down candidates without a full re-scan:
+        ///   1. Call the relevant Find* method to get the initial candidate list.
+        ///   2. Change the game state so the target memory changes to a known new value.
+        ///   3. Call Refine with the previous results and updated conditions.
+        ///   4. Repeat until only one (or very few) addresses remain.
+        ///
+        /// Reads only the memory regions actually present in the previous result set — much
+        /// faster than a full scan once the candidate list has been narrowed.
+        /// </summary>
+        /// <param name="previous">Candidate addresses from a prior scan or Refine call.</param>
+        /// <param name="conditions">New byte patterns to check at each candidate address.</param>
+        public List<SymbolScanResult> Refine(IReadOnlyList<SymbolScanResult> previous, IReadOnlyList<ScanCondition> conditions)
+        {
+            if (previous == null || previous.Count == 0)
+            {
+                return new List<SymbolScanResult>();
+            }
+
+            if (conditions == null || conditions.Count == 0)
+            {
+                throw new ArgumentException("At least one condition is required.");
+            }
+
+            int minSize = conditions.Max(c => c.Offset + c.Pattern.Length);
+
+            bool needEwram = previous.Any(r => r.Address >= EwramStart && r.Address < EwramStart + EwramSize);
+            bool needIwram = previous.Any(r => r.Address >= IwramStart && r.Address < IwramStart + IwramSize);
+            bool needRom   = previous.Any(r => r.Address >= RomStart   && r.Address < RomStart   + RomSize);
+
+            byte[] ewram = needEwram ? _api.Memory.ReadByteRange(EwramStart, EwramSize).ToArray() : null;
+            byte[] iwram = needIwram ? _api.Memory.ReadByteRange(IwramStart, IwramSize).ToArray() : null;
+            byte[] rom   = needRom   ? _api.Memory.ReadByteRange(RomStart,   RomSize).ToArray()   : null;
+
+            var results = new List<SymbolScanResult>();
+
+            foreach (var prev in previous)
+            {
+                byte[] region;
+                long regionStart;
+                int regionSize;
+
+                if (prev.Address >= EwramStart && prev.Address < EwramStart + EwramSize)
+                {
+                    region = ewram; regionStart = EwramStart; regionSize = EwramSize;
+                }
+                else if (prev.Address >= IwramStart && prev.Address < IwramStart + IwramSize)
+                {
+                    region = iwram; regionStart = IwramStart; regionSize = IwramSize;
+                }
+                else if (prev.Address >= RomStart && prev.Address < RomStart + RomSize)
+                {
+                    region = rom; regionStart = RomStart; regionSize = RomSize;
+                }
+                else
+                {
+                    continue;
+                }
+
+                int offset = (int)(prev.Address - regionStart);
+                if (offset + minSize > regionSize)
+                {
+                    continue;
+                }
+
+                if (MatchesAll(region, offset, conditions))
+                {
+                    results.Add(prev);
+                }
+            }
+
+            return results;
+        }
+
+        // -------------------------------------------------------------------------
+        // Gen 3 – gActionSelectionCursor
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Finds the base address of gActionSelectionCursor by matching the battle
+        /// action menu cursor position.
+        ///
+        /// How to use:
+        ///   • Be in a battle with the action selection screen open (FIGHT / BAG / POKEMON / RUN).
+        ///   • Note which option is currently highlighted.
+        ///   • Run twice with different cursor positions — addresses that appear in both
+        ///     scans (with the cursor moved between them) are the candidates to discard;
+        ///     an address that changes value between the two scans is the real one.
+        ///
+        /// gActionSelectionCursor offsets:
+        ///   +0x00  cursorPosition (u8): 0=FIGHT, 1=BAG, 2=POKEMON, 3=RUN
+        /// </summary>
+        /// <param name="cursorPosition">Which action is currently highlighted (0–3).</param>
+        public List<SymbolScanResult> FindActionSelectionCursor(byte cursorPosition)
+        {
+            if (cursorPosition > 3)
+            {
+                throw new ArgumentOutOfRangeException(nameof(cursorPosition), "Cursor position must be 0–3 (FIGHT/BAG/POKEMON/RUN).");
+            }
+
+            var conditions = new List<ScanCondition>
+            {
+                ScanCondition.U8(0x00, cursorPosition),
+            };
+
+            return ScanEwram(conditions, alignment: 1);
+        }
+
+        // -------------------------------------------------------------------------
+        // Gen 3 – gRngValue
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Finds the base address of gRngValue (and optionally gRng2Value) in IWRAM.
+        ///
+        /// How to use:
+        ///   • Pause BizHawk so the RNG is frozen.
+        ///   • Read the current u32 value from BizHawk's RAM viewer at the suspected address,
+        ///     or derive it from a known symbol if you already have one.
+        ///   • Optionally read gRng2Value (the u32 immediately after) for a tighter match.
+        ///
+        /// gRngValue lives in IWRAM. Layout:
+        ///   +0x00  gRngValue  (u32)
+        ///   +0x04  gRng2Value (u32) — adjacent in memory; providing it eliminates all false positives
+        /// </summary>
+        /// <param name="rngValue">Current value of gRngValue (read from BizHawk RAM viewer while paused).</param>
+        /// <param name="rng2Value">
+        ///   Optional: current value of gRng2Value (+0x04).
+        ///   Providing both values makes the result unique in virtually every case.
+        /// </param>
+        public List<SymbolScanResult> FindRngValue(uint rngValue, uint? rng2Value = null)
+        {
+            var conditions = new List<ScanCondition>
+            {
+                ScanCondition.U32(0x00, rngValue),
+            };
+
+            if (rng2Value.HasValue)
+            {
+                conditions.Add(ScanCondition.U32(0x04, rng2Value.Value));
+            }
+
+            // gRngValue location differs by game:
+            //   Emerald          → IWRAM  (IWRAM_DATA u32 gRngValue)
+            //   FireRed/LeafGreen → EWRAM  (EWRAM_DATA u32 gRngValue)
+            //   Ruby/Sapphire    → EWRAM
+            // Scan both and combine so the scanner works for all Gen 3 games.
+            var ewram = ScanEwram(conditions, alignment: 4);
+            var iwram = ScanIwram(conditions, alignment: 4);
+            return ewram.Concat(iwram).ToList();
+        }
+
+        // -------------------------------------------------------------------------
+        // Gen 3 – gSaveBlock2Ptr
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Finds the address of gSaveBlock2Ptr by scanning EWRAM and IWRAM for a
+        /// u32 pointer that points to a memory location containing matching player data.
+        ///
+        /// How to use:
+        ///   • Know your player's gender and visible Trainer ID (5-digit number in the Trainer Card).
+        ///   • The game can be in any state (overworld, battle, menu).
+        ///
+        /// gSaveBlock2Ptr is a u32 pointer stored in EWRAM or IWRAM whose value is
+        /// the absolute GBA address of the SaveBlock2 structure.
+        ///
+        /// SaveBlock2 struct offsets used for matching:
+        ///   +0x08  playerGender       (u8): 0=male, 1=female
+        ///   +0x0A  playerTrainerId[4] (u8[4]): bytes 0–1 = visible Trainer ID (little-endian u16)
+        /// </summary>
+        /// <param name="gender">Player gender: 0=male, 1=female.</param>
+        /// <param name="trainerId">
+        ///   Optional: visible Trainer ID shown in the Trainer Card (0–65535).
+        ///   Stored as the first 2 bytes of playerTrainerId[4] at +0x0A (little-endian).
+        ///   Providing it makes the result nearly unique.
+        /// </param>
+        public List<SymbolScanResult> FindSaveBlock2Ptr(byte gender, ushort? trainerId = null)
+        {
+            // Read EWRAM once; all SaveBlock2 data lives there.
+            var ewram = _api.Memory.ReadByteRange(EwramStart, EwramSize).ToArray();
+            var results = new List<SymbolScanResult>();
+
+            // Helper: given a candidate EWRAM pointer value, check if the target looks like SaveBlock2.
+            bool TargetMatches(uint ptrValue)
+            {
+                if (ptrValue < EwramStart || ptrValue >= EwramStart + EwramSize)
+                {
+                    return false;
+                }
+
+                int t = (int)(ptrValue - EwramStart);
+
+                // Need at least 0x0C bytes at target (covers playerTrainerId[0..1]).
+                if (t + 0x0C > EwramSize)
+                {
+                    return false;
+                }
+
+                if (ewram[t + 0x08] != gender)
+                {
+                    return false;
+                }
+
+                if (trainerId.HasValue)
+                {
+                    // playerTrainerId[4] starts at +0x0A; visible TID = first 2 bytes (little-endian).
+                    ushort storedTid = (ushort)(ewram[t + 0x0A] | (ewram[t + 0x0B] << 8));
+                    if (storedTid != trainerId.Value)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            // Scan EWRAM for the pointer.
+            for (int i = 0; i <= EwramSize - 4; i += 4)
+            {
+                uint ptrValue = (uint)(ewram[i] | (ewram[i + 1] << 8) | (ewram[i + 2] << 16) | (ewram[i + 3] << 24));
+                if (TargetMatches(ptrValue))
+                {
+                    results.Add(new SymbolScanResult(EwramStart + i));
+                }
+            }
+
+            // Scan IWRAM for the pointer (some games keep it there).
+            var iwram = _api.Memory.ReadByteRange(IwramStart, IwramSize).ToArray();
+            for (int i = 0; i <= IwramSize - 4; i += 4)
+            {
+                uint ptrValue = (uint)(iwram[i] | (iwram[i + 1] << 8) | (iwram[i + 2] << 16) | (iwram[i + 3] << 24));
+                if (TargetMatches(ptrValue))
+                {
+                    results.Add(new SymbolScanResult(IwramStart + i));
+                }
+            }
+
+            return results;
+        }
+
+        // -------------------------------------------------------------------------
         // Private helpers
         // -------------------------------------------------------------------------
 

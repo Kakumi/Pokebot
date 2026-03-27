@@ -45,6 +45,7 @@
             this._tabScanner = new System.Windows.Forms.TabPage();
             this._scannerDropdown = new System.Windows.Forms.ComboBox();
             this._scannerStartBtn = new System.Windows.Forms.Button();
+            this._scannerNextBtn = new System.Windows.Forms.Button();
             this._scannerPanelContainer = new System.Windows.Forms.Panel();
             this._scannerResultsText = new System.Windows.Forms.TextBox();
             this._scannerCopyBtn = new System.Windows.Forms.Button();
@@ -478,6 +479,7 @@
             //
             this._tabScanner.Controls.Add(this._scannerDropdown);
             this._tabScanner.Controls.Add(this._scannerStartBtn);
+            this._tabScanner.Controls.Add(this._scannerNextBtn);
             this._tabScanner.Controls.Add(this._scannerPanelContainer);
             this._tabScanner.Controls.Add(this._scannerResultsText);
             this._tabScanner.Controls.Add(this._scannerCopyBtn);
@@ -503,11 +505,22 @@
             //
             this._scannerStartBtn.Location = new System.Drawing.Point(252, 5);
             this._scannerStartBtn.Name = "_scannerStartBtn";
-            this._scannerStartBtn.Size = new System.Drawing.Size(80, 23);
+            this._scannerStartBtn.Size = new System.Drawing.Size(60, 23);
             this._scannerStartBtn.TabIndex = 1;
             this._scannerStartBtn.Text = "Start";
             this._scannerStartBtn.UseVisualStyleBackColor = true;
             this._scannerStartBtn.Click += new System.EventHandler(this._scannerStartBtn_Click);
+            //
+            // _scannerNextBtn
+            //
+            this._scannerNextBtn.Location = new System.Drawing.Point(318, 5);
+            this._scannerNextBtn.Name = "_scannerNextBtn";
+            this._scannerNextBtn.Size = new System.Drawing.Size(60, 23);
+            this._scannerNextBtn.TabIndex = 2;
+            this._scannerNextBtn.Text = "Next";
+            this._scannerNextBtn.Enabled = false;
+            this._scannerNextBtn.UseVisualStyleBackColor = true;
+            this._scannerNextBtn.Click += new System.EventHandler(this._scannerNextBtn_Click);
             //
             // _scannerPanelContainer
             //
@@ -594,6 +607,7 @@
         private System.Windows.Forms.TabPage _tabScanner;
         private System.Windows.Forms.ComboBox _scannerDropdown;
         private System.Windows.Forms.Button _scannerStartBtn;
+        private System.Windows.Forms.Button _scannerNextBtn;
         private System.Windows.Forms.Panel _scannerPanelContainer;
         private System.Windows.Forms.TextBox _scannerResultsText;
         private System.Windows.Forms.Button _scannerCopyBtn;
