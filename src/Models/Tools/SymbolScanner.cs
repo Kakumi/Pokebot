@@ -409,6 +409,102 @@ namespace Pokebot.Models.Tools
         }
 
         // -------------------------------------------------------------------------
+        // Gen 3 – gEnemyParty / gEnemyPartyCount
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Finds the base address of gEnemyParty by matching the first slot of the
+        /// enemy party (gEnemyParty[0]) using known battle values.
+        ///
+        /// How to use:
+        ///   • Be in an active wild or trainer battle.
+        ///   • Read the enemy Pokemon's level and Max HP from the battle HUD.
+        ///   • Status should be clear (no poison/burn/etc.) for requireNoStatus=true.
+        ///
+        /// gEnemyParty lives in EWRAM for FR/LG/Emerald and IWRAM for Ruby/Sapphire.
+        /// Both regions are scanned and results are combined.
+        ///
+        /// Pokemon struct offsets (gEnemyParty[0]):
+        ///   +0x00  BoxPokemon (0x50 bytes)
+        ///     +0x13  flags byte: isBadEgg|hasSpecies|isEgg|... = 0x02 for a normal loaded mon
+        ///   +0x50  status    (u32) = 0 when no status condition
+        ///   +0x54  level     (u8)
+        ///   +0x56  hp        (u16) — current, changes during battle
+        ///   +0x58  maxHP     (u16) — stable for the whole battle
+        /// </summary>
+        /// <param name="level">Enemy Pokemon's level shown in the battle HUD.</param>
+        /// <param name="maxHp">
+        ///   Optional: enemy Pokemon's max HP at +0x58. Gen 3 does not show the enemy's
+        ///   actual HP number — only the bar ratio — so leave this null unless you can
+        ///   derive it externally (e.g. from a reference or a prior memory read).
+        ///   Providing it greatly narrows results; omitting it still works in most cases.
+        /// </param>
+        /// <param name="requireNoStatus">
+        ///   true (default): add +0x50==0 (status=none). Works if the enemy has no status condition.
+        ///   false: omit the check.
+        /// </param>
+        public List<SymbolScanResult> FindEnemyPartyBase(byte level, ushort? maxHp = null, bool requireNoStatus = true)
+        {
+            var conditions = new List<ScanCondition>
+            {
+                ScanCondition.U8(0x13, 0x02),  // hasSpecies=1, isBadEgg=0, isEgg=0
+                ScanCondition.U8(0x54, level), // level visible in battle HUD
+            };
+
+            if (maxHp.HasValue)
+            {
+                conditions.Add(ScanCondition.U16(0x58, maxHp.Value));
+            }
+
+            if (requireNoStatus)
+            {
+                conditions.Add(ScanCondition.U32(0x50, 0)); // no status condition
+            }
+
+            // Pokemon struct is 0x64 bytes, always 4-byte aligned.
+            // Cover both memory regions since the location differs by game.
+            var ewram = ScanEwram(conditions, alignment: 4);
+            var iwram = ScanIwram(conditions, alignment: 4);
+            return ewram.Concat(iwram).ToList();
+        }
+
+        /// <summary>
+        /// Finds gEnemyPartyCount by searching a ±0x400 byte window around a known
+        /// gEnemyParty address. The count byte is always near the party array but
+        /// the exact offset varies by game (2 bytes for FR/LG, 8 for R/S, ~600 for Emerald).
+        ///
+        /// How to use:
+        ///   • Run FindEnemyPartyBase first and confirm the correct address.
+        ///   • Pass that address and the known enemy party size (1-6).
+        ///   • The padding byte immediately after gEnemyPartyCount is always 0x00,
+        ///     which helps rule out random bytes that happen to equal the count.
+        /// </summary>
+        /// <param name="partyBase">Confirmed gEnemyParty address from FindEnemyPartyBase.</param>
+        /// <param name="count">Known number of enemy Pokemon (1-6).</param>
+        public List<SymbolScanResult> FindEnemyPartyCountNear(long partyBase, byte count)
+        {
+            const int searchRange = 0x400;
+
+            bool isIwram = partyBase >= IwramStart && partyBase < IwramStart + IwramSize;
+            long regionStart = isIwram ? IwramStart : EwramStart;
+            int regionSize   = isIwram ? IwramSize  : EwramSize;
+
+            long scanStart = Math.Max(partyBase - searchRange, regionStart);
+            long scanEnd   = Math.Min(partyBase + searchRange, regionStart + regionSize);
+            int  scanSize  = (int)(scanEnd - scanStart);
+
+            // Match only the count byte. The byte immediately after is NOT always padding:
+            // FR/LG and R/S have it, but Emerald has live game data there.
+            // The narrow ±0x400 window keeps the result list manageable.
+            var conditions = new List<ScanCondition>
+            {
+                ScanCondition.U8(0x00, count),
+            };
+
+            return Scan(conditions, scanStart, scanSize, alignment: 1);
+        }
+
+        // -------------------------------------------------------------------------
         // Gen 3 – gSpeciesInfo
         // -------------------------------------------------------------------------
 

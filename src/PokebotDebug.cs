@@ -475,6 +475,49 @@ namespace Pokebot
             }
         }
 
+        private void _scanEnemyPartyBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                byte level = (byte)_enemyLvlUpDown.Value;
+                byte count = (byte)_enemyCountUpDown.Value;
+
+                var partyResults = scanner.FindEnemyPartyBase(level);
+
+                var sb = new StringBuilder();
+                sb.AppendLine($"=== gEnemyParty — {partyResults.Count} candidate(s) found ===");
+                foreach (var r in partyResults)
+                {
+                    sb.AppendLine($"{r.Hex}  →  {r.Address.ToString("X8")} g 00000258 gEnemyParty");
+
+                    var countResults = scanner.FindEnemyPartyCountNear(r.Address, count);
+                    if (countResults.Count > 0)
+                    {
+                        foreach (var cr in countResults)
+                        {
+                            sb.AppendLine($"  → gEnemyPartyCount candidate: {cr.Hex}");
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendLine("  → gEnemyPartyCount: not found near this address");
+                    }
+                }
+
+                if (partyResults.Count == 0)
+                {
+                    sb.AppendLine("No match. Enter the correct level and MaxHP and be in an active battle.");
+                }
+
+                _scannerResultsText.Text = sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+            }
+        }
+
         private void _scanSpeciesInfoBtn_Click(object sender, EventArgs e)
         {
             try
