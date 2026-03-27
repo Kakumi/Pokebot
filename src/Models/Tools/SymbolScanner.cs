@@ -87,6 +87,12 @@ namespace Pokebot.Models.Tools
         /// <summary>IWRAM size in bytes (32 KB).</summary>
         public const int IwramSize = 0x8000;
 
+        /// <summary>ROM base address on the GBA system bus.</summary>
+        public const long RomStart = 0x08000000;
+
+        /// <summary>ROM size in bytes (16 MB — covers all Gen 3 cartridges).</summary>
+        public const int RomSize = 0x1000000;
+
         public SymbolScanner(ApiContainer api)
         {
             _api = api;
@@ -103,7 +109,8 @@ namespace Pokebot.Models.Tools
         /// <param name="conditions">Byte patterns with their offsets relative to the candidate base.</param>
         /// <param name="rangeStart">Absolute start address to search.</param>
         /// <param name="rangeSize">Number of bytes to read.</param>
-        public List<SymbolScanResult> Scan(IReadOnlyList<ScanCondition> conditions, long rangeStart, int rangeSize)
+        /// <param name="alignment">Step between candidates: 1 = every byte, 4 = 4-byte aligned only.</param>
+        public List<SymbolScanResult> Scan(IReadOnlyList<ScanCondition> conditions, long rangeStart, int rangeSize, int alignment = 1)
         {
             if (conditions == null || conditions.Count == 0)
             {
@@ -114,7 +121,7 @@ namespace Pokebot.Models.Tools
             var results = new List<SymbolScanResult>();
             var memory = _api.Memory.ReadByteRange(rangeStart, rangeSize).ToArray();
 
-            for (int i = 0; i <= rangeSize - minStructSize; i++)
+            for (int i = 0; i <= rangeSize - minStructSize; i += alignment)
             {
                 if (MatchesAll(memory, i, conditions))
                 {
@@ -126,15 +133,21 @@ namespace Pokebot.Models.Tools
         }
 
         /// <summary>Scans the full EWRAM region (256 KB).</summary>
-        public List<SymbolScanResult> ScanEwram(IReadOnlyList<ScanCondition> conditions)
+        public List<SymbolScanResult> ScanEwram(IReadOnlyList<ScanCondition> conditions, int alignment = 1)
         {
-            return Scan(conditions, EwramStart, EwramSize);
+            return Scan(conditions, EwramStart, EwramSize, alignment);
         }
 
         /// <summary>Scans the full IWRAM region (32 KB).</summary>
-        public List<SymbolScanResult> ScanIwram(IReadOnlyList<ScanCondition> conditions)
+        public List<SymbolScanResult> ScanIwram(IReadOnlyList<ScanCondition> conditions, int alignment = 1)
         {
-            return Scan(conditions, IwramStart, IwramSize);
+            return Scan(conditions, IwramStart, IwramSize, alignment);
+        }
+
+        /// <summary>Scans the full ROM region (16 MB).</summary>
+        public List<SymbolScanResult> ScanRom(IReadOnlyList<ScanCondition> conditions, int alignment = 1)
+        {
+            return Scan(conditions, RomStart, RomSize, alignment);
         }
 
         // -------------------------------------------------------------------------
@@ -186,40 +199,133 @@ namespace Pokebot.Models.Tools
         /// Finds the base address of gPlayerAvatar by matching known state bytes.
         ///
         /// How to use:
-        ///   • Stand completely still in the overworld (not surfing, not cycling, not in grass animation).
+        ///   • Stand completely still in the overworld on foot (not surfing, not cycling).
         ///   • Know your character's gender.
         ///
         /// Gen 3 gPlayerAvatar struct offsets:
-        ///   +0x00  objectEventId      (u8) = 0  (player is always object event 0)
-        ///   +0x01  fieldEffectSpriteId(u8) = 0xFF when no field effect (not surfing/cycling/etc.)
-        ///   +0x02  runningState       (u8) = 0  when standing still (NotMoving)
-        ///   +0x03  tileTransitionState(u8) = 0  when not transitioning between tiles
-        ///   +0x07  gender             (u8) = 0 for male, 1 for female
-        ///
-        /// Note: fieldEffectSpriteId=0xFF is a very distinctive marker. If you are surfing or
-        /// cycling, omit it with <paramref name="requireNoFieldEffect"/> = false.
+        ///   +0x00  flags               (u8) — active state flags; typical values:
+        ///                                       0x01 = ON_FOOT only
+        ///                                       0x21 = ON_FOOT | CONTROLLABLE (most common when idle)
+        ///   +0x01  transitionFlags     (u8) — transition state flags
+        ///   +0x02  runningState        (u8) = 0  — NotMoving (00 = not moving)
+        ///   +0x03  tileTransitionState (u8) = 0  — not transitioning
+        ///   +0x04  spriteId            (u8) — player object sprite ID (visible in BizHawk memory viewer)
+        ///   +0x05  objectEventId       (u8) = 0  — player is always object event 0
+        ///   +0x06  preventStep         (u8)
+        ///   +0x07  gender              (u8) = 0 male / 1 female
+        ///   +0x08  acroBikeState       (u8) = 0  — normal / not on acro bike
         /// </summary>
         /// <param name="gender">Character gender: 0 = male, 1 = female.</param>
-        /// <param name="requireNoFieldEffect">
-        ///   true (default): add +0x01==0xFF condition (only works when not surfing/cycling).
-        ///   false: skip that condition if you cannot stand on a plain tile.
+        /// <param name="flags">
+        ///   Optional: value of the flags byte at +0x00. Greatly narrows results.
+        ///   Typical value when standing still on foot: 0x21 (ON_FOOT | CONTROLLABLE).
+        ///   Pass null to skip this condition.
         /// </param>
-        public List<SymbolScanResult> FindPlayerAvatarBase(byte gender, bool requireNoFieldEffect = true)
+        /// <param name="spriteId">
+        ///   Optional: player sprite ID at +0x04, visible in BizHawk's memory viewer.
+        ///   Pass null to skip this condition.
+        /// </param>
+        /// <param name="requireOnFoot">
+        ///   true (default): add +0x08==0x00 (acroBikeState=normal, only reliable on foot).
+        ///   false: omit it if you must scan while surfing or cycling.
+        /// </param>
+        public List<SymbolScanResult> FindPlayerAvatarBase(byte gender, byte? flags = null, byte? spriteId = null, bool requireOnFoot = true)
         {
             var conditions = new List<ScanCondition>
             {
-                ScanCondition.U8(0x00, 0x00), // objectEventId = 0
+                ScanCondition.U8(0x01, 0x00), // transitionFlags = 0 (standing still)
                 ScanCondition.U8(0x02, 0x00), // runningState = NotMoving
                 ScanCondition.U8(0x03, 0x00), // tileTransitionState = not transitioning
+                ScanCondition.U8(0x05, 0x00), // objectEventId = 0 (player is always slot 0)
+                ScanCondition.U8(0x06, 0x00), // preventStep = false
                 ScanCondition.U8(0x07, gender),
+                ScanCondition.U8(0x09, 0x00), // newDirBackup = 0 (not biking)
+                ScanCondition.U8(0x0A, 0x00), // bikeFrameCounter = 0 (not biking)
+                ScanCondition.U8(0x0B, 0x00), // bikeSpeed = 0 (not biking)
             };
 
-            if (requireNoFieldEffect)
+            if (flags.HasValue)
             {
-                conditions.Insert(1, ScanCondition.U8(0x01, 0xFF));
+                conditions.Insert(0, ScanCondition.U8(0x00, flags.Value));
             }
 
-            return ScanEwram(conditions);
+            if (spriteId.HasValue)
+            {
+                conditions.Add(ScanCondition.U8(0x04, spriteId.Value));
+            }
+
+            if (requireOnFoot)
+            {
+                conditions.Add(ScanCondition.U8(0x08, 0x00)); // acroBikeState = normal
+            }
+
+            // Struct contains u32 fields so it is always 4-byte aligned.
+            return ScanEwram(conditions, alignment: 4);
+        }
+
+        // -------------------------------------------------------------------------
+        // Gen 3 – gMain
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Finds the base address of gMain by matching the ROM function-pointer signature
+        /// at the head of the struct and optional game-state bytes near the tail.
+        ///
+        /// How to use:
+        ///   • Be in the overworld with the game fully loaded (not in a battle or transition).
+        ///   • No special position is required.
+        ///   • gMain lives in IWRAM (0x03000000–0x03008000), not EWRAM.
+        ///
+        /// Gen 3 gMain struct offsets (abbreviated):
+        ///   +0x000  callback1      (u32 LE) — ROM ptr; high byte 0x08
+        ///   +0x004  callback2      (u32 LE) — ROM ptr; high byte 0x08
+        ///   +0x008  savedCallback  (u32 LE) — ROM ptr or 0
+        ///   +0x00C  vblankCallback (u32 LE) — ROM ptr; high byte 0x08 (always set)
+        ///   +0x010  hblankCallback (u32 LE) — ROM ptr or 0
+        ///   +0x014  vcountCallback (u32 LE) — ROM ptr or 0
+        ///   +0x018  serialCallback (u32 LE) — ROM ptr or 0
+        ///   +0x038  oamBuffer[128] — 0x400 bytes of OAM entries
+        ///   +0x438  state          (u8)  — main loop state index
+        ///   +0x439  flags          (u8)  — packed: oamLoadDisabled | inBattle | anyLinkBattlerHasFrontierPass
+        ///
+        /// The scan relies on three guaranteed ROM pointers (high byte == 0x08) at fixed
+        /// offsets: callback1 (+0x03), callback2 (+0x07), vblankCallback (+0x0F).
+        /// This three-byte signature at non-trivial positions is highly unique in EWRAM.
+        /// </summary>
+        /// <param name="state">
+        ///   Optional: main loop state byte at +0x438. Narrows results when known.
+        ///   Pass null to skip.
+        /// </param>
+        /// <param name="requireOverworld">
+        ///   true (default): require the flags byte at +0x439 to be 0x00
+        ///   (oamLoadDisabled=0, inBattle=0, anyLinkBattlerHasFrontierPass=0).
+        ///   false: omit the check — use when scanning during a battle or transition.
+        /// </param>
+        public List<SymbolScanResult> FindMainBase(byte? state = null, bool requireOverworld = true)
+        {
+            var conditions = new List<ScanCondition>
+            {
+                // Three guaranteed ROM function pointers at the head of the struct.
+                // High byte of each little-endian u32 must be 0x08 (GBA ROM space).
+                ScanCondition.U8(0x03, 0x08), // callback1 high byte
+                ScanCondition.U8(0x07, 0x08), // callback2 high byte
+                ScanCondition.U8(0x0F, 0x08), // vblankCallback high byte (always set)
+            };
+
+            if (state.HasValue)
+            {
+                conditions.Add(ScanCondition.U8(0x438, state.Value));
+            }
+
+            if (requireOverworld)
+            {
+                // oamLoadDisabled=0, inBattle=0, anyLinkBattlerHasFrontierPass=0
+                conditions.Add(ScanCondition.U8(0x439, 0x00));
+            }
+
+            // All u32 fields → struct is 4-byte aligned.
+            // gMain lives in IWRAM (0x03000000), not EWRAM.
+            return ScanIwram(conditions, alignment: 4);
         }
 
         // -------------------------------------------------------------------------
@@ -300,6 +406,77 @@ namespace Pokebot.Models.Tools
             }
 
             return results;
+        }
+
+        // -------------------------------------------------------------------------
+        // Gen 3 – gSpeciesInfo
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Finds the base address of gSpeciesInfo by matching the base stats of a known
+        /// species entry in ROM. gSpeciesInfo is a const array stored in ROM.
+        ///
+        /// How to use:
+        ///   • Look up the base stats of any Pokemon whose species index you know
+        ///     (e.g. Bulbasaur = index 1: HP 45, Atk 49, Def 49, Spd 45, SpA 65, SpD 65).
+        ///   • Run while the game is loaded — ROM is always readable.
+        ///   • The returned address is the base of the full gSpeciesInfo array (index 0).
+        ///
+        /// Gen 3 SpeciesInfo struct offsets (size 0x1C with padding):
+        ///   +0x00  baseHP
+        ///   +0x01  baseAttack
+        ///   +0x02  baseDefense
+        ///   +0x03  baseSpeed
+        ///   +0x04  baseSpAttack
+        ///   +0x05  baseSpDefense
+        ///   +0x06  type1
+        ///   +0x07  type2
+        ///   ...
+        /// </summary>
+        /// <param name="speciesIndex">Index of the Pokemon whose stats are provided (e.g. 1 for Bulbasaur).</param>
+        /// <param name="baseHp">Base HP of the reference species.</param>
+        /// <param name="baseAttack">Base Attack.</param>
+        /// <param name="baseDefense">Base Defense.</param>
+        /// <param name="baseSpeed">Base Speed.</param>
+        /// <param name="baseSpAttack">Base Sp. Attack.</param>
+        /// <param name="baseSpDefense">Base Sp. Defense.</param>
+        /// <param name="type1">Optional: type1 byte for extra narrowing.</param>
+        /// <param name="type2">Optional: type2 byte for extra narrowing.</param>
+        public List<SymbolScanResult> FindSpeciesInfoBase(
+            int speciesIndex,
+            byte baseHp, byte baseAttack, byte baseDefense,
+            byte baseSpeed, byte baseSpAttack, byte baseSpDefense,
+            byte? type1 = null, byte? type2 = null)
+        {
+            const int structSize = 0x1C;
+
+            var conditions = new List<ScanCondition>
+            {
+                ScanCondition.U8(0x00, baseHp),
+                ScanCondition.U8(0x01, baseAttack),
+                ScanCondition.U8(0x02, baseDefense),
+                ScanCondition.U8(0x03, baseSpeed),
+                ScanCondition.U8(0x04, baseSpAttack),
+                ScanCondition.U8(0x05, baseSpDefense),
+            };
+
+            if (type1.HasValue)
+            {
+                conditions.Add(ScanCondition.U8(0x06, type1.Value));
+            }
+
+            if (type2.HasValue)
+            {
+                conditions.Add(ScanCondition.U8(0x07, type2.Value));
+            }
+
+            // gSpeciesInfo entries are 4-byte aligned in ROM.
+            var entries = ScanRom(conditions, alignment: 4);
+
+            // Each hit is gSpeciesInfo[speciesIndex]. Subtract back to get the array base.
+            return entries
+                .Select(r => new SymbolScanResult(r.Address - (long)speciesIndex * structSize))
+                .ToList();
         }
 
         // -------------------------------------------------------------------------

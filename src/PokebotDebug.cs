@@ -461,6 +461,42 @@ namespace Pokebot
             }
         }
 
+        private void _scanMainBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                var results = scanner.FindMainBase();
+                ShowScanResults("gMain", results);
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+            }
+        }
+
+        private void _scanSpeciesInfoBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scanner = new SymbolScanner(APIContainer);
+                var results = scanner.FindSpeciesInfoBase(
+                    speciesIndex: (int)_speciesIdxUpDown.Value,
+                    baseHp:       (byte)_speciesHpUpDown.Value,
+                    baseAttack:   (byte)_speciesAtkUpDown.Value,
+                    baseDefense:  (byte)_speciesDefUpDown.Value,
+                    baseSpeed:    (byte)_speciesSpdUpDown.Value,
+                    baseSpAttack: (byte)_speciesSpAUpDown.Value,
+                    baseSpDefense:(byte)_speciesSpDUpDown.Value
+                );
+                ShowScanResults("gSpeciesInfo", results);
+            }
+            catch (Exception ex)
+            {
+                _scannerResultsText.Text = "Error: " + ex.Message;
+            }
+        }
+
         private void _scannerCopyBtn_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_scannerResultsText.Text))
