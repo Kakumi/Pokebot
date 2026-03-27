@@ -87,19 +87,24 @@
 	    <LastGenOutput>Messages.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Messages.fr.resx">
-	    <Culture>fr</Culture>
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.fr.resources</LogicalName>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Messages.de.resx">
-	    <Culture>de</Culture>
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.de.resources</LogicalName>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Messages.it.resx">
-	    <Culture>it</Culture>
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.it.resources</LogicalName>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Messages.es.resx">
-	    <Culture>es</Culture>
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.es.resources</LogicalName>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Messages.ja.resx">
-	    <Culture>ja</Culture>
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.ja.resources</LogicalName>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Properties\Resources.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
@@ -123,9 +128,5 @@
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Copy SourceFiles="$(OutputPath)$(MSBuildProjectName).dll" DestinationFolder="$(BIZHAWK_DATA_HOME)ExternalTools" />
-		<ItemGroup>
-			<SatelliteAssemblies Include="$(OutputPath)**\$(MSBuildProjectName).resources.dll" />
-		</ItemGroup>
-		<Copy SourceFiles="@(SatelliteAssemblies)" DestinationFiles="@(SatelliteAssemblies->'$(BIZHAWK_DATA_HOME)ExternalTools\%(RecursiveDir)%(Filename)%(Extension)')" />
 	</Target>
 </Project>

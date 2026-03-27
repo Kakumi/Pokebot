@@ -89,7 +89,7 @@
     <value>Dieser Bot kann nicht verwendet werden, da das Team nicht leer ist.</value>
   </data>
   <data name="BotStarter_WrongStartPosition" xml:space="preserve">
-    <value>Der Bot kann nicht starten, da der Spieler nicht vor den Startern steht.</value>
+    <value>Der Bot kann nicht starten, da der Spieler nicht vor den Startern steht. (Achte darauf, in der Mitte zu stehen)</value>
   </data>
   <data name="Bot_FileExistReplaceMessage" xml:space="preserve">
     <value>Es existiert bereits ein Savestate für diesen Bot. Möchtest du ihn verwenden?</value>
@@ -330,5 +330,56 @@
   </data>
   <data name="Viewer_Speed" xml:space="preserve">
     <value>Initiative: {0}</value>
+  </data>
+  <data name="Bot_Start" xml:space="preserve">
+    <value>Starten</value>
+  </data>
+  <data name="Bot_Stop" xml:space="preserve">
+    <value>Stoppen</value>
+  </data>
+  <data name="Filter_ExactIV" xml:space="preserve">
+    <value>Genaue IVs (standardmäßig minimal)</value>
+  </data>
+  <data name="Filter_IVsGroup" xml:space="preserve">
+    <value>IVs</value>
+  </data>
+  <data name="Filter_Shiny" xml:space="preserve">
+    <value>Schillernd</value>
+  </data>
+  <data name="Filter_ShinyHack" xml:space="preserve">
+    <value>Shiny Hack verwenden</value>
+  </data>
+  <data name="Logs_CopyStackTrace" xml:space="preserve">
+    <value>Stack-Trace kopieren</value>
+  </data>
+  <data name="Logs_HeaderMessage" xml:space="preserve">
+    <value>Nachricht</value>
+  </data>
+  <data name="Logs_HeaderType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Settings_DelayLabel" xml:space="preserve">
+    <value>Sekunden Verzögerung zwischen Bot-Eingaben</value>
+  </data>
+  <data name="Settings_LanguageLabel" xml:space="preserve">
+    <value>Sprache:</value>
+  </data>
+  <data name="Stats_HeaderEncounters" xml:space="preserve">
+    <value>Begegnungen</value>
+  </data>
+  <data name="Stats_HeaderPokemon" xml:space="preserve">
+    <value>Pokémon</value>
+  </data>
+  <data name="Stats_HeaderRatio" xml:space="preserve">
+    <value>Verhältnis</value>
+  </data>
+  <data name="Stats_HeaderShiny" xml:space="preserve">
+    <value>Schillernde Begegnungen</value>
+  </data>
+  <data name="Viewer_IVsGroup" xml:space="preserve">
+    <value>IVs</value>
+  </data>
+  <data name="Viewer_MovesGroup" xml:space="preserve">
+    <value>Attacken</value>
   </data>
 </root>

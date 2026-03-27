@@ -19,6 +19,7 @@ namespace Pokebot.Panels
         public SettingsPanel()
         {
             InitializeComponent();
+            ApplyTranslations();
             SettingsConfig = SettingsConfig.Load();
 
             _accelerateCheckbox.Checked = SettingsConfig.Speed;
@@ -39,6 +40,15 @@ namespace Pokebot.Panels
             int langIndex = Array.IndexOf(_languageCodes, SettingsConfig.Language);
             _languageComboBox.SelectedIndex = langIndex >= 0 ? langIndex : 0;
             _languageComboBox.SelectedIndexChanged += _languageComboBox_SelectedIndexChanged;
+        }
+
+        private void ApplyTranslations()
+        {
+            _accelerateCheckbox.Text = Messages.Settings_Speed;
+            _soundCheckbox.Text = Messages.Settings_Sound;
+            _pauseCheckbox.Text = Messages.Settings_Pause;
+            _delayLabel.Text = Messages.Settings_DelayLabel;
+            _languageLabel.Text = Messages.Settings_LanguageLabel;
         }
 
         private void _accelerateCheckbox_CheckedChanged(object sender, EventArgs e)

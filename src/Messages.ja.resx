@@ -89,7 +89,7 @@
     <value>手持ちが空でないため、このボットを使用できません。</value>
   </data>
   <data name="BotStarter_WrongStartPosition" xml:space="preserve">
-    <value>プレイヤーがスターターの前にいないため、ボットを起動できません。</value>
+    <value>プレイヤーがスターターの前にいないため、ボットを起動できません。（中央に立っていることを確認してください）</value>
   </data>
   <data name="Bot_FileExistReplaceMessage" xml:space="preserve">
     <value>このボットのセーブステートがすでに存在します。使用しますか？</value>
@@ -330,5 +330,56 @@
   </data>
   <data name="Viewer_Speed" xml:space="preserve">
     <value>素早さ: {0}</value>
+  </data>
+  <data name="Bot_Start" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="Bot_Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Filter_ExactIV" xml:space="preserve">
+    <value>完全一致個体値（デフォルトは最小値）</value>
+  </data>
+  <data name="Filter_IVsGroup" xml:space="preserve">
+    <value>個体値</value>
+  </data>
+  <data name="Filter_Shiny" xml:space="preserve">
+    <value>色違い</value>
+  </data>
+  <data name="Filter_ShinyHack" xml:space="preserve">
+    <value>色違いハックを使用</value>
+  </data>
+  <data name="Logs_CopyStackTrace" xml:space="preserve">
+    <value>スタックトレースをコピー</value>
+  </data>
+  <data name="Logs_HeaderMessage" xml:space="preserve">
+    <value>メッセージ</value>
+  </data>
+  <data name="Logs_HeaderType" xml:space="preserve">
+    <value>種別</value>
+  </data>
+  <data name="Settings_DelayLabel" xml:space="preserve">
+    <value>ボット入力間の遅延秒数</value>
+  </data>
+  <data name="Settings_LanguageLabel" xml:space="preserve">
+    <value>言語：</value>
+  </data>
+  <data name="Stats_HeaderEncounters" xml:space="preserve">
+    <value>遭遇数</value>
+  </data>
+  <data name="Stats_HeaderPokemon" xml:space="preserve">
+    <value>ポケモン</value>
+  </data>
+  <data name="Stats_HeaderRatio" xml:space="preserve">
+    <value>割合</value>
+  </data>
+  <data name="Stats_HeaderShiny" xml:space="preserve">
+    <value>色違い遭遇数</value>
+  </data>
+  <data name="Viewer_IVsGroup" xml:space="preserve">
+    <value>個体値</value>
+  </data>
+  <data name="Viewer_MovesGroup" xml:space="preserve">
+    <value>わざ</value>
   </data>
 </root>
