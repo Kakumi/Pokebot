@@ -24,6 +24,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+		<PackageReference Include="Fody" Version="6.8.2" PrivateAssets="all" />
+		<PackageReference Include="Costura.Fody" Version="5.7.0" PrivateAssets="all" />
+		<PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<Reference Include="BizHawk.Bizware.Graphics">
 		  <HintPath>..\BizHawk\dll\BizHawk.Bizware.Graphics.dll</HintPath>

@@ -19,6 +19,7 @@ using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Properties;
+using Pokebot.Services.DiscordPresence;
 using Pokebot.Services.DiscordWebhook;
 using Pokebot.Services.Github;
 using Log = Pokebot.Utils.Log;
@@ -76,6 +77,7 @@ namespace Pokebot
         public PokebotDebug? DebugWindow { get; private set; }
         public GithubServices GithubServices { get; private set; }
         public DiscordWebhookServices? DiscordWebhookServices { get; private set; }
+        public DiscordPresenceService DiscordPresenceService { get; private set; }
         public FileVersionInfo PokebotVersion { get; }
 
         WaitTask? _waitTask;
@@ -104,12 +106,15 @@ namespace Pokebot
             AppConfig.Versions.Add(GetVersionInfo(Resources.Emerald));
 
             GithubServices = new GithubServices(AppConfig.Github.Url);
+            DiscordPresenceService = new DiscordPresenceService(AppConfig.DiscordRichPresence.ClientId, AppConfig.DiscordRichPresence.GithubUrl);
             PokebotVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
 
             //_versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
             _versionLabel.Text = $"{WindowTitleStatic} v{PokebotVersion.ProductVersion.Substring(0, 5)}";
             _newVersionLabel.Hide();
             _tabControl.Hide();
+
+            FormClosed += (s, e) => DiscordPresenceService.Dispose();
 
             CreateTabPages();
         }
@@ -263,6 +268,7 @@ namespace Pokebot
                         {
                             SetStatus(Messages.Rom_NotLoaded, Color.Red);
                             _testedStatus.Text = string.Empty;
+                            DiscordPresenceService.SetWaiting();
                         }
                         else
                         {
@@ -278,6 +284,7 @@ namespace Pokebot
                             _testedStatus.Text = string.Format(Messages.Status_Tested, GameVersion.HashData.Tested ? '✅' : '❌');
                             Log.Info(string.Format(Messages.Rom_Loaded, romName));
                             IsRomLoaded = true;
+                            DiscordPresenceService.SetPlaying(romName);
                         }
                     }
                 }
@@ -422,6 +429,9 @@ namespace Pokebot
                 Bot.PokemonEncountered += Bot_PokemonEncountered;
                 Bot.PokemonFound += Bot_PokemonFound;
                 BotPanel.SetBot(Bot);
+
+                var botName = AppConfig.BotTypes.FirstOrDefault(x => x.Code == (int)code)?.Name ?? code.ToString();
+                DiscordPresenceService.SetBotType(botName);
             }
         }
 
@@ -430,6 +440,11 @@ namespace Pokebot
             if (enabled)
             {
                 EncounterStatsPanel.Clear();
+                DiscordPresenceService.SetBotStarted();
+            }
+            else
+            {
+                DiscordPresenceService.SetBotStopped();
             }
         }
 
@@ -446,6 +461,7 @@ namespace Pokebot
         private void Bot_PokemonEncountered(Pokemon pokemon)
         {
             EncounterStatsPanel.AddPokemonStat(pokemon);
+            DiscordPresenceService.IncrementEncountered();
         }
 
         #endregion
