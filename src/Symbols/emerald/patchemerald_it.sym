@@ -7,3 +7,4 @@
 0808c8d4 c 00000000 Task_Fishing
 08133e6c c 00000000 Task_HandleStarterChooseInput
 08134010 c 00000000 Task_HandleConfirmStarterInput
+0831FDCC g 00002D10 gSpeciesInfo

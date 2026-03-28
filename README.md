@@ -13,6 +13,7 @@ Want to know how this tool has been developed and how it works ? [Visit my websi
 Jump to:
 * [Dependencies](#dependencies)
 * [Installation](#install)
+* [Supported Languages](#supported-languages)
 * [Supported Games](#supported-games)
 * [Overview](#overview)
   * [Video](#overview-video)
@@ -31,6 +32,21 @@ Jump to:
 
 # <a name="install"></a>Installation
 Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open BizHawk and click on "Tools" -> "External Tool" -> "Pokebot". A window should open. Just load your pokemon officiel ROM in BizHawk and Pokebot will automatically update the window if the game is [supported](#supported-games).
+
+# <a name="supported-languages"></a>Supported Languages
+
+The language can be changed at any time from the **Settings** tab. A restart is required to apply the new language. All translations are embedded directly in `Pokebot.dll` — no extra files needed.
+
+| Flag | Language | Code | Notes |
+|------|----------|------|-------|
+| 🇬🇧 | English | `en` | Default |
+| 🇫🇷 | Français | `fr` | |
+| 🇩🇪 | Deutsch | `de` | AI translated |
+| 🇮🇹 | Italiano | `it` | AI translated |
+| 🇪🇸 | Español | `es` | AI translated |
+| 🇯🇵 | 日本語 | `ja` | AI translated |
+
+> Contributions to improve AI-translated languages are welcome!
 
 # <a name="supported-games"></a>Supported Games
 <details>
@@ -85,10 +101,10 @@ Place the file `Pokebot.dll` inside `BizHawk/ExternalTools/` folder. Then, open 
  |--------------|------------------------------------------|-----------|--------|
  | USA (Europe) | f3ae088181bf583e55daf962a92bb46f4f1d07b7 |     ✅     |    ✅   |
  | French       | ca666651374d89ca439007bed54d839eb7bd14d0 |     ✅     |    ✅   |
- | Deutch       | 61c2eb2b380b1a75f0c94b767a2d4c26cd7ce4e3 |     ✅     |    ❌   |
- | Italian      | 1692db322400c3141c5de2db38469913ceb1f4d4 |     ✅     |    ❌   |
- | Japanese     | d7cf8f156ba9c455d164e1ea780a6bf1945465c2 |     ✅     |    ❌   |
- | Spanish      | fe1558a3dcb0360ab558969e09b690888b846dd9 |     ✅     |    ❌   |
+ | Deutch       | 61c2eb2b380b1a75f0c94b767a2d4c26cd7ce4e3 |     ✅     |    ✅   |
+ | Italian      | 1692db322400c3141c5de2db38469913ceb1f4d4 |     ✅     |    ✅   |
+ | Japanese     | d7cf8f156ba9c455d164e1ea780a6bf1945465c2 |     ✅     |    ✅   |
+ | Spanish      | fe1558a3dcb0360ab558969e09b690888b846dd9 |     ✅     |    ✅   |
 </details>
 
 <details>
@@ -204,7 +220,6 @@ The code documentation is available on [Wiki](https://github.com/Kakumi/Pokebot/
 # <a name="todo"></a>Todo & Ideas (implementation not comfirmed)
 * Add bot for eggs
 * Add bot for exp farm
-* Support translations
 * Add feature to PokeFinder bot to save before the specified frame and not at start.
 * Read seed
 * Transform SaveRam to sav file automatically
