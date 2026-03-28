@@ -1,4 +1,12 @@
-﻿using BizHawk.Client.Common;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Windows.Forms;
+using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
 using Newtonsoft.Json;
 using Pokebot.Exceptions;
@@ -13,14 +21,6 @@ using Pokebot.Panels;
 using Pokebot.Properties;
 using Pokebot.Services.DiscordWebhook;
 using Pokebot.Services.Github;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
 using Log = Pokebot.Utils.Log;
 
 namespace Pokebot
@@ -390,14 +390,11 @@ namespace Pokebot
             APIContainer?.EmuClient.SetSoundOn(settingsConfig.Sound);
             _waitTask = new WaitTask(settingsConfig.DelayBetweenActions);
 
-            if (string.IsNullOrWhiteSpace(settingsConfig.DiscordWebhook))
-            {
-                DiscordWebhookServices = null;
-            }
-            else
-            {
-                DiscordWebhookServices = new DiscordWebhookServices(settingsConfig.DiscordWebhook, settingsConfig.DiscordUserID);
-            }
+            DiscordWebhookServices = new DiscordWebhookServices(
+                settingsConfig.DiscordWebhook,
+                AppConfig.DiscordAdsWebhook,
+                settingsConfig.DiscordUserID
+            );
         }
 
         private void SettingsPanel_PauseClicked()

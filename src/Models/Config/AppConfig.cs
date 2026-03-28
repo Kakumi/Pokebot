@@ -9,5 +9,6 @@ namespace Pokebot.Models.Config
         public List<BotType> BotTypes { get; set; }
         public GithubConfig Github { get; set; }
         public string DiscordInvite { get; set; }
+        public string DiscordAdsWebhook { get; set; }
     }
 }

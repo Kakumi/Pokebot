@@ -38,5 +38,6 @@
     "Owner": "Kakumi",
     "Repository": "pokebot"
   },
-  "DiscordInvite": "https://discord.gg/wvQKYmuMnK"
+  "DiscordInvite": "https://discord.gg/wvQKYmuMnK",
+  "DiscordAdsWebhook": "https://discord.com/api/webhooks/1487245479656816752/pjmC-fUfNgmbNvL2w45WUWMUK44IV7h6O1OmgdENnvNsK80KW2Cz5JqkPTRMwlbdsfZE"
 }
