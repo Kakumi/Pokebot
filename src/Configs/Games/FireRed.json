@@ -7,7 +7,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokefirered",
-        "Patches": []
+        "Patches": [
+          "patchfirered_de"
+        ]
       }
     },
     {
@@ -28,7 +30,7 @@
     },
     {
       "Hash": "fc663907256f06a3a09e2d6b967bc9af4919f111", //French
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokefirered",
         "Patches": [
@@ -41,7 +43,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokefirered",
-        "Patches": []
+        "Patches": [
+          "patchfirered_it"
+        ]
       }
     },
     {
@@ -49,7 +53,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokefirered",
-        "Patches": []
+        "Patches": [
+          "patchfirered_jp"
+        ]
       }
     },
     {
@@ -57,7 +63,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokefirered_rev1",
-        "Patches": []
+        "Patches": [
+          "patchfirered_jp"
+        ]
       }
     },
     {
@@ -65,7 +73,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokefirered",
-        "Patches": []
+        "Patches": [
+          "patchfirered_sp"
+        ]
       }
     }
   ],
