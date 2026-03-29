@@ -18,10 +18,7 @@ namespace Pokebot.Models.Tools.Emerald
                 conditions.Add(ScanCondition.U8(0x18, (byte)facing.Value));
             }
 
-            var result = scanner.ScanEwram(conditions);
-            result.AddRange(scanner.ScanIwram(conditions));
-
-            return result;
+            return scanner.ScanEwram(conditions);
         }
     }
 }

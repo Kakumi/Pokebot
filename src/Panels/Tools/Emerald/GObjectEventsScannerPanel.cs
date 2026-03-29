@@ -1,9 +1,9 @@
+using System.Drawing;
+using System.Windows.Forms;
 using Pokebot.Factories.Versions;
 using Pokebot.Models.Player;
 using Pokebot.Models.Tools;
 using Pokebot.Models.Tools.Emerald;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace Pokebot.Panels.Tools.Emerald
 {
@@ -14,31 +14,55 @@ namespace Pokebot.Panels.Tools.Emerald
         private readonly ComboBox _facingCB;
 
         public override string ScannerName => "gObjectEvents";
-        public override VersionCode[] SupportedVersions => new[]
-        {
-            VersionCode.Emerald,
-            VersionCode.Ruby,
-            VersionCode.Sapphire,
-            VersionCode.FireRed,
-            VersionCode.LeafGreen
-        };
+        public override VersionCode[] SupportedVersions => new[] { VersionCode.Emerald, VersionCode.FireRed, VersionCode.LeafGreen };
 
         public GObjectEventsScannerPanel()
         {
-            Controls.Add(new Label { Text = "Player X:", AutoSize = true, Location = new Point(0, 6) });
-            _xUpDown = new NumericUpDown { Location = new Point(60, 3), Size = new Size(70, 20), Maximum = 9999 };
+            Controls.Add(
+                new Label
+                {
+                    Text = "Player X:",
+                    AutoSize = true,
+                    Location = new Point(0, 6),
+                }
+            );
+            _xUpDown = new NumericUpDown
+            {
+                Location = new Point(60, 3),
+                Size = new Size(70, 20),
+                Maximum = 9999,
+            };
             Controls.Add(_xUpDown);
 
-            Controls.Add(new Label { Text = "Player Y:", AutoSize = true, Location = new Point(136, 6) });
-            _yUpDown = new NumericUpDown { Location = new Point(196, 3), Size = new Size(70, 20), Maximum = 9999 };
+            Controls.Add(
+                new Label
+                {
+                    Text = "Player Y:",
+                    AutoSize = true,
+                    Location = new Point(136, 6),
+                }
+            );
+            _yUpDown = new NumericUpDown
+            {
+                Location = new Point(196, 3),
+                Size = new Size(70, 20),
+                Maximum = 9999,
+            };
             Controls.Add(_yUpDown);
 
-            Controls.Add(new Label { Text = "Facing:", AutoSize = true, Location = new Point(272, 6) });
+            Controls.Add(
+                new Label
+                {
+                    Text = "Facing:",
+                    AutoSize = true,
+                    Location = new Point(272, 6),
+                }
+            );
             _facingCB = new ComboBox
             {
                 Location = new Point(316, 3),
                 Size = new Size(80, 21),
-                DropDownStyle = ComboBoxStyle.DropDownList
+                DropDownStyle = ComboBoxStyle.DropDownList,
             };
             _facingCB.Items.AddRange(new object[] { "Any", "Down", "Up", "Left", "Right" });
             _facingCB.SelectedIndex = 0;
@@ -53,7 +77,7 @@ namespace Pokebot.Panels.Tools.Emerald
                 2 => PlayerFacingDirection.Up,
                 3 => PlayerFacingDirection.Left,
                 4 => PlayerFacingDirection.Right,
-                _ => null
+                _ => null,
             };
             var results = GObjectEventsScanner.FindBase(scanner, (ushort)_xUpDown.Value, (ushort)_yUpDown.Value, facing);
             return FormatResults("gObjectEvents", results);

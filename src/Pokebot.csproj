@@ -65,6 +65,9 @@
 	  <Compile Update="Panels\StaticControl.cs">
 	    <SubType>UserControl</SubType>
 	  </Compile>
+	  <Compile Update="Panels\Tools\RubySapphire\GObjectEventsScannerPanel.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
 	  <Compile Update="Properties\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
