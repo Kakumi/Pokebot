@@ -313,6 +313,26 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] pokesapphire_de {
+            get {
+                object obj = ResourceManager.GetObject("pokesapphire_de", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] pokesapphire_de_rev1 {
+            get {
+                object obj = ResourceManager.GetObject("pokesapphire_de_rev1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] pokesapphire_rev1 {
             get {
                 object obj = ResourceManager.GetObject("pokesapphire_rev1", resourceCulture);

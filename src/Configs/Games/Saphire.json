@@ -4,7 +4,7 @@
   "Hashs": [
     {
       "Hash": "5a087835009d552d4c5c1f96be3be3206e378153", //Deutch
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_de",
         "Patches": []
@@ -12,7 +12,7 @@
     },
     {
       "Hash": "7e6e034f9cdca6d2c4a270fdb50a94def5883d17", //Deutch (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_de_rev1",
         "Patches": []
@@ -44,7 +44,7 @@
     },
     {
       "Hash": "c269b5692b2d0e5800ba1ddf117fda95ac648634", //French
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire",
         "Patches": [
@@ -54,7 +54,7 @@
     },
     {
       "Hash": "860e93f5ea44f4278132f6c1ee5650d07b852fd8", //French (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_rev1",
         "Patches": [

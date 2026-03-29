@@ -193,6 +193,12 @@
   <data name="pokesapphire" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>sapphire\pokesapphire.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="pokesapphire_de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire\pokesapphire_de.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pokesapphire_de_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire_rev1\pokesapphire_de_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pokesapphire_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>sapphire_rev1\pokesapphire_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
