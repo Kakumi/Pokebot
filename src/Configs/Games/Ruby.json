@@ -87,7 +87,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokeruby",
-        "Patches": []
+        "Patches": [
+          "patchruby_jp"
+        ]
       }
     },
     {
@@ -95,7 +97,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokeruby_rev1",
-        "Patches": []
+        "Patches": [
+          "patchruby_jp"
+        ]
       }
     },
     {
