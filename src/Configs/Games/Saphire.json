@@ -6,7 +6,7 @@
       "Hash": "5a087835009d552d4c5c1f96be3be3206e378153", //Deutch
       "Tested": false,
       "Symbols": {
-        "Main": "pokesapphire",
+        "Main": "pokesapphire_de",
         "Patches": []
       }
     },
@@ -14,7 +14,7 @@
       "Hash": "7e6e034f9cdca6d2c4a270fdb50a94def5883d17", //Deutch (rev 1)
       "Tested": false,
       "Symbols": {
-        "Main": "pokesapphire_rev1",
+        "Main": "pokesapphire_de_rev1",
         "Patches": []
       }
     },
@@ -57,7 +57,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokesapphire_rev1",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_fr"
+        ]
       }
     },
     {
@@ -65,7 +67,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokesapphire",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_it"
+        ]
       }
     },
     {
@@ -73,7 +77,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokesapphire_rev1",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_it"
+        ]
       }
     },
     {
@@ -81,7 +87,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokesapphire",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_jp"
+        ]
       }
     },
     {
@@ -89,7 +97,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokesapphire_rev1",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_jp"
+        ]
       }
     },
     {
@@ -97,7 +107,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokesapphire",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_sp"
+        ]
       }
     },
     {
@@ -105,7 +117,9 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokesapphire_rev1",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_sp"
+        ]
       }
     }
   ],
