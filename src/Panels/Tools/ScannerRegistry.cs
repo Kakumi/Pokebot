@@ -7,7 +7,11 @@ namespace Pokebot.Panels.Tools
     {
         private static readonly ScannerItem[] _all = new ScannerItem[]
         {
-            new ScannerItem("gMain", new[] { VersionCode.Emerald }, () => new Emerald.GMainScannerPanel()),
+            new ScannerItem(
+                "gMain",
+                new[] { VersionCode.Emerald, VersionCode.FireRed, VersionCode.LeafGreen },
+                () => new Emerald.GMainScannerPanel()
+            ),
             new ScannerItem("gMain", new[] { VersionCode.Ruby, VersionCode.Sapphire }, () => new RubySapphire.GMainScannerPanel()),
             new ScannerItem(
                 "gObjectEvents",
