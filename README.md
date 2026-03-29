@@ -113,18 +113,18 @@ The language can be changed at any time from the **Settings** tab. A restart is 
  | Nom                | Hash                                     | Supported | Tested |
  |--------------------|------------------------------------------|-----------|--------|
  | USA (Europe)       | f28b6ffc97847e94a6c21a63cacf633ee5c8df1e |     ✅     |    ✅   |
- | USA (Europe) rev 1 | 610b96a9c9a7d03d2bafb655e7560ccff1a6d894 |     ✅     |    ❌   |
- | USA (Europe) rev 2 | 5b64eacf892920518db4ec664e62a086dd5f5bc8 |     ✅     |    ❌   |
+ | USA (Europe) rev 1 | 610b96a9c9a7d03d2bafb655e7560ccff1a6d894 |     ✅     |    ✅   |
+ | USA (Europe) rev 2 | 5b64eacf892920518db4ec664e62a086dd5f5bc8 |     ✅     |    ✅   |
  | French             | a6ee94202bec0641c55d242757e84dc89336d4cb |     ✅     |    ✅   |
- | French rev 1       | ba888dfba231a231cbd60fe228e894b54fb1ed79 |     ✅     |    ❌   |
+ | French rev 1       | ba888dfba231a231cbd60fe228e894b54fb1ed79 |     ✅     |    ✅   |
  | Deutch             | 1c2a53332382e14dab8815e3a6dd81ad89534050 |     ✅     |    ✅   |
  | Deutch rev 1       | 424740be1fc67a5ddb954794443646e6aeee2c1b |     ✅     |    ✅   |
- | Italian            | 2b3134224392f58da00f802faa1bf4b5cf6270be |     ✅     |    ❌   |
- | Italian rev 1      | 015a5d380afe316a2a6fcc561798ebff9dfb3009 |     ✅     |    ❌   |
- | Japanese           | 5c5e546720300b99ae45d2aa35c646c8b8ff5c56 |     ✅     |    ❌   |
- | Japanese rev 1     | 971e0d670a95e5b32240b2deed20405b8daddf47 |     ✅     |    ❌   |
- | Spanish            | 1f49f7289253dcbfecbc4c5ba3e67aa0652ec83c |     ✅     |    ❌   |
- | Spanish rev 1      | 9ac73481d7f5d150a018309bba91d185ce99fb7c |     ✅     |    ❌   |
+ | Italian            | 2b3134224392f58da00f802faa1bf4b5cf6270be |     ✅     |    ✅   |
+ | Italian rev 1      | 015a5d380afe316a2a6fcc561798ebff9dfb3009 |     ✅     |    ✅   |
+ | Japanese           | 5c5e546720300b99ae45d2aa35c646c8b8ff5c56 |     ✅     |    ✅   |
+ | Japanese rev 1     | 971e0d670a95e5b32240b2deed20405b8daddf47 |     ✅     |    ✅   |
+ | Spanish            | 1f49f7289253dcbfecbc4c5ba3e67aa0652ec83c |     ✅     |    ✅   |
+ | Spanish rev 1      | 9ac73481d7f5d150a018309bba91d185ce99fb7c |     ✅     |    ✅   |
 </details>
 
 <details>
@@ -133,18 +133,18 @@ The language can be changed at any time from the **Settings** tab. A restart is 
  | Nom                | Hash                                     | Supported | Tested |
  |--------------------|------------------------------------------|-----------|--------|
  | USA (Europe)       | 3ccbbd45f8553c36463f13b938e833f652b793e4 |     ✅     |    ✅   |
- | USA (Europe) rev 1 | 4722efb8cd45772ca32555b98fd3b9719f8e60a9 |     ✅     |    ❌   |
- | USA (Europe) rev 2 | 89b45fb172e6b55d51fc0e61989775187f6fe63c |     ✅     |    ❌   |
+ | USA (Europe) rev 1 | 4722efb8cd45772ca32555b98fd3b9719f8e60a9 |     ✅     |    ✅   |
+ | USA (Europe) rev 2 | 89b45fb172e6b55d51fc0e61989775187f6fe63c |     ✅     |    ✅   |
  | French             | c269b5692b2d0e5800ba1ddf117fda95ac648634 |     ✅     |    ✅   |
- | French rev 1       | 860e93f5ea44f4278132f6c1ee5650d07b852fd8 |     ✅     |    ❌   |
+ | French rev 1       | 860e93f5ea44f4278132f6c1ee5650d07b852fd8 |     ✅     |    ✅   |
  | Deutch             | 5a087835009d552d4c5c1f96be3be3206e378153 |     ✅     |    ✅   |
  | Deutch rev 1       | 7e6e034f9cdca6d2c4a270fdb50a94def5883d17 |     ✅     |    ✅   |
- | Italian            | f729dd571fb2c09e72c5c1d68fe0a21e72713d34 |     ✅     |    ❌   |
- | Italian rev 1      | 73edf67b9b82ff12795622dca412733755d2c0fe |     ✅     |    ❌   |
- | Japanese           | 3233342c2f3087e6ffe6c1791cd5867db07df842 |     ✅     |    ❌   |
- | Japanese rev 1     | 01f509671445965236ac4c6b5a354fe2f1e69f13 |     ✅     |    ❌   |
- | Spanish            | 3a6489189e581c4b29914071b79207883b8c16d8 |     ✅     |    ❌   |
- | Spanish rev 1      | 0fe9ad1e602e2fafa090aee25e43d6980625173c |     ✅     |    ❌   |
+ | Italian            | f729dd571fb2c09e72c5c1d68fe0a21e72713d34 |     ✅     |    ✅   |
+ | Italian rev 1      | 73edf67b9b82ff12795622dca412733755d2c0fe |     ✅     |    ✅   |
+ | Japanese           | 3233342c2f3087e6ffe6c1791cd5867db07df842 |     ✅     |    ✅   |
+ | Japanese rev 1     | 01f509671445965236ac4c6b5a354fe2f1e69f13 |     ✅     |    ✅   |
+ | Spanish            | 3a6489189e581c4b29914071b79207883b8c16d8 |     ✅     |    ✅   |
+ | Spanish rev 1      | 0fe9ad1e602e2fafa090aee25e43d6980625173c |     ✅     |    ✅   |
 </details>
 
 <details>

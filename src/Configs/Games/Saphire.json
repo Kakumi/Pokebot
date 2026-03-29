@@ -84,7 +84,7 @@
     },
     {
       "Hash": "3233342c2f3087e6ffe6c1791cd5867db07df842", //Japanese
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire",
         "Patches": [
@@ -94,7 +94,7 @@
     },
     {
       "Hash": "01f509671445965236ac4c6b5a354fe2f1e69f13", //Japanese (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_rev1",
         "Patches": [
