@@ -84,7 +84,7 @@
     },
     {
       "Hash": "5c5e546720300b99ae45d2aa35c646c8b8ff5c56", //Japanese
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeruby",
         "Patches": [
@@ -94,7 +94,7 @@
     },
     {
       "Hash": "971e0d670a95e5b32240b2deed20405b8daddf47", //Japanese (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeruby_rev1",
         "Patches": [
@@ -104,18 +104,22 @@
     },
     {
       "Hash": "1f49f7289253dcbfecbc4c5ba3e67aa0652ec83c", //Spanish
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeruby",
-        "Patches": []
+        "Patches": [
+          "patchruby_sp"
+        ]
       }
     },
     {
       "Hash": "9ac73481d7f5d150a018309bba91d185ce99fb7c", //Spanish (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeruby_rev1",
-        "Patches": []
+        "Patches": [
+          "patchruby_sp"
+        ]
       }
     }
   ],

@@ -1,3 +1,4 @@
+using Pokebot.Factories.Versions;
 using Pokebot.Models.Tools;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Pokebot.Panels.Tools
     public abstract class ScannerPanel : UserControl
     {
         public abstract string ScannerName { get; }
-        public abstract int[] SupportedGenerations { get; }
+        public abstract VersionCode[] SupportedVersions { get; }
         public abstract string Run(SymbolScanner scanner);
 
         /// <summary>

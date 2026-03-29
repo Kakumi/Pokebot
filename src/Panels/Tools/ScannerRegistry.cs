@@ -1,3 +1,4 @@
+using Pokebot.Factories.Versions;
 using System.Linq;
 
 namespace Pokebot.Panels.Tools
@@ -6,19 +7,20 @@ namespace Pokebot.Panels.Tools
     {
         private static readonly ScannerItem[] _all = new ScannerItem[]
         {
-            new ScannerItem("gMain",         new[] { 3 }, () => new GMainScannerPanel()),
-            new ScannerItem("gObjectEvents", new[] { 3 }, () => new GObjectEventsScannerPanel()),
-            new ScannerItem("gPlayerAvatar", new[] { 3 }, () => new GPlayerAvatarScannerPanel()),
-            new ScannerItem("gTasks",        new[] { 3 }, () => new GTasksScannerPanel()),
-            new ScannerItem("gSpeciesInfo",  new[] { 3 }, () => new GSpeciesInfoScannerPanel()),
-            new ScannerItem("gEnemyParty",              new[] { 3 }, () => new GEnemyPartyScannerPanel()),
-            new ScannerItem("gPlayerParty",             new[] { 3 }, () => new GPlayerPartyScannerPanel()),
-            new ScannerItem("gActionSelectionCursor",   new[] { 3 }, () => new GActionSelectionCursorScannerPanel()),
-            new ScannerItem("gRngValue",                new[] { 3 }, () => new GRngValueScannerPanel()),
-            new ScannerItem("gSaveBlock2Ptr",           new[] { 3 }, () => new GSaveBlock2PtrScannerPanel()),
+            new ScannerItem("gMain",       new[] { VersionCode.Emerald },                                                                            () => new Emerald.GMainScannerPanel()),
+            new ScannerItem("gMain",       new[] { VersionCode.Ruby, VersionCode.Sapphire },                                                         () => new RubySapphire.GMainScannerPanel()),
+            new ScannerItem("gObjectEvents",            new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GObjectEventsScannerPanel()),
+            new ScannerItem("gPlayerAvatar",            new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GPlayerAvatarScannerPanel()),
+            new ScannerItem("gTasks",                   new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GTasksScannerPanel()),
+            new ScannerItem("gSpeciesInfo",             new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GSpeciesInfoScannerPanel()),
+            new ScannerItem("gEnemyParty",              new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GEnemyPartyScannerPanel()),
+            new ScannerItem("gPlayerParty",             new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GPlayerPartyScannerPanel()),
+            new ScannerItem("gActionSelectionCursor",   new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GActionSelectionCursorScannerPanel()),
+            new ScannerItem("gRngValue",                new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GRngValueScannerPanel()),
+            new ScannerItem("gSaveBlock2Ptr",           new[] { VersionCode.Emerald, VersionCode.Ruby, VersionCode.Sapphire, VersionCode.FireRed, VersionCode.LeafGreen }, () => new Emerald.GSaveBlock2PtrScannerPanel()),
         };
 
-        public static ScannerItem[] GetForGeneration(int generation)
-            => _all.Where(s => s.SupportedGenerations.Contains(generation)).ToArray();
+        public static ScannerItem[] GetForVersion(VersionCode version)
+            => _all.Where(s => s.SupportedVersions.Contains(version)).ToArray();
     }
 }

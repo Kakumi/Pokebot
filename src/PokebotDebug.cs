@@ -83,18 +83,18 @@ namespace Pokebot
         public void SetGameVersion(GameVersion gameVersion)
         {
             GameVersion = gameVersion;
-            InitializeScannerDropdown(gameVersion.VersionInfo.Generation);
+            InitializeScannerDropdown((VersionCode)gameVersion.VersionInfo.Code);
         }
 
         private ScannerPanel _currentScannerPanel;
 
-        private void InitializeScannerDropdown(int generation)
+        private void InitializeScannerDropdown(VersionCode version)
         {
             _scannerDropdown.Items.Clear();
             _scannerPanelContainer.Controls.Clear();
             _currentScannerPanel = null;
 
-            var items = ScannerRegistry.GetForGeneration(generation);
+            var items = ScannerRegistry.GetForVersion(version);
             _scannerDropdown.Items.AddRange(items);
 
             if (_scannerDropdown.Items.Count > 0)

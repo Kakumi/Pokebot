@@ -1,3 +1,4 @@
+using Pokebot.Factories.Versions;
 using System;
 
 namespace Pokebot.Panels.Tools
@@ -5,13 +6,13 @@ namespace Pokebot.Panels.Tools
     public class ScannerItem
     {
         public string Name { get; }
-        public int[] SupportedGenerations { get; }
+        public VersionCode[] SupportedVersions { get; }
         public Func<ScannerPanel> Create { get; }
 
-        public ScannerItem(string name, int[] generations, Func<ScannerPanel> create)
+        public ScannerItem(string name, VersionCode[] versions, Func<ScannerPanel> create)
         {
             Name = name;
-            SupportedGenerations = generations;
+            SupportedVersions = versions;
             Create = create;
         }
 
