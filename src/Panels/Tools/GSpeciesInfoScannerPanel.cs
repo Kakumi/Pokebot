@@ -17,34 +17,43 @@ namespace Pokebot.Panels.Tools
         public override string ScannerName => "gSpeciesInfo";
         public override int[] SupportedGenerations => new[] { 3 };
 
+        // Row 1: Idx, HP, Atk, Def  — Row 2: Spd, SpA, SpD
+        private const int Col0 = 0;
+        private const int Col1 = 140;
+        private const int Col2 = 280;
+        private const int Col3 = 420;
+        private const int Row1 = 5;
+        private const int Row2 = 32;
+
         public GSpeciesInfoScannerPanel()
         {
-            AddLabelAndUpDown("Idx:",  0,   ref _idxUpDown, 500, 1);
-            AddLabelAndUpDown("HP:",   85,  ref _hpUpDown,  255, 0);
-            AddLabelAndUpDown("Atk:",  155, ref _atkUpDown, 255, 0);
-            AddLabelAndUpDown("Def:",  225, ref _defUpDown, 255, 0);
-            AddLabelAndUpDown("Spd:",  295, ref _spdUpDown, 255, 0);
-            AddLabelAndUpDown("SpA:",  365, ref _spAUpDown, 255, 0);
-            AddLabelAndUpDown("SpD:",  435, ref _spDUpDown, 255, 0);
+            AddField("Idx:", Col0, Row1, ref _idxUpDown, 500, 1,  defaultValue: 1);
+            AddField("HP:",  Col1, Row1, ref _hpUpDown,  255, 0,  defaultValue: 45);
+            AddField("Atk:", Col2, Row1, ref _atkUpDown, 255, 0,  defaultValue: 49);
+            AddField("Def:", Col3, Row1, ref _defUpDown, 255, 0,  defaultValue: 49);
+            AddField("Spd:", Col0, Row2, ref _spdUpDown, 255, 0,  defaultValue: 45);
+            AddField("SpA:", Col1, Row2, ref _spAUpDown, 255, 0,  defaultValue: 65);
+            AddField("SpD:", Col2, Row2, ref _spDUpDown, 255, 0,  defaultValue: 65);
 
             Controls.Add(new Label
             {
                 Text = "e.g. Bulbasaur: Idx=1 HP=45 Atk=49 Def=49 Spd=45 SpA=65 SpD=65",
                 AutoSize = true,
-                Location = new Point(0, 30),
+                Location = new Point(0, 60),
                 ForeColor = System.Drawing.Color.Gray
             });
         }
 
-        private void AddLabelAndUpDown(string text, int x, ref NumericUpDown upDown, int max, int min)
+        private void AddField(string text, int x, int y, ref NumericUpDown upDown, int max, int min, int defaultValue)
         {
-            Controls.Add(new Label { Text = text, AutoSize = true, Location = new Point(x, 6) });
+            Controls.Add(new Label { Text = text, AutoSize = true, Location = new Point(x, y + 3) });
             upDown = new NumericUpDown
             {
-                Location = new Point(x + (text.Length > 3 ? 26 : 22), 3),
-                Size = new Size(42, 20),
+                Location = new Point(x + 34, y),
+                Size = new Size(70, 20),
                 Maximum = max,
-                Minimum = min
+                Minimum = min,
+                Value = defaultValue
             };
             Controls.Add(upDown);
         }
