@@ -64,7 +64,7 @@
     },
     {
       "Hash": "f729dd571fb2c09e72c5c1d68fe0a21e72713d34", //Italian
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire",
         "Patches": [
@@ -74,7 +74,7 @@
     },
     {
       "Hash": "73edf67b9b82ff12795622dca412733755d2c0fe", //Italian (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_rev1",
         "Patches": [
@@ -104,7 +104,7 @@
     },
     {
       "Hash": "3a6489189e581c4b29914071b79207883b8c16d8", //Spanish
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire",
         "Patches": [
@@ -114,7 +114,7 @@
     },
     {
       "Hash": "0fe9ad1e602e2fafa090aee25e43d6980625173c", //Spanish (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_rev1",
         "Patches": [

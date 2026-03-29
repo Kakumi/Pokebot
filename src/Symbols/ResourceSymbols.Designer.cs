@@ -183,6 +183,26 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] patchsapphire_it {
+            get {
+                object obj = ResourceManager.GetObject("patchsapphire_it", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchsapphire_sp {
+            get {
+                object obj = ResourceManager.GetObject("patchsapphire_sp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] pokecrystal {
             get {
                 object obj = ResourceManager.GetObject("pokecrystal", resourceCulture);

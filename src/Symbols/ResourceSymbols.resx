@@ -154,6 +154,12 @@
   <data name="patchsapphire_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>sapphire\patchsapphire_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="patchsapphire_it" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire\patchsapphire_it.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchsapphire_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire\patchsapphire_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pokecrystal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>crystal\pokecrystal.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
