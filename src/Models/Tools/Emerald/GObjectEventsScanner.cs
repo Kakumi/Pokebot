@@ -1,5 +1,5 @@
-using Pokebot.Models.Player;
 using System.Collections.Generic;
+using Pokebot.Models.Player;
 
 namespace Pokebot.Models.Tools.Emerald
 {
@@ -17,7 +17,11 @@ namespace Pokebot.Models.Tools.Emerald
             {
                 conditions.Add(ScanCondition.U8(0x18, (byte)facing.Value));
             }
-            return scanner.ScanEwram(conditions);
+
+            var result = scanner.ScanEwram(conditions);
+            result.AddRange(scanner.ScanIwram(conditions));
+
+            return result;
         }
     }
 }
