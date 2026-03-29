@@ -29,9 +29,18 @@ namespace Pokebot.Panels.Tools
             var sb = new StringBuilder();
             sb.AppendLine($"=== {symbolName} — {results.Count} candidate(s) found ===");
             foreach (var r in results)
-                sb.AppendLine($"{r.Hex}  →  {r.Address.ToString("X8")} g 00000000 {symbolName}");
+            {
+                sb.Append($"{r.Hex}  →  {r.Address.ToString("X8")} g 00000000 {symbolName}");
+                if (r.Tag != null)
+                {
+                    sb.Append($"   [{r.Tag}]");
+                }
+                sb.AppendLine();
+            }
             if (results.Count == 0)
+            {
                 sb.AppendLine("No match.");
+            }
             return sb.ToString();
         }
 

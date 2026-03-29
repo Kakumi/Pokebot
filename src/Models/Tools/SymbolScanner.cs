@@ -1,8 +1,8 @@
-using BizHawk.Client.Common;
-using Pokebot.Models.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BizHawk.Client.Common;
+using Pokebot.Models.Player;
 
 namespace Pokebot.Models.Tools
 {
@@ -49,6 +49,12 @@ namespace Pokebot.Models.Tools
 
         /// <summary>Address formatted as an 8-digit hex string, ready to paste into a patch symbol file.</summary>
         public string Hex => Address.ToString("X8");
+
+        /// <summary>
+        /// Optional extra annotation shown alongside the result (e.g. a dereferenced ROM pointer).
+        /// Not part of the symbol file output — used for human verification only.
+        /// </summary>
+        public string Tag { get; set; }
 
         public SymbolScanResult(long address)
         {
@@ -309,7 +315,6 @@ namespace Pokebot.Models.Tools
                 // High byte of each little-endian u32 must be 0x08 (GBA ROM space).
                 ScanCondition.U8(0x03, 0x08), // callback1 high byte
                 ScanCondition.U8(0x07, 0x08), // callback2 high byte
-                ScanCondition.U8(0x0F, 0x08), // vblankCallback high byte (always set)
             };
 
             if (state.HasValue)
@@ -325,7 +330,25 @@ namespace Pokebot.Models.Tools
 
             // All u32 fields → struct is 4-byte aligned.
             // gMain lives in IWRAM (0x03000000), not EWRAM.
-            return ScanIwram(conditions, alignment: 4);
+            var candidates = ScanIwram(conditions, alignment: 4);
+
+            // Enrich each candidate with the callback2 ROM address (the "reversed" pointer).
+            // callback2 is the LE u32 at offset +4.  Its high byte is already guaranteed 0x08
+            // by the scan conditions, so displaying the full value lets the user confirm the
+            // candidate by reverse-looking it up in their symbol file (same logic as
+            // Gen3Memory.GetGameState which reads gMain+4 and subtracts 1 for THUMB alignment).
+            if (candidates.Count > 0)
+            {
+                var iwram = _api.Memory.ReadByteRange(IwramStart, IwramSize).ToArray();
+                foreach (var result in candidates)
+                {
+                    int off = (int)(result.Address - IwramStart);
+                    uint cb2 = BitConverter.ToUInt32(iwram, off + 4);
+                    result.Tag = $"cb2 = 0x{cb2:X8}";
+                }
+            }
+
+            return candidates;
         }
 
         // -------------------------------------------------------------------------
@@ -447,7 +470,7 @@ namespace Pokebot.Models.Tools
         {
             var conditions = new List<ScanCondition>
             {
-                ScanCondition.U8(0x13, 0x02),  // hasSpecies=1, isBadEgg=0, isEgg=0
+                ScanCondition.U8(0x13, 0x02), // hasSpecies=1, isBadEgg=0, isEgg=0
                 ScanCondition.U8(0x54, level), // level visible in battle HUD
             };
 
@@ -487,19 +510,16 @@ namespace Pokebot.Models.Tools
 
             bool isIwram = partyBase >= IwramStart && partyBase < IwramStart + IwramSize;
             long regionStart = isIwram ? IwramStart : EwramStart;
-            int regionSize   = isIwram ? IwramSize  : EwramSize;
+            int regionSize = isIwram ? IwramSize : EwramSize;
 
             long scanStart = Math.Max(partyBase - searchRange, regionStart);
-            long scanEnd   = Math.Min(partyBase + searchRange, regionStart + regionSize);
-            int  scanSize  = (int)(scanEnd - scanStart);
+            long scanEnd = Math.Min(partyBase + searchRange, regionStart + regionSize);
+            int scanSize = (int)(scanEnd - scanStart);
 
             // Match only the count byte. The byte immediately after is NOT always padding:
             // FR/LG and R/S have it, but Emerald has live game data there.
             // The narrow ±0x400 window keeps the result list manageable.
-            var conditions = new List<ScanCondition>
-            {
-                ScanCondition.U8(0x00, count),
-            };
+            var conditions = new List<ScanCondition> { ScanCondition.U8(0x00, count) };
 
             return Scan(conditions, scanStart, scanSize, alignment: 1);
         }
@@ -540,7 +560,7 @@ namespace Pokebot.Models.Tools
         {
             var conditions = new List<ScanCondition>
             {
-                ScanCondition.U8(0x13, 0x02),  // hasSpecies=1, isBadEgg=0, isEgg=0
+                ScanCondition.U8(0x13, 0x02), // hasSpecies=1, isBadEgg=0, isEgg=0
                 ScanCondition.U8(0x54, level), // level
             };
 
@@ -601,9 +621,15 @@ namespace Pokebot.Models.Tools
         /// <param name="type2">Optional: type2 byte for extra narrowing.</param>
         public List<SymbolScanResult> FindSpeciesInfoBase(
             int speciesIndex,
-            byte baseHp, byte baseAttack, byte baseDefense,
-            byte baseSpeed, byte baseSpAttack, byte baseSpDefense,
-            byte? type1 = null, byte? type2 = null)
+            byte baseHp,
+            byte baseAttack,
+            byte baseDefense,
+            byte baseSpeed,
+            byte baseSpAttack,
+            byte baseSpDefense,
+            byte? type1 = null,
+            byte? type2 = null
+        )
         {
             const int structSize = 0x1C;
 
@@ -631,9 +657,7 @@ namespace Pokebot.Models.Tools
             var entries = ScanRom(conditions, alignment: 4);
 
             // Each hit is gSpeciesInfo[speciesIndex]. Subtract back to get the array base.
-            return entries
-                .Select(r => new SymbolScanResult(r.Address - (long)speciesIndex * structSize))
-                .ToList();
+            return entries.Select(r => new SymbolScanResult(r.Address - (long)speciesIndex * structSize)).ToList();
         }
 
         // -------------------------------------------------------------------------
@@ -671,11 +695,11 @@ namespace Pokebot.Models.Tools
 
             bool needEwram = previous.Any(r => r.Address >= EwramStart && r.Address < EwramStart + EwramSize);
             bool needIwram = previous.Any(r => r.Address >= IwramStart && r.Address < IwramStart + IwramSize);
-            bool needRom   = previous.Any(r => r.Address >= RomStart   && r.Address < RomStart   + RomSize);
+            bool needRom = previous.Any(r => r.Address >= RomStart && r.Address < RomStart + RomSize);
 
             byte[] ewram = needEwram ? _api.Memory.ReadByteRange(EwramStart, EwramSize).ToArray() : null;
             byte[] iwram = needIwram ? _api.Memory.ReadByteRange(IwramStart, IwramSize).ToArray() : null;
-            byte[] rom   = needRom   ? _api.Memory.ReadByteRange(RomStart,   RomSize).ToArray()   : null;
+            byte[] rom = needRom ? _api.Memory.ReadByteRange(RomStart, RomSize).ToArray() : null;
 
             var results = new List<SymbolScanResult>();
 
@@ -687,15 +711,21 @@ namespace Pokebot.Models.Tools
 
                 if (prev.Address >= EwramStart && prev.Address < EwramStart + EwramSize)
                 {
-                    region = ewram; regionStart = EwramStart; regionSize = EwramSize;
+                    region = ewram;
+                    regionStart = EwramStart;
+                    regionSize = EwramSize;
                 }
                 else if (prev.Address >= IwramStart && prev.Address < IwramStart + IwramSize)
                 {
-                    region = iwram; regionStart = IwramStart; regionSize = IwramSize;
+                    region = iwram;
+                    regionStart = IwramStart;
+                    regionSize = IwramSize;
                 }
                 else if (prev.Address >= RomStart && prev.Address < RomStart + RomSize)
                 {
-                    region = rom; regionStart = RomStart; regionSize = RomSize;
+                    region = rom;
+                    regionStart = RomStart;
+                    regionSize = RomSize;
                 }
                 else
                 {
@@ -743,10 +773,7 @@ namespace Pokebot.Models.Tools
                 throw new ArgumentOutOfRangeException(nameof(cursorPosition), "Cursor position must be 0–3 (FIGHT/BAG/POKEMON/RUN).");
             }
 
-            var conditions = new List<ScanCondition>
-            {
-                ScanCondition.U8(0x00, cursorPosition),
-            };
+            var conditions = new List<ScanCondition> { ScanCondition.U8(0x00, cursorPosition) };
 
             return ScanEwram(conditions, alignment: 1);
         }
@@ -775,10 +802,7 @@ namespace Pokebot.Models.Tools
         /// </param>
         public List<SymbolScanResult> FindRngValue(uint rngValue, uint? rng2Value = null)
         {
-            var conditions = new List<ScanCondition>
-            {
-                ScanCondition.U32(0x00, rngValue),
-            };
+            var conditions = new List<ScanCondition> { ScanCondition.U32(0x00, rngValue) };
 
             if (rng2Value.HasValue)
             {
