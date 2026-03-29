@@ -4,6 +4,7 @@
 08038424 c 00000000 BattleMainCB2
 0817ef90 c 00000000 Task_HandleMonAnimation
 0808c8dc c 00000000 Task_Fishing
+08121B60 l 00000028 Task_ContinueTaskAfterMessagePrints
 08133e80 c 00000000 Task_HandleStarterChooseInput
 08134024 c 00000000 Task_HandleConfirmStarterInput
 08334D8C g 00002D10 gSpeciesInfo

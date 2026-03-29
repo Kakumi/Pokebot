@@ -122,9 +122,11 @@ namespace Pokebot
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+#if !DEBUG
             var worker = new BackgroundWorker();
             worker.DoWork += GetGithubLatestReleaseWorker;
             worker.RunWorkerAsync();
+#endif
         }
 
         private GenerationInfo GetGeneration(byte[] data)
