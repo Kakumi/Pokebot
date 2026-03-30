@@ -173,9 +173,59 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] patchleafgreen_de {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_de", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] patchleafgreen_fr {
             get {
                 object obj = ResourceManager.GetObject("patchleafgreen_fr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchleafgreen_it {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_it", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchleafgreen_jp {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_jp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchleafgreen_jp_rev1 {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_jp_rev1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchleafgreen_sp {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_sp", resourceCulture);
                 return ((byte[])(obj));
             }
         }

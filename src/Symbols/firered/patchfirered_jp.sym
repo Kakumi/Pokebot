@@ -8,9 +8,9 @@
 020241E4 c 00000258 gPlayerParty
 
 #Change but always the same offset from original (-A0 in this case)
-030050EC c 00000000 gSaveBlock2Ptr
+0300504C c 00000000 gSaveBlock2Ptr
 03003130 c 00000000 gMain
-030050E0 c 00000000 gRngValue
+03005040 c 00000000 gRngValue
 030050D0 c 00000000 gTasks
 
 #Need update

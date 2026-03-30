@@ -151,8 +151,23 @@
   <data name="patchfirered_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>firered\patchfirered_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="patchleafgreen_de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_de.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="patchleafgreen_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>leafgreen\patchleafgreen_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchleafgreen_it" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_it.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchleafgreen_jp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_jp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchleafgreen_jp_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen_rev1\patchleafgreen_jp_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchleafgreen_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="patchruby_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokeruby\patchruby_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

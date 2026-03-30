@@ -168,13 +168,13 @@ The language can be changed at any time from the **Settings** tab. A restart is 
  | Nom                | Hash                                     | Supported | Tested |
  |--------------------|------------------------------------------|-----------|--------|
  | USA (Europe)       | 574fa542ffebb14be69902d1d36f1ec0a4afd71e |     ✅     |    ✅   |
- | USA (Europe) rev 1 | 7862c67bdecbe21d1d69ce082ce34327e1c6ed5e |     ✅     |    ❌   |
+ | USA (Europe) rev 1 | 7862c67bdecbe21d1d69ce082ce34327e1c6ed5e |     ✅     |    ✅   |
  | French             | 4b5758c14d0a07b70ef3ef0bd7fa5e7ce6978672 |     ✅     |    ✅   |
- | Deutch             | 0802d1fb185ee3ed48d9a22afb25e66424076dac |     ✅     |    ❌   |
- | Italian            | a1dfea1493d26d1f024be8ba1de3d193fcfc651e |     ✅     |    ❌   |
- | Japanese           | 5946f1b59e8d71cc61249661464d864185c92a5f |     ✅     |    ❌   |
- | Japanese rev 1     | de9d5a844f9bfb63a4448cccd4a2d186ecf455c3 |     ✅     |    ❌   |
- | Spanish            | f9ebee5d228cb695f18ef2ced41630a09fa9eb05 |     ✅     |    ❌   |
+ | Deutch             | 0802d1fb185ee3ed48d9a22afb25e66424076dac |     ✅     |    ✅   |
+ | Italian            | a1dfea1493d26d1f024be8ba1de3d193fcfc651e |     ✅     |    ✅   |
+ | Japanese           | 5946f1b59e8d71cc61249661464d864185c92a5f |     ✅     |    ✅   |
+ | Japanese rev 1     | de9d5a844f9bfb63a4448cccd4a2d186ecf455c3 |     ✅     |    ✅   |
+ | Spanish            | f9ebee5d228cb695f18ef2ced41630a09fa9eb05 |     ✅     |    ✅   |
 </details>
 
 # <a name="overview"></a>Overview
