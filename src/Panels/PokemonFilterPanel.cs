@@ -1,11 +1,12 @@
-﻿using Pokebot.Models;
-using Pokebot.Models.Config;
-using Pokebot.Models.Pokemons;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Pokebot.Controls;
+using Pokebot.Models;
+using Pokebot.Models.Config;
+using Pokebot.Models.Pokemons;
 
 namespace Pokebot.Panels
 {
@@ -18,10 +19,13 @@ namespace Pokebot.Panels
             InitializeComponent();
             ApplyTranslations();
 
-            _shinyHackTooltip.SetToolTip(_shinyHackIcon, Messages.Tooltip_ShinyHack
-                .Replace("\\r\\n", Environment.NewLine)
-                .Replace("\\n", Environment.NewLine)
-                .Replace("\\r", Environment.NewLine));
+            _shinyHackTooltip.SetToolTip(
+                _shinyHackIcon,
+                Messages
+                    .Tooltip_ShinyHack.Replace("\\r\\n", Environment.NewLine)
+                    .Replace("\\n", Environment.NewLine)
+                    .Replace("\\r", Environment.NewLine)
+            );
             _shinyHackIcon.Image = SystemIcons.Information.ToBitmap();
 
             Comparator = new PokemonComparator();
@@ -91,7 +95,7 @@ namespace Pokebot.Panels
                 new ComboBoxItem(-1, Messages.Filter_AnyGender),
                 new ComboBoxItem((int)PokemonGender.Male, Messages.Gender_Male),
                 new ComboBoxItem((int)PokemonGender.Female, Messages.Gender_Female),
-                new ComboBoxItem((int)PokemonGender.Genderless, Messages.Gender_Genderless)
+                new ComboBoxItem((int)PokemonGender.Genderless, Messages.Gender_Genderless),
             };
             InitializeDefaultComboBox(_genderComboBox, items);
         }
@@ -108,32 +112,32 @@ namespace Pokebot.Panels
 
         private void IvSpDefense_ValueChanged(object sender, EventArgs e)
         {
-            Comparator.IVSpDefense = (int)Math.Round(((NumericUpDown)sender).Value);
+            Comparator.IVSpDefense = (int)Math.Round(((ThemedNumericUpDown)sender).Value);
         }
 
         private void IvDefense_ValueChanged(object sender, EventArgs e)
         {
-            Comparator.IVDefense = (int)Math.Round(((NumericUpDown)sender).Value);
+            Comparator.IVDefense = (int)Math.Round(((ThemedNumericUpDown)sender).Value);
         }
 
         private void IvSpAttack_ValueChanged(object sender, EventArgs e)
         {
-            Comparator.IVSpAttack = (int)Math.Round(((NumericUpDown)sender).Value);
+            Comparator.IVSpAttack = (int)Math.Round(((ThemedNumericUpDown)sender).Value);
         }
 
         private void IvAttack_ValueChanged(object sender, EventArgs e)
         {
-            Comparator.IVAttack = (int)Math.Round(((NumericUpDown)sender).Value);
+            Comparator.IVAttack = (int)Math.Round(((ThemedNumericUpDown)sender).Value);
         }
 
         private void IvSpeed_ValueChanged(object sender, EventArgs e)
         {
-            Comparator.IVSpeed = (int)Math.Round(((NumericUpDown)sender).Value);
+            Comparator.IVSpeed = (int)Math.Round(((ThemedNumericUpDown)sender).Value);
         }
 
         private void IvHp_ValueChanged(object sender, EventArgs e)
         {
-            Comparator.IVHP = (int)Math.Round(((NumericUpDown)sender).Value);
+            Comparator.IVHP = (int)Math.Round(((ThemedNumericUpDown)sender).Value);
         }
 
         private void ShinyCheckChanged(object sender, EventArgs e)

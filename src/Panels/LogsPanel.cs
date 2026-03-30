@@ -39,9 +39,12 @@ namespace Pokebot.Panels
             _contextMenu.Items.Add(_copyStackTraceMenuItem);
             _logsListView.ContextMenuStrip = _contextMenu;
             _logsListView.MouseUp += LogsListView_MouseUp;
+            _logsListView.Resize += (s, e) => AdjustColumns();
 
             ThemeManager.ThemeChanged += OnThemeChanged;
             Disposed += (s, e) => ThemeManager.ThemeChanged -= OnThemeChanged;
+
+            AdjustColumns();
         }
 
         private void ApplyTranslations()
@@ -58,10 +61,7 @@ namespace Pokebot.Panels
             item.Tag = new LogItemTag(e.Level, e.Exception);
 
             _logsListView.Items.Add(item);
-            for (int i = 0; i < _logsListView.Columns.Count; i++)
-            {
-                _logsListView.Columns[i].Width = -1;
-            }
+            AdjustColumns();
         }
 
         private void OnThemeChanged()
@@ -74,6 +74,26 @@ namespace Pokebot.Panels
                 }
             }
             _logsListView.Invalidate();
+            AdjustColumns();
+        }
+
+        private void AdjustColumns()
+        {
+            if (_logsListView.Columns.Count < 2 || _logsListView.ClientSize.Width <= 0)
+            {
+                return;
+            }
+
+            int headerTypeWidth = TextRenderer.MeasureText(level.Text, _logsListView.Font).Width + 20;
+            _logsListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+            int contentTypeWidth = _logsListView.Columns[0].Width + 14;
+            int typeWidth = Math.Max(headerTypeWidth, contentTypeWidth);
+            typeWidth = Math.Min(typeWidth, Math.Max(90, _logsListView.ClientSize.Width / 3));
+
+            int messageWidth = Math.Max(120, _logsListView.ClientSize.Width - typeWidth - 6);
+
+            _logsListView.Columns[0].Width = typeWidth;
+            _logsListView.Columns[1].Width = messageWidth;
         }
 
         private static Color GetColorForLevel(LogLevel level)

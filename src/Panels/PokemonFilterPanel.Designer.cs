@@ -1,16 +1,16 @@
-ï»¿namespace Pokebot.Panels
+namespace Pokebot.Panels
 {
     partial class PokemonFilterPanel
     {
         /// <summary> 
-        /// Variable nÃ©cessaire au concepteur.
+        /// Variable nécessaire au concepteur.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
-        /// Nettoyage des ressources utilisÃ©es.
+        /// Nettoyage des ressources utilisées.
         /// </summary>
-        /// <param name="disposing">true si les ressources managÃ©es doivent Ãªtre supprimÃ©esÂ ; sinon, false.</param>
+        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,28 +20,28 @@
             base.Dispose(disposing);
         }
 
-        #region Code gÃ©nÃ©rÃ© par le Concepteur de composants
+        #region Code généré par le Concepteur de composants
 
         /// <summary> 
-        /// MÃ©thode requise pour la prise en charge du concepteur - ne modifiez pas 
-        /// le contenu de cette mÃ©thode avec l'Ã©diteur de code.
+        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
+        /// le contenu de cette méthode avec l'éditeur de code.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this._shinyCheckbox = new System.Windows.Forms.CheckBox();
-            this._ivHpBox = new System.Windows.Forms.NumericUpDown();
+            this._ivHpBox = new global::Pokebot.Controls.ThemedNumericUpDown();
             this._statsGroup = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this._ivSpDefenseBox = new System.Windows.Forms.NumericUpDown();
+            this._ivSpDefenseBox = new global::Pokebot.Controls.ThemedNumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this._ivSpAttackBox = new System.Windows.Forms.NumericUpDown();
+            this._ivSpAttackBox = new global::Pokebot.Controls.ThemedNumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this._ivSpeedBox = new System.Windows.Forms.NumericUpDown();
+            this._ivSpeedBox = new global::Pokebot.Controls.ThemedNumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this._ivDefenseBox = new System.Windows.Forms.NumericUpDown();
+            this._ivDefenseBox = new global::Pokebot.Controls.ThemedNumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this._ivAttackBox = new System.Windows.Forms.NumericUpDown();
+            this._ivAttackBox = new global::Pokebot.Controls.ThemedNumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this._pokemonComboBox = new System.Windows.Forms.ComboBox();
             this._heldItemComboBox = new System.Windows.Forms.ComboBox();
@@ -76,6 +76,8 @@
             // 
             // _ivHpBox
             // 
+            this._ivHpBox.BackColor = System.Drawing.SystemColors.Window;
+            this._ivHpBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this._ivHpBox.Location = new System.Drawing.Point(45, 17);
             this._ivHpBox.Margin = new System.Windows.Forms.Padding(2);
             this._ivHpBox.Maximum = new decimal(new int[] {
@@ -83,8 +85,9 @@
             0,
             0,
             0});
+            this._ivHpBox.MinimumSize = new System.Drawing.Size(40, 20);
             this._ivHpBox.Name = "_ivHpBox";
-            this._ivHpBox.Size = new System.Drawing.Size(35, 20);
+            this._ivHpBox.Size = new System.Drawing.Size(52, 22);
             this._ivHpBox.TabIndex = 1;
             this._ivHpBox.ValueChanged += new System.EventHandler(this.IvHp_ValueChanged);
             // 
@@ -106,7 +109,7 @@
             this._statsGroup.Margin = new System.Windows.Forms.Padding(2);
             this._statsGroup.Name = "_statsGroup";
             this._statsGroup.Padding = new System.Windows.Forms.Padding(2);
-            this._statsGroup.Size = new System.Drawing.Size(363, 84);
+            this._statsGroup.Size = new System.Drawing.Size(394, 84);
             this._statsGroup.TabIndex = 2;
             this._statsGroup.TabStop = false;
             this._statsGroup.Text = "IVs";
@@ -123,15 +126,18 @@
             // 
             // _ivSpDefenseBox
             // 
-            this._ivSpDefenseBox.Location = new System.Drawing.Point(323, 49);
+            this._ivSpDefenseBox.BackColor = System.Drawing.SystemColors.Window;
+            this._ivSpDefenseBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this._ivSpDefenseBox.Location = new System.Drawing.Point(327, 49);
             this._ivSpDefenseBox.Margin = new System.Windows.Forms.Padding(2);
             this._ivSpDefenseBox.Maximum = new decimal(new int[] {
             31,
             0,
             0,
             0});
+            this._ivSpDefenseBox.MinimumSize = new System.Drawing.Size(40, 20);
             this._ivSpDefenseBox.Name = "_ivSpDefenseBox";
-            this._ivSpDefenseBox.Size = new System.Drawing.Size(35, 20);
+            this._ivSpDefenseBox.Size = new System.Drawing.Size(52, 22);
             this._ivSpDefenseBox.TabIndex = 11;
             this._ivSpDefenseBox.ValueChanged += new System.EventHandler(this.IvSpDefense_ValueChanged);
             // 
@@ -147,15 +153,18 @@
             // 
             // _ivSpAttackBox
             // 
-            this._ivSpAttackBox.Location = new System.Drawing.Point(175, 49);
+            this._ivSpAttackBox.BackColor = System.Drawing.SystemColors.Window;
+            this._ivSpAttackBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this._ivSpAttackBox.Location = new System.Drawing.Point(179, 49);
             this._ivSpAttackBox.Margin = new System.Windows.Forms.Padding(2);
             this._ivSpAttackBox.Maximum = new decimal(new int[] {
             31,
             0,
             0,
             0});
+            this._ivSpAttackBox.MinimumSize = new System.Drawing.Size(40, 20);
             this._ivSpAttackBox.Name = "_ivSpAttackBox";
-            this._ivSpAttackBox.Size = new System.Drawing.Size(35, 20);
+            this._ivSpAttackBox.Size = new System.Drawing.Size(52, 22);
             this._ivSpAttackBox.TabIndex = 9;
             this._ivSpAttackBox.ValueChanged += new System.EventHandler(this.IvSpAttack_ValueChanged);
             // 
@@ -171,6 +180,8 @@
             // 
             // _ivSpeedBox
             // 
+            this._ivSpeedBox.BackColor = System.Drawing.SystemColors.Window;
+            this._ivSpeedBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this._ivSpeedBox.Location = new System.Drawing.Point(45, 49);
             this._ivSpeedBox.Margin = new System.Windows.Forms.Padding(2);
             this._ivSpeedBox.Maximum = new decimal(new int[] {
@@ -178,8 +189,9 @@
             0,
             0,
             0});
+            this._ivSpeedBox.MinimumSize = new System.Drawing.Size(40, 20);
             this._ivSpeedBox.Name = "_ivSpeedBox";
-            this._ivSpeedBox.Size = new System.Drawing.Size(35, 20);
+            this._ivSpeedBox.Size = new System.Drawing.Size(52, 22);
             this._ivSpeedBox.TabIndex = 7;
             this._ivSpeedBox.ValueChanged += new System.EventHandler(this.IvSpeed_ValueChanged);
             // 
@@ -195,15 +207,18 @@
             // 
             // _ivDefenseBox
             // 
-            this._ivDefenseBox.Location = new System.Drawing.Point(323, 17);
+            this._ivDefenseBox.BackColor = System.Drawing.SystemColors.Window;
+            this._ivDefenseBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this._ivDefenseBox.Location = new System.Drawing.Point(327, 17);
             this._ivDefenseBox.Margin = new System.Windows.Forms.Padding(2);
             this._ivDefenseBox.Maximum = new decimal(new int[] {
             31,
             0,
             0,
             0});
+            this._ivDefenseBox.MinimumSize = new System.Drawing.Size(40, 20);
             this._ivDefenseBox.Name = "_ivDefenseBox";
-            this._ivDefenseBox.Size = new System.Drawing.Size(35, 20);
+            this._ivDefenseBox.Size = new System.Drawing.Size(52, 22);
             this._ivDefenseBox.TabIndex = 5;
             this._ivDefenseBox.ValueChanged += new System.EventHandler(this.IvDefense_ValueChanged);
             // 
@@ -219,15 +234,18 @@
             // 
             // _ivAttackBox
             // 
-            this._ivAttackBox.Location = new System.Drawing.Point(175, 17);
+            this._ivAttackBox.BackColor = System.Drawing.SystemColors.Window;
+            this._ivAttackBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this._ivAttackBox.Location = new System.Drawing.Point(179, 17);
             this._ivAttackBox.Margin = new System.Windows.Forms.Padding(2);
             this._ivAttackBox.Maximum = new decimal(new int[] {
             31,
             0,
             0,
             0});
+            this._ivAttackBox.MinimumSize = new System.Drawing.Size(40, 20);
             this._ivAttackBox.Name = "_ivAttackBox";
-            this._ivAttackBox.Size = new System.Drawing.Size(35, 20);
+            this._ivAttackBox.Size = new System.Drawing.Size(52, 22);
             this._ivAttackBox.TabIndex = 3;
             this._ivAttackBox.ValueChanged += new System.EventHandler(this.IvAttack_ValueChanged);
             // 
@@ -367,18 +385,18 @@
         #endregion
 
         private System.Windows.Forms.CheckBox _shinyCheckbox;
-        private System.Windows.Forms.NumericUpDown _ivHpBox;
+        private global::Pokebot.Controls.ThemedNumericUpDown _ivHpBox;
         private System.Windows.Forms.GroupBox _statsGroup;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown _ivSpDefenseBox;
+        private global::Pokebot.Controls.ThemedNumericUpDown _ivSpDefenseBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown _ivSpAttackBox;
+        private global::Pokebot.Controls.ThemedNumericUpDown _ivSpAttackBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown _ivSpeedBox;
+        private global::Pokebot.Controls.ThemedNumericUpDown _ivSpeedBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown _ivDefenseBox;
+        private global::Pokebot.Controls.ThemedNumericUpDown _ivDefenseBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown _ivAttackBox;
+        private global::Pokebot.Controls.ThemedNumericUpDown _ivAttackBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox _pokemonComboBox;
         private System.Windows.Forms.ComboBox _heldItemComboBox;
@@ -391,3 +409,4 @@
         private System.Windows.Forms.ToolTip _shinyHackTooltip;
     }
 }
+

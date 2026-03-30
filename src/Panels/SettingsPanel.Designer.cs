@@ -1,16 +1,16 @@
-ï»¿namespace Pokebot.Panels
+namespace Pokebot.Panels
 {
     partial class SettingsPanel
     {
         /// <summary> 
-        /// Variable nÃ©cessaire au concepteur.
+        /// Variable nécessaire au concepteur.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
-        /// Nettoyage des ressources utilisÃ©es.
+        /// Nettoyage des ressources utilisées.
         /// </summary>
-        /// <param name="disposing">true si les ressources managÃ©es doivent Ãªtre supprimÃ©esÂ ; sinon, false.</param>
+        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,17 +20,17 @@
             base.Dispose(disposing);
         }
 
-        #region Code gÃ©nÃ©rÃ© par le Concepteur de composants
+        #region Code généré par le Concepteur de composants
 
         /// <summary> 
-        /// MÃ©thode requise pour la prise en charge du concepteur - ne modifiez pas 
-        /// le contenu de cette mÃ©thode avec l'Ã©diteur de code.
+        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
+        /// le contenu de cette méthode avec l'éditeur de code.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this._delayLabel = new System.Windows.Forms.Label();
-            this._delayUpDown = new System.Windows.Forms.NumericUpDown();
+            this._delayUpDown = new global::Pokebot.Controls.ThemedNumericUpDown();
             this._discordWebhookLabel = new System.Windows.Forms.Label();
             this._discordWebhookText = new System.Windows.Forms.TextBox();
             this._pauseCheckbox = new System.Windows.Forms.CheckBox();
@@ -196,7 +196,7 @@
         #endregion
 
         private System.Windows.Forms.Label _delayLabel;
-        private System.Windows.Forms.NumericUpDown _delayUpDown;
+        private global::Pokebot.Controls.ThemedNumericUpDown _delayUpDown;
         private System.Windows.Forms.Label _discordWebhookLabel;
         private System.Windows.Forms.TextBox _discordWebhookText;
         private System.Windows.Forms.CheckBox _pauseCheckbox;
