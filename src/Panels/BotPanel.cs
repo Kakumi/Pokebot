@@ -1,10 +1,11 @@
-﻿using Pokebot.Factories.Bots;
-using Pokebot.Models.Config;
-using Pokebot.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Pokebot.Factories.Bots;
+using Pokebot.Models.Config;
+using Pokebot.Theme;
+using Pokebot.Utils;
 
 namespace Pokebot.Panels
 {
@@ -35,7 +36,9 @@ namespace Pokebot.Panels
             Bot = bot;
             Bot.StateChanged += Bot_StateChanged;
             ClearPanel();
-            _botPanel.Controls.Add(bot.GetPanel());
+            var botControl = bot.GetPanel();
+            _botPanel.Controls.Add(botControl);
+            ThemeManager.ApplyTo(botControl);
             _startBotButton.Enabled = true;
             _stopBotButton.Enabled = false;
         }
@@ -92,7 +95,7 @@ namespace Pokebot.Panels
         private void SetBotStatus(string message, Color? color = null)
         {
             _statusBot.Text = message;
-            _statusBot.ForeColor = color ?? Color.Black;
+            _statusBot.ForeColor = color ?? ThemeManager.Current.TextColorValue;
         }
 
         public void Reset(List<BotType> types)

@@ -22,6 +22,7 @@ using Pokebot.Properties;
 using Pokebot.Services.DiscordPresence;
 using Pokebot.Services.DiscordWebhook;
 using Pokebot.Services.Github;
+using Pokebot.Theme;
 using Log = Pokebot.Utils.Log;
 
 namespace Pokebot
@@ -72,6 +73,7 @@ namespace Pokebot
         public BotPanel BotPanel { get; private set; }
         public LogsPanel LogsPanel { get; private set; }
         public SettingsPanel SettingsPanel { get; private set; }
+        public ThemePanel ThemePanel { get; private set; }
 
         public PokemonWatcher? PokemonWatcher { get; private set; }
         public PokebotDebug? DebugWindow { get; private set; }
@@ -117,6 +119,9 @@ namespace Pokebot
             FormClosed += (s, e) => DiscordPresenceService.Dispose();
 
             CreateTabPages();
+
+            ThemeManager.ApplyTo(this);
+            ThemeManager.ThemeChanged += () => ThemeManager.ApplyTo(this);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -220,7 +225,11 @@ namespace Pokebot
             SettingsPanel.PauseClicked += SettingsPanel_PauseClicked;
             SettingsPanel.Dock = DockStyle.Fill;
 
+            ThemePanel = new ThemePanel();
+            ThemePanel.Dock = DockStyle.Fill;
+
             CreateTab(SettingsPanel, Messages.Tab_SettingsPanel);
+            CreateTab(ThemePanel, "Theme");
             CreateTab(BotPanel, Messages.Tab_BotPanel);
             CreateTab(EncounterStatsPanel, Messages.Tab_EncounterStats);
             CreateTab(OpponentViewerPanel, Messages.Tab_ViewerOpponentName);
@@ -372,7 +381,7 @@ namespace Pokebot
         private void SetStatus(string message, Color? color = null)
         {
             _statusLabel.Text = message;
-            _statusLabel.ForeColor = color ?? Color.Black;
+            _statusLabel.ForeColor = color ?? ThemeManager.Current.TextColorValue;
         }
 
         #endregion
