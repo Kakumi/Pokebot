@@ -17,4 +17,4 @@
 0202418d c 00000000 gPlayerPartyCount
 02024190 c 00000000 gPlayerParty
 03005ae0 c 00000000 gRngValue
-082F0D54 g 00000000 gSpeciesInfo
+082F0D54 c 00000000 gSpeciesInfo

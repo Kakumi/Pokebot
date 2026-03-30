@@ -113,9 +113,59 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] patchfirered_de {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_de", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] patchfirered_fr {
             get {
                 object obj = ResourceManager.GetObject("patchfirered_fr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchfirered_it {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_it", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchfirered_jp {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_jp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchfirered_jp_rev1 {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_jp_rev1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchfirered_sp {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_sp", resourceCulture);
                 return ((byte[])(obj));
             }
         }

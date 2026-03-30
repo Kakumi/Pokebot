@@ -18931,6 +18931,25 @@
         "SpecialDefense": 100,
         "Speed": 100
       }
+    },
+    {
+      "Id": 410,
+      "DexId": 386,
+      "Name": "deoxys",
+      "Abilities": [
+        "pressure"
+      ],
+      "Types": [
+        "psychic"
+      ],
+      "BaseStats": {
+        "Hp": 50,
+        "Attack": 150,
+        "Defense": 50,
+        "SpecialAttack": 150,
+        "SpecialDefense": 50,
+        "Speed": 150
+      }
     }
   ],
   "Characters": [

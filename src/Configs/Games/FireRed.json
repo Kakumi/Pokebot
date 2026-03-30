@@ -4,7 +4,7 @@
   "Hashs": [
     {
       "Hash": "18a3758ceeef2c77b315144be2c3910d6f1f69fe", //Deutch
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokefirered",
         "Patches": [
@@ -40,7 +40,7 @@
     },
     {
       "Hash": "66a9d415205321376b4318534c0dce5f69d28362", //Italian
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokefirered",
         "Patches": [
@@ -50,7 +50,7 @@
     },
     {
       "Hash": "04139887b6cd8f53269aca098295b006ddba6cfe", //Japanese
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokefirered",
         "Patches": [
@@ -60,17 +60,17 @@
     },
     {
       "Hash": "7c7107b87c3ccf6e3dbceb9cf80ceeffb25a1857", //Japanese (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokefirered_rev1",
         "Patches": [
-          "patchfirered_jp"
+          "patchfirered_jp_rev1"
         ]
       }
     },
     {
       "Hash": "ab8f6bfe0ccdaf41188cd015c8c74c314d02296a", //Spanish
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokefirered",
         "Patches": [

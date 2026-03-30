@@ -133,8 +133,23 @@
   <data name="patchemerald_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>emerald\patchemerald_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="patchfirered_de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered\patchfirered_de.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="patchfirered_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>firered\patchfirered_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchfirered_it" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered\patchfirered_it.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchfirered_jp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered\patchfirered_jp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchfirered_jp_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered_rev1\patchfirered_jp_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchfirered_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered\patchfirered_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="patchleafgreen_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>leafgreen\patchleafgreen_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
