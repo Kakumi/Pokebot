@@ -18,9 +18,16 @@ namespace Pokebot.Panels
         public BotPanel()
         {
             InitializeComponent();
+            ApplyTranslations();
 
             _botComboBox.ValueMember = nameof(BotType.Code);
             _botComboBox.DisplayMember = nameof(BotType.Name);
+        }
+
+        private void ApplyTranslations()
+        {
+            _startBotButton.Text = Messages.Bot_Start;
+            _stopBotButton.Text = Messages.Bot_Stop;
         }
 
         public void SetBot(IBot bot)

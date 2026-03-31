@@ -6,7 +6,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 	<PropertyGroup>
-		<Version>2.0.5</Version>
+		<Version>2.1.0</Version>
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<FileVersion>2.0.5</FileVersion>
 	</PropertyGroup>
@@ -24,6 +24,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+		<PackageReference Include="Fody" Version="6.8.2" PrivateAssets="all" />
+		<PackageReference Include="Costura.Fody" Version="5.7.0" PrivateAssets="all" />
+		<PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<Reference Include="BizHawk.Bizware.Graphics">
 		  <HintPath>..\BizHawk\dll\BizHawk.Bizware.Graphics.dll</HintPath>
@@ -62,6 +65,9 @@
 	  <Compile Update="Panels\StaticControl.cs">
 	    <SubType>UserControl</SubType>
 	  </Compile>
+	  <Compile Update="Panels\Tools\RubySapphire\GObjectEventsScannerPanel.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
 	  <Compile Update="Properties\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -85,6 +91,26 @@
 	  <EmbeddedResource Update="Messages.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Messages.fr.resx">
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.fr.resources</LogicalName>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Messages.de.resx">
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.de.resources</LogicalName>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Messages.it.resx">
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.it.resources</LogicalName>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Messages.es.resx">
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.es.resources</LogicalName>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Messages.ja.resx">
+	    <WithCulture>false</WithCulture>
+	    <LogicalName>Pokebot.Messages.ja.resources</LogicalName>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Properties\Resources.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>

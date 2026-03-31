@@ -39,7 +39,7 @@ namespace Pokebot {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Pokebot.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new EmbeddedCultureResourceManager("Pokebot.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,6 +63,108 @@ namespace Pokebot {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while calling the Github API..
         /// </summary>
+        internal static string Bot_Start {
+            get {
+                return ResourceManager.GetString("Bot_Start", resourceCulture);
+            }
+        }
+
+        internal static string Bot_Stop {
+            get {
+                return ResourceManager.GetString("Bot_Stop", resourceCulture);
+            }
+        }
+
+        internal static string Filter_ExactIV {
+            get {
+                return ResourceManager.GetString("Filter_ExactIV", resourceCulture);
+            }
+        }
+
+        internal static string Filter_IVsGroup {
+            get {
+                return ResourceManager.GetString("Filter_IVsGroup", resourceCulture);
+            }
+        }
+
+        internal static string Filter_Shiny {
+            get {
+                return ResourceManager.GetString("Filter_Shiny", resourceCulture);
+            }
+        }
+
+        internal static string Filter_ShinyHack {
+            get {
+                return ResourceManager.GetString("Filter_ShinyHack", resourceCulture);
+            }
+        }
+
+        internal static string Logs_CopyStackTrace {
+            get {
+                return ResourceManager.GetString("Logs_CopyStackTrace", resourceCulture);
+            }
+        }
+
+        internal static string Logs_HeaderMessage {
+            get {
+                return ResourceManager.GetString("Logs_HeaderMessage", resourceCulture);
+            }
+        }
+
+        internal static string Logs_HeaderType {
+            get {
+                return ResourceManager.GetString("Logs_HeaderType", resourceCulture);
+            }
+        }
+
+        internal static string Settings_DelayLabel {
+            get {
+                return ResourceManager.GetString("Settings_DelayLabel", resourceCulture);
+            }
+        }
+
+        internal static string Settings_LanguageLabel {
+            get {
+                return ResourceManager.GetString("Settings_LanguageLabel", resourceCulture);
+            }
+        }
+
+        internal static string Stats_HeaderEncounters {
+            get {
+                return ResourceManager.GetString("Stats_HeaderEncounters", resourceCulture);
+            }
+        }
+
+        internal static string Stats_HeaderPokemon {
+            get {
+                return ResourceManager.GetString("Stats_HeaderPokemon", resourceCulture);
+            }
+        }
+
+        internal static string Stats_HeaderRatio {
+            get {
+                return ResourceManager.GetString("Stats_HeaderRatio", resourceCulture);
+            }
+        }
+
+        internal static string Stats_HeaderShiny {
+            get {
+                return ResourceManager.GetString("Stats_HeaderShiny", resourceCulture);
+            }
+        }
+
+        internal static string Viewer_IVsGroup {
+            get {
+                return ResourceManager.GetString("Viewer_IVsGroup", resourceCulture);
+            }
+        }
+
+        internal static string Viewer_MovesGroup {
+            get {
+                return ResourceManager.GetString("Viewer_MovesGroup", resourceCulture);
+            }
+        }
+
         internal static string API_GithubError {
             get {
                 return ResourceManager.GetString("API_GithubError", resourceCulture);

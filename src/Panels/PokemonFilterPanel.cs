@@ -16,6 +16,7 @@ namespace Pokebot.Panels
         public PokemonFilterPanel()
         {
             InitializeComponent();
+            ApplyTranslations();
 
             _shinyHackTooltip.SetToolTip(_shinyHackIcon, Messages.Tooltip_ShinyHack
                 .Replace("\\r\\n", Environment.NewLine)
@@ -24,6 +25,14 @@ namespace Pokebot.Panels
             _shinyHackIcon.Image = SystemIcons.Information.ToBitmap();
 
             Comparator = new PokemonComparator();
+        }
+
+        private void ApplyTranslations()
+        {
+            _shinyCheckbox.Text = Messages.Filter_Shiny;
+            _statsGroup.Text = Messages.Filter_IVsGroup;
+            _exactIVCheckbox.Text = Messages.Filter_ExactIV;
+            _useShinyHack.Text = Messages.Filter_ShinyHack;
         }
 
         public void Initialize(GenerationInfo generationInfo)

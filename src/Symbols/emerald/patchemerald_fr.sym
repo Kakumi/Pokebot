@@ -5,6 +5,7 @@
 0817f0b0 c 00000000 Task_HandleMonAnimation
 08075ab8 c 00000000 Task_PlayCryWhenReleasedFromBall
 0808c8d0 c 00000000 Task_Fishing
+08121B80 l 00000028 Task_ContinueTaskAfterMessagePrints
 08133ea0 c 00000000 Task_HandleStarterChooseInput
 08134044 c 00000000 Task_HandleConfirmStarterInput
 08327F3C g 00002D10 gSpeciesInfo
