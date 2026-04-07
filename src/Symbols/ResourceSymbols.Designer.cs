@@ -19,7 +19,7 @@ namespace Pokebot.Symbols {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ResourceSymbols {
@@ -113,9 +113,69 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] patchfirered_de {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_de", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] patchfirered_fr {
             get {
                 object obj = ResourceManager.GetObject("patchfirered_fr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchfirered_it {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_it", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchfirered_jp {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_jp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchfirered_jp_rev1 {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_jp_rev1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchfirered_sp {
+            get {
+                object obj = ResourceManager.GetObject("patchfirered_sp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchleafgreen_de {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_de", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -133,6 +193,46 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] patchleafgreen_it {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_it", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchleafgreen_jp {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_jp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchleafgreen_jp_rev1 {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_jp_rev1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchleafgreen_sp {
+            get {
+                object obj = ResourceManager.GetObject("patchleafgreen_sp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] patchruby_fr {
             get {
                 object obj = ResourceManager.GetObject("patchruby_fr", resourceCulture);
@@ -143,9 +243,69 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] patchruby_it {
+            get {
+                object obj = ResourceManager.GetObject("patchruby_it", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchruby_jp {
+            get {
+                object obj = ResourceManager.GetObject("patchruby_jp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchruby_sp {
+            get {
+                object obj = ResourceManager.GetObject("patchruby_sp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] patchsapphire_fr {
             get {
                 object obj = ResourceManager.GetObject("patchsapphire_fr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchsapphire_it {
+            get {
+                object obj = ResourceManager.GetObject("patchsapphire_it", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchsapphire_jp {
+            get {
+                object obj = ResourceManager.GetObject("patchsapphire_jp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patchsapphire_sp {
+            get {
+                object obj = ResourceManager.GetObject("patchsapphire_sp", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -233,6 +393,26 @@ namespace Pokebot.Symbols {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] pokeruby_de {
+            get {
+                object obj = ResourceManager.GetObject("pokeruby_de", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] pokeruby_de_rev1 {
+            get {
+                object obj = ResourceManager.GetObject("pokeruby_de_rev1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] pokeruby_rev1 {
             get {
                 object obj = ResourceManager.GetObject("pokeruby_rev1", resourceCulture);
@@ -256,6 +436,26 @@ namespace Pokebot.Symbols {
         internal static byte[] pokesapphire {
             get {
                 object obj = ResourceManager.GetObject("pokesapphire", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] pokesapphire_de {
+            get {
+                object obj = ResourceManager.GetObject("pokesapphire_de", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] pokesapphire_de_rev1 {
+            get {
+                object obj = ResourceManager.GetObject("pokesapphire_de_rev1", resourceCulture);
                 return ((byte[])(obj));
             }
         }

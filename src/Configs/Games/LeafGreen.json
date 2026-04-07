@@ -4,10 +4,10 @@
   "Hashs": [
     {
       "Hash": "0802d1fb185ee3ed48d9a22afb25e66424076dac", //Deutch
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeleafgreen",
-        "Patches": []
+        "Patches": [ "patchleafgreen_de" ]
       }
     },
     {
@@ -28,7 +28,7 @@
     },
     {
       "Hash": "4b5758c14d0a07b70ef3ef0bd7fa5e7ce6978672", //French
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeleafgreen",
         "Patches": [
@@ -38,10 +38,10 @@
     },
     {
       "Hash": "a1dfea1493d26d1f024be8ba1de3d193fcfc651e", //Italian
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeleafgreen",
-        "Patches": []
+        "Patches": [ "patchleafgreen_it" ]
       }
     },
     {
@@ -49,7 +49,7 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokeleafgreen",
-        "Patches": []
+        "Patches": [ "patchleafgreen_jp" ]
       }
     },
     {
@@ -57,15 +57,15 @@
       "Tested": false,
       "Symbols": {
         "Main": "pokeleafgreen_rev1",
-        "Patches": []
+        "Patches": [ "patchleafgreen_jp_rev1" ]
       }
     },
     {
       "Hash": "f9ebee5d228cb695f18ef2ced41630a09fa9eb05", //Spanish
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeleafgreen",
-        "Patches": []
+        "Patches": [ "patchleafgreen_sp" ]
       }
     }
   ],

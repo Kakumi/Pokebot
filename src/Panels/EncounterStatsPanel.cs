@@ -9,6 +9,15 @@ namespace Pokebot.Panels
         public EncounterStatsPanel()
         {
             InitializeComponent();
+            ApplyTranslations();
+        }
+
+        private void ApplyTranslations()
+        {
+            columnHeader1.Text = Messages.Stats_HeaderPokemon;
+            columnHeader2.Text = Messages.Stats_HeaderEncounters;
+            columnHeader3.Text = Messages.Stats_HeaderShiny;
+            columnHeader4.Text = Messages.Stats_HeaderRatio;
         }
 
         public void Clear()

@@ -1,24 +1,45 @@
-﻿using BizHawk.Client.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using BizHawk.Client.Common;
 using Pokebot.Models.Config;
 using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Pokebot.Models.Memory
 {
     public class Gen3Memory : CommonGenMemory
     {
-        public Gen3Memory(ApiContainer apiContainer, VersionInfo versionInfo, HashData hashData, GenerationInfo generationInfo) :
-            base(apiContainer, versionInfo, hashData, generationInfo)
-        { }
+        public Gen3Memory(ApiContainer apiContainer, VersionInfo versionInfo, HashData hashData, GenerationInfo generationInfo)
+            : base(apiContainer, versionInfo, hashData, generationInfo) { }
 
         private static readonly string[] _subStructureTypes = new string[]
         {
-            "GAEM", "GAME", "GEAM", "GEMA", "GMAE", "GMEA", "AGEM", "AGME", "AEGM", "AEMG", "AMGE", "AMEG",
-            "EGAM", "EGMA", "EAGM", "EAMG", "EMGA", "EMAG", "MGAE", "MGEA", "MAGE", "MAEG", "MEGA", "MEAG"
+            "GAEM",
+            "GAME",
+            "GEAM",
+            "GEMA",
+            "GMAE",
+            "GMEA",
+            "AGEM",
+            "AGME",
+            "AEGM",
+            "AEMG",
+            "AMGE",
+            "AMEG",
+            "EGAM",
+            "EGMA",
+            "EAGM",
+            "EAMG",
+            "EMGA",
+            "EMAG",
+            "MGAE",
+            "MGEA",
+            "MAGE",
+            "MAEG",
+            "MEGA",
+            "MEAG",
         };
 
         protected Pokemon ParsePokemon(byte[] bytesPokemon, MemoryLocation memoryLocation)
@@ -203,30 +224,40 @@ namespace Pokebot.Models.Memory
             var pokemonConfig = GenerationInfo.Pokemons.First(x => x.Id == species);
             var nationalDexId = pokemonConfig.DexId;
             var ability = abilityId < pokemonConfig.Abilities.Count ? pokemonConfig.Abilities[(int)abilityId] : pokemonConfig.Abilities[0];
-            var types = GenerationInfo.Types.Where(x =>
-            {
-                return pokemonConfig.Types.Any(y => y.Equals(x.Name, StringComparison.InvariantCultureIgnoreCase));
-            }).ToList();
+            var types = GenerationInfo
+                .Types.Where(x =>
+                {
+                    return pokemonConfig.Types.Any(y => y.Equals(x.Name, StringComparison.InvariantCultureIgnoreCase));
+                })
+                .ToList();
             var realName = char.ToUpper(pokemonConfig.Name[0]) + pokemonConfig.Name.Substring(1);
 
             var nature = GenerationInfo.Natures.First(x => x.Id == PID % 25);
-            var hiddenPowerCalculated = Math.Floor((double)(
-                (ivHP % 2 +
-                2 * (ivAttack % 2) +
-                4 * (ivDefense % 2) +
-                8 * (ivSpeed % 2) +
-                16 * (ivSpAttack % 2) +
-                32 * (ivSpDefense % 2)) * 15
-            ) / 63);
+            var hiddenPowerCalculated = Math.Floor(
+                (double)(
+                    (ivHP % 2 + 2 * (ivAttack % 2) + 4 * (ivDefense % 2) + 8 * (ivSpeed % 2) + 16 * (ivSpAttack % 2) + 32 * (ivSpDefense % 2)) * 15
+                ) / 63
+            );
             var hiddenPower = GenerationInfo.HiddenPowers.First(x => x.Id == hiddenPowerCalculated);
-            var hiddenPowerDamage = (int)Math.Floor(
-                (Math.Floor(ivHP / (double)2) % 2 + //0
-                2 * (Math.Floor(ivAttack / (double)2) % 2) + //1
-                4 * (Math.Floor(ivDefense / (double)2) % 2) + //0
-                8 * (Math.Floor(ivSpeed / (double)2) % 2) + //1
-                16 * (Math.Floor(ivSpAttack / (double)2) % 2) + //1
-                32 * (Math.Floor(ivSpDefense / (double)2) % 2)) * 40 //0
-             / 63) + 30; //2 + 8 + 16
+            var hiddenPowerDamage =
+                (int)
+                    Math.Floor(
+                        (
+                            Math.Floor(ivHP / (double)2) % 2
+                            + //0
+                            2 * (Math.Floor(ivAttack / (double)2) % 2)
+                            + //1
+                            4 * (Math.Floor(ivDefense / (double)2) % 2)
+                            + //0
+                            8 * (Math.Floor(ivSpeed / (double)2) % 2)
+                            + //1
+                            16 * (Math.Floor(ivSpAttack / (double)2) % 2)
+                            + //1
+                            32 * (Math.Floor(ivSpDefense / (double)2) % 2)
+                        )
+                            * 40 //0
+                            / 63
+                    ) + 30; //2 + 8 + 16
             var shinyValue = OTID ^ OTSID ^ bytesPokemon.Take(2).ToUInt16() ^ bytesPokemon.Skip(2).Take(2).ToUInt16();
             var shiny = shinyValue < 8;
 
@@ -311,7 +342,8 @@ namespace Pokebot.Models.Memory
                     gender,
                     statusCondition,
                     level,
-                    hasPokerus, currentHP,
+                    hasPokerus,
+                    currentHP,
                     totalHP,
                     attack,
                     defense,
@@ -519,14 +551,7 @@ namespace Pokebot.Models.Memory
                     var priority = (int)bytesTask[offset + 7];
                     var data = bytesTask.Skip(offset + 8).Take(32).ToArray();
 
-                    tasks.Add(new GTask(
-                        taskName,
-                        isActive,
-                        prev,
-                        next,
-                        priority,
-                        data
-                    ));
+                    tasks.Add(new GTask(taskName, isActive, prev, next, priority, data));
                 }
             }
 
@@ -602,7 +627,7 @@ namespace Pokebot.Models.Memory
 
         public override FishingState GetFishingResult()
         {
-            if (GetTasks().FirstOrDefault(t => t.Name == "Task_ContinueTaskAfterMessagePrints") != null)
+            if (GetTasks().FirstOrDefault(t => t.Name == "Task_ContinueTaskAfterMessagePrints" || t.Name == "sub_80F9090") != null)
             {
                 return FishingState.InvalidTool;
             }
@@ -612,7 +637,11 @@ namespace Pokebot.Models.Memory
             {
                 return FishingState.NotFishing;
             }
-            else if (task.Data[0] == (int)FishingResult.FISHING_STATE_REEL_WINDOW || task.Data[0] == (int)FishingResult.FISHING_STATE_START_ENCOUNTER || task.Data[0] == (int)FishingResult.FISHING_STATE_CLEANUP)
+            else if (
+                task.Data[0] == (int)FishingResult.FISHING_STATE_REEL_WINDOW
+                || task.Data[0] == (int)FishingResult.FISHING_STATE_START_ENCOUNTER
+                || task.Data[0] == (int)FishingResult.FISHING_STATE_CLEANUP
+            )
             {
                 return FishingState.NeedAction;
             }

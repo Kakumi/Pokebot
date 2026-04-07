@@ -148,7 +148,7 @@
     <value>This bot cannot be used because the party is not empty.</value>
   </data>
   <data name="BotStarter_WrongStartPosition" xml:space="preserve">
-    <value>Bot is unable to start because the player is not in front of starters.</value>
+    <value>Bot is unable to start because the player is not in front of starters. (Be sure to be in the middle)</value>
   </data>
   <data name="Bot_FileExistReplaceMessage" xml:space="preserve">
     <value>A save state already exists for this bot. Do you want to use it ?</value>
@@ -389,5 +389,56 @@
   </data>
   <data name="Viewer_Speed" xml:space="preserve">
     <value>Speed: {0}</value>
+  </data>
+  <data name="Bot_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Bot_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Filter_ExactIV" xml:space="preserve">
+    <value>Exact IV (minimal by default)</value>
+  </data>
+  <data name="Filter_IVsGroup" xml:space="preserve">
+    <value>IVs</value>
+  </data>
+  <data name="Filter_Shiny" xml:space="preserve">
+    <value>Shiny</value>
+  </data>
+  <data name="Filter_ShinyHack" xml:space="preserve">
+    <value>Use Shiny Hack</value>
+  </data>
+  <data name="Logs_CopyStackTrace" xml:space="preserve">
+    <value>Copy Stack Trace</value>
+  </data>
+  <data name="Logs_HeaderMessage" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Logs_HeaderType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Settings_DelayLabel" xml:space="preserve">
+    <value>Seconds of delay between bot input</value>
+  </data>
+  <data name="Settings_LanguageLabel" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="Stats_HeaderEncounters" xml:space="preserve">
+    <value>Encounters</value>
+  </data>
+  <data name="Stats_HeaderPokemon" xml:space="preserve">
+    <value>Pokemon</value>
+  </data>
+  <data name="Stats_HeaderRatio" xml:space="preserve">
+    <value>Ratio</value>
+  </data>
+  <data name="Stats_HeaderShiny" xml:space="preserve">
+    <value>Shiny encounters</value>
+  </data>
+  <data name="Viewer_IVsGroup" xml:space="preserve">
+    <value>IVs</value>
+  </data>
+  <data name="Viewer_MovesGroup" xml:space="preserve">
+    <value>Moves</value>
   </data>
 </root>

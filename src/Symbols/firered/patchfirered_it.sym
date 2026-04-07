@@ -1,0 +1,20 @@
+#Almost never change
+02036E38 c 00000000 gObjectEvents
+02024029 g 00000001 gPlayerPartyCount
+0202402a g 00000001 gEnemyPartyCount
+0202402c g 00000258 gEnemyParty
+02024284 g 00000258 gPlayerParty
+
+#Change but always the same offset from original (-B0 in this case)
+03004F5C c 00000000 gSaveBlock2Ptr
+03003040 c 00000000 gMain
+03004F50 c 00000000 gRngValue
+03004FE0 c 00000000 gTasks
+
+#Need update
+0824D864 g 00002d10 gSpeciesInfo
+080565C0 c 00000000 CB2_Overworld
+08011084 c 00000000 BattleMainCB2
+0809FC44 c 00000000 CB2_NamingScreen
+080BF6E4 l 0000002c Task_ContinueTaskAfterMessagePrints
+0805D2F0 l 00000038 Task_Fishing

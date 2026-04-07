@@ -22,7 +22,7 @@
     },
     {
       "Hash": "61c2eb2b380b1a75f0c94b767a2d4c26cd7ce4e3", //Deutch
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeemerald",
         "Patches": [
@@ -32,7 +32,7 @@
     },
     {
       "Hash": "1692db322400c3141c5de2db38469913ceb1f4d4", //Italian
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeemerald",
         "Patches": [
@@ -42,7 +42,7 @@
     },
     {
       "Hash": "d7cf8f156ba9c455d164e1ea780a6bf1945465c2", //Japanese
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeemerald",
         "Patches": [
@@ -52,7 +52,7 @@
     },
     {
       "Hash": "fe1558a3dcb0360ab558969e09b690888b846dd9", //Spanish
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokeemerald",
         "Patches": [

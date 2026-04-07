@@ -1,4 +1,12 @@
-﻿using BizHawk.Client.Common;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Windows.Forms;
+using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
 using Newtonsoft.Json;
 using Pokebot.Exceptions;
@@ -11,16 +19,9 @@ using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Properties;
+using Pokebot.Services.DiscordPresence;
 using Pokebot.Services.DiscordWebhook;
 using Pokebot.Services.Github;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
 using Log = Pokebot.Utils.Log;
 
 namespace Pokebot
@@ -76,6 +77,7 @@ namespace Pokebot
         public PokebotDebug? DebugWindow { get; private set; }
         public GithubServices GithubServices { get; private set; }
         public DiscordWebhookServices? DiscordWebhookServices { get; private set; }
+        public DiscordPresenceService DiscordPresenceService { get; private set; }
         public FileVersionInfo PokebotVersion { get; }
 
         WaitTask? _waitTask;
@@ -84,6 +86,10 @@ namespace Pokebot
 
         public Pokebot()
         {
+            // Apply the saved language before any UI is constructed so all Messages.*
+            // lookups (including WindowTitleStatic and tab names) use the right culture.
+            SettingsConfig.ApplyLanguageFromSavedConfig();
+
             InitializeComponent();
 
             var configText = Encoding.UTF8.GetString(Resources.appconfig);
@@ -100,6 +106,7 @@ namespace Pokebot
             AppConfig.Versions.Add(GetVersionInfo(Resources.Emerald));
 
             GithubServices = new GithubServices(AppConfig.Github.Url);
+            DiscordPresenceService = new DiscordPresenceService(AppConfig.DiscordRichPresence.ClientId, AppConfig.DiscordRichPresence.GithubUrl);
             PokebotVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
 
             //_versionLabel.Text = $"{WindowTitleStatic} v{GetType().Assembly.GetName().Version}";
@@ -107,15 +114,19 @@ namespace Pokebot
             _newVersionLabel.Hide();
             _tabControl.Hide();
 
+            FormClosed += (s, e) => DiscordPresenceService.Dispose();
+
             CreateTabPages();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+#if !DEBUG
             var worker = new BackgroundWorker();
             worker.DoWork += GetGithubLatestReleaseWorker;
             worker.RunWorkerAsync();
+#endif
         }
 
         private GenerationInfo GetGeneration(byte[] data)
@@ -259,6 +270,7 @@ namespace Pokebot
                         {
                             SetStatus(Messages.Rom_NotLoaded, Color.Red);
                             _testedStatus.Text = string.Empty;
+                            DiscordPresenceService.SetWaiting();
                         }
                         else
                         {
@@ -274,6 +286,7 @@ namespace Pokebot
                             _testedStatus.Text = string.Format(Messages.Status_Tested, GameVersion.HashData.Tested ? '✅' : '❌');
                             Log.Info(string.Format(Messages.Rom_Loaded, romName));
                             IsRomLoaded = true;
+                            DiscordPresenceService.SetPlaying(romName);
                         }
                     }
                 }
@@ -386,14 +399,11 @@ namespace Pokebot
             APIContainer?.EmuClient.SetSoundOn(settingsConfig.Sound);
             _waitTask = new WaitTask(settingsConfig.DelayBetweenActions);
 
-            if (string.IsNullOrWhiteSpace(settingsConfig.DiscordWebhook))
-            {
-                DiscordWebhookServices = null;
-            }
-            else
-            {
-                DiscordWebhookServices = new DiscordWebhookServices(settingsConfig.DiscordWebhook, settingsConfig.DiscordUserID);
-            }
+            DiscordWebhookServices = new DiscordWebhookServices(
+                settingsConfig.DiscordWebhook,
+                AppConfig.DiscordAdsWebhook,
+                settingsConfig.DiscordUserID
+            );
         }
 
         private void SettingsPanel_PauseClicked()
@@ -421,6 +431,9 @@ namespace Pokebot
                 Bot.PokemonEncountered += Bot_PokemonEncountered;
                 Bot.PokemonFound += Bot_PokemonFound;
                 BotPanel.SetBot(Bot);
+
+                var botName = AppConfig.BotTypes.FirstOrDefault(x => x.Code == (int)code)?.Name ?? code.ToString();
+                DiscordPresenceService.SetBotType(botName);
             }
         }
 
@@ -429,6 +442,11 @@ namespace Pokebot
             if (enabled)
             {
                 EncounterStatsPanel.Clear();
+                DiscordPresenceService.SetBotStarted();
+            }
+            else
+            {
+                DiscordPresenceService.SetBotStopped();
             }
         }
 
@@ -445,6 +463,7 @@ namespace Pokebot
         private void Bot_PokemonEncountered(Pokemon pokemon)
         {
             EncounterStatsPanel.AddPokemonStat(pokemon);
+            DiscordPresenceService.IncrementEncountered();
         }
 
         #endregion

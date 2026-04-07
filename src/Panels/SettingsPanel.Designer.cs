@@ -40,6 +40,8 @@
             this._discordUserIDLabel = new System.Windows.Forms.Label();
             this._discordUserID = new System.Windows.Forms.TextBox();
             this._shinyHackTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this._languageLabel = new System.Windows.Forms.Label();
+            this._languageComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this._delayUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,11 +148,33 @@
             this._discordUserID.Size = new System.Drawing.Size(182, 20);
             this._discordUserID.TabIndex = 21;
             this._discordUserID.TextChanged += new System.EventHandler(this._discordUserID_TextChanged);
-            // 
+            //
+            // _languageLabel
+            //
+            this._languageLabel.AutoSize = true;
+            this._languageLabel.Location = new System.Drawing.Point(2, 138);
+            this._languageLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this._languageLabel.Name = "_languageLabel";
+            this._languageLabel.Size = new System.Drawing.Size(58, 13);
+            this._languageLabel.TabIndex = 23;
+            this._languageLabel.Text = "Language:";
+            //
+            // _languageComboBox
+            //
+            this._languageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._languageComboBox.FormattingEnabled = true;
+            this._languageComboBox.Location = new System.Drawing.Point(68, 135);
+            this._languageComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this._languageComboBox.Name = "_languageComboBox";
+            this._languageComboBox.Size = new System.Drawing.Size(120, 21);
+            this._languageComboBox.TabIndex = 24;
+            //
             // SettingsPanel
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._languageLabel);
+            this.Controls.Add(this._languageComboBox);
             this.Controls.Add(this._discordUserIDLabel);
             this.Controls.Add(this._discordUserID);
             this.Controls.Add(this._delayLabel);
@@ -182,5 +206,7 @@
         private System.Windows.Forms.Label _discordUserIDLabel;
         private System.Windows.Forms.TextBox _discordUserID;
         private System.Windows.Forms.ToolTip _shinyHackTooltip;
+        private System.Windows.Forms.Label _languageLabel;
+        private System.Windows.Forms.ComboBox _languageComboBox;
     }
 }
