@@ -7,6 +7,7 @@ using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Utils;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Pokebot.Factories.Bots
@@ -25,6 +26,7 @@ namespace Pokebot.Factories.Bots
 
         private int _pathIndex;
         private Pokemon? _lastEncountered;
+        private bool _stepInProgress;
 
         public PathBot(ApiContainer apiContainer, GameVersion gameVersion)
         {
@@ -34,6 +36,7 @@ namespace Pokebot.Factories.Bots
 
             _pathIndex = 0;
             _lastEncountered = null;
+            _stepInProgress = false;
 
             Control = new PathControl();
             Control.Dock = DockStyle.Fill;
@@ -54,8 +57,33 @@ namespace Pokebot.Factories.Bots
                 throw new BotException(Messages.SpinBot_StartOnlyMap);
             }
 
+            bool shouldLoad = false;
+            if (APIContainer.EmuClient.HasSaveState(GetSaveStateName()))
+            {
+                var result = MessageBox.Show(Messages.Bot_FileExistReplaceMessage, Messages.Bot_FileExistReplaceTitle, MessageBoxButtons.YesNo);
+                shouldLoad = result == DialogResult.Yes;
+            }
+
+            bool loaded = false;
+            if (shouldLoad)
+            {
+                try
+                {
+                    loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
+                }
+                catch (FileNotFoundException)
+                {
+                }
+            }
+
+            if (!loaded)
+            {
+                APIContainer.EmuClient.SaveState(GetSaveStateName());
+            }
+
             _pathIndex = 0;
             _lastEncountered = null;
+            _stepInProgress = false;
             Enabled = true;
             StateChanged?.Invoke(Enabled);
         }
@@ -70,7 +98,7 @@ namespace Pokebot.Factories.Bots
         {
             if (state == GameState.Overworld)
             {
-                ExecuteOverworld();
+                ExecuteOverworld(playerData);
                 return;
             }
 
@@ -80,14 +108,26 @@ namespace Pokebot.Factories.Bots
             }
         }
 
-        private void ExecuteOverworld()
+        private void ExecuteOverworld(PlayerData playerData)
         {
             var path = Control.GetPath();
             if (_pathIndex < path.Count)
             {
-                ExecutePathAction(path[_pathIndex]);
-                _pathIndex++;
-                _lastEncountered = null;
+                if (!_stepInProgress)
+                {
+                    ExecutePathAction(path[_pathIndex]);
+                    _lastEncountered = null;
+
+                    if (playerData.RunningState == PlayerRunningState.Moving || playerData.TransitionState != TileTransitionState.NotMoving)
+                    {
+                        _stepInProgress = true;
+                    }
+                }
+                else if (playerData.RunningState == PlayerRunningState.NotMoving && playerData.TransitionState == TileTransitionState.NotMoving)
+                {
+                    _pathIndex++;
+                    _stepInProgress = false;
+                }
             }
             else
             {
@@ -139,8 +179,18 @@ namespace Pokebot.Factories.Bots
             }
             else
             {
-                GameVersion.Runner.Escape();
+                if (APIContainer.EmuClient.LoadOrStop(GetSaveStateName()))
+                {
+                    _pathIndex = 0;
+                    _stepInProgress = false;
+                    _lastEncountered = null;
+                }
             }
+        }
+
+        private string GetSaveStateName()
+        {
+            return $"{GameVersion.VersionInfo.Name}_path";
         }
 
         public UserControl GetPanel()

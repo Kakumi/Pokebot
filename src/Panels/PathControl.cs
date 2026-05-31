@@ -58,13 +58,13 @@ namespace Pokebot.Panels
             switch (action)
             {
                 case PathAction.Up:
-                    return "?";
+                    return "↑";
                 case PathAction.Down:
-                    return "?";
+                    return "↓";
                 case PathAction.Left:
-                    return "?";
+                    return "←";
                 case PathAction.Right:
-                    return "?";
+                    return "→";
                 default:
                     return "?";
             }
