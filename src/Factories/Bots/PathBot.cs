@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows.Forms;
 using BizHawk.Client.Common;
 using Pokebot.Exceptions;
 using Pokebot.Factories.Versions;
@@ -6,9 +10,6 @@ using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Utils;
-using System;
-using System.IO;
-using System.Windows.Forms;
 
 namespace Pokebot.Factories.Bots
 {
@@ -19,6 +20,8 @@ namespace Pokebot.Factories.Bots
         public event IBot.PokemonEncounterEventHandler? PokemonEncountered;
         public event IBot.PokemonFoundEventHandler? PokemonFound;
         public event IBot.StateChangedEventHandler? StateChanged;
+
+        private List<uint> _seedsHistory;
 
         public ApiContainer APIContainer { get; }
         public GameVersion GameVersion { get; }
@@ -71,9 +74,7 @@ namespace Pokebot.Factories.Bots
                 {
                     loaded = APIContainer.EmuClient.LoadState(GetSaveStateName());
                 }
-                catch (FileNotFoundException)
-                {
-                }
+                catch (FileNotFoundException) { }
             }
 
             if (!loaded)
@@ -119,8 +120,10 @@ namespace Pokebot.Factories.Bots
                     ExecutePathAction(action);
                     _lastEncountered = null;
 
-                    if (IsMovementAction(action) &&
-                        (playerData.RunningState == PlayerRunningState.Moving || playerData.TransitionState != TileTransitionState.NotMoving))
+                    if (
+                        IsMovementAction(action)
+                        && (playerData.RunningState == PlayerRunningState.Moving || playerData.TransitionState != TileTransitionState.NotMoving)
+                    )
                     {
                         _stepInProgress = true;
                     }
@@ -167,10 +170,7 @@ namespace Pokebot.Factories.Bots
 
         private static bool IsMovementAction(PathAction action)
         {
-            return action == PathAction.Up ||
-                   action == PathAction.Down ||
-                   action == PathAction.Left ||
-                   action == PathAction.Right;
+            return action == PathAction.Up || action == PathAction.Down || action == PathAction.Left || action == PathAction.Right;
         }
 
         private void ExecuteBattle()
@@ -198,6 +198,7 @@ namespace Pokebot.Factories.Bots
             {
                 if (APIContainer.EmuClient.LoadOrStop(GetSaveStateName()))
                 {
+                    UpdateRNG();
                     _pathIndex = 0;
                     _stepInProgress = false;
                     _lastEncountered = null;
@@ -220,8 +221,17 @@ namespace Pokebot.Factories.Bots
             return true;
         }
 
-        public void UpdateUI(GameState state)
+        private void UpdateRNG()
         {
+            uint random;
+            do
+            {
+                random = GameVersion.Memory.RandomizeCurrentSeed();
+            } while (_seedsHistory.Contains(random));
+
+            _seedsHistory.Add(random);
         }
+
+        public void UpdateUI(GameState state) { }
     }
 }
