@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
@@ -19,9 +20,12 @@ using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Properties;
+using Pokebot.Server;
+using Pokebot.Server.Models;
 using Pokebot.Services.DiscordPresence;
 using Pokebot.Services.DiscordWebhook;
 using Pokebot.Services.Github;
+using Pokebot.Services.Web;
 using Log = Pokebot.Utils.Log;
 
 namespace Pokebot
@@ -79,6 +83,8 @@ namespace Pokebot
         public DiscordWebhookServices? DiscordWebhookServices { get; private set; }
         public DiscordPresenceService DiscordPresenceService { get; private set; }
         public FileVersionInfo PokebotVersion { get; }
+        private LocalDashboardService? _dashboardService;
+        private PokebotServer? _pokebotServer;
 
         WaitTask? _waitTask;
 
@@ -114,7 +120,12 @@ namespace Pokebot
             _newVersionLabel.Hide();
             _tabControl.Hide();
 
-            FormClosed += (s, e) => DiscordPresenceService.Dispose();
+            FormClosed += (s, e) =>
+            {
+                _dashboardService?.Dispose();
+                _pokebotServer?.Dispose();
+                DiscordPresenceService.Dispose();
+            };
 
             CreateTabPages();
         }
@@ -122,6 +133,9 @@ namespace Pokebot
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            StartWebSocketServer();
+            StartDashboard();
 #if !DEBUG
             var worker = new BackgroundWorker();
             worker.DoWork += GetGithubLatestReleaseWorker;
@@ -285,6 +299,12 @@ namespace Pokebot
                             SetStatus(romName);
                             _testedStatus.Text = string.Format(Messages.Status_Tested, GameVersion.HashData.Tested ? '✅' : '❌');
                             Log.Info(string.Format(Messages.Rom_Loaded, romName));
+                            SendWebSocketMessage(new RomWebSocketMessage
+                            {
+                                RomName = romName,
+                                GenerationInfo = AppConfig.Generations.FirstOrDefault(x => x.Code == GameVersion.VersionInfo.Generation),
+                                VersionInfo = GameVersion.VersionInfo
+                            });
                             IsRomLoaded = true;
                             DiscordPresenceService.SetPlaying(romName);
                         }
@@ -375,6 +395,127 @@ namespace Pokebot
             _statusLabel.ForeColor = color ?? Color.Black;
         }
 
+        private void StartDashboard()
+        {
+            if (_dashboardService != null)
+            {
+                return;
+            }
+
+            try
+            {
+                _dashboardService = new LocalDashboardService(
+                    this,
+                    GetDashboardState,
+                    new System.Collections.Generic.Dictionary<string, Action>
+                    {
+                        ["start"] = () => BotPanel.StartBot(),
+                        ["stop"] = () => BotPanel.StopBot(),
+                        ["pause"] = () => SettingsPanel_PauseClicked(),
+                    }
+                );
+
+                _dashboardService.Start();
+                _dashboardService.OpenInBrowser();
+                Log.Info($"Local dashboard started on {_dashboardService.Url}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Can't start local dashboard: " + ex.Message);
+            }
+        }
+
+        private void StartWebSocketServer()
+        {
+            if (_pokebotServer != null)
+            {
+                return;
+            }
+
+            try
+            {
+                _pokebotServer = new PokebotServer();
+                _pokebotServer.Start();
+                Log.Info($"WebSocket server started on {_pokebotServer.WebSocketUrl}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Can't start WebSocket server: " + ex.Message);
+            }
+        }
+
+        private void SendWebSocketMessage(string message)
+        {
+            var server = _pokebotServer;
+            if (server == null || string.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
+            FireAndForgetSendWebSocketMessage(server, message);
+        }
+
+        private void SendWebSocketMessage(object payload)
+        {
+            var server = _pokebotServer;
+            if (server == null || payload == null)
+            {
+                return;
+            }
+
+            FireAndForgetSendWebSocketMessage(server, JsonConvert.SerializeObject(payload));
+        }
+
+        private async void FireAndForgetSendWebSocketMessage(PokebotServer server, string message)
+        {
+            try
+            {
+                await server.SendMessageAsync(message);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
+
+        public Task<int> SendWebSocketMessageAsync(string message)
+        {
+            if (_pokebotServer == null)
+            {
+                return Task.FromResult(0);
+            }
+
+            return _pokebotServer.SendMessageAsync(message);
+        }
+
+        private DashboardState GetDashboardState()
+        {
+            var version = PokebotVersion.ProductVersion;
+            if (version.Length > 5)
+            {
+                version = version.Substring(0, 5);
+            }
+
+            var currentRom = APIContainer?.Emulation.GetGameInfo()?.Name ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(currentRom) || currentRom == "Null")
+            {
+                currentRom = string.Empty;
+            }
+
+            return new DashboardState
+            {
+                AppVersion = version,
+                IsRomLoaded = IsRomLoaded,
+                IsReady = IsReady,
+                IsBotRunning = Bot?.Enabled ?? false,
+                Status = _statusLabel.Text,
+                TestedStatus = _testedStatus.Text,
+                CurrentBot = BotPanel.GetSelectedBotName(),
+                BotStatus = BotPanel.GetStatusText(),
+                CurrentRom = currentRom,
+            };
+        }
+
         #endregion
 
         #region Pokebot Events
@@ -387,6 +528,17 @@ namespace Pokebot
         private void _joinDiscordButton_Click(object sender, EventArgs e)
         {
             Process.Start(AppConfig.DiscordInvite);
+        }
+
+        private void _openDashboardButton_Click(object sender, EventArgs e)
+        {
+            if (_dashboardService == null)
+            {
+                StartDashboard();
+                return;
+            }
+
+            _dashboardService.OpenInBrowser();
         }
 
         #endregion

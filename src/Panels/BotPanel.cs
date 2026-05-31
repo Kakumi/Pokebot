@@ -118,6 +118,16 @@ namespace Pokebot.Panels
             return (BotCode)value.Code;
         }
 
+        public string GetSelectedBotName()
+        {
+            return (_botComboBox.SelectedItem as BotType)?.Name ?? string.Empty;
+        }
+
+        public string GetStatusText()
+        {
+            return _statusBot.Text;
+        }
+
         private void _startBotButton_Click(object sender, EventArgs e)
         {
             StartBot();

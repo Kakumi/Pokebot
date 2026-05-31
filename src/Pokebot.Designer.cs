@@ -37,6 +37,7 @@
             this._bugButton = new System.Windows.Forms.Button();
             this._joinDiscordButton = new System.Windows.Forms.Button();
             this._testedStatus = new System.Windows.Forms.Label();
+            this._openDashboardButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // _statusLabel
@@ -117,11 +118,23 @@
             this._testedStatus.TabIndex = 7;
             this._testedStatus.Text = "No ROM loaded";
             // 
+            // _openDashboardButton
+            // 
+            this._openDashboardButton.Location = new System.Drawing.Point(319, 28);
+            this._openDashboardButton.Margin = new System.Windows.Forms.Padding(2);
+            this._openDashboardButton.Name = "_openDashboardButton";
+            this._openDashboardButton.Size = new System.Drawing.Size(104, 23);
+            this._openDashboardButton.TabIndex = 8;
+            this._openDashboardButton.Text = "Dashboard";
+            this._openDashboardButton.UseVisualStyleBackColor = true;
+            this._openDashboardButton.Click += new System.EventHandler(this._openDashboardButton_Click);
+            // 
             // Pokebot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 382);
+            this.Controls.Add(this._openDashboardButton);
             this.Controls.Add(this._testedStatus);
             this.Controls.Add(this._joinDiscordButton);
             this.Controls.Add(this._bugButton);
@@ -147,5 +160,6 @@
         private System.Windows.Forms.Button _bugButton;
         private System.Windows.Forms.Button _joinDiscordButton;
         private System.Windows.Forms.Label _testedStatus;
+        private System.Windows.Forms.Button _openDashboardButton;
     }
 }

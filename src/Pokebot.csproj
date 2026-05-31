@@ -4,6 +4,7 @@
 		<Nullable>enable</Nullable>
 		<TargetFramework>net48</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
+		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 	</PropertyGroup>
 	<PropertyGroup>
 		<Version>2.1.0</Version>
@@ -28,6 +29,7 @@
 		<PackageReference Include="Costura.Fody" Version="5.7.0" PrivateAssets="all" />
 		<PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
 		<Reference Include="BizHawk.Bizware.Graphics">
 		  <HintPath>..\BizHawk\dll\BizHawk.Bizware.Graphics.dll</HintPath>
 		</Reference>
@@ -80,6 +82,7 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
+	  <EmbeddedResource Include="WebAssets\**\*.*" />
 	  <EmbeddedResource Update="Images\ResourcesPokemon.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ResourcesPokemon.Designer.cs</LastGenOutput>

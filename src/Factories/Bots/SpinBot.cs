@@ -1,4 +1,5 @@
-﻿using BizHawk.Client.Common;
+﻿using System.Windows.Forms;
+using BizHawk.Client.Common;
 using Pokebot.Exceptions;
 using Pokebot.Factories.Versions;
 using Pokebot.Models;
@@ -6,7 +7,6 @@ using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Panels;
 using Pokebot.Utils;
-using System.Windows.Forms;
 
 namespace Pokebot.Factories.Bots
 {
@@ -102,8 +102,6 @@ namespace Pokebot.Factories.Bots
             return true;
         }
 
-        public void UpdateUI(GameState state)
-        {
-        }
+        public void UpdateUI(GameState state) { }
     }
 }
