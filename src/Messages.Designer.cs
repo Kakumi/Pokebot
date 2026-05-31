@@ -167,6 +167,15 @@ namespace Pokebot {
                 return ResourceManager.GetString("BotPokeFinder_TrainerInfo", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Path is empty. Add at least one direction before starting..
+        /// </summary>
+        internal static string PathBot_EmptyPath {
+            get {
+                return ResourceManager.GetString("PathBot_EmptyPath", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Bot is unable to start because the save state doesn&apos;t exists anymore..
@@ -534,6 +543,69 @@ namespace Pokebot {
         internal static string PokeFinder_CurrentFrame {
             get {
                 return ResourceManager.GetString("PokeFinder_CurrentFrame", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string Path_Clear {
+            get {
+                return ResourceManager.GetString("Path_Clear", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Down.
+        /// </summary>
+        internal static string Path_Down {
+            get {
+                return ResourceManager.GetString("Path_Down", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Path: (empty).
+        /// </summary>
+        internal static string Path_EmptyPreview {
+            get {
+                return ResourceManager.GetString("Path_EmptyPreview", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        internal static string Path_Left {
+            get {
+                return ResourceManager.GetString("Path_Left", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Path ({0}): {1}.
+        /// </summary>
+        internal static string Path_Preview {
+            get {
+                return ResourceManager.GetString("Path_Preview", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        internal static string Path_Right {
+            get {
+                return ResourceManager.GetString("Path_Right", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Up.
+        /// </summary>
+        internal static string Path_Up {
+            get {
+                return ResourceManager.GetString("Path_Up", resourceCulture);
             }
         }
         

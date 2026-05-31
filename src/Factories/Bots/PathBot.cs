@@ -45,7 +45,7 @@ namespace Pokebot.Factories.Bots
         {
             if (Control.GetPath().Count == 0)
             {
-                throw new BotException("PathBot: le chemin est vide.");
+                throw new BotException(Messages.PathBot_EmptyPath);
             }
 
             var state = GameVersion.Memory.GetGameState();

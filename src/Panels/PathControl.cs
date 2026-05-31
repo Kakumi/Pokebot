@@ -18,6 +18,11 @@ namespace Pokebot.Panels
             InitializeComponent();
             FilterPanel = new PokemonFilterPanel();
             _path = new List<PathAction>();
+            _upButton.Text = Messages.Path_Up;
+            _downButton.Text = Messages.Path_Down;
+            _leftButton.Text = Messages.Path_Left;
+            _rightButton.Text = Messages.Path_Right;
+            _clearButton.Text = Messages.Path_Clear;
             UpdatePathPreview();
         }
 
@@ -44,8 +49,8 @@ namespace Pokebot.Panels
         private void UpdatePathPreview()
         {
             _pathPreviewLabel.Text = _path.Count == 0
-                ? "Chemin: (vide)"
-                : $"Chemin ({_path.Count}): {string.Join(" ", _path.Select(GetArrow))}";
+                ? Messages.Path_EmptyPreview
+                : string.Format(Messages.Path_Preview, _path.Count, string.Join(" ", _path.Select(GetArrow)));
         }
 
         private static string GetArrow(PathAction action)
