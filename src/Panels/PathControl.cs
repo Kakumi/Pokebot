@@ -22,6 +22,7 @@ namespace Pokebot.Panels
             _downButton.Text = Messages.Path_Down;
             _leftButton.Text = Messages.Path_Left;
             _rightButton.Text = Messages.Path_Right;
+            _aButton.Text = "A";
             _clearButton.Text = Messages.Path_Clear;
             UpdatePathPreview();
         }
@@ -58,13 +59,15 @@ namespace Pokebot.Panels
             switch (action)
             {
                 case PathAction.Up:
-                    return "↑";
+                    return "\u2191";
                 case PathAction.Down:
-                    return "↓";
+                    return "\u2193";
                 case PathAction.Left:
-                    return "←";
+                    return "\u2190";
                 case PathAction.Right:
-                    return "→";
+                    return "\u2192";
+                case PathAction.A:
+                    return "A";
                 default:
                     return "?";
             }
@@ -74,6 +77,7 @@ namespace Pokebot.Panels
         private void _downButton_Click(object sender, EventArgs e) => AddAction(PathAction.Down);
         private void _leftButton_Click(object sender, EventArgs e) => AddAction(PathAction.Left);
         private void _rightButton_Click(object sender, EventArgs e) => AddAction(PathAction.Right);
+        private void _aButton_Click(object sender, EventArgs e) => AddAction(PathAction.A);
 
         private void _clearButton_Click(object sender, EventArgs e)
         {

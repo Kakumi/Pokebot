@@ -1,12 +1,12 @@
-﻿using BizHawk.Client.Common;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using BizHawk.Client.Common;
 using Pokebot.Models.Config;
 using Pokebot.Models.Player;
 using Pokebot.Models.Pokemons;
 using Pokebot.Symbols;
 using Pokebot.Utils;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Pokebot.Models.Memory
 {
@@ -56,6 +56,7 @@ namespace Pokebot.Models.Memory
         {
             var symbols = new List<Symbol>();
 
+            Log.Debug($"Loading main symbol: {hashData.Symbols.Main}");
             //Load main symbol file
             var mainFileData = ResourceSymbols.ResourceManager.GetObject(hashData.Symbols.Main);
             if (mainFileData is byte[] mainBytes)
@@ -65,6 +66,7 @@ namespace Pokebot.Models.Memory
                 //Load and replace extra symbols if they exists
                 foreach (var file in hashData.Symbols.Patches)
                 {
+                    Log.Debug($"Loading patch symbol: {file}");
                     var data = ResourceSymbols.ResourceManager.GetObject(file);
                     if (data is byte[] bytes)
                     {
@@ -96,6 +98,10 @@ namespace Pokebot.Models.Memory
                                 symbols.Add(tempSymbol);
                             }
                         }
+                    }
+                    else
+                    {
+                        Log.Error($"Failed to load patch: {file}");
                     }
                 }
             }

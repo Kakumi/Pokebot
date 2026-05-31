@@ -1,31 +1,32 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Pokebot.Services.DiscordWebhook.Models
 {
     public class DiscordWebhookEmbed
     {
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; } = string.Empty;
+
         [JsonProperty("color")]
         public int Color { get; set; }
+
         [JsonProperty("fields")]
-        public List<DiscordWebhookField> Fields { get; set; }
-        [JsonProperty("image")]
-        public DiscordWebhookImage? Image { get; set; }
-        [JsonProperty("thumbnail")]
+        public List<DiscordWebhookField> Fields { get; set; } = new();
+
+        [JsonProperty("thumbnail", NullValueHandling = NullValueHandling.Ignore)]
         public DiscordWebhookImage? Thumbnail { get; set; }
-        [JsonProperty("timestamp")]
-        public DateTime Timestamp { get; set; }
 
+        [JsonProperty("image", NullValueHandling = NullValueHandling.Ignore)]
+        public DiscordWebhookImage? Image { get; set; }
 
-        public DiscordWebhookEmbed(string title)
-        {
-            Title = title;
-            Color = 2326507;
-            Fields = new List<DiscordWebhookField>();
-            Timestamp = DateTime.Now;
-        }
+        [JsonProperty("footer", NullValueHandling = NullValueHandling.Ignore)]
+        public DiscordWebhookFooter? Footer { get; set; }
+
+        [JsonProperty("timestamp", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Timestamp { get; set; }
     }
 }

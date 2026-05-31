@@ -11,6 +11,13 @@ namespace Pokebot.Panels
         public PokemonViewerPanel()
         {
             InitializeComponent();
+            ApplyTranslations();
+        }
+
+        private void ApplyTranslations()
+        {
+            groupBox1.Text = Messages.Viewer_MovesGroup;
+            groupBox2.Text = Messages.Viewer_IVsGroup;
         }
 
         public void SetPokemon(Pokemon pokemon)

@@ -14,10 +14,11 @@ namespace Pokebot.Panels
         public LogsPanel()
         {
             InitializeComponent();
+            ApplyTranslations();
 
             Log.LogReceived += Log_LogReceived;
             _contextMenu = new ContextMenuStrip();
-            _copyStackTraceMenuItem = new ToolStripMenuItem("Copy Stack Trace");
+            _copyStackTraceMenuItem = new ToolStripMenuItem(Messages.Logs_CopyStackTrace);
             _copyStackTraceMenuItem.Click += CopyStackTraceMenuItem_Click;
             _contextMenu.Items.Add(_copyStackTraceMenuItem);
             _logsListView.ContextMenuStrip = _contextMenu;
@@ -26,6 +27,12 @@ namespace Pokebot.Panels
         }
 
         // Modify Log_LogReceived to store the Exception in the Tag property
+        private void ApplyTranslations()
+        {
+            level.Text = Messages.Logs_HeaderType;
+            message.Text = Messages.Logs_HeaderMessage;
+        }
+
         private void Log_LogReceived(LogEventArgs e)
         {
             var item = new ListViewItem(e.Level.ToString());

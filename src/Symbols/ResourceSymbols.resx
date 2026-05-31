@@ -133,17 +133,65 @@
   <data name="patchemerald_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>emerald\patchemerald_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="patchfirered_de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered\patchfirered_de.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="patchfirered_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>firered\patchfirered_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchfirered_it" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered\patchfirered_it.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchfirered_jp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered\patchfirered_jp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchfirered_jp_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered_rev1\patchfirered_jp_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchfirered_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>firered\patchfirered_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchleafgreen_de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_de.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="patchleafgreen_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>leafgreen\patchleafgreen_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="patchleafgreen_it" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_it.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchleafgreen_jp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_jp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchleafgreen_jp_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen_rev1\patchleafgreen_jp_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchleafgreen_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>leafgreen\patchleafgreen_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="patchruby_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokeruby\patchruby_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="patchruby_it" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokeruby\patchruby_it.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchruby_jp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokeruby\patchruby_jp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchruby_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokeruby\patchruby_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="patchsapphire_fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>sapphire\patchsapphire_fr.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchsapphire_it" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire\patchsapphire_it.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchsapphire_jp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire\patchsapphire_jp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="patchsapphire_sp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire\patchsapphire_sp.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="pokecrystal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>crystal\pokecrystal.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -169,6 +217,12 @@
   <data name="pokeruby" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokeruby\pokeruby.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="pokeruby_de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokeruby\pokeruby_de.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pokeruby_de_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokeruby_rev1\pokeruby_de_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pokeruby_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokeruby_rev1\pokeruby_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -177,6 +231,12 @@
   </data>
   <data name="pokesapphire" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>sapphire\pokesapphire.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pokesapphire_de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire\pokesapphire_de.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pokesapphire_de_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sapphire_rev1\pokesapphire_de_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="pokesapphire_rev1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>sapphire_rev1\pokesapphire_rev1.sym;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

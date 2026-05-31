@@ -102,7 +102,7 @@ namespace Pokebot.Factories.Bots
                 return;
             }
 
-            if (state == GameState.Battle || state == GameState.BagMenu)
+            if (state == GameState.Battle)
             {
                 ExecuteBattle();
             }
@@ -115,12 +115,18 @@ namespace Pokebot.Factories.Bots
             {
                 if (!_stepInProgress)
                 {
-                    ExecutePathAction(path[_pathIndex]);
+                    var action = path[_pathIndex];
+                    ExecutePathAction(action);
                     _lastEncountered = null;
 
-                    if (playerData.RunningState == PlayerRunningState.Moving || playerData.TransitionState != TileTransitionState.NotMoving)
+                    if (IsMovementAction(action) &&
+                        (playerData.RunningState == PlayerRunningState.Moving || playerData.TransitionState != TileTransitionState.NotMoving))
                     {
                         _stepInProgress = true;
+                    }
+                    else if (!IsMovementAction(action))
+                    {
+                        _pathIndex++;
                     }
                 }
                 else if (playerData.RunningState == PlayerRunningState.NotMoving && playerData.TransitionState == TileTransitionState.NotMoving)
@@ -151,9 +157,20 @@ namespace Pokebot.Factories.Bots
                 case PathAction.Right:
                     APIContainer.Joypad.SetWhenInactive("Right");
                     break;
+                case PathAction.A:
+                    APIContainer.Joypad.SetWhenInactive("A");
+                    break;
                 default:
                     throw new NotSupportedException(Messages.BotFactory_NotSupported);
             }
+        }
+
+        private static bool IsMovementAction(PathAction action)
+        {
+            return action == PathAction.Up ||
+                   action == PathAction.Down ||
+                   action == PathAction.Left ||
+                   action == PathAction.Right;
         }
 
         private void ExecuteBattle()

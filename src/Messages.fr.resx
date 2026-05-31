@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="API_GithubError" xml:space="preserve">
+    <value>Une erreur s'est produite lors de l'appel à l'API Github.</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Pokebot</value>
+  </data>
+  <data name="BotFactory_NotSupported" xml:space="preserve">
+    <value>Ce type de bot n'est pas supporté</value>
+  </data>
+  <data name="BotPickupPokemon_PartyFull" xml:space="preserve">
+    <value>Votre équipe est pleine. Vous avez besoin d'au moins 1 emplacement vide pour utiliser ce bot.</value>
+  </data>
+  <data name="BotPokeFinder_InvalidFrame" xml:space="preserve">
+    <value>Cette frame est déjà passée. Sauvegardez le jeu et rechargez-le (sans save state).</value>
+  </data>
+  <data name="BotPokeFinder_InvalidSaveState" xml:space="preserve">
+    <value>Le bot ne peut pas démarrer car le save state n'existe plus.</value>
+  </data>
+  <data name="BotPokeFinder_PokemonNotFound" xml:space="preserve">
+    <value>Toutes les frames ont été testées et le pokémon avec le PID {0} n'a pas été trouvé.</value>
+  </data>
+  <data name="BotPokeFinder_TrainerInfo" xml:space="preserve">
+    <value>TID : {0} - SID : {1}</value>
+  </data>
+  <data name="BotStarter_InvalidSaveState" xml:space="preserve">
+    <value>Le bot ne peut pas démarrer car le save state n'existe plus.</value>
+  </data>
+  <data name="BotStarter_PartyNotEmpty" xml:space="preserve">
+    <value>Ce bot ne peut pas être utilisé car l'équipe n'est pas vide.</value>
+  </data>
+  <data name="BotStarter_WrongStartPosition" xml:space="preserve">
+    <value>Impossible de démarrer le bot car le joueur n'est pas devant les starters. (Assurez-vous d'être au centre)</value>
+  </data>
+  <data name="Bot_FileExistReplaceMessage" xml:space="preserve">
+    <value>Un save state existe déjà pour ce bot. Voulez-vous l'utiliser ?</value>
+  </data>
+  <data name="Bot_FileExistReplaceTitle" xml:space="preserve">
+    <value>Le fichier existe déjà</value>
+  </data>
+  <data name="Bot_NotRunning" xml:space="preserve">
+    <value>Le bot est arrêté</value>
+  </data>
+  <data name="Bot_Running" xml:space="preserve">
+    <value>Le bot est en cours d'exécution...</value>
+  </data>
+  <data name="DiscordWebhook_Failed" xml:space="preserve">
+    <value>Échec de l'envoi du webhook Discord : {0}</value>
+  </data>
+  <data name="Discord_Ability" xml:space="preserve">
+    <value>Talent</value>
+  </data>
+  <data name="Discord_Content" xml:space="preserve">
+    <value>Le bot s'est arrêté car un pokémon correspondant à vos filtres a été rencontré ! :partying_face:</value>
+  </data>
+  <data name="Discord_ContentWithUser" xml:space="preserve">
+    <value>Hey {0} ! {1}</value>
+  </data>
+  <data name="Discord_Encountered" xml:space="preserve">
+    <value>Rencontré</value>
+  </data>
+  <data name="Discord_EncounteredRatio" xml:space="preserve">
+    <value>Ratio</value>
+  </data>
+  <data name="Discord_Game" xml:space="preserve">
+    <value>Jeu</value>
+  </data>
+  <data name="Discord_Gender" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="Discord_Item" xml:space="preserve">
+    <value>Objet</value>
+  </data>
+  <data name="Discord_IVAttack" xml:space="preserve">
+    <value>IV Attaque</value>
+  </data>
+  <data name="Discord_IVDefense" xml:space="preserve">
+    <value>IV Défense</value>
+  </data>
+  <data name="Discord_IVHp" xml:space="preserve">
+    <value>IV PV</value>
+  </data>
+  <data name="Discord_IVSpAttack" xml:space="preserve">
+    <value>IV Att. Spé.</value>
+  </data>
+  <data name="Discord_IVSpDefense" xml:space="preserve">
+    <value>IV Déf. Spé.</value>
+  </data>
+  <data name="Discord_IVSpeed" xml:space="preserve">
+    <value>IV Vitesse</value>
+  </data>
+  <data name="Discord_Nature" xml:space="preserve">
+    <value>Nature</value>
+  </data>
+  <data name="Discord_PokemonName" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="Discord_Shiny" xml:space="preserve">
+    <value>Shiny</value>
+  </data>
+  <data name="Discord_ShinyEncountered" xml:space="preserve">
+    <value>Shiny Rencontré</value>
+  </data>
+  <data name="Discord_ShinyNo" xml:space="preserve">
+    <value>Non :x:</value>
+  </data>
+  <data name="Discord_ShinyYes" xml:space="preserve">
+    <value>Oui :white_check_mark:</value>
+  </data>
+  <data name="Discord_Trainer" xml:space="preserve">
+    <value>Dresseur</value>
+  </data>
+  <data name="Error_ReadingBotType" xml:space="preserve">
+    <value>Une erreur s'est produite lors de la lecture du type de bot.</value>
+  </data>
+  <data name="Filter_AnyGender" xml:space="preserve">
+    <value>N'importe quel genre</value>
+  </data>
+  <data name="Filter_AnyItem" xml:space="preserve">
+    <value>N'importe quel objet</value>
+  </data>
+  <data name="Filter_AnyNature" xml:space="preserve">
+    <value>N'importe quelle nature</value>
+  </data>
+  <data name="Filter_AnyPokemon" xml:space="preserve">
+    <value>N'importe quel pokémon</value>
+  </data>
+  <data name="Filter_AnyType" xml:space="preserve">
+    <value>N'importe quel type</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>Femelle</value>
+  </data>
+  <data name="Gender_Genderless" xml:space="preserve">
+    <value>Asexué</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>Mâle</value>
+  </data>
+  <data name="Gender_Unknow" xml:space="preserve">
+    <value>Inconnu</value>
+  </data>
+  <data name="InvalidRegisteredItem" xml:space="preserve">
+    <value>L'objet enregistré ne peut pas être utilisé</value>
+  </data>
+  <data name="Item_Nothing" xml:space="preserve">
+    <value>Rien</value>
+  </data>
+  <data name="NewVersion_Message" xml:space="preserve">
+    <value>Voulez-vous télécharger la version {0} ?</value>
+  </data>
+  <data name="NewVersion_MessageLabel" xml:space="preserve">
+    <value>La version {0} est maintenant disponible sur Github !</value>
+  </data>
+  <data name="NewVersion_Title" xml:space="preserve">
+    <value>Nouvelle version disponible</value>
+  </data>
+  <data name="PokeFinder_CurrentFrame" xml:space="preserve">
+    <value>Frame actuelle : {0}</value>
+  </data>
+  <data name="Pokemon_Found" xml:space="preserve">
+    <value>Pokémon correspondant aux filtres trouvé.</value>
+  </data>
+  <data name="Pokemon_FoundCatch" xml:space="preserve">
+    <value>Pokémon correspondant aux filtres trouvé. Attrapez-le manuellement.</value>
+  </data>
+  <data name="Pokemon_NotValid" xml:space="preserve">
+    <value>Le pokémon n'est pas valide</value>
+  </data>
+  <data name="Rom_Loaded" xml:space="preserve">
+    <value>ROM {0} chargée</value>
+  </data>
+  <data name="Rom_NotLoaded" xml:space="preserve">
+    <value>Aucune ROM chargée</value>
+  </data>
+  <data name="Rom_NotSupported" xml:space="preserve">
+    <value>Cette ROM n'est pas supportée</value>
+  </data>
+  <data name="Settings_Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Settings_Sound" xml:space="preserve">
+    <value>Son</value>
+  </data>
+  <data name="Settings_Speed" xml:space="preserve">
+    <value>Vitesse</value>
+  </data>
+  <data name="SpinBot_StartOnlyMap" xml:space="preserve">
+    <value>Démarrez ce bot depuis la carte</value>
+  </data>
+  <data name="SpinBot_UnknowNextMove" xml:space="preserve">
+    <value>Impossible de faire tourner le joueur, le prochain mouvement est inconnu</value>
+  </data>
+  <data name="Status_Tested" xml:space="preserve">
+    <value>Testé : {0}</value>
+  </data>
+  <data name="Symbols_Empty" xml:space="preserve">
+    <value>Aucun symbole trouvé pour ce jeu.</value>
+  </data>
+  <data name="Tab_BotPanel" xml:space="preserve">
+    <value>Bot</value>
+  </data>
+  <data name="Tab_EncounterStats" xml:space="preserve">
+    <value>Stats Bot</value>
+  </data>
+  <data name="Tab_LogsPanel" xml:space="preserve">
+    <value>Journaux</value>
+  </data>
+  <data name="Tab_SettingsPanel" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="Tab_ViewerOpponentName" xml:space="preserve">
+    <value>Adversaire</value>
+  </data>
+  <data name="Tab_ViewerPartyName" xml:space="preserve">
+    <value>Équipe</value>
+  </data>
+  <data name="Tooltip_Delay" xml:space="preserve">
+    <value>Il est préférable d'avoir un délai entre chaque action pour éviter que le bot ne se bloque. 0.1 est recommandé.</value>
+  </data>
+  <data name="Tooltip_ShinyHack" xml:space="preserve">
+    <value>Les générations 1 et 2 supportent cette option.\nLorsque cette option est activée et que vous cherchez un shiny, tous les pokémon\nseront shiny automatiquement et de manière légitime\n\n(C'est parce que les anciennes générations calculent le shiny à partir des IV et non du TID/SID)</value>
+  </data>
+  <data name="Viewer_Ability" xml:space="preserve">
+    <value>Talent : {0}</value>
+  </data>
+  <data name="Viewer_Attack" xml:space="preserve">
+    <value>Attaque : {0}</value>
+  </data>
+  <data name="Viewer_Defense" xml:space="preserve">
+    <value>Défense : {0}</value>
+  </data>
+  <data name="Viewer_Gender" xml:space="preserve">
+    <value>Genre : {0}</value>
+  </data>
+  <data name="Viewer_HiddenPowerDamage" xml:space="preserve">
+    <value>Puissance Pouvoir Caché : {0}</value>
+  </data>
+  <data name="Viewer_HiddenPowerType" xml:space="preserve">
+    <value>Pouvoir Caché : {0}</value>
+  </data>
+  <data name="Viewer_HP" xml:space="preserve">
+    <value>PV : {0}</value>
+  </data>
+  <data name="Viewer_Item" xml:space="preserve">
+    <value>Objet : {0}</value>
+  </data>
+  <data name="Viewer_Move" xml:space="preserve">
+    <value>{0} ({1}/{2})</value>
+  </data>
+  <data name="Viewer_Nature" xml:space="preserve">
+    <value>Nature : {0}</value>
+  </data>
+  <data name="Viewer_NoMove" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="Viewer_NotShiny" xml:space="preserve">
+    <value>Pas shiny</value>
+  </data>
+  <data name="Viewer_PID" xml:space="preserve">
+    <value>PID : {0}</value>
+  </data>
+  <data name="Viewer_Shiny" xml:space="preserve">
+    <value>Shiny</value>
+  </data>
+  <data name="Viewer_SpAttack" xml:space="preserve">
+    <value>Att. Spé. : {0}</value>
+  </data>
+  <data name="Viewer_SpDefense" xml:space="preserve">
+    <value>Déf. Spé. : {0}</value>
+  </data>
+  <data name="Viewer_Speed" xml:space="preserve">
+    <value>Vitesse : {0}</value>
+  </data>
+  <data name="Bot_Start" xml:space="preserve">
+    <value>Démarrer</value>
+  </data>
+  <data name="Bot_Stop" xml:space="preserve">
+    <value>Arrêter</value>
+  </data>
+  <data name="Filter_ExactIV" xml:space="preserve">
+    <value>IV exact (minimal par défaut)</value>
+  </data>
+  <data name="Filter_IVsGroup" xml:space="preserve">
+    <value>IVs</value>
+  </data>
+  <data name="Filter_Shiny" xml:space="preserve">
+    <value>Chromatique</value>
+  </data>
+  <data name="Filter_ShinyHack" xml:space="preserve">
+    <value>Utiliser le Shiny Hack</value>
+  </data>
+  <data name="Logs_CopyStackTrace" xml:space="preserve">
+    <value>Copier la trace de pile</value>
+  </data>
+  <data name="Logs_HeaderMessage" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Logs_HeaderType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Settings_DelayLabel" xml:space="preserve">
+    <value>Secondes de délai entre les inputs du bot</value>
+  </data>
+  <data name="Settings_LanguageLabel" xml:space="preserve">
+    <value>Langue :</value>
+  </data>
+  <data name="Stats_HeaderEncounters" xml:space="preserve">
+    <value>Rencontres</value>
+  </data>
+  <data name="Stats_HeaderPokemon" xml:space="preserve">
+    <value>Pokémon</value>
+  </data>
+  <data name="Stats_HeaderRatio" xml:space="preserve">
+    <value>Ratio</value>
+  </data>
+  <data name="Stats_HeaderShiny" xml:space="preserve">
+    <value>Rencontres chromatiques</value>
+  </data>
+  <data name="Viewer_IVsGroup" xml:space="preserve">
+    <value>IVs</value>
+  </data>
+  <data name="Viewer_MovesGroup" xml:space="preserve">
+    <value>Capacités</value>
+  </data>
+  <data name="PathBot_EmptyPath" xml:space="preserve">
+    <value>Le chemin est vide. Ajoutez au moins une direction avant de démarrer.</value>
+  </data>
+  <data name="Path_Clear" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="Path_Down" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="Path_EmptyPreview" xml:space="preserve">
+    <value>Chemin : (vide)</value>
+  </data>
+  <data name="Path_Left" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
+  <data name="Path_Preview" xml:space="preserve">
+    <value>Chemin ({0}) : {1}</value>
+  </data>
+  <data name="Path_Right" xml:space="preserve">
+    <value>Droite</value>
+  </data>
+  <data name="Path_Up" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+</root>

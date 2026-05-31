@@ -6,5 +6,6 @@ namespace Pokebot.Models
         Down = 1,
         Left = 2,
         Right = 3,
+        A = 4,
     }
 }

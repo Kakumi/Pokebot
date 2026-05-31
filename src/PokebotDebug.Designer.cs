@@ -42,6 +42,13 @@
             this._tasksLabel = new System.Windows.Forms.Label();
             this._stateLabel = new System.Windows.Forms.Label();
             this._tabFinder = new System.Windows.Forms.TabPage();
+            this._tabScanner = new System.Windows.Forms.TabPage();
+            this._scannerDropdown = new System.Windows.Forms.ComboBox();
+            this._scannerStartBtn = new System.Windows.Forms.Button();
+            this._scannerNextBtn = new System.Windows.Forms.Button();
+            this._scannerPanelContainer = new System.Windows.Forms.Panel();
+            this._scannerResultsText = new System.Windows.Forms.TextBox();
+            this._scannerCopyBtn = new System.Windows.Forms.Button();
             this._finderInspectReverse = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this._finderOffsetUpDown = new System.Windows.Forms.NumericUpDown();
@@ -69,6 +76,7 @@
             this._playerTab.SuspendLayout();
             this._tabTasks.SuspendLayout();
             this._tabFinder.SuspendLayout();
+            this._tabScanner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).BeginInit();
@@ -80,6 +88,7 @@
             this._tabControl.Controls.Add(this._playerTab);
             this._tabControl.Controls.Add(this._tabTasks);
             this._tabControl.Controls.Add(this._tabFinder);
+            this._tabControl.Controls.Add(this._tabScanner);
             this._tabControl.Location = new System.Drawing.Point(0, 0);
             this._tabControl.Margin = new System.Windows.Forms.Padding(2);
             this._tabControl.Name = "_tabControl";
@@ -465,6 +474,81 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PokebotDebug";
             this.Text = "PokebotDebug";
+            //
+            // _tabScanner
+            //
+            this._tabScanner.Controls.Add(this._scannerDropdown);
+            this._tabScanner.Controls.Add(this._scannerStartBtn);
+            this._tabScanner.Controls.Add(this._scannerNextBtn);
+            this._tabScanner.Controls.Add(this._scannerPanelContainer);
+            this._tabScanner.Controls.Add(this._scannerResultsText);
+            this._tabScanner.Controls.Add(this._scannerCopyBtn);
+            this._tabScanner.Location = new System.Drawing.Point(4, 22);
+            this._tabScanner.Margin = new System.Windows.Forms.Padding(2);
+            this._tabScanner.Name = "_tabScanner";
+            this._tabScanner.Size = new System.Drawing.Size(590, 336);
+            this._tabScanner.TabIndex = 5;
+            this._tabScanner.Text = "Scanner";
+            this._tabScanner.UseVisualStyleBackColor = true;
+            //
+            // _scannerDropdown
+            //
+            this._scannerDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._scannerDropdown.FormattingEnabled = true;
+            this._scannerDropdown.Location = new System.Drawing.Point(6, 6);
+            this._scannerDropdown.Name = "_scannerDropdown";
+            this._scannerDropdown.Size = new System.Drawing.Size(240, 21);
+            this._scannerDropdown.TabIndex = 0;
+            this._scannerDropdown.SelectedIndexChanged += new System.EventHandler(this._scannerDropdown_SelectedIndexChanged);
+            //
+            // _scannerStartBtn
+            //
+            this._scannerStartBtn.Location = new System.Drawing.Point(252, 5);
+            this._scannerStartBtn.Name = "_scannerStartBtn";
+            this._scannerStartBtn.Size = new System.Drawing.Size(60, 23);
+            this._scannerStartBtn.TabIndex = 1;
+            this._scannerStartBtn.Text = "Start";
+            this._scannerStartBtn.UseVisualStyleBackColor = true;
+            this._scannerStartBtn.Click += new System.EventHandler(this._scannerStartBtn_Click);
+            //
+            // _scannerNextBtn
+            //
+            this._scannerNextBtn.Location = new System.Drawing.Point(318, 5);
+            this._scannerNextBtn.Name = "_scannerNextBtn";
+            this._scannerNextBtn.Size = new System.Drawing.Size(60, 23);
+            this._scannerNextBtn.TabIndex = 2;
+            this._scannerNextBtn.Text = "Next";
+            this._scannerNextBtn.Enabled = false;
+            this._scannerNextBtn.UseVisualStyleBackColor = true;
+            this._scannerNextBtn.Click += new System.EventHandler(this._scannerNextBtn_Click);
+            //
+            // _scannerPanelContainer
+            //
+            this._scannerPanelContainer.Location = new System.Drawing.Point(6, 34);
+            this._scannerPanelContainer.Name = "_scannerPanelContainer";
+            this._scannerPanelContainer.Size = new System.Drawing.Size(578, 90);
+            this._scannerPanelContainer.TabIndex = 2;
+            //
+            // _scannerResultsText
+            //
+            this._scannerResultsText.Location = new System.Drawing.Point(6, 130);
+            this._scannerResultsText.Multiline = true;
+            this._scannerResultsText.Name = "_scannerResultsText";
+            this._scannerResultsText.ReadOnly = true;
+            this._scannerResultsText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this._scannerResultsText.Size = new System.Drawing.Size(578, 188);
+            this._scannerResultsText.TabIndex = 3;
+            //
+            // _scannerCopyBtn
+            //
+            this._scannerCopyBtn.Location = new System.Drawing.Point(6, 322);
+            this._scannerCopyBtn.Name = "_scannerCopyBtn";
+            this._scannerCopyBtn.Size = new System.Drawing.Size(120, 22);
+            this._scannerCopyBtn.TabIndex = 4;
+            this._scannerCopyBtn.Text = "Copy results";
+            this._scannerCopyBtn.UseVisualStyleBackColor = true;
+            this._scannerCopyBtn.Click += new System.EventHandler(this._scannerCopyBtn_Click);
+            //
             this._tabControl.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this._playerTab.ResumeLayout(false);
@@ -473,6 +557,8 @@
             this._tabTasks.PerformLayout();
             this._tabFinder.ResumeLayout(false);
             this._tabFinder.PerformLayout();
+            this._tabScanner.ResumeLayout(false);
+            this._tabScanner.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._finderOffsetUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._finderIterationUpDown)).EndInit();
@@ -518,5 +604,12 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Button _finderInspectReverse;
         private System.Windows.Forms.Button _checkOpponentBtn;
+        private System.Windows.Forms.TabPage _tabScanner;
+        private System.Windows.Forms.ComboBox _scannerDropdown;
+        private System.Windows.Forms.Button _scannerStartBtn;
+        private System.Windows.Forms.Button _scannerNextBtn;
+        private System.Windows.Forms.Panel _scannerPanelContainer;
+        private System.Windows.Forms.TextBox _scannerResultsText;
+        private System.Windows.Forms.Button _scannerCopyBtn;
     }
 }

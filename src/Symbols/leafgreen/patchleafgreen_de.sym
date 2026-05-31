@@ -1,0 +1,13 @@
+#Change but always the same offset from original (-B0 in this case)
+03004F5C c 00000000 gSaveBlock2Ptr
+03003040 c 00000000 gMain
+03004F50 c 00000000 gRngValue
+03004FE0 c 00000000 gTasks
+
+#Need update
+08254684 g 00002d10 gSpeciesInfo
+080565D4 c 00000000 CB2_Overworld
+08011084 c 00000000 BattleMainCB2
+0809FC38 c 00000000 CB2_NamingScreen
+080BF6D8 l 0000002c Task_ContinueTaskAfterMessagePrints
+0805D304 l 00000038 Task_Fishing

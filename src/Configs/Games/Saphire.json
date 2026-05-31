@@ -4,17 +4,17 @@
   "Hashs": [
     {
       "Hash": "5a087835009d552d4c5c1f96be3be3206e378153", //Deutch
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
-        "Main": "pokesapphire",
+        "Main": "pokesapphire_de",
         "Patches": []
       }
     },
     {
       "Hash": "7e6e034f9cdca6d2c4a270fdb50a94def5883d17", //Deutch (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
-        "Main": "pokesapphire_rev1",
+        "Main": "pokesapphire_de_rev1",
         "Patches": []
       }
     },
@@ -44,7 +44,7 @@
     },
     {
       "Hash": "c269b5692b2d0e5800ba1ddf117fda95ac648634", //French
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire",
         "Patches": [
@@ -54,58 +54,72 @@
     },
     {
       "Hash": "860e93f5ea44f4278132f6c1ee5650d07b852fd8", //French (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_rev1",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_fr"
+        ]
       }
     },
     {
       "Hash": "f729dd571fb2c09e72c5c1d68fe0a21e72713d34", //Italian
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_it"
+        ]
       }
     },
     {
       "Hash": "73edf67b9b82ff12795622dca412733755d2c0fe", //Italian (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_rev1",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_it"
+        ]
       }
     },
     {
       "Hash": "3233342c2f3087e6ffe6c1791cd5867db07df842", //Japanese
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_jp"
+        ]
       }
     },
     {
       "Hash": "01f509671445965236ac4c6b5a354fe2f1e69f13", //Japanese (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_rev1",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_jp"
+        ]
       }
     },
     {
       "Hash": "3a6489189e581c4b29914071b79207883b8c16d8", //Spanish
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_sp"
+        ]
       }
     },
     {
       "Hash": "0fe9ad1e602e2fafa090aee25e43d6980625173c", //Spanish (rev 1)
-      "Tested": false,
+      "Tested": true,
       "Symbols": {
         "Main": "pokesapphire_rev1",
-        "Patches": []
+        "Patches": [
+          "patchsapphire_sp"
+        ]
       }
     }
   ],
