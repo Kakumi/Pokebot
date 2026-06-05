@@ -40,6 +40,7 @@ namespace Pokebot.Factories.Bots
             _pathIndex = 0;
             _lastEncountered = null;
             _stepInProgress = false;
+            _seedsHistory = new List<uint>();
 
             Control = new PathControl();
             Control.Dock = DockStyle.Fill;

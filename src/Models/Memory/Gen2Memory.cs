@@ -11,6 +11,11 @@ namespace Pokebot.Models.Memory
 {
     internal class Gen2Memory : CommonGenMemory
     {
+        private const int ConfirmedOpponentReadsRequired = 2;
+
+        private string? _pendingOpponentSignature;
+        private int _pendingOpponentReads;
+
         public Gen2Memory(ApiContainer apiContainer, VersionInfo versionInfo, HashData hashData, GenerationInfo generationInfo) :
             base(apiContainer, versionInfo, hashData, generationInfo)
         { }
@@ -48,20 +53,32 @@ namespace Pokebot.Models.Memory
 
         public override GameState GetGameState()
         {
-            var wEnemyMon = GetSymbol("wEnemyMon");
             var wBattleMode = GetSymbol("wBattleMode");
             var battleType = SymbolUtil.Read(APIContainer, wBattleMode)[0];
-            var enemySpecieId = SymbolUtil.Read(APIContainer, wEnemyMon)[0];
-            if (battleType != 0 && enemySpecieId != 0 && GenerationInfo.Pokemons.Any(x => x.Id == enemySpecieId))
+            if (battleType != 0)
             {
-                var opponent = GetOpponent();
-                if (opponent.Moves.Count == 0)
+                if (!TryGetStableOpponent(out var opponent, out var signature))
+                {
+                    return GameState.StartBattle;
+                }
+
+                if (_pendingOpponentSignature != signature)
+                {
+                    _pendingOpponentSignature = signature;
+                    _pendingOpponentReads = 1;
+                    return GameState.StartBattle;
+                }
+
+                _pendingOpponentReads++;
+                if (_pendingOpponentReads < ConfirmedOpponentReadsRequired)
                 {
                     return GameState.StartBattle;
                 }
 
                 return GameState.Battle;
             }
+
+            ResetBattleState();
 
             var wMenuSelection = GetSymbol("wMenuSelection");
             var menuCursorId = SymbolUtil.Read(APIContainer, wMenuSelection)[0];
@@ -90,13 +107,12 @@ namespace Pokebot.Models.Memory
 
         public override Pokemon GetOpponent()
         {
-            var wEnemyMon = GetSymbol("wEnemyMon");
-            var wEnemyMonNickname = GetSymbol("wEnemyMonNickname");
+            if (!TryGetStableOpponent(out var opponent, out _))
+            {
+                throw new InvalidOperationException("Opponent data is not ready in memory.");
+            }
 
-            var bytesPokemon = SymbolUtil.Read(APIContainer, wEnemyMon);
-            var bytesNickname = SymbolUtil.Read(APIContainer, wEnemyMonNickname).TakeWhile(x => x != 0x50);
-
-            return ParseOpponentPokemon(bytesPokemon.ToArray(), bytesNickname.ToArray(), new MemoryLocation(wEnemyMon.Address, 0, wEnemyMon.Size));
+            return opponent;
         }
 
         public override IReadOnlyList<Pokemon> GetParty()
@@ -278,6 +294,112 @@ namespace Pokebot.Models.Memory
                 specialDefense,
                 memoryLocation
             );
+        }
+
+        private bool TryGetStableOpponent(out Pokemon opponent, out string signature)
+        {
+            opponent = null!;
+            signature = string.Empty;
+
+            var wEnemyMon = GetSymbol("wEnemyMon");
+            var wEnemyMonNickname = GetSymbol("wEnemyMonNickname");
+
+            var firstPokemon = SymbolUtil.Read(APIContainer, wEnemyMon).ToArray();
+            var firstNickname = SymbolUtil.Read(APIContainer, wEnemyMonNickname).ToArray();
+            var secondPokemon = SymbolUtil.Read(APIContainer, wEnemyMon).ToArray();
+            var secondNickname = SymbolUtil.Read(APIContainer, wEnemyMonNickname).ToArray();
+
+            if (!firstPokemon.SequenceEqual(secondPokemon) || !firstNickname.SequenceEqual(secondNickname))
+            {
+                return false;
+            }
+
+            if (!IsOpponentDataValid(firstPokemon, firstNickname))
+            {
+                return false;
+            }
+
+            var nickname = firstNickname.TakeWhile(x => x != 0x50).ToArray();
+            signature = BuildOpponentSignature(firstPokemon, nickname);
+            opponent = ParseOpponentPokemon(firstPokemon, nickname, new MemoryLocation(wEnemyMon.Address, 0, wEnemyMon.Size));
+            return true;
+        }
+
+        private bool IsOpponentDataValid(byte[] bytesPokemon, byte[] bytesNickname)
+        {
+            if (bytesPokemon.Length < 0x1E || bytesNickname.Length == 0)
+            {
+                return false;
+            }
+
+            var speciesId = bytesPokemon[0x00];
+            var species = GenerationInfo.Pokemons.FirstOrDefault(x => x.Id == speciesId);
+            if (species == null)
+            {
+                return false;
+            }
+
+            var level = bytesPokemon[0x0D];
+            if (level == 0 || level > 100)
+            {
+                return false;
+            }
+
+            var currentHp = bytesPokemon.Skip(0x10).Take(2).ToBE16();
+            var maxHp = bytesPokemon.Skip(0x12).Take(2).ToBE16();
+            if (maxHp <= 0 || currentHp < 0 || currentHp > maxHp)
+            {
+                return false;
+            }
+
+            var attack = bytesPokemon.Skip(0x14).Take(2).ToBE16();
+            var defense = bytesPokemon.Skip(0x16).Take(2).ToBE16();
+            var speed = bytesPokemon.Skip(0x18).Take(2).ToBE16();
+            var specialAttack = bytesPokemon.Skip(0x1A).Take(2).ToBE16();
+            var specialDefense = bytesPokemon.Skip(0x1C).Take(2).ToBE16();
+            if (attack <= 0 || defense <= 0 || speed <= 0 || specialAttack <= 0 || specialDefense <= 0)
+            {
+                return false;
+            }
+
+            var hasKnownMove = false;
+            for (int i = 0; i < 4; i++)
+            {
+                var moveId = bytesPokemon[0x02 + i];
+                if (moveId == 0)
+                {
+                    continue;
+                }
+
+                if (GenerationInfo.Moves.Any(x => x.Id == moveId))
+                {
+                    hasKnownMove = true;
+                    break;
+                }
+            }
+
+            if (!hasKnownMove)
+            {
+                return false;
+            }
+
+            var nicknameLength = bytesNickname.TakeWhile(x => x != 0x50).Count();
+            return nicknameLength > 0;
+        }
+
+        private string BuildOpponentSignature(byte[] bytesPokemon, byte[] nickname)
+        {
+            var speciesId = bytesPokemon[0x00];
+            var level = bytesPokemon[0x0D];
+            var currentHp = bytesPokemon.Skip(0x10).Take(2).ToBE16();
+            var maxHp = bytesPokemon.Skip(0x12).Take(2).ToBE16();
+            return $"{speciesId:X2}-{level:D3}-{currentHp:D5}-{maxHp:D5}-{GetBytesText(nickname)}";
+        }
+
+        private void ResetBattleState()
+        {
+            _pendingOpponentSignature = null;
+            _pendingOpponentReads = 0;
         }
 
         protected Pokemon? ParsePokemon(byte[] bytesPokemon, byte[] bytesNickname, byte[] bytesOT, MemoryLocation memoryLocation)
