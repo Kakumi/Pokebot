@@ -382,4 +382,28 @@
   <data name="Viewer_MovesGroup" xml:space="preserve">
     <value>Mosse</value>
   </data>
+  <data name="PathBot_EmptyPath" xml:space="preserve">
+    <value>Il percorso è vuoto. Aggiungi almeno una direzione prima di avviare.</value>
+  </data>
+  <data name="Path_Clear" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="Path_Down" xml:space="preserve">
+    <value>Giù</value>
+  </data>
+  <data name="Path_EmptyPreview" xml:space="preserve">
+    <value>Percorso: (vuoto)</value>
+  </data>
+  <data name="Path_Left" xml:space="preserve">
+    <value>Sinistra</value>
+  </data>
+  <data name="Path_Preview" xml:space="preserve">
+    <value>Percorso ({0}): {1}</value>
+  </data>
+  <data name="Path_Right" xml:space="preserve">
+    <value>Destra</value>
+  </data>
+  <data name="Path_Up" xml:space="preserve">
+    <value>Su</value>
+  </data>
 </root>

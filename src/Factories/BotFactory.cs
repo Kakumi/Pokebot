@@ -24,6 +24,8 @@ namespace Pokebot.Factories
                     return new PickupPokemonBot(apiContainer, gameVersion);
                 case BotCode.Fishing:
                     return new FishingBot(apiContainer, gameVersion);
+                case BotCode.Path:
+                    return new PathBot(apiContainer, gameVersion);
             }
 
             throw new NotSupportedException(Messages.BotFactory_NotSupported);

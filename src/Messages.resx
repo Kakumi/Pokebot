@@ -141,6 +141,9 @@
   <data name="BotPokeFinder_TrainerInfo" xml:space="preserve">
     <value>TID : {0} - SID : {1}</value>
   </data>
+  <data name="PathBot_EmptyPath" xml:space="preserve">
+    <value>Path is empty. Add at least one direction before starting.</value>
+  </data>
   <data name="BotStarter_InvalidSaveState" xml:space="preserve">
     <value>Bot is unable to start because the save state doesn't exists anymore.</value>
   </data>
@@ -275,6 +278,27 @@
   </data>
   <data name="PokeFinder_CurrentFrame" xml:space="preserve">
     <value>Current Frame: {0}</value>
+  </data>
+  <data name="Path_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Path_Down" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="Path_EmptyPreview" xml:space="preserve">
+    <value>Path: (empty)</value>
+  </data>
+  <data name="Path_Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Path_Preview" xml:space="preserve">
+    <value>Path ({0}): {1}</value>
+  </data>
+  <data name="Path_Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="Path_Up" xml:space="preserve">
+    <value>Up</value>
   </data>
   <data name="Pokemon_Found" xml:space="preserve">
     <value>Pokemon with filters found.</value>

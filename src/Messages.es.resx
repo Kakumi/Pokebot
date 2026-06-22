@@ -382,4 +382,28 @@
   <data name="Viewer_MovesGroup" xml:space="preserve">
     <value>Movimientos</value>
   </data>
+  <data name="PathBot_EmptyPath" xml:space="preserve">
+    <value>La ruta está vacía. Agrega al menos una dirección antes de iniciar.</value>
+  </data>
+  <data name="Path_Clear" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="Path_Down" xml:space="preserve">
+    <value>Abajo</value>
+  </data>
+  <data name="Path_EmptyPreview" xml:space="preserve">
+    <value>Ruta: (vacía)</value>
+  </data>
+  <data name="Path_Left" xml:space="preserve">
+    <value>Izquierda</value>
+  </data>
+  <data name="Path_Preview" xml:space="preserve">
+    <value>Ruta ({0}): {1}</value>
+  </data>
+  <data name="Path_Right" xml:space="preserve">
+    <value>Derecha</value>
+  </data>
+  <data name="Path_Up" xml:space="preserve">
+    <value>Arriba</value>
+  </data>
 </root>

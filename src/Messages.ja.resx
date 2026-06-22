@@ -382,4 +382,28 @@
   <data name="Viewer_MovesGroup" xml:space="preserve">
     <value>わざ</value>
   </data>
+  <data name="PathBot_EmptyPath" xml:space="preserve">
+    <value>経路が空です。開始前に少なくとも1つ方向を追加してください。</value>
+  </data>
+  <data name="Path_Clear" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="Path_Down" xml:space="preserve">
+    <value>下</value>
+  </data>
+  <data name="Path_EmptyPreview" xml:space="preserve">
+    <value>経路: （空）</value>
+  </data>
+  <data name="Path_Left" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="Path_Preview" xml:space="preserve">
+    <value>経路 ({0}): {1}</value>
+  </data>
+  <data name="Path_Right" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="Path_Up" xml:space="preserve">
+    <value>上</value>
+  </data>
 </root>

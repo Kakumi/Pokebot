@@ -382,4 +382,28 @@
   <data name="Viewer_MovesGroup" xml:space="preserve">
     <value>Attacken</value>
   </data>
+  <data name="PathBot_EmptyPath" xml:space="preserve">
+    <value>Der Pfad ist leer. Füge vor dem Start mindestens eine Richtung hinzu.</value>
+  </data>
+  <data name="Path_Clear" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Path_Down" xml:space="preserve">
+    <value>Unten</value>
+  </data>
+  <data name="Path_EmptyPreview" xml:space="preserve">
+    <value>Pfad: (leer)</value>
+  </data>
+  <data name="Path_Left" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="Path_Preview" xml:space="preserve">
+    <value>Pfad ({0}): {1}</value>
+  </data>
+  <data name="Path_Right" xml:space="preserve">
+    <value>Rechts</value>
+  </data>
+  <data name="Path_Up" xml:space="preserve">
+    <value>Oben</value>
+  </data>
 </root>
